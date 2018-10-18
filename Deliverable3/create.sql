@@ -771,8 +771,564 @@ create table NeedsAssessmentAndReferrals(
 	`End Date of Assessment (YYYY-MM-DD)` date not null,
 	`Reason for update` int,
     constraint NAARfk20 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
+
+create table AReferralTo(
+	aReferralToId int not null auto_increment primary key,
+    aReferralTo varchar(255));
+insert into AReferralTo(aReferralTo) values ('Another IRCC-funded service');
+insert into AReferralTo(aReferralTo) values ('Other');
+
+create table EmploymentStatus(
+	employmentStatusId int not null auto_increment primary key,
+    employmentStatus varchar(255));
+insert into EmploymentStatus(employmentStatus) values ('Unemployed');
+insert into EmploymentStatus(employmentStatus) values ('Employed part time - less than 30 hours at main or only job');
+insert into EmploymentStatus(employmentStatus) values ('Employed full time - 30 hours or more at main or only job');
+
+create table EducationStatus(
+	educationStatusId int not null auto_increment primary key,
+    educationStatus varchar(255));
+insert into EducationStatus(educationStatus) values ('Full-time student');
+insert into EducationStatus(educationStatus) values ('Part-time student');
+insert into EducationStatus(educationStatus) values ('Full-time training (e.g. language training or job-specific training)');
+insert into EducationStatus(educationStatus) values ('Part-time training (e.g. language training or job-specific training)');
+insert into EducationStatus(educationStatus) values ('Not a student');
+
+create table Occupations(
+	occupationsId int not null auto_increment primary key,
+    occupations varchar(255));
+insert into Occupations(occupations) values ('00 Senior management occupations');
+insert into Occupations(occupations) values ('01-05 Specialized middle management occupations');
+insert into Occupations(occupations) values ('06 Middle management occupations in retail and wholesale trade and customer serv');
+insert into Occupations(occupations) values ('07-09 Middle management occupations in trades, transportation, production and ut');
+insert into Occupations(occupations) values ('11 Professional occupations in business and finance');
+insert into Occupations(occupations) values ('12 Administrative and financial supervisors and administrative occupations');
+insert into Occupations(occupations) values ('13 Finance, insurance and related business administrative occupations');
+insert into Occupations(occupations) values ('14 Office support occupations');
+insert into Occupations(occupations) values ('15 Distribution, tracking and scheduling co-ordination occupations');
+insert into Occupations(occupations) values ('21 Professional occupations in natural and applied sciences');
+insert into Occupations(occupations) values ('22 Technical occupations related to natural and applied sciences');
+insert into Occupations(occupations) values ('30 Professional occupations in nursing');
+insert into Occupations(occupations) values ('31 Professional occupations in health (except nursing)');
+insert into Occupations(occupations) values ('32 Technical occupations in health');
+insert into Occupations(occupations) values ('34 Assisting occupations in support of health services');
+insert into Occupations(occupations) values ('40 Professional occupations in education services');
+insert into Occupations(occupations) values ('41 Professional occupations in law and social, community and government services');
+insert into Occupations(occupations) values ('42 Paraprofessional occupations in legal, social, community and education servic');
+insert into Occupations(occupations) values ('43 Occupations in front-line public protection services');
+insert into Occupations(occupations) values ('44 Care providers and educational, legal and public protection support occupatio');
+insert into Occupations(occupations) values ('51 Professional occupations in art and culture');
+insert into Occupations(occupations) values ('52 Technical occupations in art, culture, recreation and sport');
+insert into Occupations(occupations) values ('62 Retail sales supervisors and specialized sales occupations');
+insert into Occupations(occupations) values ('63 Service supervisors and specialized service occupations');
+insert into Occupations(occupations) values ('64 Sales representatives and salespersons - wholesale and retail trade');
+insert into Occupations(occupations) values ('65 Service representatives and other customer and personal services occupations');
+insert into Occupations(occupations) values ('66 Sales support occupations');
+insert into Occupations(occupations) values ('67 Service support and other service occupations, n.e.c.');
+insert into Occupations(occupations) values ('72 Industrial, electrical and construction trades');
+insert into Occupations(occupations) values ('73 Maintenance and equipment operation trades');
+insert into Occupations(occupations) values ('74 Other installers, repairers and servicers and material handlers');
+insert into Occupations(occupations) values ('75 Transport and heavy equipment operation and related maintenance occupations');
+insert into Occupations(occupations) values ('76 Trades helpers, construction labourers and related occupations');
+insert into Occupations(occupations) values ('82 Supervisors and technical occupations in natural resources, agricultural and ');
+insert into Occupations(occupations) values ('84 Workers in natural resources, agriculture and related production');
+insert into Occupations(occupations) values ('86 Harvesting, landscaping and natural resources labourers');
+insert into Occupations(occupations) values ('92 Processing, manufacturing and utilities supervisors and central control opera');
+insert into Occupations(occupations) values ('94 Processing and manufacturing machine operators and related production workers');
+insert into Occupations(occupations) values ('95 Assemblers in manufacturing');
+insert into Occupations(occupations) values ('96 Labourers in processing, manufacturing and utilities');
+
+create table InterventionType(
+	intervationTypeId int not null auto_increment primary key,
+    intervationType varchar(255));
+insert into IntervationType(intervationType) values ('Long Term');
+insert into IntervationType(intervationType) values ('Short Term');
+
+create table LongInterventionReceived(
+	longTermIntervationReceivedId int not null auto_increment primary key,
+    longTermIntervationReceived varchar(255));
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Work placement');
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Mentoring');
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Preparation for licensure/certification');
+
+create table LongStatusOfIntervention(
+	statusOfInterventionId int not null auto_increment primary key,
+    statusOfIntervention varchar(255));
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Intervention ended early (i.e. client ended participation)');
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Ongoing');
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Completed');
+
+create table LongLeavingIntervention(
+	leavingInterventionId int not null auto_increment primary key,
+    leavingIntervention varchar(255));
+insert into LongLeavingIntervention(leavingIntervention) values ('Found Employment');
+insert into LongLeavingIntervention(leavingIntervention) values ('To attend school');
+insert into LongLeavingIntervention(leavingIntervention) values ('Medical reason');
+insert into LongLeavingIntervention(leavingIntervention) values ('Personal reason');
+insert into LongLeavingIntervention(leavingIntervention) values ('Parental leave / caring for family members');
+insert into LongLeavingIntervention(leavingIntervention) values ('Lack of support services');
+insert into LongLeavingIntervention(leavingIntervention) values ('To receive another settlement service');
+insert into LongLeavingIntervention(leavingIntervention) values ('Obtained citizenship');
+insert into LongLeavingIntervention(leavingIntervention) values ('Client felt intervention was not meeting current employment needs');
+insert into LongLeavingIntervention(leavingIntervention) values ('Moved / unable to contact client');
+insert into LongLeavingIntervention(leavingIntervention) values ('Reason unknown');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by mentor');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by employer');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by third party/volunteer');
+
+create table LongSizeEmployerIntervention(
+	sizeEmployerInterventionId int not null auto_increment primary key,
+    sizeEmployerIntervention varchar(255));
+insert into LongSizeEmployerIntervention(sizeEmployerIntervention) values ('Small-medium enterprise - fewer than 500 employees');
+insert into LongSizeEmployerIntervention(sizeEmployerIntervention) values ('Large enterprise - 500 employees or more');
+
+create table LongPlacementIntervention(
+	placementInterventionId int not null auto_increment primary key,
+    placementIntervention varchar(255));
+insert into LongPlacementIntervention(placementIntervention) values ('Paid');
+insert into LongPlacementIntervention(placementIntervention) values ('Unpaid');
+
+create table LongHoursPerWeekIntervention(
+	hoursPerWeekInterventionId int not null auto_increment primary key,
+    hoursPerWeekIntervention varchar(255));
+insert into LongHoursPerWeekIntervention(hoursPerWeekIntervention) values ('Part-time - less than 30 hours at main or only job');
+insert into LongHoursPerWeekIntervention(hoursPerWeekIntervention) values ('Full-time - 30 hours or more at main or only job');
+
+create table LongMetMentorIntervention(
+	metMentorInterventionId int not null auto_increment primary key,
+    metMentorIntervention varchar(255));
+insert into LongMetMentorIntervention(metMentorIntervention) values ('Mentor\'s place of work during work hours');
+insert into LongMetMentorIntervention(metMentorIntervention) values ('Other (e.g. coffee shop, restaurant, Skype)');
+
+create table LongHoursMetMentorIntervention(
+	hoursMetMentorInterventionId int not null auto_increment primary key,
+    hoursMetMentorIntervention varchar(255));
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('1');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('2');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('3');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('4');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('5');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('6');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('7');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('8');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('9');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('10+');
+
+create table LongServicesReceivedIntervention(
+	servicesReceivedInterventionId int not null auto_increment primary key,
+    servicesReceivedIntervention varchar(255));
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Acupuncturists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Agricultural Equipment Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Agrologists (Agriculture)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Appliance Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Architects');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Audiologists & Speech Pathologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Automotive Painter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Automotive Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Baker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Boilermaker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Bricklayer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Cabinetmaker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Carpenter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Certified General Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Certified Management Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chartered Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chemical Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chiropractors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Civil Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Civil Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Community Urban Planner');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Concrete Finisher');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Construction Craft Worker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Construction Electrician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Cook');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Assistants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Hygienists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Technicians or Technologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dentist/Dental Specialist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dentists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Denturists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dieticians/Nutritionists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Drywall Finisher and Plasterer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electric Motor System Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electrical & Electronics Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electrical & Electronics Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Elementary School & Kindergarten Teachers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Embalmers/Funeral Directors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Floorcovering Installer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Foresters');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Gas Fitter – Class A');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Gas Fitter – Class B');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Geologists/Geoscientists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Glazier');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hairstylist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hearing Aid Practitioners');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Heavy Duty Equipment Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Heavy Equipment Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Home Economists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hunting Guides');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial & Manufacturing Technologists & Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial Electrician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial Mechanic (Millwright)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Instrumentation and Control Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Insulator (Heat and Frost)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Generalist)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Reinforcing)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Structural/Ornamental)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Land Surveyors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Landscape Architects');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Landscape Horticulturist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Lather (Interior Systems Mechanic)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Lawyers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Licensed Practical Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Machinist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Massage Therapist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mechanical Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mechanical Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Medical Laboratory Technologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Medical Radiation Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Metal Fabricator (Fitter)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Midwives');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mobile Crane Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mobile Crane Operator (Hydraulic)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Motor Vehicle Body Repairer (Metal and Paint)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Motorcycle Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Naturopathic Physicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Occupational Therapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Oil Heat System Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Opticians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Optometrists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Painter and Decorator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Paramedics');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Partsperson');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Pharmacists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Physicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Physiotherapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Plumber');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Podiatrists/Chiropodists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Powerline Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Psychiatric Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Psychologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Real Estate Agents');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Recreation Vehicle Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Refrigeration and Air Conditioning Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Registered Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Respiratory Therapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Rig Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Roofer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Secondary School Teachers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Sheet Metal Worker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Social Workers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Sprinkler System Installer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Steamfitter/Pipefitter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tilesetter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tool and Die Maker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tower Crane Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Translators');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Transport Trailer Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Truck and Transport Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Veterinarians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Welder');
+
+create table ShortInterventionServiceReceived(
+	shortIntervationServiceReceivedId int not null auto_increment primary key,
+    shortIntervationServiceReceived varchar(255));
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Networking opportunities');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume screening for referrals service');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume added to a matching system');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Employment counselling');
+
+
+create table TimeSpentMinutes(
+	timeSpentMinutesId int not null auto_increment primary key,
+    timeSpentMinutes int);
+insert into TimeSpentMinutes(timeSpentMinutes) values ('0');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('5');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('10');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('15');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('20');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('25');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('30');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('35');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('40');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('45');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('50');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('55');
+
 #create table Employment();
+create table Employment(
+	`templateId` int primary key,
+    constraint Efk1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`Update Record ID` char(8),
+	`Unique Identifier` int not null,
+	constraint Efk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+    `Registration in an employment intervation` bool not null,
+    `A referral to` int not null,
+	constraint Efk3 foreign key (`A referral to`) references AReferralTo(aReferralToId),
+	`Language of Service` int not null,
+    constraint Efk4 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
+	`Official Language of Preference` int not null,
+    constraint Efk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Type of Institution/Organization Where Client Received Services` int not null,
+	constraint Efk6 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
+	`Referred By`int not null,
+    constraint Efk7 foreign key (`Referred By`) references Referrer(reffererId),
+    `Referral Date (YYYY-MM-DD)` date,
+    `Employment Status`int not null,
+    constraint Efk8 foreign key (`Employment Status`) references EmploymentStatus(employmentStatusId),
+	`Education Status`int,
+    constraint Efk9 foreign key (`Education Status`) references EducationStatus(educationStatusId),
+    `Occupation in Canada`int,
+    constraint Efk10 foreign key (`Occupation in Canada`) references Occupations(occupationsId),
+    `Intended Occupation`int,
+    constraint Efk11 foreign key (`Intended Occupation`) references Occupations(occupationsId),
+    `Intervention Type`int,
+    constraint Efk12 foreign key (`Intervention Type`) references InterventionType(interventionTypeId),
+    `Long Term Intervention: Intervation Received`int,
+    constraint Efk13 foreign key (`Long Term Intervention: Intervation Received`) references LongInterventionReceived(longTermIntervationReceivedId),
+	`Long Term Intervention: Status of Intervation`int,
+    constraint Efk14 foreign key (`Long Term Intervention: Status of Intervation`) references LongStatusOfIntervention(statusOfInterventionId),
+	`Long Term Intervention: Reason For Leaving Intervention`int,
+    constraint Efk15 foreign key (`Long Term Intervention: Reason For Leaving Intervention`) references LongLeavingIntervention(leavingInterventionId),
+    `Long Term Intervention: End Date (YYYY-MM-DD)` date,
+	`Long Term Intervention: Size of Employer`int,
+    constraint Efk16 foreign key (`Long Term Intervention: Size of Employer`) references LongSizeEmployerIntervention(sizeEmployerInterventionId),
+	`Long Term Intervention: Placement Was`int,
+    constraint Efk17 foreign key (`Long Term Intervention: Placement Was`) references LongPlacementIntervention(placementInterventionId),
+	`Long Term Intervention: Hours Per Week`int,
+    constraint Efk18 foreign key (`Long Term Intervention: Hours Per Week`) references LongHoursPerWeekIntervention(hoursPerWeekInterventionId),
+	`Long Term Intervention: Client Met Mentor Regularly at`int,
+    constraint Efk19 foreign key (`Long Term Intervention: Client Met Mentor Regularly at`) references LongMetMentorIntervention(metMentorInterventionId),
+	`Long Term Intervention: Average Hours/Week in Contact with Mentor`int,
+    constraint Efk20 foreign key (`Average Hours/Week in Contact with Mentor`) references LongHoursMetMentorIntervention(hoursMetMentorInterventionId),
+	`Long Term Intervention: Profession/Trade For Which Services Were Received`int,
+    constraint Efk21 foreign key (`Long Term Intervention: Profession/Trade For Which Services Were Received`) references LongServicesReceivedIntervention(serviceReceivedInterventionId),
+    `Was Essential Skills and Aptitude Training Received as Part of this Service?` bool,
+    `Computer skills` bool,
+    `Document Use` bool,
+	`Interpersonal Skills and Workplace Culture` bool,
+    `Leadership Training` bool,
+    `Numeracy` bool,
+	`Short Term Intervention: Service Received`int,
+    constraint Efk22 foreign key (`Short Term Intervention: Service Received`) references ShortInterventionServiceReceived(shortInterventionServiceReceivedId),
+	`Short Term Intervention: Date (YYYY-MM-DD)` date,
+	`Support Services Received` bool,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+    constraint Efk23 foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+    constraint Efk24 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
+	`Child 2: Age` int,
+    constraint Efk25 foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint Efk26 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+    constraint Efk27 foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int, 
+    constraint Efk28 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
+	`Child 5: Age` int,
+    constraint Efk29 foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+    constraint Efk30 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+    `Translation: Between` int,
+    constraint Efk31 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And`int,
+    constraint Efk32 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+    `Interpretation: Between` int,
+    constraint Efk33 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And`int,
+    constraint Efk34 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+    `Time Spent With Client/Addressing Client's Employment Needs: Hours` int check (`Time Spent With Client/Addressing Client's Employment Needs: Hours` >= 0 and `Time Spent With Client/Addressing Client's Employment Needs: Hours` <= 500),
+    `Time Spent With Client/Addressing Client's Employment Needs: Minutes` int,
+    constraint Efk35 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`Reason for update` int,
+    constraint Efk36 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
+create table ServicesReceived(
+	servicesReceivedId int not null auto_increment primary key,
+    servicesReceived varchar(255));
+insert into ServicesReceived(servicesReceived) values ('One-on-one orientation');
+insert into ServicesReceived(servicesReceived) values ('Family orientation');
+insert into ServicesReceived(servicesReceived) values ('Group orientation');
+
+create table LengthOfOrientation(
+	lengthOfOrientationId int not null auto_increment primary key,
+    lengthOfOrientation varchar(255));
+insert into LengthOfOrientation(lengthOfOrientation) values ('5 minutes or less');
+insert into LengthOfOrientation(lengthOfOrientation) values ('6 - 30 minutes');
+insert into LengthOfOrientation(lengthOfOrientation) values ('30 - 60 minutes');
+insert into LengthOfOrientation(lengthOfOrientation) values ('1 to 2 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('2 to 3 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('3 to 4 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('4 to 5 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('5 to 6 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('6 to 7 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('7 to 8 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('8 to 9 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('9 to 10 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('10 to 11 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('11 to 12 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('12 to 13 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('13 to 14 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('14 to 15 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('15 to 16 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('16 to 17 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('17 to 18 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('18 to 19 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('19 to 20 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('20 to 21 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('21 to 22 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('22 to 23 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('23 to 24 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('24 to 25 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('25 to 26 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('26 to 27 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('27 to 28 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('28 to 29 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('29 to 30 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('Over 30 hours');
+
+
+create table NumberClientsGroup(
+	numberClientsGroupId int not null auto_increment primary key,
+    numberClientsGroup varchar(255));
+insert into NumberClientsGroup(numberClientsGroup) values ('Less than 10 people');
+insert into NumberClientsGroup(numberClientsGroup) values ('10 - 20 people');
+insert into NumberClientsGroup(numberClientsGroup) values ('More than 20 people');
+
+
 #create table InfoAndOrientation();
+create table InfoAndOrientation(
+	`templateId` int primary key,
+    constraint IOfk1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`Update Record ID` char(8),
+	`Unique Identifier` int not null,
+	constraint IOfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+	`Start Date of Service (YYYY-MM-DD)` date not null,
+	`Language of Service` int not null,
+    constraint IOfk3 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
+	`Official Language of Preference` int not null,
+    constraint IOfk4 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Type of Institution/Organization Where Client Received Services` int not null,
+	constraint IOfk5 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
+	`Referred By`int not null,
+	`Total Length of Orientation` int not null,
+    constraint IOfk6 foreign key (`Total Length of Orientation`) references LengthOfOrientation(lengthOfOrientationId),
+    `Total Length of Orientation: Hours` int check (`Total Length of Orientation: Hours` >= 0 and `Total Length of Orientation: Hours` <= 500),
+	`Total Length of Orientation: Minutes`int,
+    constraint IOfk7 foreign key (`Total Length of Orientation: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`Number of Clients in Group`int,
+    constraint IOfk8 foreign key (`Number of Clients in Group`) references NumberClientsGroup(numberClientsGroupId),
+    `Directed at a specific Target Group` bool,
+	`Target Group: Children (0-14 yrs)` bool,
+	`Target Group: Youth (15-24 yrs)` bool,
+	`Target Group: Seniors` bool,
+	`Target Group: Gender-specific` bool,
+	`Target Group: Refugees` bool,
+	`Target Group: Ethnic/cultural/linguistic group` bool,
+	`Target Group: Deaf or Hard of Hearing` bool,
+	`Target Group: Blind or Partially Sighted` bool,
+	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` bool,
+	`Target Group: Families/Parents` bool,
+	`Target Group: Clients with other impairments (physical, mental)` bool,
+	`Target Group: Clients with international training in a regulated profession` bool,
+	`Target Group: Clients with international training in a regulated trade` bool,
+	`Target Group: Official Language minorities` bool,
+	`Overview of Canada` bool,
+	`Overview of Canada Referrals` bool,
+	`Sources of Information` bool,
+	`Sources of Information Referrals` bool,
+	`Rights and Freedoms` bool,
+	`Rights and Freedoms Referrals` int,
+	`Canadian Law and Justice` bool,
+	`Canadian Law and Justice Referrals` bool,
+	`Important Documents` bool,
+	`Important Documents Referrals` bool,
+	`Improving English or French` bool,
+	`Improving English or French Referrals` bool,
+	`Employment and Income` bool,
+	`Employment and Income Referrals` bool,
+	`Education` bool,
+	`Education Referrals` bool,
+	`Housing` bool,
+	`Housing Referrals` bool,
+	`Health` bool,
+	`Health Referrals` bool,
+	`Money and Finances` bool,
+	`Money and Finances Referrals` bool,
+	`Transportation` bool,
+	`Transportation Referrals` bool,
+	`Communications and Media` bool,
+	`Communications and Media Referrals` bool,
+	`Community Engagement` bool,
+	`Community Engagement Referrals` bool,
+	`Becoming a Canadian Citizen` bool,
+	`Becoming a Canadian Citizen Referrals` bool,
+	`Interpersonal Conflict` bool,
+	`Interpersonal Conflict Referrals` bool,
+	`Was Essential Skills and Aptitude Training Received as Part of this Service?` bool not null,
+	`Computer skills	Document Use` bool,
+	`Interpersonal Skills and Workplace Culture` bool,
+	`Leadership Training` bool,
+	`Numeracy` bool,
+	`Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?` bool not null,
+	`Life Skills` bool,
+	`Rights and Responsibilities of Citizenship (based on discover Canada)` bool,
+	`Support Services Received` bool not null,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+    constraint IOfk9 foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+    constraint IOfk10 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
+	`Child 2: Age` int,
+    constraint IOfk11 foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint IOfk12 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+    constraint IOfk13 foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int, 
+    constraint IOfk14 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
+	`Child 5: Age` int,
+    constraint IOfk15 foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+    constraint IOfk16 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+    `Translation: Between` int,
+    constraint IOfk17 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And`int,
+    constraint IOfk18 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+    `Interpretation: Between` int,
+    constraint IOfk19 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And`int,
+    constraint IOfk20 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+	`End Date of Service (YYYY-MM-DD)` date not null,
+	`Reason for update` int,
+    constraint IOfk21 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
 #create table CommunityConnections();
 #create table LTEnrolment();
 #create table LTSetup();
