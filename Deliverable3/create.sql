@@ -615,6 +615,10 @@ insert into Age(age) values ('Infant (6-18 months)');
 insert into Age(age) values ('Toddler (19-35 months)');
 insert into Age(age) values ('Pre-school (36 months - 6 years)');
 insert into Age(age) values ('School age (more than 6 years)');
+insert into Age(age) values ('Children (0-14 yrs)');
+insert into Age(age) values ('Youth (15-24 yrs)');
+insert into Age(age) values ('Adult');
+insert into Age(age) values ('Senior');
 
 create table CareType(
 	careTypeId int not null auto_increment primary key,
@@ -775,5 +779,212 @@ create table NeedsAssessmentAndReferrals(
 #create table InfoAndOrientation();
 #create table CommunityConnections();
 #create table LTEnrolment();
-#create table LTSetup();
-#create table LTExit();
+create table LTCourseSetup(
+	`templateId` int primary key,
+    constraint LTCS1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`processingDetails` varchar(255),
+	`updateRecordID` int(10),
+	`courseCode` varchar(25) not null,
+	`notes` varchar(255),
+	`courseHeldOnAnOngoingBasis` bool not null,
+	`officialLanguageOfCourse` int not null, 
+    constraint LTCS2 foreign key (`officialLanguageOfCourse`) references ServiceLanguage(serviceLanguageId),
+	`formatOfTrainingProvided` int not null,
+    constraint LTCS3 foreign key (`formatOfTrainingProvided`) references FormatOfTrainingProvided(trainingProvidedId),
+	`classesHeldAt` varchar(255),
+	`inPersonInstruction(%)` decimal(5, 2) check (`inPersonInstruction(%)` > 0 and `inPersonInstruction(%)` <= 100),
+	`onlineDistanceInstruction(%)` decimal(5, 2) check (`onlineDistanceInstruction(%)` > 0 and `onlineDistanceInstruction(%)` <= 100),
+	`totalNumberofSpotsinCourse` int not null,
+	`numberOfIRCCFundedSpotsinCourse` int not null,
+	`newStudentsCanEnrolInTheCourse` int not null,
+    constraint LTCS4 foreign key (`newStudentsCanEnrolInTheCourse`) references NewEnrollmentInCourseFrequency(frequencyId),
+	`supportServicesAvailableForClientInThisCourse` bool not null,
+	`careForNewcomerChildren` bool,
+	`transportation` bool,
+	`provisionsForDisabilities` bool,
+	`courseStartDate` date not null,
+	`courseEndDate` date not null,
+	`scheduleMorning` bool,
+	`scheduleAfternoon` bool,
+	`scheduleEvening` bool,
+	`scheduleWeekend` bool,
+	`scheduleAnytime` bool,
+	`scheduleOnline` bool,
+	`instructionalHoursPerClass` decimal(5, 2) not null,
+	`classesPerWeek` int not null,
+	`weeksOfInstruction` int,
+	`weeksOfInstructionPerYear` int,
+	`dominantFocusOfTheCourse` varchar(255) not null,
+	`courseDirectedAtASpecificTargetGroup` bool not null,
+	`children (0-14 yrs)` bool,
+	`youth (15-24 yrs)` bool,
+	`senior` bool,
+	`genderSpecific` bool,
+	`refugees` bool,
+	`officialLanguageMinorities` bool,
+	`ethnicCulturalLinguisticGroup` bool,
+	`deafOrHardOfHearing` bool,
+	`blindOrPartiallySighted` bool,
+	`clientsWithOtherImpairments (physical, mental)` bool,
+	`lesbianGayBisexualTransgenderQueer (LGBTQ)` bool,
+	`familiesParents` bool,
+	`clientsWithInternationalTrainingInARegulatedProfession` bool,
+	`clientsWithInternationalTrainingInARegulatedTrade` bool,
+	`materialsUsedInCourse` bool not null,
+	`citizenshipPreparation` bool,
+	`PBLALanguageCompanion` bool,
+	`contactName` varchar(255),
+	`streetNumber` int not null,
+	`streetName` varchar(255) not null,
+	`streetType` int not null,
+    constraint LTCS5 foreign key (`streetType`) references StreetType(streetTypeId),
+	`streetDirection` int,
+    constraint LTCS6 foreign key (`streetDirection`) references StreetDirection(streetDirectionId),
+	`unitSuite` int,
+	`province` varchar(255) not null,
+	`city` varchar(255) not null,
+	`postalCode` char(6) not null,
+	`telephoneNumber` int(20) not null,
+	`telephoneExtension` int(3),
+	`emailAddress` varchar(255) not null,
+	`listeningSkillLevel1` int,
+	`listeningSkillLevel2` int,
+	`listeningSkillLevel3` int,
+	`listeningSkillLevel4` int,
+	`listeningSkillLevel5` int,
+	`listeningSkillLevel6` int,
+	`listeningSkillLevel7` int,
+	`listeningSkillLevel8` int,
+	`listeningSkillLevel9` int,
+	`listeningSkillLevel10` int,
+	`listeningSkillLevel11` int,
+	`listeningSkillLevel12` int,
+	`speakingSkillLevel1` int,
+	`speakingSkillLevel2` int,
+	`speakingSkillLevel3` int,
+	`speakingSkillLevel4` int,
+	`speakingSkillLevel5` int,
+	`speakingSkillLevel6` int,
+	`speakingSkillLevel7` int,
+	`speakingSkillLevel8` int,
+	`speakingSkillLevel9` int,
+	`speakingSkillLevel10` int,
+	`speakingSkillLevel11` int,
+	`speakingSkillLevel12` int,
+	`readingSkillLevel1` int,
+	`readingSkillLevel2` int,
+	`readingSkillLevel3` int,
+	`readingSkillLevel4` int,
+	`readingSkillLevel5` int,
+	`readingSkillLevel6` int,
+	`readingSkillLevel7` int,
+	`readingSkillLevel8` int,
+	`readingSkillLevel9` int,
+	`readingSkillLevel10` int,
+	`readingSkillLevel11` int,
+	`readingSkillLevel12` int,
+	`readingSkillLevel13` int,
+	`readingSkillLevel14` int,
+	`readingSkillLevel15` int,
+	`readingSkillLevel16` int,
+	`readingSkillLevel17` int,
+	`writingSkillLevel1` int,
+	`writingSkillLevel2` int,
+	`writingSkillLevel3` int,
+	`writingSkillLevel4` int,
+	`writingSkillLevel5` int,
+	`writingSkillLevel6` int,
+	`writingSkillLevel7` int,
+	`writingSkillLevel8` int,
+	`writingSkillLevel9` int,
+	`writingSkillLevel10` int,
+	`writingSkillLevel11` int,
+	`writingSkillLevel12` int,
+	`writingSkillLevel13` int,
+	`writingSkillLevel14` int,
+	`writingSkillLevel15` int,
+	`writingSkillLevel16` int,
+	`writingSkillLevel17` int
+);
+
+create table FormatOfTrainingProvided(
+	trainingProvidedId int not null auto_increment primary key,
+    trainingProvided varchar(255));
+    
+create table NewEnrollmentInCourseFrequency(
+	frequencyId int not null auto_increment primary key,
+    frequency varchar(255));
+
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Daily');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Weekly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Biweekly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Monthly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Bimonthly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Quarterly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Semianually');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Anually');
+
+create table LTClientExit(
+	`templateId` int primary key,
+    constraint LTCE1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`processingDetails` varchar(255),
+	`updateRecordID` int(10),
+	`uniqueIdentifierType` varchar(255) not null,
+	`uniqueIdentifierValue` int(10) not null,
+	`clientDateOfBirth` date not null,
+	`courseCode` varchar(255) not null,
+	`clientTrainingStatus` varchar(255) not null,
+	`dateClientExitedCourse` date,
+	`reasonForExitingCourse` varchar(255),
+	`listeningCLBLevel` int,
+	`speakingCLBLevel` int,
+	`readingCLBLevel` int,
+	`writingCLBLevel` int,
+	`wasACertificateIssuedToTheClient` bool not null,
+	`listeningLevelIndicatedOnCertificate` int,
+	`speakingLevelIndicatedOnCertificate` int,
+	`supportServicesReceived` bool not null,
+	`careForNewcomerChildren` bool,
+	`child1Age` int,
+    constraint LTCE2 foreign key (`child1Age`) references Age(ageId),
+	`child1TypeOfCare` int,
+    constraint LTCE3 foreign key (`child1TypeOfCare`) references CareType(careTypeId),
+	`child2Age` int,
+	constraint LTCE4 foreign key (`child2Age`) references Age(ageId),
+	`child2TypeOfCare` int,
+    constraint LTCE5 foreign key (`child2TypeOfCare`) references CareType(careTypeId),
+	`child3Age` int,
+	constraint LTCE6 foreign key (`child3Age`) references Age(ageId),
+	`child3TypeOfCare` int,
+    constraint LTCE7 foreign key (`child3TypeOfCare`) references CareType(careTypeId),
+	`child4Age` int,
+	constraint LTCE8 foreign key (`child4Age`) references Age(ageId),
+	`child4TypeOfCare` int,
+    constraint LTCE9 foreign key (`child4TypeOfCare`) references CareType(careTypeId),
+	`child5Age` int,
+	constraint LTCE10 foreign key (`child5Age`) references Age(ageId),
+	`child5TypeOfCare` int,
+    constraint LTCE11 foreign key (`child5TypeOfCare`) references CareType(careTypeId),
+	`transportation` bool,
+	`provisionsForDisabilities` bool,
+	`translation` bool,
+	`translationLanguageBetween` int,
+    constraint LTCE12 foreign key (`translationLanguageBetween`) references ServiceLanguage(serviceLanguageId),
+	`translationLanguageAnd` int,
+    constraint LTCE13 foreign key (`translationLanguageAnd`) references ServiceLanguage(serviceLanguageId),
+	`interpretation` bool,
+	`interpretationBetween`int,
+    constraint LTCE14 foreign key (`interpretationBetween`) references ServiceLanguage(serviceLanguageId),
+	`interpretationAnd` int,
+    constraint LTCE15 foreign key (`interpretationAnd`) references ServiceLanguage(serviceLanguageId),
+	`crisisCounselling` bool,
+	`reasonForUpdat` varchar(255)
+);
