@@ -771,8 +771,1071 @@ create table NeedsAssessmentAndReferrals(
 	`End Date of Assessment (YYYY-MM-DD)` date not null,
 	`Reason for update` int,
     constraint NAARfk20 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
+
+create table AReferralTo(
+	aReferralToId int not null auto_increment primary key,
+    aReferralTo varchar(255));
+insert into AReferralTo(aReferralTo) values ('Another IRCC-funded service');
+insert into AReferralTo(aReferralTo) values ('Other');
+
+create table EmploymentStatus(
+	employmentStatusId int not null auto_increment primary key,
+    employmentStatus varchar(255));
+insert into EmploymentStatus(employmentStatus) values ('Unemployed');
+insert into EmploymentStatus(employmentStatus) values ('Employed part time - less than 30 hours at main or only job');
+insert into EmploymentStatus(employmentStatus) values ('Employed full time - 30 hours or more at main or only job');
+
+create table EducationStatus(
+	educationStatusId int not null auto_increment primary key,
+    educationStatus varchar(255));
+insert into EducationStatus(educationStatus) values ('Full-time student');
+insert into EducationStatus(educationStatus) values ('Part-time student');
+insert into EducationStatus(educationStatus) values ('Full-time training (e.g. language training or job-specific training)');
+insert into EducationStatus(educationStatus) values ('Part-time training (e.g. language training or job-specific training)');
+insert into EducationStatus(educationStatus) values ('Not a student');
+
+create table Occupations(
+	occupationsId int not null auto_increment primary key,
+    occupations varchar(255));
+insert into Occupations(occupations) values ('00 Senior management occupations');
+insert into Occupations(occupations) values ('01-05 Specialized middle management occupations');
+insert into Occupations(occupations) values ('06 Middle management occupations in retail and wholesale trade and customer serv');
+insert into Occupations(occupations) values ('07-09 Middle management occupations in trades, transportation, production and ut');
+insert into Occupations(occupations) values ('11 Professional occupations in business and finance');
+insert into Occupations(occupations) values ('12 Administrative and financial supervisors and administrative occupations');
+insert into Occupations(occupations) values ('13 Finance, insurance and related business administrative occupations');
+insert into Occupations(occupations) values ('14 Office support occupations');
+insert into Occupations(occupations) values ('15 Distribution, tracking and scheduling co-ordination occupations');
+insert into Occupations(occupations) values ('21 Professional occupations in natural and applied sciences');
+insert into Occupations(occupations) values ('22 Technical occupations related to natural and applied sciences');
+insert into Occupations(occupations) values ('30 Professional occupations in nursing');
+insert into Occupations(occupations) values ('31 Professional occupations in health (except nursing)');
+insert into Occupations(occupations) values ('32 Technical occupations in health');
+insert into Occupations(occupations) values ('34 Assisting occupations in support of health services');
+insert into Occupations(occupations) values ('40 Professional occupations in education services');
+insert into Occupations(occupations) values ('41 Professional occupations in law and social, community and government services');
+insert into Occupations(occupations) values ('42 Paraprofessional occupations in legal, social, community and education servic');
+insert into Occupations(occupations) values ('43 Occupations in front-line public protection services');
+insert into Occupations(occupations) values ('44 Care providers and educational, legal and public protection support occupatio');
+insert into Occupations(occupations) values ('51 Professional occupations in art and culture');
+insert into Occupations(occupations) values ('52 Technical occupations in art, culture, recreation and sport');
+insert into Occupations(occupations) values ('62 Retail sales supervisors and specialized sales occupations');
+insert into Occupations(occupations) values ('63 Service supervisors and specialized service occupations');
+insert into Occupations(occupations) values ('64 Sales representatives and salespersons - wholesale and retail trade');
+insert into Occupations(occupations) values ('65 Service representatives and other customer and personal services occupations');
+insert into Occupations(occupations) values ('66 Sales support occupations');
+insert into Occupations(occupations) values ('67 Service support and other service occupations, n.e.c.');
+insert into Occupations(occupations) values ('72 Industrial, electrical and construction trades');
+insert into Occupations(occupations) values ('73 Maintenance and equipment operation trades');
+insert into Occupations(occupations) values ('74 Other installers, repairers and servicers and material handlers');
+insert into Occupations(occupations) values ('75 Transport and heavy equipment operation and related maintenance occupations');
+insert into Occupations(occupations) values ('76 Trades helpers, construction labourers and related occupations');
+insert into Occupations(occupations) values ('82 Supervisors and technical occupations in natural resources, agricultural and ');
+insert into Occupations(occupations) values ('84 Workers in natural resources, agriculture and related production');
+insert into Occupations(occupations) values ('86 Harvesting, landscaping and natural resources labourers');
+insert into Occupations(occupations) values ('92 Processing, manufacturing and utilities supervisors and central control opera');
+insert into Occupations(occupations) values ('94 Processing and manufacturing machine operators and related production workers');
+insert into Occupations(occupations) values ('95 Assemblers in manufacturing');
+insert into Occupations(occupations) values ('96 Labourers in processing, manufacturing and utilities');
+
+create table InterventionType(
+	intervationTypeId int not null auto_increment primary key,
+    intervationType varchar(255));
+insert into IntervationType(intervationType) values ('Long Term');
+insert into IntervationType(intervationType) values ('Short Term');
+
+create table LongInterventionReceived(
+	longTermIntervationReceivedId int not null auto_increment primary key,
+    longTermIntervationReceived varchar(255));
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Work placement');
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Mentoring');
+insert into LongIntervationReceived(longTermIntervationReceived) values ('Preparation for licensure/certification');
+
+create table LongStatusOfIntervention(
+	statusOfInterventionId int not null auto_increment primary key,
+    statusOfIntervention varchar(255));
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Intervention ended early (i.e. client ended participation)');
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Ongoing');
+insert into LongStatusOfIntervention(statusOfIntervention) values ('Completed');
+
+create table LongLeavingIntervention(
+	leavingInterventionId int not null auto_increment primary key,
+    leavingIntervention varchar(255));
+insert into LongLeavingIntervention(leavingIntervention) values ('Found Employment');
+insert into LongLeavingIntervention(leavingIntervention) values ('To attend school');
+insert into LongLeavingIntervention(leavingIntervention) values ('Medical reason');
+insert into LongLeavingIntervention(leavingIntervention) values ('Personal reason');
+insert into LongLeavingIntervention(leavingIntervention) values ('Parental leave / caring for family members');
+insert into LongLeavingIntervention(leavingIntervention) values ('Lack of support services');
+insert into LongLeavingIntervention(leavingIntervention) values ('To receive another settlement service');
+insert into LongLeavingIntervention(leavingIntervention) values ('Obtained citizenship');
+insert into LongLeavingIntervention(leavingIntervention) values ('Client felt intervention was not meeting current employment needs');
+insert into LongLeavingIntervention(leavingIntervention) values ('Moved / unable to contact client');
+insert into LongLeavingIntervention(leavingIntervention) values ('Reason unknown');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by mentor');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by employer');
+insert into LongLeavingIntervention(leavingIntervention) values ('Intervention ended by third party/volunteer');
+
+create table LongSizeEmployerIntervention(
+	sizeEmployerInterventionId int not null auto_increment primary key,
+    sizeEmployerIntervention varchar(255));
+insert into LongSizeEmployerIntervention(sizeEmployerIntervention) values ('Small-medium enterprise - fewer than 500 employees');
+insert into LongSizeEmployerIntervention(sizeEmployerIntervention) values ('Large enterprise - 500 employees or more');
+
+create table LongPlacementIntervention(
+	placementInterventionId int not null auto_increment primary key,
+    placementIntervention varchar(255));
+insert into LongPlacementIntervention(placementIntervention) values ('Paid');
+insert into LongPlacementIntervention(placementIntervention) values ('Unpaid');
+
+create table LongHoursPerWeekIntervention(
+	hoursPerWeekInterventionId int not null auto_increment primary key,
+    hoursPerWeekIntervention varchar(255));
+insert into LongHoursPerWeekIntervention(hoursPerWeekIntervention) values ('Part-time - less than 30 hours at main or only job');
+insert into LongHoursPerWeekIntervention(hoursPerWeekIntervention) values ('Full-time - 30 hours or more at main or only job');
+
+create table LongMetMentorIntervention(
+	metMentorInterventionId int not null auto_increment primary key,
+    metMentorIntervention varchar(255));
+insert into LongMetMentorIntervention(metMentorIntervention) values ('Mentor\'s place of work during work hours');
+insert into LongMetMentorIntervention(metMentorIntervention) values ('Other (e.g. coffee shop, restaurant, Skype)');
+
+create table LongHoursMetMentorIntervention(
+	hoursMetMentorInterventionId int not null auto_increment primary key,
+    hoursMetMentorIntervention varchar(255));
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('1');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('2');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('3');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('4');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('5');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('6');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('7');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('8');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('9');
+insert into LongHoursMetMentorIntervention(hoursMetMentorIntervention) values ('10+');
+
+create table LongServicesReceivedIntervention(
+	servicesReceivedInterventionId int not null auto_increment primary key,
+    servicesReceivedIntervention varchar(255));
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Acupuncturists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Agricultural Equipment Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Agrologists (Agriculture)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Appliance Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Architects');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Audiologists & Speech Pathologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Automotive Painter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Automotive Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Baker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Boilermaker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Bricklayer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Cabinetmaker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Carpenter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Certified General Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Certified Management Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chartered Accountants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chemical Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Chiropractors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Civil Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Civil Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Community Urban Planner');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Concrete Finisher');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Construction Craft Worker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Construction Electrician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Cook');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Assistants');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Hygienists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dental Technicians or Technologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dentist/Dental Specialist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dentists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Denturists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Dieticians/Nutritionists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Drywall Finisher and Plasterer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electric Motor System Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electrical & Electronics Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Electrical & Electronics Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Elementary School & Kindergarten Teachers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Embalmers/Funeral Directors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Floorcovering Installer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Foresters');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Gas Fitter – Class A');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Gas Fitter – Class B');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Geologists/Geoscientists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Glazier');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hairstylist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hearing Aid Practitioners');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Heavy Duty Equipment Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Heavy Equipment Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Home Economists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Hunting Guides');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial & Manufacturing Technologists & Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial Electrician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Industrial Mechanic (Millwright)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Instrumentation and Control Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Insulator (Heat and Frost)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Generalist)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Reinforcing)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Ironworker (Structural/Ornamental)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Land Surveyors');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Landscape Architects');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Landscape Horticulturist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Lather (Interior Systems Mechanic)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Lawyers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Licensed Practical Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Machinist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Massage Therapist');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mechanical Engineer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mechanical Technologists & Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Medical Laboratory Technologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Medical Radiation Technicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Metal Fabricator (Fitter)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Midwives');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mobile Crane Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Mobile Crane Operator (Hydraulic)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Motor Vehicle Body Repairer (Metal and Paint)');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Motorcycle Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Naturopathic Physicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Occupational Therapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Oil Heat System Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Opticians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Optometrists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Painter and Decorator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Paramedics');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Partsperson');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Pharmacists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Physicians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Physiotherapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Plumber');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Podiatrists/Chiropodists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Powerline Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Psychiatric Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Psychologists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Real Estate Agents');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Recreation Vehicle Service Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Refrigeration and Air Conditioning Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Registered Nurses');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Respiratory Therapists');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Rig Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Roofer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Secondary School Teachers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Sheet Metal Worker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Social Workers');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Sprinkler System Installer');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Steamfitter/Pipefitter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tilesetter');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tool and Die Maker');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Tower Crane Operator');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Translators');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Transport Trailer Technician');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Truck and Transport Mechanic');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Veterinarians');
+insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Welder');
+
+create table ShortInterventionServiceReceived(
+	shortIntervationServiceReceivedId int not null auto_increment primary key,
+    shortIntervationServiceReceived varchar(255));
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Networking opportunities');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume screening for referrals service');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume added to a matching system');
+insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Employment counselling');
+
+create table TimeSpentHours(
+	timeSpentHoursId int not null auto_increment primary key,
+    timeSpentHours varchar(255));
+insert into TimeSpentHours(timeSpentHours) values ('0');
+insert into TimeSpentHours(timeSpentHours) values ('1');
+insert into TimeSpentHours(timeSpentHours) values ('2');
+insert into TimeSpentHours(timeSpentHours) values ('3');
+insert into TimeSpentHours(timeSpentHours) values ('4');
+insert into TimeSpentHours(timeSpentHours) values ('5');
+insert into TimeSpentHours(timeSpentHours) values ('6');
+insert into TimeSpentHours(timeSpentHours) values ('7');
+insert into TimeSpentHours(timeSpentHours) values ('8');
+insert into TimeSpentHours(timeSpentHours) values ('9');
+insert into TimeSpentHours(timeSpentHours) values ('10');
+insert into TimeSpentHours(timeSpentHours) values ('11');
+insert into TimeSpentHours(timeSpentHours) values ('12');
+insert into TimeSpentHours(timeSpentHours) values ('13');
+insert into TimeSpentHours(timeSpentHours) values ('14');
+insert into TimeSpentHours(timeSpentHours) values ('15');
+insert into TimeSpentHours(timeSpentHours) values ('16');
+insert into TimeSpentHours(timeSpentHours) values ('17');
+insert into TimeSpentHours(timeSpentHours) values ('18');
+insert into TimeSpentHours(timeSpentHours) values ('19');
+insert into TimeSpentHours(timeSpentHours) values ('20');
+insert into TimeSpentHours(timeSpentHours) values ('21');
+insert into TimeSpentHours(timeSpentHours) values ('22');
+insert into TimeSpentHours(timeSpentHours) values ('23');
+insert into TimeSpentHours(timeSpentHours) values ('24');
+insert into TimeSpentHours(timeSpentHours) values ('25');
+insert into TimeSpentHours(timeSpentHours) values ('26');
+insert into TimeSpentHours(timeSpentHours) values ('27');
+insert into TimeSpentHours(timeSpentHours) values ('28');
+insert into TimeSpentHours(timeSpentHours) values ('29');
+insert into TimeSpentHours(timeSpentHours) values ('30');
+insert into TimeSpentHours(timeSpentHours) values ('31');
+insert into TimeSpentHours(timeSpentHours) values ('32');
+insert into TimeSpentHours(timeSpentHours) values ('33');
+insert into TimeSpentHours(timeSpentHours) values ('34');
+insert into TimeSpentHours(timeSpentHours) values ('35');
+insert into TimeSpentHours(timeSpentHours) values ('36');
+insert into TimeSpentHours(timeSpentHours) values ('37');
+insert into TimeSpentHours(timeSpentHours) values ('38');
+insert into TimeSpentHours(timeSpentHours) values ('39');
+insert into TimeSpentHours(timeSpentHours) values ('40');
+insert into TimeSpentHours(timeSpentHours) values ('41');
+insert into TimeSpentHours(timeSpentHours) values ('42');
+insert into TimeSpentHours(timeSpentHours) values ('43');
+insert into TimeSpentHours(timeSpentHours) values ('44');
+insert into TimeSpentHours(timeSpentHours) values ('45');
+insert into TimeSpentHours(timeSpentHours) values ('46');
+insert into TimeSpentHours(timeSpentHours) values ('47');
+insert into TimeSpentHours(timeSpentHours) values ('48');
+insert into TimeSpentHours(timeSpentHours) values ('49');
+insert into TimeSpentHours(timeSpentHours) values ('50');
+insert into TimeSpentHours(timeSpentHours) values ('51');
+insert into TimeSpentHours(timeSpentHours) values ('52');
+insert into TimeSpentHours(timeSpentHours) values ('53');
+insert into TimeSpentHours(timeSpentHours) values ('54');
+insert into TimeSpentHours(timeSpentHours) values ('55');
+insert into TimeSpentHours(timeSpentHours) values ('56');
+insert into TimeSpentHours(timeSpentHours) values ('57');
+insert into TimeSpentHours(timeSpentHours) values ('58');
+insert into TimeSpentHours(timeSpentHours) values ('59');
+insert into TimeSpentHours(timeSpentHours) values ('60');
+insert into TimeSpentHours(timeSpentHours) values ('61');
+insert into TimeSpentHours(timeSpentHours) values ('62');
+insert into TimeSpentHours(timeSpentHours) values ('63');
+insert into TimeSpentHours(timeSpentHours) values ('64');
+insert into TimeSpentHours(timeSpentHours) values ('65');
+insert into TimeSpentHours(timeSpentHours) values ('66');
+insert into TimeSpentHours(timeSpentHours) values ('67');
+insert into TimeSpentHours(timeSpentHours) values ('68');
+insert into TimeSpentHours(timeSpentHours) values ('69');
+insert into TimeSpentHours(timeSpentHours) values ('70');
+insert into TimeSpentHours(timeSpentHours) values ('71');
+insert into TimeSpentHours(timeSpentHours) values ('72');
+insert into TimeSpentHours(timeSpentHours) values ('73');
+insert into TimeSpentHours(timeSpentHours) values ('74');
+insert into TimeSpentHours(timeSpentHours) values ('75');
+insert into TimeSpentHours(timeSpentHours) values ('76');
+insert into TimeSpentHours(timeSpentHours) values ('77');
+insert into TimeSpentHours(timeSpentHours) values ('78');
+insert into TimeSpentHours(timeSpentHours) values ('79');
+insert into TimeSpentHours(timeSpentHours) values ('80');
+insert into TimeSpentHours(timeSpentHours) values ('81');
+insert into TimeSpentHours(timeSpentHours) values ('82');
+insert into TimeSpentHours(timeSpentHours) values ('83');
+insert into TimeSpentHours(timeSpentHours) values ('84');
+insert into TimeSpentHours(timeSpentHours) values ('85');
+insert into TimeSpentHours(timeSpentHours) values ('86');
+insert into TimeSpentHours(timeSpentHours) values ('87');
+insert into TimeSpentHours(timeSpentHours) values ('88');
+insert into TimeSpentHours(timeSpentHours) values ('89');
+insert into TimeSpentHours(timeSpentHours) values ('90');
+insert into TimeSpentHours(timeSpentHours) values ('91');
+insert into TimeSpentHours(timeSpentHours) values ('92');
+insert into TimeSpentHours(timeSpentHours) values ('93');
+insert into TimeSpentHours(timeSpentHours) values ('94');
+insert into TimeSpentHours(timeSpentHours) values ('95');
+insert into TimeSpentHours(timeSpentHours) values ('96');
+insert into TimeSpentHours(timeSpentHours) values ('97');
+insert into TimeSpentHours(timeSpentHours) values ('98');
+insert into TimeSpentHours(timeSpentHours) values ('99');
+insert into TimeSpentHours(timeSpentHours) values ('100');
+insert into TimeSpentHours(timeSpentHours) values ('101');
+insert into TimeSpentHours(timeSpentHours) values ('102');
+insert into TimeSpentHours(timeSpentHours) values ('103');
+insert into TimeSpentHours(timeSpentHours) values ('104');
+insert into TimeSpentHours(timeSpentHours) values ('105');
+insert into TimeSpentHours(timeSpentHours) values ('106');
+insert into TimeSpentHours(timeSpentHours) values ('107');
+insert into TimeSpentHours(timeSpentHours) values ('108');
+insert into TimeSpentHours(timeSpentHours) values ('109');
+insert into TimeSpentHours(timeSpentHours) values ('110');
+insert into TimeSpentHours(timeSpentHours) values ('111');
+insert into TimeSpentHours(timeSpentHours) values ('112');
+insert into TimeSpentHours(timeSpentHours) values ('113');
+insert into TimeSpentHours(timeSpentHours) values ('114');
+insert into TimeSpentHours(timeSpentHours) values ('115');
+insert into TimeSpentHours(timeSpentHours) values ('116');
+insert into TimeSpentHours(timeSpentHours) values ('117');
+insert into TimeSpentHours(timeSpentHours) values ('118');
+insert into TimeSpentHours(timeSpentHours) values ('119');
+insert into TimeSpentHours(timeSpentHours) values ('120');
+insert into TimeSpentHours(timeSpentHours) values ('121');
+insert into TimeSpentHours(timeSpentHours) values ('122');
+insert into TimeSpentHours(timeSpentHours) values ('123');
+insert into TimeSpentHours(timeSpentHours) values ('124');
+insert into TimeSpentHours(timeSpentHours) values ('125');
+insert into TimeSpentHours(timeSpentHours) values ('126');
+insert into TimeSpentHours(timeSpentHours) values ('127');
+insert into TimeSpentHours(timeSpentHours) values ('128');
+insert into TimeSpentHours(timeSpentHours) values ('129');
+insert into TimeSpentHours(timeSpentHours) values ('130');
+insert into TimeSpentHours(timeSpentHours) values ('131');
+insert into TimeSpentHours(timeSpentHours) values ('132');
+insert into TimeSpentHours(timeSpentHours) values ('133');
+insert into TimeSpentHours(timeSpentHours) values ('134');
+insert into TimeSpentHours(timeSpentHours) values ('135');
+insert into TimeSpentHours(timeSpentHours) values ('136');
+insert into TimeSpentHours(timeSpentHours) values ('137');
+insert into TimeSpentHours(timeSpentHours) values ('138');
+insert into TimeSpentHours(timeSpentHours) values ('139');
+insert into TimeSpentHours(timeSpentHours) values ('140');
+insert into TimeSpentHours(timeSpentHours) values ('141');
+insert into TimeSpentHours(timeSpentHours) values ('142');
+insert into TimeSpentHours(timeSpentHours) values ('143');
+insert into TimeSpentHours(timeSpentHours) values ('144');
+insert into TimeSpentHours(timeSpentHours) values ('145');
+insert into TimeSpentHours(timeSpentHours) values ('146');
+insert into TimeSpentHours(timeSpentHours) values ('147');
+insert into TimeSpentHours(timeSpentHours) values ('148');
+insert into TimeSpentHours(timeSpentHours) values ('149');
+insert into TimeSpentHours(timeSpentHours) values ('150');
+insert into TimeSpentHours(timeSpentHours) values ('151');
+insert into TimeSpentHours(timeSpentHours) values ('152');
+insert into TimeSpentHours(timeSpentHours) values ('153');
+insert into TimeSpentHours(timeSpentHours) values ('154');
+insert into TimeSpentHours(timeSpentHours) values ('155');
+insert into TimeSpentHours(timeSpentHours) values ('156');
+insert into TimeSpentHours(timeSpentHours) values ('157');
+insert into TimeSpentHours(timeSpentHours) values ('158');
+insert into TimeSpentHours(timeSpentHours) values ('159');
+insert into TimeSpentHours(timeSpentHours) values ('160');
+insert into TimeSpentHours(timeSpentHours) values ('161');
+insert into TimeSpentHours(timeSpentHours) values ('162');
+insert into TimeSpentHours(timeSpentHours) values ('163');
+insert into TimeSpentHours(timeSpentHours) values ('164');
+insert into TimeSpentHours(timeSpentHours) values ('165');
+insert into TimeSpentHours(timeSpentHours) values ('166');
+insert into TimeSpentHours(timeSpentHours) values ('167');
+insert into TimeSpentHours(timeSpentHours) values ('168');
+insert into TimeSpentHours(timeSpentHours) values ('169');
+insert into TimeSpentHours(timeSpentHours) values ('170');
+insert into TimeSpentHours(timeSpentHours) values ('171');
+insert into TimeSpentHours(timeSpentHours) values ('172');
+insert into TimeSpentHours(timeSpentHours) values ('173');
+insert into TimeSpentHours(timeSpentHours) values ('174');
+insert into TimeSpentHours(timeSpentHours) values ('175');
+insert into TimeSpentHours(timeSpentHours) values ('176');
+insert into TimeSpentHours(timeSpentHours) values ('177');
+insert into TimeSpentHours(timeSpentHours) values ('178');
+insert into TimeSpentHours(timeSpentHours) values ('179');
+insert into TimeSpentHours(timeSpentHours) values ('180');
+insert into TimeSpentHours(timeSpentHours) values ('181');
+insert into TimeSpentHours(timeSpentHours) values ('182');
+insert into TimeSpentHours(timeSpentHours) values ('183');
+insert into TimeSpentHours(timeSpentHours) values ('184');
+insert into TimeSpentHours(timeSpentHours) values ('185');
+insert into TimeSpentHours(timeSpentHours) values ('186');
+insert into TimeSpentHours(timeSpentHours) values ('187');
+insert into TimeSpentHours(timeSpentHours) values ('188');
+insert into TimeSpentHours(timeSpentHours) values ('189');
+insert into TimeSpentHours(timeSpentHours) values ('190');
+insert into TimeSpentHours(timeSpentHours) values ('191');
+insert into TimeSpentHours(timeSpentHours) values ('192');
+insert into TimeSpentHours(timeSpentHours) values ('193');
+insert into TimeSpentHours(timeSpentHours) values ('194');
+insert into TimeSpentHours(timeSpentHours) values ('195');
+insert into TimeSpentHours(timeSpentHours) values ('196');
+insert into TimeSpentHours(timeSpentHours) values ('197');
+insert into TimeSpentHours(timeSpentHours) values ('198');
+insert into TimeSpentHours(timeSpentHours) values ('199');
+insert into TimeSpentHours(timeSpentHours) values ('200');
+insert into TimeSpentHours(timeSpentHours) values ('201');
+insert into TimeSpentHours(timeSpentHours) values ('202');
+insert into TimeSpentHours(timeSpentHours) values ('203');
+insert into TimeSpentHours(timeSpentHours) values ('204');
+insert into TimeSpentHours(timeSpentHours) values ('205');
+insert into TimeSpentHours(timeSpentHours) values ('206');
+insert into TimeSpentHours(timeSpentHours) values ('207');
+insert into TimeSpentHours(timeSpentHours) values ('208');
+insert into TimeSpentHours(timeSpentHours) values ('209');
+insert into TimeSpentHours(timeSpentHours) values ('210');
+insert into TimeSpentHours(timeSpentHours) values ('211');
+insert into TimeSpentHours(timeSpentHours) values ('212');
+insert into TimeSpentHours(timeSpentHours) values ('213');
+insert into TimeSpentHours(timeSpentHours) values ('214');
+insert into TimeSpentHours(timeSpentHours) values ('215');
+insert into TimeSpentHours(timeSpentHours) values ('216');
+insert into TimeSpentHours(timeSpentHours) values ('217');
+insert into TimeSpentHours(timeSpentHours) values ('218');
+insert into TimeSpentHours(timeSpentHours) values ('219');
+insert into TimeSpentHours(timeSpentHours) values ('220');
+insert into TimeSpentHours(timeSpentHours) values ('221');
+insert into TimeSpentHours(timeSpentHours) values ('222');
+insert into TimeSpentHours(timeSpentHours) values ('223');
+insert into TimeSpentHours(timeSpentHours) values ('224');
+insert into TimeSpentHours(timeSpentHours) values ('225');
+insert into TimeSpentHours(timeSpentHours) values ('226');
+insert into TimeSpentHours(timeSpentHours) values ('227');
+insert into TimeSpentHours(timeSpentHours) values ('228');
+insert into TimeSpentHours(timeSpentHours) values ('229');
+insert into TimeSpentHours(timeSpentHours) values ('230');
+insert into TimeSpentHours(timeSpentHours) values ('231');
+insert into TimeSpentHours(timeSpentHours) values ('232');
+insert into TimeSpentHours(timeSpentHours) values ('233');
+insert into TimeSpentHours(timeSpentHours) values ('234');
+insert into TimeSpentHours(timeSpentHours) values ('235');
+insert into TimeSpentHours(timeSpentHours) values ('236');
+insert into TimeSpentHours(timeSpentHours) values ('237');
+insert into TimeSpentHours(timeSpentHours) values ('238');
+insert into TimeSpentHours(timeSpentHours) values ('239');
+insert into TimeSpentHours(timeSpentHours) values ('240');
+insert into TimeSpentHours(timeSpentHours) values ('241');
+insert into TimeSpentHours(timeSpentHours) values ('242');
+insert into TimeSpentHours(timeSpentHours) values ('243');
+insert into TimeSpentHours(timeSpentHours) values ('244');
+insert into TimeSpentHours(timeSpentHours) values ('245');
+insert into TimeSpentHours(timeSpentHours) values ('246');
+insert into TimeSpentHours(timeSpentHours) values ('247');
+insert into TimeSpentHours(timeSpentHours) values ('248');
+insert into TimeSpentHours(timeSpentHours) values ('249');
+insert into TimeSpentHours(timeSpentHours) values ('250');
+insert into TimeSpentHours(timeSpentHours) values ('251');
+insert into TimeSpentHours(timeSpentHours) values ('252');
+insert into TimeSpentHours(timeSpentHours) values ('253');
+insert into TimeSpentHours(timeSpentHours) values ('254');
+insert into TimeSpentHours(timeSpentHours) values ('255');
+insert into TimeSpentHours(timeSpentHours) values ('256');
+insert into TimeSpentHours(timeSpentHours) values ('257');
+insert into TimeSpentHours(timeSpentHours) values ('258');
+insert into TimeSpentHours(timeSpentHours) values ('259');
+insert into TimeSpentHours(timeSpentHours) values ('260');
+insert into TimeSpentHours(timeSpentHours) values ('261');
+insert into TimeSpentHours(timeSpentHours) values ('262');
+insert into TimeSpentHours(timeSpentHours) values ('263');
+insert into TimeSpentHours(timeSpentHours) values ('264');
+insert into TimeSpentHours(timeSpentHours) values ('265');
+insert into TimeSpentHours(timeSpentHours) values ('266');
+insert into TimeSpentHours(timeSpentHours) values ('267');
+insert into TimeSpentHours(timeSpentHours) values ('268');
+insert into TimeSpentHours(timeSpentHours) values ('269');
+insert into TimeSpentHours(timeSpentHours) values ('270');
+insert into TimeSpentHours(timeSpentHours) values ('271');
+insert into TimeSpentHours(timeSpentHours) values ('272');
+insert into TimeSpentHours(timeSpentHours) values ('273');
+insert into TimeSpentHours(timeSpentHours) values ('274');
+insert into TimeSpentHours(timeSpentHours) values ('275');
+insert into TimeSpentHours(timeSpentHours) values ('276');
+insert into TimeSpentHours(timeSpentHours) values ('277');
+insert into TimeSpentHours(timeSpentHours) values ('278');
+insert into TimeSpentHours(timeSpentHours) values ('279');
+insert into TimeSpentHours(timeSpentHours) values ('280');
+insert into TimeSpentHours(timeSpentHours) values ('281');
+insert into TimeSpentHours(timeSpentHours) values ('282');
+insert into TimeSpentHours(timeSpentHours) values ('283');
+insert into TimeSpentHours(timeSpentHours) values ('284');
+insert into TimeSpentHours(timeSpentHours) values ('285');
+insert into TimeSpentHours(timeSpentHours) values ('286');
+insert into TimeSpentHours(timeSpentHours) values ('287');
+insert into TimeSpentHours(timeSpentHours) values ('288');
+insert into TimeSpentHours(timeSpentHours) values ('289');
+insert into TimeSpentHours(timeSpentHours) values ('290');
+insert into TimeSpentHours(timeSpentHours) values ('291');
+insert into TimeSpentHours(timeSpentHours) values ('292');
+insert into TimeSpentHours(timeSpentHours) values ('293');
+insert into TimeSpentHours(timeSpentHours) values ('294');
+insert into TimeSpentHours(timeSpentHours) values ('295');
+insert into TimeSpentHours(timeSpentHours) values ('296');
+insert into TimeSpentHours(timeSpentHours) values ('297');
+insert into TimeSpentHours(timeSpentHours) values ('298');
+insert into TimeSpentHours(timeSpentHours) values ('299');
+insert into TimeSpentHours(timeSpentHours) values ('300');
+insert into TimeSpentHours(timeSpentHours) values ('301');
+insert into TimeSpentHours(timeSpentHours) values ('302');
+insert into TimeSpentHours(timeSpentHours) values ('303');
+insert into TimeSpentHours(timeSpentHours) values ('304');
+insert into TimeSpentHours(timeSpentHours) values ('305');
+insert into TimeSpentHours(timeSpentHours) values ('306');
+insert into TimeSpentHours(timeSpentHours) values ('307');
+insert into TimeSpentHours(timeSpentHours) values ('308');
+insert into TimeSpentHours(timeSpentHours) values ('309');
+insert into TimeSpentHours(timeSpentHours) values ('310');
+insert into TimeSpentHours(timeSpentHours) values ('311');
+insert into TimeSpentHours(timeSpentHours) values ('312');
+insert into TimeSpentHours(timeSpentHours) values ('313');
+insert into TimeSpentHours(timeSpentHours) values ('314');
+insert into TimeSpentHours(timeSpentHours) values ('315');
+insert into TimeSpentHours(timeSpentHours) values ('316');
+insert into TimeSpentHours(timeSpentHours) values ('317');
+insert into TimeSpentHours(timeSpentHours) values ('318');
+insert into TimeSpentHours(timeSpentHours) values ('319');
+insert into TimeSpentHours(timeSpentHours) values ('320');
+insert into TimeSpentHours(timeSpentHours) values ('321');
+insert into TimeSpentHours(timeSpentHours) values ('322');
+insert into TimeSpentHours(timeSpentHours) values ('323');
+insert into TimeSpentHours(timeSpentHours) values ('324');
+insert into TimeSpentHours(timeSpentHours) values ('325');
+insert into TimeSpentHours(timeSpentHours) values ('326');
+insert into TimeSpentHours(timeSpentHours) values ('327');
+insert into TimeSpentHours(timeSpentHours) values ('328');
+insert into TimeSpentHours(timeSpentHours) values ('329');
+insert into TimeSpentHours(timeSpentHours) values ('330');
+insert into TimeSpentHours(timeSpentHours) values ('331');
+insert into TimeSpentHours(timeSpentHours) values ('332');
+insert into TimeSpentHours(timeSpentHours) values ('333');
+insert into TimeSpentHours(timeSpentHours) values ('334');
+insert into TimeSpentHours(timeSpentHours) values ('335');
+insert into TimeSpentHours(timeSpentHours) values ('336');
+insert into TimeSpentHours(timeSpentHours) values ('337');
+insert into TimeSpentHours(timeSpentHours) values ('338');
+insert into TimeSpentHours(timeSpentHours) values ('339');
+insert into TimeSpentHours(timeSpentHours) values ('340');
+insert into TimeSpentHours(timeSpentHours) values ('341');
+insert into TimeSpentHours(timeSpentHours) values ('342');
+insert into TimeSpentHours(timeSpentHours) values ('343');
+insert into TimeSpentHours(timeSpentHours) values ('344');
+insert into TimeSpentHours(timeSpentHours) values ('345');
+insert into TimeSpentHours(timeSpentHours) values ('346');
+insert into TimeSpentHours(timeSpentHours) values ('347');
+insert into TimeSpentHours(timeSpentHours) values ('348');
+insert into TimeSpentHours(timeSpentHours) values ('349');
+insert into TimeSpentHours(timeSpentHours) values ('350');
+insert into TimeSpentHours(timeSpentHours) values ('351');
+insert into TimeSpentHours(timeSpentHours) values ('352');
+insert into TimeSpentHours(timeSpentHours) values ('353');
+insert into TimeSpentHours(timeSpentHours) values ('354');
+insert into TimeSpentHours(timeSpentHours) values ('355');
+insert into TimeSpentHours(timeSpentHours) values ('356');
+insert into TimeSpentHours(timeSpentHours) values ('357');
+insert into TimeSpentHours(timeSpentHours) values ('358');
+insert into TimeSpentHours(timeSpentHours) values ('359');
+insert into TimeSpentHours(timeSpentHours) values ('360');
+insert into TimeSpentHours(timeSpentHours) values ('361');
+insert into TimeSpentHours(timeSpentHours) values ('362');
+insert into TimeSpentHours(timeSpentHours) values ('363');
+insert into TimeSpentHours(timeSpentHours) values ('364');
+insert into TimeSpentHours(timeSpentHours) values ('365');
+insert into TimeSpentHours(timeSpentHours) values ('366');
+insert into TimeSpentHours(timeSpentHours) values ('367');
+insert into TimeSpentHours(timeSpentHours) values ('368');
+insert into TimeSpentHours(timeSpentHours) values ('369');
+insert into TimeSpentHours(timeSpentHours) values ('370');
+insert into TimeSpentHours(timeSpentHours) values ('371');
+insert into TimeSpentHours(timeSpentHours) values ('372');
+insert into TimeSpentHours(timeSpentHours) values ('373');
+insert into TimeSpentHours(timeSpentHours) values ('374');
+insert into TimeSpentHours(timeSpentHours) values ('375');
+insert into TimeSpentHours(timeSpentHours) values ('376');
+insert into TimeSpentHours(timeSpentHours) values ('377');
+insert into TimeSpentHours(timeSpentHours) values ('378');
+insert into TimeSpentHours(timeSpentHours) values ('379');
+insert into TimeSpentHours(timeSpentHours) values ('380');
+insert into TimeSpentHours(timeSpentHours) values ('381');
+insert into TimeSpentHours(timeSpentHours) values ('382');
+insert into TimeSpentHours(timeSpentHours) values ('383');
+insert into TimeSpentHours(timeSpentHours) values ('384');
+insert into TimeSpentHours(timeSpentHours) values ('385');
+insert into TimeSpentHours(timeSpentHours) values ('386');
+insert into TimeSpentHours(timeSpentHours) values ('387');
+insert into TimeSpentHours(timeSpentHours) values ('388');
+insert into TimeSpentHours(timeSpentHours) values ('389');
+insert into TimeSpentHours(timeSpentHours) values ('390');
+insert into TimeSpentHours(timeSpentHours) values ('391');
+insert into TimeSpentHours(timeSpentHours) values ('392');
+insert into TimeSpentHours(timeSpentHours) values ('393');
+insert into TimeSpentHours(timeSpentHours) values ('394');
+insert into TimeSpentHours(timeSpentHours) values ('395');
+insert into TimeSpentHours(timeSpentHours) values ('396');
+insert into TimeSpentHours(timeSpentHours) values ('397');
+insert into TimeSpentHours(timeSpentHours) values ('398');
+insert into TimeSpentHours(timeSpentHours) values ('399');
+insert into TimeSpentHours(timeSpentHours) values ('400');
+insert into TimeSpentHours(timeSpentHours) values ('401');
+insert into TimeSpentHours(timeSpentHours) values ('402');
+insert into TimeSpentHours(timeSpentHours) values ('403');
+insert into TimeSpentHours(timeSpentHours) values ('404');
+insert into TimeSpentHours(timeSpentHours) values ('405');
+insert into TimeSpentHours(timeSpentHours) values ('406');
+insert into TimeSpentHours(timeSpentHours) values ('407');
+insert into TimeSpentHours(timeSpentHours) values ('408');
+insert into TimeSpentHours(timeSpentHours) values ('409');
+insert into TimeSpentHours(timeSpentHours) values ('410');
+insert into TimeSpentHours(timeSpentHours) values ('411');
+insert into TimeSpentHours(timeSpentHours) values ('412');
+insert into TimeSpentHours(timeSpentHours) values ('413');
+insert into TimeSpentHours(timeSpentHours) values ('414');
+insert into TimeSpentHours(timeSpentHours) values ('415');
+insert into TimeSpentHours(timeSpentHours) values ('416');
+insert into TimeSpentHours(timeSpentHours) values ('417');
+insert into TimeSpentHours(timeSpentHours) values ('418');
+insert into TimeSpentHours(timeSpentHours) values ('419');
+insert into TimeSpentHours(timeSpentHours) values ('420');
+insert into TimeSpentHours(timeSpentHours) values ('421');
+insert into TimeSpentHours(timeSpentHours) values ('422');
+insert into TimeSpentHours(timeSpentHours) values ('423');
+insert into TimeSpentHours(timeSpentHours) values ('424');
+insert into TimeSpentHours(timeSpentHours) values ('425');
+insert into TimeSpentHours(timeSpentHours) values ('426');
+insert into TimeSpentHours(timeSpentHours) values ('427');
+insert into TimeSpentHours(timeSpentHours) values ('428');
+insert into TimeSpentHours(timeSpentHours) values ('429');
+insert into TimeSpentHours(timeSpentHours) values ('430');
+insert into TimeSpentHours(timeSpentHours) values ('431');
+insert into TimeSpentHours(timeSpentHours) values ('432');
+insert into TimeSpentHours(timeSpentHours) values ('433');
+insert into TimeSpentHours(timeSpentHours) values ('434');
+insert into TimeSpentHours(timeSpentHours) values ('435');
+insert into TimeSpentHours(timeSpentHours) values ('436');
+insert into TimeSpentHours(timeSpentHours) values ('437');
+insert into TimeSpentHours(timeSpentHours) values ('438');
+insert into TimeSpentHours(timeSpentHours) values ('439');
+insert into TimeSpentHours(timeSpentHours) values ('440');
+insert into TimeSpentHours(timeSpentHours) values ('441');
+insert into TimeSpentHours(timeSpentHours) values ('442');
+insert into TimeSpentHours(timeSpentHours) values ('443');
+insert into TimeSpentHours(timeSpentHours) values ('444');
+insert into TimeSpentHours(timeSpentHours) values ('445');
+insert into TimeSpentHours(timeSpentHours) values ('446');
+insert into TimeSpentHours(timeSpentHours) values ('447');
+insert into TimeSpentHours(timeSpentHours) values ('448');
+insert into TimeSpentHours(timeSpentHours) values ('449');
+insert into TimeSpentHours(timeSpentHours) values ('450');
+insert into TimeSpentHours(timeSpentHours) values ('451');
+insert into TimeSpentHours(timeSpentHours) values ('452');
+insert into TimeSpentHours(timeSpentHours) values ('453');
+insert into TimeSpentHours(timeSpentHours) values ('454');
+insert into TimeSpentHours(timeSpentHours) values ('455');
+insert into TimeSpentHours(timeSpentHours) values ('456');
+insert into TimeSpentHours(timeSpentHours) values ('457');
+insert into TimeSpentHours(timeSpentHours) values ('458');
+insert into TimeSpentHours(timeSpentHours) values ('459');
+insert into TimeSpentHours(timeSpentHours) values ('460');
+insert into TimeSpentHours(timeSpentHours) values ('461');
+insert into TimeSpentHours(timeSpentHours) values ('462');
+insert into TimeSpentHours(timeSpentHours) values ('463');
+insert into TimeSpentHours(timeSpentHours) values ('464');
+insert into TimeSpentHours(timeSpentHours) values ('465');
+insert into TimeSpentHours(timeSpentHours) values ('466');
+insert into TimeSpentHours(timeSpentHours) values ('467');
+insert into TimeSpentHours(timeSpentHours) values ('468');
+insert into TimeSpentHours(timeSpentHours) values ('469');
+insert into TimeSpentHours(timeSpentHours) values ('470');
+insert into TimeSpentHours(timeSpentHours) values ('471');
+insert into TimeSpentHours(timeSpentHours) values ('472');
+insert into TimeSpentHours(timeSpentHours) values ('473');
+insert into TimeSpentHours(timeSpentHours) values ('474');
+insert into TimeSpentHours(timeSpentHours) values ('475');
+insert into TimeSpentHours(timeSpentHours) values ('476');
+insert into TimeSpentHours(timeSpentHours) values ('477');
+insert into TimeSpentHours(timeSpentHours) values ('478');
+insert into TimeSpentHours(timeSpentHours) values ('479');
+insert into TimeSpentHours(timeSpentHours) values ('480');
+insert into TimeSpentHours(timeSpentHours) values ('481');
+insert into TimeSpentHours(timeSpentHours) values ('482');
+insert into TimeSpentHours(timeSpentHours) values ('483');
+insert into TimeSpentHours(timeSpentHours) values ('484');
+insert into TimeSpentHours(timeSpentHours) values ('485');
+insert into TimeSpentHours(timeSpentHours) values ('486');
+insert into TimeSpentHours(timeSpentHours) values ('487');
+insert into TimeSpentHours(timeSpentHours) values ('488');
+insert into TimeSpentHours(timeSpentHours) values ('489');
+insert into TimeSpentHours(timeSpentHours) values ('490');
+insert into TimeSpentHours(timeSpentHours) values ('491');
+insert into TimeSpentHours(timeSpentHours) values ('492');
+insert into TimeSpentHours(timeSpentHours) values ('493');
+insert into TimeSpentHours(timeSpentHours) values ('494');
+insert into TimeSpentHours(timeSpentHours) values ('495');
+insert into TimeSpentHours(timeSpentHours) values ('496');
+insert into TimeSpentHours(timeSpentHours) values ('497');
+insert into TimeSpentHours(timeSpentHours) values ('498');
+insert into TimeSpentHours(timeSpentHours) values ('499');
+insert into TimeSpentHours(timeSpentHours) values ('500');
+
+
+create table TimeSpentMinutes(
+	timeSpentMinutesId int not null auto_increment primary key,
+    timeSpentMinutes varchar(255));
+insert into TimeSpentMinutes(timeSpentMinutes) values ('0');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('5');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('10');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('15');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('20');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('25');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('30');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('35');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('40');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('45');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('50');
+insert into TimeSpentMinutes(timeSpentMinutes) values ('55');
+
 #create table Employment();
+create table Employment(
+	`templateId` int primary key,
+    constraint Efk1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`Update Record ID` char(8),
+	`Unique Identifier` int not null,
+	constraint Efk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+    `Registration in an employment intervation` bool not null,
+    `A referral to` int not null,
+	constraint Efk3 foreign key (`A referral to`) references AReferralTo(aReferralToId),
+	`Language of Service` int not null,
+    constraint Efk4 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
+	`Official Language of Preference` int not null,
+    constraint Efk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Type of Institution/Organization Where Client Received Services` int not null,
+	constraint Efk6 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
+	`Referred By`int not null,
+    constraint Efk7 foreign key (`Referred By`) references Referrer(reffererId),
+    `Referral Date (YYYY-MM-DD)` date,
+    `Employment Status`int not null,
+    constraint Efk8 foreign key (`Employment Status`) references EmploymentStatus(employmentStatusId),
+	`Education Status`int,
+    constraint Efk9 foreign key (`Education Status`) references EducationStatus(educationStatusId),
+    `Occupation in Canada`int,
+    constraint Efk10 foreign key (`Occupation in Canada`) references Occupations(occupationsId),
+    `Intended Occupation`int,
+    constraint Efk11 foreign key (`Intended Occupation`) references Occupations(occupationsId),
+    `Intervention Type`int,
+    constraint Efk12 foreign key (`Intervention Type`) references InterventionType(interventionTypeId),
+    `Long Term Intervention: Intervation Received`int,
+    constraint Efk13 foreign key (`Long Term Intervention: Intervation Received`) references LongInterventionReceived(longTermIntervationReceivedId),
+	`Long Term Intervention: Status of Intervation`int,
+    constraint Efk14 foreign key (`Long Term Intervention: Status of Intervation`) references LongStatusOfIntervention(statusOfInterventionId),
+	`Long Term Intervention: Reason For Leaving Intervention`int,
+    constraint Efk15 foreign key (`Long Term Intervention: Reason For Leaving Intervention`) references LongLeavingIntervention(leavingInterventionId),
+    `Long Term Intervention: End Date (YYYY-MM-DD)` date,
+	`Long Term Intervention: Size of Employer`int,
+    constraint Efk16 foreign key (`Long Term Intervention: Size of Employer`) references LongSizeEmployerIntervention(sizeEmployerInterventionId),
+	`Long Term Intervention: Placement Was`int,
+    constraint Efk17 foreign key (`Long Term Intervention: Placement Was`) references LongPlacementIntervention(placementInterventionId),
+	`Long Term Intervention: Hours Per Week`int,
+    constraint Efk18 foreign key (`Long Term Intervention: Hours Per Week`) references LongHoursPerWeekIntervention(hoursPerWeekInterventionId),
+	`Long Term Intervention: Client Met Mentor Regularly at`int,
+    constraint Efk19 foreign key (`Long Term Intervention: Client Met Mentor Regularly at`) references LongMetMentorIntervention(metMentorInterventionId),
+	`Long Term Intervention: Average Hours/Week in Contact with Mentor`int,
+    constraint Efk20 foreign key (`Average Hours/Week in Contact with Mentor`) references LongHoursMetMentorIntervention(hoursMetMentorInterventionId),
+	`Long Term Intervention: Profession/Trade For Which Services Were Received`int,
+    constraint Efk21 foreign key (`Long Term Intervention: Profession/Trade For Which Services Were Received`) references LongServicesReceivedIntervention(serviceReceivedInterventionId),
+    `Was Essential Skills and Aptitude Training Received as Part of this Service?` bool,
+    `Computer skills` bool,
+    `Document Use` bool,
+	`Interpersonal Skills and Workplace Culture` bool,
+    `Leadership Training` bool,
+    `Numeracy` bool,
+	`Short Term Intervention: Service Received`int,
+    constraint Efk22 foreign key (`Short Term Intervention: Service Received`) references ShortInterventionServiceReceived(shortInterventionServiceReceivedId),
+	`Short Term Intervention: Date (YYYY-MM-DD)` date,
+	`Support Services Received` bool,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+    constraint Efk23 foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+    constraint Efk24 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
+	`Child 2: Age` int,
+    constraint Efk25 foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint Efk26 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+    constraint Efk27 foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int, 
+    constraint Efk28 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
+	`Child 5: Age` int,
+    constraint Efk29 foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+    constraint Efk30 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+    `Translation: Between` int,
+    constraint Efk31 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And`int,
+    constraint Efk32 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+    `Interpretation: Between` int,
+    constraint Efk33 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And`int,
+    constraint Efk34 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+	`Time Spent With Client/Addressing Client's Employment Needs: Hours` int,
+    constraint Efk35 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Hours`) references TimeSpentHours(timeSpentHoursId),
+	`Time Spent With Client/Addressing Client's Employment Needs: Minutes`int,
+    constraint Efk36 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`Reason for update` int,
+    constraint Efk37 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
+create table ServicesReceived(
+	servicesReceivedId int not null auto_increment primary key,
+    servicesReceived varchar(255));
+insert into ServicesReceived(servicesReceived) values ('One-on-one orientation');
+insert into ServicesReceived(servicesReceived) values ('Family orientation');
+insert into ServicesReceived(servicesReceived) values ('Group orientation');
+
+create table LengthOfOrientation(
+	lengthOfOrientationId int not null auto_increment primary key,
+    lengthOfOrientation varchar(255));
+insert into LengthOfOrientation(lengthOfOrientation) values ('5 minutes or less');
+insert into LengthOfOrientation(lengthOfOrientation) values ('6 - 30 minutes');
+insert into LengthOfOrientation(lengthOfOrientation) values ('30 - 60 minutes');
+insert into LengthOfOrientation(lengthOfOrientation) values ('1 to 2 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('2 to 3 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('3 to 4 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('4 to 5 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('5 to 6 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('6 to 7 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('7 to 8 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('8 to 9 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('9 to 10 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('10 to 11 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('11 to 12 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('12 to 13 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('13 to 14 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('14 to 15 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('15 to 16 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('16 to 17 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('17 to 18 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('18 to 19 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('19 to 20 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('20 to 21 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('21 to 22 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('22 to 23 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('23 to 24 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('24 to 25 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('25 to 26 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('26 to 27 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('27 to 28 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('28 to 29 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('29 to 30 hours');
+insert into LengthOfOrientation(lengthOfOrientation) values ('Over 30 hours');
+
+
+create table NumberClientsGroup(
+	numberClientsGroupId int not null auto_increment primary key,
+    numberClientsGroup varchar(255));
+insert into NumberClientsGroup(numberClientsGroup) values ('Less than 10 people');
+insert into NumberClientsGroup(numberClientsGroup) values ('10 - 20 people');
+insert into NumberClientsGroup(numberClientsGroup) values ('More than 20 people');
+
+
 #create table InfoAndOrientation();
+create table InfoAndOrientation(
+	`templateId` int primary key,
+    constraint IOfk1
+		foreign key(templateId)
+        references Template(templateId)
+        on delete no action
+        on update cascade,
+	`Update Record ID` char(8),
+	`Unique Identifier` int not null,
+	constraint IOfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+	`Start Date of Service (YYYY-MM-DD)` date not null,
+	`Language of Service` int not null,
+    constraint IOfk3 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
+	`Official Language of Preference` int not null,
+    constraint IOfk4 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Type of Institution/Organization Where Client Received Services` int not null,
+	constraint IOfk5 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
+	`Referred By`int not null,
+	`Total Length of Orientation` int not null,
+    constraint IOfk6 foreign key (`Total Length of Orientation`) references LengthOfOrientation(lengthOfOrientationId),
+	`Total Length of Orientation: Hours` int,
+    constraint IOfk7 foreign key (`Total Length of Orientation: Hours`) references TimeSpentHours(timeSpentHoursId),
+	`Total Length of Orientation: Minutes`int,
+    constraint IOfk8 foreign key (`Total Length of Orientation: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`Number of Clients in Group`int,
+    constraint IOfk9 foreign key (`Number of Clients in Group`) references NumberClientsGroup(numberClientsGroupId),
+    `Directed at a specific Target Group` int,
+	`Target Group: Children (0-14 yrs)` int,
+	`Target Group: Youth (15-24 yrs)` int,
+	`Target Group: Seniors` int,
+	`Target Group: Gender-specific` int,
+	`Target Group: Refugees` int,
+	`Target Group: Ethnic/cultural/linguistic group` int,
+	`Target Group: Deaf or Hard of Hearing` int,
+	`Target Group: Blind or Partially Sighted` int,
+	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` int,
+	`Target Group: Families/Parents` int,
+	`Target Group: Clients with other impairments (physical, mental)` int,
+	`Target Group: Clients with international training in a regulated profession` int,
+	`Target Group: Clients with international training in a regulated trade` int,
+	`Target Group: Official Language minorities` int,
+	`Overview of Canada` int,
+	`Overview of Canada Referrals` int,
+	`Sources of Information` int,
+	`Sources of Information Referrals` int,
+	`Rights and Freedoms` int,
+	`Rights and Freedoms Referrals` int,
+	`Canadian Law and Justice` int,
+	`Canadian Law and Justice Referrals` int,
+	`Important Documents` int,
+	`Important Documents Referrals` int,
+	`Improving English or French` int,
+	`Improving English or French Referrals` int,
+	`Employment and Income` int,
+	`Employment and Income Referrals` int,
+	`Education` int,
+	`Education Referrals` int,
+	`Housing` int,
+	`Housing Referrals` int,
+	`Health` int,
+	`Health Referrals` int,
+	`Money and Finances` int,
+	`Money and Finances Referrals` int,
+	`Transportation` int,
+	`Transportation Referrals` int,
+	`Communications and Media` int,
+	`Communications and Media Referrals` int,
+	`Community Engagement` int,
+	`Community Engagement Referrals` int,
+	`Becoming a Canadian Citizen` int,
+	`Becoming a Canadian Citizen Referrals` int,
+	`Interpersonal Conflict` int,
+	`Interpersonal Conflict Referrals` int,
+	`Was Essential Skills and Aptitude Training Received as Part of this Service?` int not null,
+	`Computer skills	Document Use` int,
+	`Interpersonal Skills and Workplace Culture` int,
+	`Leadership Training` int,
+	`Numeracy` int,
+	`Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?` int not null,
+	`Life Skills` int,
+	`Rights and Responsibilities of Citizenship (based on discover Canada)` int,
+	`Support Services Received` bool not null,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+    constraint IOfk10 foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+    constraint IOfk11 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
+	`Child 2: Age` int,
+    constraint IOfk12 foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint IOfk13 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+    constraint IOfk14 foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int, 
+    constraint IOfk15 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
+	`Child 5: Age` int,
+    constraint IOfk16 foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+    constraint IOfk17 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+    `Translation: Between` int,
+    constraint IOfk18 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And`int,
+    constraint IOfk19 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+    `Interpretation: Between` int,
+    constraint IOfk20 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And`int,
+    constraint IOfk21 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+	`End Date of Service (YYYY-MM-DD)` date not null,
+	`Reason for update` int,
+    constraint IOfk22 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
 #create table CommunityConnections();
 #create table LTEnrolment();
 #create table LTSetup();
