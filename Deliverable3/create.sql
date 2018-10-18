@@ -1544,3 +1544,8 @@ create table LTClientExit(
 	`crisisCounselling` bool,
 	`reasonForUpdat` varchar(255)
 );
+create table VariableName(
+	variableName varchar(30) primary key,
+    realName varchar(255) not null);
+
+insert into VariableName(variableName, realName) values ('CP1uniqueId', 'Unique Identifier');
