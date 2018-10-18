@@ -1039,515 +1039,10 @@ insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) v
 insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume added to a matching system');
 insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Employment counselling');
 
-create table TimeSpentHours(
-	timeSpentHoursId int not null auto_increment primary key,
-    timeSpentHours varchar(255));
-insert into TimeSpentHours(timeSpentHours) values ('0');
-insert into TimeSpentHours(timeSpentHours) values ('1');
-insert into TimeSpentHours(timeSpentHours) values ('2');
-insert into TimeSpentHours(timeSpentHours) values ('3');
-insert into TimeSpentHours(timeSpentHours) values ('4');
-insert into TimeSpentHours(timeSpentHours) values ('5');
-insert into TimeSpentHours(timeSpentHours) values ('6');
-insert into TimeSpentHours(timeSpentHours) values ('7');
-insert into TimeSpentHours(timeSpentHours) values ('8');
-insert into TimeSpentHours(timeSpentHours) values ('9');
-insert into TimeSpentHours(timeSpentHours) values ('10');
-insert into TimeSpentHours(timeSpentHours) values ('11');
-insert into TimeSpentHours(timeSpentHours) values ('12');
-insert into TimeSpentHours(timeSpentHours) values ('13');
-insert into TimeSpentHours(timeSpentHours) values ('14');
-insert into TimeSpentHours(timeSpentHours) values ('15');
-insert into TimeSpentHours(timeSpentHours) values ('16');
-insert into TimeSpentHours(timeSpentHours) values ('17');
-insert into TimeSpentHours(timeSpentHours) values ('18');
-insert into TimeSpentHours(timeSpentHours) values ('19');
-insert into TimeSpentHours(timeSpentHours) values ('20');
-insert into TimeSpentHours(timeSpentHours) values ('21');
-insert into TimeSpentHours(timeSpentHours) values ('22');
-insert into TimeSpentHours(timeSpentHours) values ('23');
-insert into TimeSpentHours(timeSpentHours) values ('24');
-insert into TimeSpentHours(timeSpentHours) values ('25');
-insert into TimeSpentHours(timeSpentHours) values ('26');
-insert into TimeSpentHours(timeSpentHours) values ('27');
-insert into TimeSpentHours(timeSpentHours) values ('28');
-insert into TimeSpentHours(timeSpentHours) values ('29');
-insert into TimeSpentHours(timeSpentHours) values ('30');
-insert into TimeSpentHours(timeSpentHours) values ('31');
-insert into TimeSpentHours(timeSpentHours) values ('32');
-insert into TimeSpentHours(timeSpentHours) values ('33');
-insert into TimeSpentHours(timeSpentHours) values ('34');
-insert into TimeSpentHours(timeSpentHours) values ('35');
-insert into TimeSpentHours(timeSpentHours) values ('36');
-insert into TimeSpentHours(timeSpentHours) values ('37');
-insert into TimeSpentHours(timeSpentHours) values ('38');
-insert into TimeSpentHours(timeSpentHours) values ('39');
-insert into TimeSpentHours(timeSpentHours) values ('40');
-insert into TimeSpentHours(timeSpentHours) values ('41');
-insert into TimeSpentHours(timeSpentHours) values ('42');
-insert into TimeSpentHours(timeSpentHours) values ('43');
-insert into TimeSpentHours(timeSpentHours) values ('44');
-insert into TimeSpentHours(timeSpentHours) values ('45');
-insert into TimeSpentHours(timeSpentHours) values ('46');
-insert into TimeSpentHours(timeSpentHours) values ('47');
-insert into TimeSpentHours(timeSpentHours) values ('48');
-insert into TimeSpentHours(timeSpentHours) values ('49');
-insert into TimeSpentHours(timeSpentHours) values ('50');
-insert into TimeSpentHours(timeSpentHours) values ('51');
-insert into TimeSpentHours(timeSpentHours) values ('52');
-insert into TimeSpentHours(timeSpentHours) values ('53');
-insert into TimeSpentHours(timeSpentHours) values ('54');
-insert into TimeSpentHours(timeSpentHours) values ('55');
-insert into TimeSpentHours(timeSpentHours) values ('56');
-insert into TimeSpentHours(timeSpentHours) values ('57');
-insert into TimeSpentHours(timeSpentHours) values ('58');
-insert into TimeSpentHours(timeSpentHours) values ('59');
-insert into TimeSpentHours(timeSpentHours) values ('60');
-insert into TimeSpentHours(timeSpentHours) values ('61');
-insert into TimeSpentHours(timeSpentHours) values ('62');
-insert into TimeSpentHours(timeSpentHours) values ('63');
-insert into TimeSpentHours(timeSpentHours) values ('64');
-insert into TimeSpentHours(timeSpentHours) values ('65');
-insert into TimeSpentHours(timeSpentHours) values ('66');
-insert into TimeSpentHours(timeSpentHours) values ('67');
-insert into TimeSpentHours(timeSpentHours) values ('68');
-insert into TimeSpentHours(timeSpentHours) values ('69');
-insert into TimeSpentHours(timeSpentHours) values ('70');
-insert into TimeSpentHours(timeSpentHours) values ('71');
-insert into TimeSpentHours(timeSpentHours) values ('72');
-insert into TimeSpentHours(timeSpentHours) values ('73');
-insert into TimeSpentHours(timeSpentHours) values ('74');
-insert into TimeSpentHours(timeSpentHours) values ('75');
-insert into TimeSpentHours(timeSpentHours) values ('76');
-insert into TimeSpentHours(timeSpentHours) values ('77');
-insert into TimeSpentHours(timeSpentHours) values ('78');
-insert into TimeSpentHours(timeSpentHours) values ('79');
-insert into TimeSpentHours(timeSpentHours) values ('80');
-insert into TimeSpentHours(timeSpentHours) values ('81');
-insert into TimeSpentHours(timeSpentHours) values ('82');
-insert into TimeSpentHours(timeSpentHours) values ('83');
-insert into TimeSpentHours(timeSpentHours) values ('84');
-insert into TimeSpentHours(timeSpentHours) values ('85');
-insert into TimeSpentHours(timeSpentHours) values ('86');
-insert into TimeSpentHours(timeSpentHours) values ('87');
-insert into TimeSpentHours(timeSpentHours) values ('88');
-insert into TimeSpentHours(timeSpentHours) values ('89');
-insert into TimeSpentHours(timeSpentHours) values ('90');
-insert into TimeSpentHours(timeSpentHours) values ('91');
-insert into TimeSpentHours(timeSpentHours) values ('92');
-insert into TimeSpentHours(timeSpentHours) values ('93');
-insert into TimeSpentHours(timeSpentHours) values ('94');
-insert into TimeSpentHours(timeSpentHours) values ('95');
-insert into TimeSpentHours(timeSpentHours) values ('96');
-insert into TimeSpentHours(timeSpentHours) values ('97');
-insert into TimeSpentHours(timeSpentHours) values ('98');
-insert into TimeSpentHours(timeSpentHours) values ('99');
-insert into TimeSpentHours(timeSpentHours) values ('100');
-insert into TimeSpentHours(timeSpentHours) values ('101');
-insert into TimeSpentHours(timeSpentHours) values ('102');
-insert into TimeSpentHours(timeSpentHours) values ('103');
-insert into TimeSpentHours(timeSpentHours) values ('104');
-insert into TimeSpentHours(timeSpentHours) values ('105');
-insert into TimeSpentHours(timeSpentHours) values ('106');
-insert into TimeSpentHours(timeSpentHours) values ('107');
-insert into TimeSpentHours(timeSpentHours) values ('108');
-insert into TimeSpentHours(timeSpentHours) values ('109');
-insert into TimeSpentHours(timeSpentHours) values ('110');
-insert into TimeSpentHours(timeSpentHours) values ('111');
-insert into TimeSpentHours(timeSpentHours) values ('112');
-insert into TimeSpentHours(timeSpentHours) values ('113');
-insert into TimeSpentHours(timeSpentHours) values ('114');
-insert into TimeSpentHours(timeSpentHours) values ('115');
-insert into TimeSpentHours(timeSpentHours) values ('116');
-insert into TimeSpentHours(timeSpentHours) values ('117');
-insert into TimeSpentHours(timeSpentHours) values ('118');
-insert into TimeSpentHours(timeSpentHours) values ('119');
-insert into TimeSpentHours(timeSpentHours) values ('120');
-insert into TimeSpentHours(timeSpentHours) values ('121');
-insert into TimeSpentHours(timeSpentHours) values ('122');
-insert into TimeSpentHours(timeSpentHours) values ('123');
-insert into TimeSpentHours(timeSpentHours) values ('124');
-insert into TimeSpentHours(timeSpentHours) values ('125');
-insert into TimeSpentHours(timeSpentHours) values ('126');
-insert into TimeSpentHours(timeSpentHours) values ('127');
-insert into TimeSpentHours(timeSpentHours) values ('128');
-insert into TimeSpentHours(timeSpentHours) values ('129');
-insert into TimeSpentHours(timeSpentHours) values ('130');
-insert into TimeSpentHours(timeSpentHours) values ('131');
-insert into TimeSpentHours(timeSpentHours) values ('132');
-insert into TimeSpentHours(timeSpentHours) values ('133');
-insert into TimeSpentHours(timeSpentHours) values ('134');
-insert into TimeSpentHours(timeSpentHours) values ('135');
-insert into TimeSpentHours(timeSpentHours) values ('136');
-insert into TimeSpentHours(timeSpentHours) values ('137');
-insert into TimeSpentHours(timeSpentHours) values ('138');
-insert into TimeSpentHours(timeSpentHours) values ('139');
-insert into TimeSpentHours(timeSpentHours) values ('140');
-insert into TimeSpentHours(timeSpentHours) values ('141');
-insert into TimeSpentHours(timeSpentHours) values ('142');
-insert into TimeSpentHours(timeSpentHours) values ('143');
-insert into TimeSpentHours(timeSpentHours) values ('144');
-insert into TimeSpentHours(timeSpentHours) values ('145');
-insert into TimeSpentHours(timeSpentHours) values ('146');
-insert into TimeSpentHours(timeSpentHours) values ('147');
-insert into TimeSpentHours(timeSpentHours) values ('148');
-insert into TimeSpentHours(timeSpentHours) values ('149');
-insert into TimeSpentHours(timeSpentHours) values ('150');
-insert into TimeSpentHours(timeSpentHours) values ('151');
-insert into TimeSpentHours(timeSpentHours) values ('152');
-insert into TimeSpentHours(timeSpentHours) values ('153');
-insert into TimeSpentHours(timeSpentHours) values ('154');
-insert into TimeSpentHours(timeSpentHours) values ('155');
-insert into TimeSpentHours(timeSpentHours) values ('156');
-insert into TimeSpentHours(timeSpentHours) values ('157');
-insert into TimeSpentHours(timeSpentHours) values ('158');
-insert into TimeSpentHours(timeSpentHours) values ('159');
-insert into TimeSpentHours(timeSpentHours) values ('160');
-insert into TimeSpentHours(timeSpentHours) values ('161');
-insert into TimeSpentHours(timeSpentHours) values ('162');
-insert into TimeSpentHours(timeSpentHours) values ('163');
-insert into TimeSpentHours(timeSpentHours) values ('164');
-insert into TimeSpentHours(timeSpentHours) values ('165');
-insert into TimeSpentHours(timeSpentHours) values ('166');
-insert into TimeSpentHours(timeSpentHours) values ('167');
-insert into TimeSpentHours(timeSpentHours) values ('168');
-insert into TimeSpentHours(timeSpentHours) values ('169');
-insert into TimeSpentHours(timeSpentHours) values ('170');
-insert into TimeSpentHours(timeSpentHours) values ('171');
-insert into TimeSpentHours(timeSpentHours) values ('172');
-insert into TimeSpentHours(timeSpentHours) values ('173');
-insert into TimeSpentHours(timeSpentHours) values ('174');
-insert into TimeSpentHours(timeSpentHours) values ('175');
-insert into TimeSpentHours(timeSpentHours) values ('176');
-insert into TimeSpentHours(timeSpentHours) values ('177');
-insert into TimeSpentHours(timeSpentHours) values ('178');
-insert into TimeSpentHours(timeSpentHours) values ('179');
-insert into TimeSpentHours(timeSpentHours) values ('180');
-insert into TimeSpentHours(timeSpentHours) values ('181');
-insert into TimeSpentHours(timeSpentHours) values ('182');
-insert into TimeSpentHours(timeSpentHours) values ('183');
-insert into TimeSpentHours(timeSpentHours) values ('184');
-insert into TimeSpentHours(timeSpentHours) values ('185');
-insert into TimeSpentHours(timeSpentHours) values ('186');
-insert into TimeSpentHours(timeSpentHours) values ('187');
-insert into TimeSpentHours(timeSpentHours) values ('188');
-insert into TimeSpentHours(timeSpentHours) values ('189');
-insert into TimeSpentHours(timeSpentHours) values ('190');
-insert into TimeSpentHours(timeSpentHours) values ('191');
-insert into TimeSpentHours(timeSpentHours) values ('192');
-insert into TimeSpentHours(timeSpentHours) values ('193');
-insert into TimeSpentHours(timeSpentHours) values ('194');
-insert into TimeSpentHours(timeSpentHours) values ('195');
-insert into TimeSpentHours(timeSpentHours) values ('196');
-insert into TimeSpentHours(timeSpentHours) values ('197');
-insert into TimeSpentHours(timeSpentHours) values ('198');
-insert into TimeSpentHours(timeSpentHours) values ('199');
-insert into TimeSpentHours(timeSpentHours) values ('200');
-insert into TimeSpentHours(timeSpentHours) values ('201');
-insert into TimeSpentHours(timeSpentHours) values ('202');
-insert into TimeSpentHours(timeSpentHours) values ('203');
-insert into TimeSpentHours(timeSpentHours) values ('204');
-insert into TimeSpentHours(timeSpentHours) values ('205');
-insert into TimeSpentHours(timeSpentHours) values ('206');
-insert into TimeSpentHours(timeSpentHours) values ('207');
-insert into TimeSpentHours(timeSpentHours) values ('208');
-insert into TimeSpentHours(timeSpentHours) values ('209');
-insert into TimeSpentHours(timeSpentHours) values ('210');
-insert into TimeSpentHours(timeSpentHours) values ('211');
-insert into TimeSpentHours(timeSpentHours) values ('212');
-insert into TimeSpentHours(timeSpentHours) values ('213');
-insert into TimeSpentHours(timeSpentHours) values ('214');
-insert into TimeSpentHours(timeSpentHours) values ('215');
-insert into TimeSpentHours(timeSpentHours) values ('216');
-insert into TimeSpentHours(timeSpentHours) values ('217');
-insert into TimeSpentHours(timeSpentHours) values ('218');
-insert into TimeSpentHours(timeSpentHours) values ('219');
-insert into TimeSpentHours(timeSpentHours) values ('220');
-insert into TimeSpentHours(timeSpentHours) values ('221');
-insert into TimeSpentHours(timeSpentHours) values ('222');
-insert into TimeSpentHours(timeSpentHours) values ('223');
-insert into TimeSpentHours(timeSpentHours) values ('224');
-insert into TimeSpentHours(timeSpentHours) values ('225');
-insert into TimeSpentHours(timeSpentHours) values ('226');
-insert into TimeSpentHours(timeSpentHours) values ('227');
-insert into TimeSpentHours(timeSpentHours) values ('228');
-insert into TimeSpentHours(timeSpentHours) values ('229');
-insert into TimeSpentHours(timeSpentHours) values ('230');
-insert into TimeSpentHours(timeSpentHours) values ('231');
-insert into TimeSpentHours(timeSpentHours) values ('232');
-insert into TimeSpentHours(timeSpentHours) values ('233');
-insert into TimeSpentHours(timeSpentHours) values ('234');
-insert into TimeSpentHours(timeSpentHours) values ('235');
-insert into TimeSpentHours(timeSpentHours) values ('236');
-insert into TimeSpentHours(timeSpentHours) values ('237');
-insert into TimeSpentHours(timeSpentHours) values ('238');
-insert into TimeSpentHours(timeSpentHours) values ('239');
-insert into TimeSpentHours(timeSpentHours) values ('240');
-insert into TimeSpentHours(timeSpentHours) values ('241');
-insert into TimeSpentHours(timeSpentHours) values ('242');
-insert into TimeSpentHours(timeSpentHours) values ('243');
-insert into TimeSpentHours(timeSpentHours) values ('244');
-insert into TimeSpentHours(timeSpentHours) values ('245');
-insert into TimeSpentHours(timeSpentHours) values ('246');
-insert into TimeSpentHours(timeSpentHours) values ('247');
-insert into TimeSpentHours(timeSpentHours) values ('248');
-insert into TimeSpentHours(timeSpentHours) values ('249');
-insert into TimeSpentHours(timeSpentHours) values ('250');
-insert into TimeSpentHours(timeSpentHours) values ('251');
-insert into TimeSpentHours(timeSpentHours) values ('252');
-insert into TimeSpentHours(timeSpentHours) values ('253');
-insert into TimeSpentHours(timeSpentHours) values ('254');
-insert into TimeSpentHours(timeSpentHours) values ('255');
-insert into TimeSpentHours(timeSpentHours) values ('256');
-insert into TimeSpentHours(timeSpentHours) values ('257');
-insert into TimeSpentHours(timeSpentHours) values ('258');
-insert into TimeSpentHours(timeSpentHours) values ('259');
-insert into TimeSpentHours(timeSpentHours) values ('260');
-insert into TimeSpentHours(timeSpentHours) values ('261');
-insert into TimeSpentHours(timeSpentHours) values ('262');
-insert into TimeSpentHours(timeSpentHours) values ('263');
-insert into TimeSpentHours(timeSpentHours) values ('264');
-insert into TimeSpentHours(timeSpentHours) values ('265');
-insert into TimeSpentHours(timeSpentHours) values ('266');
-insert into TimeSpentHours(timeSpentHours) values ('267');
-insert into TimeSpentHours(timeSpentHours) values ('268');
-insert into TimeSpentHours(timeSpentHours) values ('269');
-insert into TimeSpentHours(timeSpentHours) values ('270');
-insert into TimeSpentHours(timeSpentHours) values ('271');
-insert into TimeSpentHours(timeSpentHours) values ('272');
-insert into TimeSpentHours(timeSpentHours) values ('273');
-insert into TimeSpentHours(timeSpentHours) values ('274');
-insert into TimeSpentHours(timeSpentHours) values ('275');
-insert into TimeSpentHours(timeSpentHours) values ('276');
-insert into TimeSpentHours(timeSpentHours) values ('277');
-insert into TimeSpentHours(timeSpentHours) values ('278');
-insert into TimeSpentHours(timeSpentHours) values ('279');
-insert into TimeSpentHours(timeSpentHours) values ('280');
-insert into TimeSpentHours(timeSpentHours) values ('281');
-insert into TimeSpentHours(timeSpentHours) values ('282');
-insert into TimeSpentHours(timeSpentHours) values ('283');
-insert into TimeSpentHours(timeSpentHours) values ('284');
-insert into TimeSpentHours(timeSpentHours) values ('285');
-insert into TimeSpentHours(timeSpentHours) values ('286');
-insert into TimeSpentHours(timeSpentHours) values ('287');
-insert into TimeSpentHours(timeSpentHours) values ('288');
-insert into TimeSpentHours(timeSpentHours) values ('289');
-insert into TimeSpentHours(timeSpentHours) values ('290');
-insert into TimeSpentHours(timeSpentHours) values ('291');
-insert into TimeSpentHours(timeSpentHours) values ('292');
-insert into TimeSpentHours(timeSpentHours) values ('293');
-insert into TimeSpentHours(timeSpentHours) values ('294');
-insert into TimeSpentHours(timeSpentHours) values ('295');
-insert into TimeSpentHours(timeSpentHours) values ('296');
-insert into TimeSpentHours(timeSpentHours) values ('297');
-insert into TimeSpentHours(timeSpentHours) values ('298');
-insert into TimeSpentHours(timeSpentHours) values ('299');
-insert into TimeSpentHours(timeSpentHours) values ('300');
-insert into TimeSpentHours(timeSpentHours) values ('301');
-insert into TimeSpentHours(timeSpentHours) values ('302');
-insert into TimeSpentHours(timeSpentHours) values ('303');
-insert into TimeSpentHours(timeSpentHours) values ('304');
-insert into TimeSpentHours(timeSpentHours) values ('305');
-insert into TimeSpentHours(timeSpentHours) values ('306');
-insert into TimeSpentHours(timeSpentHours) values ('307');
-insert into TimeSpentHours(timeSpentHours) values ('308');
-insert into TimeSpentHours(timeSpentHours) values ('309');
-insert into TimeSpentHours(timeSpentHours) values ('310');
-insert into TimeSpentHours(timeSpentHours) values ('311');
-insert into TimeSpentHours(timeSpentHours) values ('312');
-insert into TimeSpentHours(timeSpentHours) values ('313');
-insert into TimeSpentHours(timeSpentHours) values ('314');
-insert into TimeSpentHours(timeSpentHours) values ('315');
-insert into TimeSpentHours(timeSpentHours) values ('316');
-insert into TimeSpentHours(timeSpentHours) values ('317');
-insert into TimeSpentHours(timeSpentHours) values ('318');
-insert into TimeSpentHours(timeSpentHours) values ('319');
-insert into TimeSpentHours(timeSpentHours) values ('320');
-insert into TimeSpentHours(timeSpentHours) values ('321');
-insert into TimeSpentHours(timeSpentHours) values ('322');
-insert into TimeSpentHours(timeSpentHours) values ('323');
-insert into TimeSpentHours(timeSpentHours) values ('324');
-insert into TimeSpentHours(timeSpentHours) values ('325');
-insert into TimeSpentHours(timeSpentHours) values ('326');
-insert into TimeSpentHours(timeSpentHours) values ('327');
-insert into TimeSpentHours(timeSpentHours) values ('328');
-insert into TimeSpentHours(timeSpentHours) values ('329');
-insert into TimeSpentHours(timeSpentHours) values ('330');
-insert into TimeSpentHours(timeSpentHours) values ('331');
-insert into TimeSpentHours(timeSpentHours) values ('332');
-insert into TimeSpentHours(timeSpentHours) values ('333');
-insert into TimeSpentHours(timeSpentHours) values ('334');
-insert into TimeSpentHours(timeSpentHours) values ('335');
-insert into TimeSpentHours(timeSpentHours) values ('336');
-insert into TimeSpentHours(timeSpentHours) values ('337');
-insert into TimeSpentHours(timeSpentHours) values ('338');
-insert into TimeSpentHours(timeSpentHours) values ('339');
-insert into TimeSpentHours(timeSpentHours) values ('340');
-insert into TimeSpentHours(timeSpentHours) values ('341');
-insert into TimeSpentHours(timeSpentHours) values ('342');
-insert into TimeSpentHours(timeSpentHours) values ('343');
-insert into TimeSpentHours(timeSpentHours) values ('344');
-insert into TimeSpentHours(timeSpentHours) values ('345');
-insert into TimeSpentHours(timeSpentHours) values ('346');
-insert into TimeSpentHours(timeSpentHours) values ('347');
-insert into TimeSpentHours(timeSpentHours) values ('348');
-insert into TimeSpentHours(timeSpentHours) values ('349');
-insert into TimeSpentHours(timeSpentHours) values ('350');
-insert into TimeSpentHours(timeSpentHours) values ('351');
-insert into TimeSpentHours(timeSpentHours) values ('352');
-insert into TimeSpentHours(timeSpentHours) values ('353');
-insert into TimeSpentHours(timeSpentHours) values ('354');
-insert into TimeSpentHours(timeSpentHours) values ('355');
-insert into TimeSpentHours(timeSpentHours) values ('356');
-insert into TimeSpentHours(timeSpentHours) values ('357');
-insert into TimeSpentHours(timeSpentHours) values ('358');
-insert into TimeSpentHours(timeSpentHours) values ('359');
-insert into TimeSpentHours(timeSpentHours) values ('360');
-insert into TimeSpentHours(timeSpentHours) values ('361');
-insert into TimeSpentHours(timeSpentHours) values ('362');
-insert into TimeSpentHours(timeSpentHours) values ('363');
-insert into TimeSpentHours(timeSpentHours) values ('364');
-insert into TimeSpentHours(timeSpentHours) values ('365');
-insert into TimeSpentHours(timeSpentHours) values ('366');
-insert into TimeSpentHours(timeSpentHours) values ('367');
-insert into TimeSpentHours(timeSpentHours) values ('368');
-insert into TimeSpentHours(timeSpentHours) values ('369');
-insert into TimeSpentHours(timeSpentHours) values ('370');
-insert into TimeSpentHours(timeSpentHours) values ('371');
-insert into TimeSpentHours(timeSpentHours) values ('372');
-insert into TimeSpentHours(timeSpentHours) values ('373');
-insert into TimeSpentHours(timeSpentHours) values ('374');
-insert into TimeSpentHours(timeSpentHours) values ('375');
-insert into TimeSpentHours(timeSpentHours) values ('376');
-insert into TimeSpentHours(timeSpentHours) values ('377');
-insert into TimeSpentHours(timeSpentHours) values ('378');
-insert into TimeSpentHours(timeSpentHours) values ('379');
-insert into TimeSpentHours(timeSpentHours) values ('380');
-insert into TimeSpentHours(timeSpentHours) values ('381');
-insert into TimeSpentHours(timeSpentHours) values ('382');
-insert into TimeSpentHours(timeSpentHours) values ('383');
-insert into TimeSpentHours(timeSpentHours) values ('384');
-insert into TimeSpentHours(timeSpentHours) values ('385');
-insert into TimeSpentHours(timeSpentHours) values ('386');
-insert into TimeSpentHours(timeSpentHours) values ('387');
-insert into TimeSpentHours(timeSpentHours) values ('388');
-insert into TimeSpentHours(timeSpentHours) values ('389');
-insert into TimeSpentHours(timeSpentHours) values ('390');
-insert into TimeSpentHours(timeSpentHours) values ('391');
-insert into TimeSpentHours(timeSpentHours) values ('392');
-insert into TimeSpentHours(timeSpentHours) values ('393');
-insert into TimeSpentHours(timeSpentHours) values ('394');
-insert into TimeSpentHours(timeSpentHours) values ('395');
-insert into TimeSpentHours(timeSpentHours) values ('396');
-insert into TimeSpentHours(timeSpentHours) values ('397');
-insert into TimeSpentHours(timeSpentHours) values ('398');
-insert into TimeSpentHours(timeSpentHours) values ('399');
-insert into TimeSpentHours(timeSpentHours) values ('400');
-insert into TimeSpentHours(timeSpentHours) values ('401');
-insert into TimeSpentHours(timeSpentHours) values ('402');
-insert into TimeSpentHours(timeSpentHours) values ('403');
-insert into TimeSpentHours(timeSpentHours) values ('404');
-insert into TimeSpentHours(timeSpentHours) values ('405');
-insert into TimeSpentHours(timeSpentHours) values ('406');
-insert into TimeSpentHours(timeSpentHours) values ('407');
-insert into TimeSpentHours(timeSpentHours) values ('408');
-insert into TimeSpentHours(timeSpentHours) values ('409');
-insert into TimeSpentHours(timeSpentHours) values ('410');
-insert into TimeSpentHours(timeSpentHours) values ('411');
-insert into TimeSpentHours(timeSpentHours) values ('412');
-insert into TimeSpentHours(timeSpentHours) values ('413');
-insert into TimeSpentHours(timeSpentHours) values ('414');
-insert into TimeSpentHours(timeSpentHours) values ('415');
-insert into TimeSpentHours(timeSpentHours) values ('416');
-insert into TimeSpentHours(timeSpentHours) values ('417');
-insert into TimeSpentHours(timeSpentHours) values ('418');
-insert into TimeSpentHours(timeSpentHours) values ('419');
-insert into TimeSpentHours(timeSpentHours) values ('420');
-insert into TimeSpentHours(timeSpentHours) values ('421');
-insert into TimeSpentHours(timeSpentHours) values ('422');
-insert into TimeSpentHours(timeSpentHours) values ('423');
-insert into TimeSpentHours(timeSpentHours) values ('424');
-insert into TimeSpentHours(timeSpentHours) values ('425');
-insert into TimeSpentHours(timeSpentHours) values ('426');
-insert into TimeSpentHours(timeSpentHours) values ('427');
-insert into TimeSpentHours(timeSpentHours) values ('428');
-insert into TimeSpentHours(timeSpentHours) values ('429');
-insert into TimeSpentHours(timeSpentHours) values ('430');
-insert into TimeSpentHours(timeSpentHours) values ('431');
-insert into TimeSpentHours(timeSpentHours) values ('432');
-insert into TimeSpentHours(timeSpentHours) values ('433');
-insert into TimeSpentHours(timeSpentHours) values ('434');
-insert into TimeSpentHours(timeSpentHours) values ('435');
-insert into TimeSpentHours(timeSpentHours) values ('436');
-insert into TimeSpentHours(timeSpentHours) values ('437');
-insert into TimeSpentHours(timeSpentHours) values ('438');
-insert into TimeSpentHours(timeSpentHours) values ('439');
-insert into TimeSpentHours(timeSpentHours) values ('440');
-insert into TimeSpentHours(timeSpentHours) values ('441');
-insert into TimeSpentHours(timeSpentHours) values ('442');
-insert into TimeSpentHours(timeSpentHours) values ('443');
-insert into TimeSpentHours(timeSpentHours) values ('444');
-insert into TimeSpentHours(timeSpentHours) values ('445');
-insert into TimeSpentHours(timeSpentHours) values ('446');
-insert into TimeSpentHours(timeSpentHours) values ('447');
-insert into TimeSpentHours(timeSpentHours) values ('448');
-insert into TimeSpentHours(timeSpentHours) values ('449');
-insert into TimeSpentHours(timeSpentHours) values ('450');
-insert into TimeSpentHours(timeSpentHours) values ('451');
-insert into TimeSpentHours(timeSpentHours) values ('452');
-insert into TimeSpentHours(timeSpentHours) values ('453');
-insert into TimeSpentHours(timeSpentHours) values ('454');
-insert into TimeSpentHours(timeSpentHours) values ('455');
-insert into TimeSpentHours(timeSpentHours) values ('456');
-insert into TimeSpentHours(timeSpentHours) values ('457');
-insert into TimeSpentHours(timeSpentHours) values ('458');
-insert into TimeSpentHours(timeSpentHours) values ('459');
-insert into TimeSpentHours(timeSpentHours) values ('460');
-insert into TimeSpentHours(timeSpentHours) values ('461');
-insert into TimeSpentHours(timeSpentHours) values ('462');
-insert into TimeSpentHours(timeSpentHours) values ('463');
-insert into TimeSpentHours(timeSpentHours) values ('464');
-insert into TimeSpentHours(timeSpentHours) values ('465');
-insert into TimeSpentHours(timeSpentHours) values ('466');
-insert into TimeSpentHours(timeSpentHours) values ('467');
-insert into TimeSpentHours(timeSpentHours) values ('468');
-insert into TimeSpentHours(timeSpentHours) values ('469');
-insert into TimeSpentHours(timeSpentHours) values ('470');
-insert into TimeSpentHours(timeSpentHours) values ('471');
-insert into TimeSpentHours(timeSpentHours) values ('472');
-insert into TimeSpentHours(timeSpentHours) values ('473');
-insert into TimeSpentHours(timeSpentHours) values ('474');
-insert into TimeSpentHours(timeSpentHours) values ('475');
-insert into TimeSpentHours(timeSpentHours) values ('476');
-insert into TimeSpentHours(timeSpentHours) values ('477');
-insert into TimeSpentHours(timeSpentHours) values ('478');
-insert into TimeSpentHours(timeSpentHours) values ('479');
-insert into TimeSpentHours(timeSpentHours) values ('480');
-insert into TimeSpentHours(timeSpentHours) values ('481');
-insert into TimeSpentHours(timeSpentHours) values ('482');
-insert into TimeSpentHours(timeSpentHours) values ('483');
-insert into TimeSpentHours(timeSpentHours) values ('484');
-insert into TimeSpentHours(timeSpentHours) values ('485');
-insert into TimeSpentHours(timeSpentHours) values ('486');
-insert into TimeSpentHours(timeSpentHours) values ('487');
-insert into TimeSpentHours(timeSpentHours) values ('488');
-insert into TimeSpentHours(timeSpentHours) values ('489');
-insert into TimeSpentHours(timeSpentHours) values ('490');
-insert into TimeSpentHours(timeSpentHours) values ('491');
-insert into TimeSpentHours(timeSpentHours) values ('492');
-insert into TimeSpentHours(timeSpentHours) values ('493');
-insert into TimeSpentHours(timeSpentHours) values ('494');
-insert into TimeSpentHours(timeSpentHours) values ('495');
-insert into TimeSpentHours(timeSpentHours) values ('496');
-insert into TimeSpentHours(timeSpentHours) values ('497');
-insert into TimeSpentHours(timeSpentHours) values ('498');
-insert into TimeSpentHours(timeSpentHours) values ('499');
-insert into TimeSpentHours(timeSpentHours) values ('500');
-
 
 create table TimeSpentMinutes(
 	timeSpentMinutesId int not null auto_increment primary key,
-    timeSpentMinutes varchar(255));
+    timeSpentMinutes int);
 insert into TimeSpentMinutes(timeSpentMinutes) values ('0');
 insert into TimeSpentMinutes(timeSpentMinutes) values ('5');
 insert into TimeSpentMinutes(timeSpentMinutes) values ('10');
@@ -1656,12 +1151,11 @@ create table Employment(
 	`Interpretation: And`int,
     constraint Efk34 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
 	`Crisis Counselling` bool,
-	`Time Spent With Client/Addressing Client's Employment Needs: Hours` int,
-    constraint Efk35 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Hours`) references TimeSpentHours(timeSpentHoursId),
-	`Time Spent With Client/Addressing Client's Employment Needs: Minutes`int,
-    constraint Efk36 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+    `Time Spent With Client/Addressing Client's Employment Needs: Hours` int check (`Time Spent With Client/Addressing Client's Employment Needs: Hours` >= 0 and `Time Spent With Client/Addressing Client's Employment Needs: Hours` <= 500),
+    `Time Spent With Client/Addressing Client's Employment Needs: Minutes` int,
+    constraint Efk35 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
 	`Reason for update` int,
-    constraint Efk37 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+    constraint Efk36 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
 
 create table ServicesReceived(
 	servicesReceivedId int not null auto_increment primary key,
@@ -1740,101 +1234,100 @@ create table InfoAndOrientation(
 	`Referred By`int not null,
 	`Total Length of Orientation` int not null,
     constraint IOfk6 foreign key (`Total Length of Orientation`) references LengthOfOrientation(lengthOfOrientationId),
-	`Total Length of Orientation: Hours` int,
-    constraint IOfk7 foreign key (`Total Length of Orientation: Hours`) references TimeSpentHours(timeSpentHoursId),
+    `Total Length of Orientation: Hours` int check (`Total Length of Orientation: Hours` >= 0 and `Total Length of Orientation: Hours` <= 500),
 	`Total Length of Orientation: Minutes`int,
-    constraint IOfk8 foreign key (`Total Length of Orientation: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
+    constraint IOfk7 foreign key (`Total Length of Orientation: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
 	`Number of Clients in Group`int,
-    constraint IOfk9 foreign key (`Number of Clients in Group`) references NumberClientsGroup(numberClientsGroupId),
-    `Directed at a specific Target Group` int,
-	`Target Group: Children (0-14 yrs)` int,
-	`Target Group: Youth (15-24 yrs)` int,
-	`Target Group: Seniors` int,
-	`Target Group: Gender-specific` int,
-	`Target Group: Refugees` int,
-	`Target Group: Ethnic/cultural/linguistic group` int,
-	`Target Group: Deaf or Hard of Hearing` int,
-	`Target Group: Blind or Partially Sighted` int,
-	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` int,
-	`Target Group: Families/Parents` int,
-	`Target Group: Clients with other impairments (physical, mental)` int,
-	`Target Group: Clients with international training in a regulated profession` int,
-	`Target Group: Clients with international training in a regulated trade` int,
-	`Target Group: Official Language minorities` int,
-	`Overview of Canada` int,
-	`Overview of Canada Referrals` int,
-	`Sources of Information` int,
-	`Sources of Information Referrals` int,
-	`Rights and Freedoms` int,
+    constraint IOfk8 foreign key (`Number of Clients in Group`) references NumberClientsGroup(numberClientsGroupId),
+    `Directed at a specific Target Group` bool,
+	`Target Group: Children (0-14 yrs)` bool,
+	`Target Group: Youth (15-24 yrs)` bool,
+	`Target Group: Seniors` bool,
+	`Target Group: Gender-specific` bool,
+	`Target Group: Refugees` bool,
+	`Target Group: Ethnic/cultural/linguistic group` bool,
+	`Target Group: Deaf or Hard of Hearing` bool,
+	`Target Group: Blind or Partially Sighted` bool,
+	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` bool,
+	`Target Group: Families/Parents` bool,
+	`Target Group: Clients with other impairments (physical, mental)` bool,
+	`Target Group: Clients with international training in a regulated profession` bool,
+	`Target Group: Clients with international training in a regulated trade` bool,
+	`Target Group: Official Language minorities` bool,
+	`Overview of Canada` bool,
+	`Overview of Canada Referrals` bool,
+	`Sources of Information` bool,
+	`Sources of Information Referrals` bool,
+	`Rights and Freedoms` bool,
 	`Rights and Freedoms Referrals` int,
-	`Canadian Law and Justice` int,
-	`Canadian Law and Justice Referrals` int,
-	`Important Documents` int,
-	`Important Documents Referrals` int,
-	`Improving English or French` int,
-	`Improving English or French Referrals` int,
-	`Employment and Income` int,
-	`Employment and Income Referrals` int,
-	`Education` int,
-	`Education Referrals` int,
-	`Housing` int,
-	`Housing Referrals` int,
-	`Health` int,
-	`Health Referrals` int,
-	`Money and Finances` int,
-	`Money and Finances Referrals` int,
-	`Transportation` int,
-	`Transportation Referrals` int,
-	`Communications and Media` int,
-	`Communications and Media Referrals` int,
-	`Community Engagement` int,
-	`Community Engagement Referrals` int,
-	`Becoming a Canadian Citizen` int,
-	`Becoming a Canadian Citizen Referrals` int,
-	`Interpersonal Conflict` int,
-	`Interpersonal Conflict Referrals` int,
-	`Was Essential Skills and Aptitude Training Received as Part of this Service?` int not null,
-	`Computer skills	Document Use` int,
-	`Interpersonal Skills and Workplace Culture` int,
-	`Leadership Training` int,
-	`Numeracy` int,
-	`Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?` int not null,
-	`Life Skills` int,
-	`Rights and Responsibilities of Citizenship (based on discover Canada)` int,
+	`Canadian Law and Justice` bool,
+	`Canadian Law and Justice Referrals` bool,
+	`Important Documents` bool,
+	`Important Documents Referrals` bool,
+	`Improving English or French` bool,
+	`Improving English or French Referrals` bool,
+	`Employment and Income` bool,
+	`Employment and Income Referrals` bool,
+	`Education` bool,
+	`Education Referrals` bool,
+	`Housing` bool,
+	`Housing Referrals` bool,
+	`Health` bool,
+	`Health Referrals` bool,
+	`Money and Finances` bool,
+	`Money and Finances Referrals` bool,
+	`Transportation` bool,
+	`Transportation Referrals` bool,
+	`Communications and Media` bool,
+	`Communications and Media Referrals` bool,
+	`Community Engagement` bool,
+	`Community Engagement Referrals` bool,
+	`Becoming a Canadian Citizen` bool,
+	`Becoming a Canadian Citizen Referrals` bool,
+	`Interpersonal Conflict` bool,
+	`Interpersonal Conflict Referrals` bool,
+	`Was Essential Skills and Aptitude Training Received as Part of this Service?` bool not null,
+	`Computer skills	Document Use` bool,
+	`Interpersonal Skills and Workplace Culture` bool,
+	`Leadership Training` bool,
+	`Numeracy` bool,
+	`Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?` bool not null,
+	`Life Skills` bool,
+	`Rights and Responsibilities of Citizenship (based on discover Canada)` bool,
 	`Support Services Received` bool not null,
 	`Care for Newcomer Children` bool,
 	`Child 1: Age` int,
-    constraint IOfk10 foreign key (`Child 1: Age`) references Age(ageId),
+    constraint IOfk9 foreign key (`Child 1: Age`) references Age(ageId),
 	`Child 1: Type of Care` int,
-    constraint IOfk11 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
+    constraint IOfk10 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
 	`Child 2: Age` int,
-    constraint IOfk12 foreign key (`Child 2: Age`) references Age(ageId),
+    constraint IOfk11 foreign key (`Child 2: Age`) references Age(ageId),
 	`Child 2: Type of Care` int,
-    constraint IOfk13 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+    constraint IOfk12 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
 	`Child 3: Age` int,
-    constraint IOfk14 foreign key (`Child 3: Age`) references Age(ageId),
+    constraint IOfk13 foreign key (`Child 3: Age`) references Age(ageId),
 	`Child 4: Type of Care` int, 
-    constraint IOfk15 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
+    constraint IOfk14 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
 	`Child 5: Age` int,
-    constraint IOfk16 foreign key (`Child 5: Age`) references Age(ageId),
+    constraint IOfk15 foreign key (`Child 5: Age`) references Age(ageId),
 	`Child 5: Type of Care` int,
-    constraint IOfk17 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+    constraint IOfk16 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
 	`Transportation` bool,
 	`Provisions for Disabilities` bool,
 	`Translation` bool,
     `Translation: Between` int,
-    constraint IOfk18 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+    constraint IOfk17 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
 	`Translation: And`int,
-    constraint IOfk19 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+    constraint IOfk18 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
 	`Interpretation` bool,
     `Interpretation: Between` int,
-    constraint IOfk20 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+    constraint IOfk19 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
 	`Interpretation: And`int,
-    constraint IOfk21 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+    constraint IOfk20 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
 	`Crisis Counselling` bool,
 	`End Date of Service (YYYY-MM-DD)` date not null,
 	`Reason for update` int,
-    constraint IOfk22 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+    constraint IOfk21 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
 
 #create table CommunityConnections();
 #create table LTEnrolment();
