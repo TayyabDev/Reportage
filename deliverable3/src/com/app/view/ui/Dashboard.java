@@ -26,14 +26,17 @@ public class Dashboard {
 		gb.setConstraints(labelLogo, c);
 		panel.add(labelLogo);
 		
+		c.gridwidth = 1;
+		c.gridheight = 1;
 		// create the buttons
 		c.weightx = 1.0;
 		c.weighty = 2.0;
 		
-		JButton btnTemplate = buttonGenerator("Templates");
-		JButton btnAccount = buttonGenerator("Accounts");
-		JButton btnReport = buttonGenerator("Reports");
-		JButton btnAgency = buttonGenerator("Agency");
+		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
+		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
+		JButton btnReport = UIHelpers.buttonGenerator("Reports");
+		JButton btnAgency = UIHelpers.buttonGenerator("Agency");
+		
 		
 		gb.setConstraints(btnTemplate, c);
 		gb.setConstraints(btnAccount, c);
@@ -47,12 +50,7 @@ public class Dashboard {
 
 	}
 	
-	private JButton buttonGenerator(String text) {
-		JButton b = new JButton(text);
-		b.setBackground(Color.decode("#fff8e1"));
-		
-		return b;
-	}
+
 
 	
 	 public static void main(String[] args) {
