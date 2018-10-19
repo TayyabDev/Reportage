@@ -1068,98 +1068,102 @@ create table Employment(
         references Template(templateId)
         on delete no action
         on update cascade,
-	`Update Record ID` char(8),
-	`Unique Identifier` int not null,
-	constraint Efk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
-	`Unique Identifier Value` char(8) not null,
-	`Date of Birth (YYYY-MM-DD)` date not null,
-	`Postal Code where the service was received` char(6) not null,
-    `Registration in an employment intervation` bool not null,
-    `A referral to` int not null,
-	constraint Efk3 foreign key (`A referral to`) references AReferralTo(aReferralToId),
-	`Language of Service` int not null,
-    constraint Efk4 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
-	`Official Language of Preference` int not null,
-    constraint Efk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
-	`Type of Institution/Organization Where Client Received Services` int not null,
-	constraint Efk6 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
-	`Referred By`int not null,
-    constraint Efk7 foreign key (`Referred By`) references Referrer(reffererId),
-    `Referral Date (YYYY-MM-DD)` date,
-    `Employment Status`int not null,
-    constraint Efk8 foreign key (`Employment Status`) references EmploymentStatus(employmentStatusId),
-	`Education Status`int,
-    constraint Efk9 foreign key (`Education Status`) references EducationStatus(educationStatusId),
-    `Occupation in Canada`int,
-    constraint Efk10 foreign key (`Occupation in Canada`) references Occupations(occupationsId),
-    `Intended Occupation`int,
-    constraint Efk11 foreign key (`Intended Occupation`) references Occupations(occupationsId),
-    `Intervention Type`int,
-    constraint Efk12 foreign key (`Intervention Type`) references InterventionType(interventionTypeId),
-    `Long Term Intervention: Intervation Received`int,
-    constraint Efk13 foreign key (`Long Term Intervention: Intervation Received`) references LongInterventionReceived(longTermIntervationReceivedId),
-	`Long Term Intervention: Status of Intervation`int,
-    constraint Efk14 foreign key (`Long Term Intervention: Status of Intervation`) references LongStatusOfIntervention(statusOfInterventionId),
-	`Long Term Intervention: Reason For Leaving Intervention`int,
-    constraint Efk15 foreign key (`Long Term Intervention: Reason For Leaving Intervention`) references LongLeavingIntervention(leavingInterventionId),
-    `Long Term Intervention: End Date (YYYY-MM-DD)` date,
-	`Long Term Intervention: Size of Employer`int,
-    constraint Efk16 foreign key (`Long Term Intervention: Size of Employer`) references LongSizeEmployerIntervention(sizeEmployerInterventionId),
-	`Long Term Intervention: Placement Was`int,
-    constraint Efk17 foreign key (`Long Term Intervention: Placement Was`) references LongPlacementIntervention(placementInterventionId),
-	`Long Term Intervention: Hours Per Week`int,
-    constraint Efk18 foreign key (`Long Term Intervention: Hours Per Week`) references LongHoursPerWeekIntervention(hoursPerWeekInterventionId),
-	`Long Term Intervention: Client Met Mentor Regularly at`int,
-    constraint Efk19 foreign key (`Long Term Intervention: Client Met Mentor Regularly at`) references LongMetMentorIntervention(metMentorInterventionId),
-	`Long Term Intervention: Average Hours/Week in Contact with Mentor`int,
-    constraint Efk20 foreign key (`Average Hours/Week in Contact with Mentor`) references LongHoursMetMentorIntervention(hoursMetMentorInterventionId),
-	`Long Term Intervention: Profession/Trade For Which Services Were Received`int,
-    constraint Efk21 foreign key (`Long Term Intervention: Profession/Trade For Which Services Were Received`) references LongServicesReceivedIntervention(serviceReceivedInterventionId),
-    `Was Essential Skills and Aptitude Training Received as Part of this Service?` bool,
-    `Computer skills` bool,
-    `Document Use` bool,
-	`Interpersonal Skills and Workplace Culture` bool,
-    `Leadership Training` bool,
-    `Numeracy` bool,
-	`Short Term Intervention: Service Received`int,
-    constraint Efk22 foreign key (`Short Term Intervention: Service Received`) references ShortInterventionServiceReceived(shortInterventionServiceReceivedId),
-	`Short Term Intervention: Date (YYYY-MM-DD)` date,
-	`Support Services Received` bool,
-	`Care for Newcomer Children` bool,
-	`Child 1: Age` int,
-    constraint Efk23 foreign key (`Child 1: Age`) references Age(ageId),
-	`Child 1: Type of Care` int,
-    constraint Efk24 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
-	`Child 2: Age` int,
-    constraint Efk25 foreign key (`Child 2: Age`) references Age(ageId),
-	`Child 2: Type of Care` int,
-    constraint Efk26 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
-	`Child 3: Age` int,
-    constraint Efk27 foreign key (`Child 3: Age`) references Age(ageId),
-	`Child 4: Type of Care` int, 
-    constraint Efk28 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
-	`Child 5: Age` int,
-    constraint Efk29 foreign key (`Child 5: Age`) references Age(ageId),
-	`Child 5: Type of Care` int,
-    constraint Efk30 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
-	`Transportation` bool,
-	`Provisions for Disabilities` bool,
-	`Translation` bool,
-    `Translation: Between` int,
-    constraint Efk31 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Translation: And`int,
-    constraint Efk32 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation` bool,
-    `Interpretation: Between` int,
-    constraint Efk33 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation: And`int,
-    constraint Efk34 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
-	`Crisis Counselling` bool,
-    `Time Spent With Client/Addressing Client's Employment Needs: Hours` int check (`Time Spent With Client/Addressing Client's Employment Needs: Hours` >= 0 and `Time Spent With Client/Addressing Client's Employment Needs: Hours` <= 500),
-    `Time Spent With Client/Addressing Client's Employment Needs: Minutes` int,
-    constraint Efk35 foreign key (`Time Spent With Client/Addressing Client's Employment Needs: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
-	`Reason for update` int,
-    constraint Efk36 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+	`ER1UpdateRecordID` char(8),
+	`ER1UniqueID` int not null,
+	constraint Efk2 foreign key (`ER1UniqueID`) references UniqueIdentifier(identifierId),
+	`ER1UniqueIDValue` char(8) not null,
+	`ER1DOB` date not null,
+	`ER1PostalCode` char(6) not null,
+    `ER1RegistrationEI` bool not null,
+    `ER1Referral` int not null,
+	constraint Efk3 foreign key (`ER1Referral`) references AReferralTo(aReferralToId),
+	`ER1LanguageService` int not null,
+    constraint Efk4 foreign key (`ER1LanguageService`) references ServiceLanguage(serviceLanguageId),
+	`ER1LanguagePreference` int not null,
+    constraint Efk5 foreign key (`ER1LanguagePreference`) references LanguagePreference(preferLanguageId),
+	`ER1InstitutionType` int not null,
+	constraint Efk6 foreign key (`ER1InstitutionType`) references InstitutionType(institutionTypeId),
+	`ER1ReferredBy`int not null,
+    constraint Efk7 foreign key (`ER1ReferredBy`) references Referrer(reffererId),
+    `ER1ReferralDate` date,
+    `ER1EmploymentStatus`int not null,
+    constraint Efk8 foreign key (`ER1EmploymentStatus`) references EmploymentStatus(employmentStatusId),
+	`ER1EducationStatus`int,
+    constraint Efk9 foreign key (`ER1EducationStatus`) references EducationStatus(educationStatusId),
+    `ER1Occupation`int,
+    constraint Efk10 foreign key (`ER1Occupation`) references Occupations(occupationsId),
+    `ER1IntendedOccupation`int,
+    constraint Efk11 foreign key (`ER1IntendedOccupation`) references Occupations(occupationsId),
+    `ER1InterventionType`int,
+    constraint Efk12 foreign key (`ER1InterventionType`) references InterventionType(interventionTypeId),
+    `ER1LTIInterventionReceived`int,
+    constraint Efk13 foreign key (`ER1LTIInterventionReceived`) references LongInterventionReceived(longTermIntervationReceivedId),
+	`ER1LTIStatus`int,
+    constraint Efk14 foreign key (`ER1LTIStatus`) references LongStatusOfIntervention(statusOfInterventionId),
+	`LER1LTIReasonLeaving`int,
+    constraint Efk15 foreign key (`ER1LTIReasonLeaving`) references LongLeavingIntervention(leavingInterventionId),
+    `ER1LTIEndDate` date,
+	`ER1LTISizeEmployer`int,
+    constraint Efk16 foreign key (`ER1LTISizeEmployer`) references LongSizeEmployerIntervention(sizeEmployerInterventionId),
+	`ER1LTIPlacement`int,
+    constraint Efk17 foreign key (`ER1LTIPlacement`) references LongPlacementIntervention(placementInterventionId),
+	`ER1LTIHoursPerWeek`int,
+    constraint Efk18 foreign key (`ER1LTIHoursPerWeek`) references LongHoursPerWeekIntervention(hoursPerWeekInterventionId),
+	`ER1LTIMetMentor`int,
+    constraint Efk19 foreign key (`ER1LTIMetMentor`) references LongMetMentorIntervention(metMentorInterventionId),
+	`ER1LTIContactMentor`int,
+    constraint Efk20 foreign key (`ER1LTIContactMentor`) references LongHoursMetMentorIntervention(hoursMetMentorInterventionId),
+	`ER1LTIProfessionTrade`int,
+    constraint Efk21 foreign key (`ER1LTIProfessionTrade`) references LongServicesReceivedIntervention(serviceReceivedInterventionId),
+    `ER1EssentialSkills` bool,
+    `ER1ComputerSkills` bool,
+    `ER1DocumentUse` bool,
+	`ER1InterpersonalSkills` bool,
+    `ER1LeadershipTraining` bool,
+    `ER1Numeracy` bool,
+	`ER1STIService`int,
+    constraint Efk22 foreign key (`ER1STIService`) references ShortInterventionServiceReceived(shortInterventionServiceReceivedId),
+	`ER1STIDate` date,
+	`ER1SupportServices` bool,
+	`ER1CareChildren` bool,
+	`ER1C1Age` int,
+    constraint Efk23 foreign key (`ER1C1Age`) references Age(ageId),
+	`ER1C1TypeCare` int,
+    constraint Efk24 foreign key (`ER1C1TypeCare`) references CareType(careTypeId),
+	`ER1C2Age` int,
+    constraint Efk25 foreign key (`ER1C2Age`) references Age(ageId),
+	`ER1C2TypeCare` int,
+    constraint Efk26 foreign key (`ER1C2TypeCare`) references CareType(careTypeId),
+	`ER1C3Age: Age` int,
+    constraint Efk27 foreign key (`ER1C3Age`) references Age(ageId),
+	`ER1C3TypeCare` int, 
+    constraint Efk28 foreign key (`ER1C3TypeCare`)  references CareType(careTypeId),
+	`ER1C4Age` int,
+    constraint Efk29 foreign key (`ER1C4Age`) references Age(ageId),
+	`ER1C4TypeCare` int, 
+    constraint Efk30 foreign key (`ER1C4TypeCare`)  references CareType(careTypeId),
+	`ER1C5Age` int,
+    constraint Efk31 foreign key (`ER1C5Age`) references Age(ageId),
+	`ER1C5TypeCare` int,
+    constraint Efk32 foreign key (`ER1C5TypeCare`) references CareType(careTypeId),
+	`ER1Transportation` bool,
+	`ER1ProvisionsDisabilities` bool,
+	`ER1Translation` bool,
+    `ER1TranslationBetween` int,
+    constraint Efk33 foreign key (`ER1TranslationBetween`) references ServiceLanguage(serviceLanguageId),
+	`ER1TranslationAnd`int,
+    constraint Efk34 foreign key (`ER1TranslationAnd`) references ServiceLanguage(serviceLanguageId),
+	`ER1Interpretation` bool,
+    `ER1InterpretationBetween` int,
+    constraint Efk35 foreign key (`ER1InterpretationBetween`) references ServiceLanguage(serviceLanguageId),
+	`ER1InterpretationAnd`int,
+    constraint Efk36 foreign key (`ER1InterpretationAnd`) references ServiceLanguage(serviceLanguageId),
+	`ER1CrisisCounselling` bool,
+    `ER1Tim]peSpendHours` int check (`ER1Tim]peSpendHours` >= 0 and `ER1Tim]peSpendHours` <= 500),
+    `ER1TipeSpendMinutes` int,
+    constraint Efk37 foreign key (`ER1TipeSpendMinutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`ER1UpdateReason` int,
+    constraint Efk38 foreign key (`ER1UpdateReason`) references ReasonUpdate(reasonUpdateId));
 
 create table ServicesReceived(
 	servicesReceivedId int not null auto_increment primary key,
@@ -1222,116 +1226,122 @@ create table InfoAndOrientation(
         references Template(templateId)
         on delete no action
         on update cascade,
-	`Update Record ID` char(8),
-	`Unique Identifier` int not null,
-	constraint IOfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
-	`Unique Identifier Value` char(8) not null,
-	`Date of Birth (YYYY-MM-DD)` date not null,
-	`Postal Code where the service was received` char(6) not null,
-	`Start Date of Service (YYYY-MM-DD)` date not null,
-	`Language of Service` int not null,
-    constraint IOfk3 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
-	`Official Language of Preference` int not null,
-    constraint IOfk4 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
-	`Type of Institution/Organization Where Client Received Services` int not null,
-	constraint IOfk5 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
-	`Referred By`int not null,
-	`Total Length of Orientation` int not null,
-    constraint IOfk6 foreign key (`Total Length of Orientation`) references LengthOfOrientation(lengthOfOrientationId),
-    `Total Length of Orientation: Hours` int check (`Total Length of Orientation: Hours` >= 0 and `Total Length of Orientation: Hours` <= 500),
-	`Total Length of Orientation: Minutes`int,
-    constraint IOfk7 foreign key (`Total Length of Orientation: Minutes`) references TimeSpentMinutes(timeSpentMinutesId),
-	`Number of Clients in Group`int,
-    constraint IOfk8 foreign key (`Number of Clients in Group`) references NumberClientsGroup(numberClientsGroupId),
-    `Directed at a specific Target Group` bool,
-	`Target Group: Children (0-14 yrs)` bool,
-	`Target Group: Youth (15-24 yrs)` bool,
-	`Target Group: Seniors` bool,
-	`Target Group: Gender-specific` bool,
-	`Target Group: Refugees` bool,
-	`Target Group: Ethnic/cultural/linguistic group` bool,
-	`Target Group: Deaf or Hard of Hearing` bool,
-	`Target Group: Blind or Partially Sighted` bool,
-	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` bool,
-	`Target Group: Families/Parents` bool,
-	`Target Group: Clients with other impairments (physical, mental)` bool,
-	`Target Group: Clients with international training in a regulated profession` bool,
-	`Target Group: Clients with international training in a regulated trade` bool,
-	`Target Group: Official Language minorities` bool,
-	`Overview of Canada` bool,
-	`Overview of Canada Referrals` bool,
-	`Sources of Information` bool,
-	`Sources of Information Referrals` bool,
-	`Rights and Freedoms` bool,
-	`Rights and Freedoms Referrals` int,
-	`Canadian Law and Justice` bool,
-	`Canadian Law and Justice Referrals` bool,
-	`Important Documents` bool,
-	`Important Documents Referrals` bool,
-	`Improving English or French` bool,
-	`Improving English or French Referrals` bool,
-	`Employment and Income` bool,
-	`Employment and Income Referrals` bool,
-	`Education` bool,
-	`Education Referrals` bool,
-	`Housing` bool,
-	`Housing Referrals` bool,
-	`Health` bool,
-	`Health Referrals` bool,
-	`Money and Finances` bool,
-	`Money and Finances Referrals` bool,
-	`Transportation` bool,
-	`Transportation Referrals` bool,
-	`Communications and Media` bool,
-	`Communications and Media Referrals` bool,
-	`Community Engagement` bool,
-	`Community Engagement Referrals` bool,
-	`Becoming a Canadian Citizen` bool,
-	`Becoming a Canadian Citizen Referrals` bool,
-	`Interpersonal Conflict` bool,
-	`Interpersonal Conflict Referrals` bool,
-	`Was Essential Skills and Aptitude Training Received as Part of this Service?` bool not null,
-	`Computer skills	Document Use` bool,
-	`Interpersonal Skills and Workplace Culture` bool,
-	`Leadership Training` bool,
-	`Numeracy` bool,
-	`Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?` bool not null,
-	`Life Skills` bool,
-	`Rights and Responsibilities of Citizenship (based on discover Canada)` bool,
-	`Support Services Received` bool not null,
-	`Care for Newcomer Children` bool,
-	`Child 1: Age` int,
-    constraint IOfk9 foreign key (`Child 1: Age`) references Age(ageId),
-	`Child 1: Type of Care` int,
-    constraint IOfk10 foreign key (`Child 1: Type of Care`) references CareType(careTypeId),
-	`Child 2: Age` int,
-    constraint IOfk11 foreign key (`Child 2: Age`) references Age(ageId),
-	`Child 2: Type of Care` int,
-    constraint IOfk12 foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
-	`Child 3: Age` int,
-    constraint IOfk13 foreign key (`Child 3: Age`) references Age(ageId),
-	`Child 4: Type of Care` int, 
-    constraint IOfk14 foreign key (`Child 4: Type of Care`)  references CareType(careTypeId),
-	`Child 5: Age` int,
-    constraint IOfk15 foreign key (`Child 5: Age`) references Age(ageId),
-	`Child 5: Type of Care` int,
-    constraint IOfk16 foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
-	`Transportation` bool,
-	`Provisions for Disabilities` bool,
-	`Translation` bool,
-    `Translation: Between` int,
-    constraint IOfk17 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Translation: And`int,
-    constraint IOfk18 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation` bool,
-    `Interpretation: Between` int,
-    constraint IOfk19 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation: And`int,
-    constraint IOfk20 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
-	`Crisis Counselling` bool,
-	`End Date of Service (YYYY-MM-DD)` date not null,
-	`Reason for update` int,
-    constraint IOfk21 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+        	`IO1UpdateRecordID` char(8),
+	`IO1UniqueID` int not null,
+	constraint IOfk2 foreign key (`IO1UniqueID`) references UniqueIdentifier(identifierId),
+	`IO1UniqueIDValue` char(8) not null,
+	`IO1DOB` date not null,
+	`PIO1PostalCode` char(6) not null,
+	`IO1StartDate` date not null,
+	`IO1LanguageService` int not null,
+    constraint IOfk3 foreign key (`IO1LanguageService`) references ServiceLanguage(serviceLanguageId),
+	`IO1LanguagePreference` int not null,
+    constraint IOfk4 foreign key (`IO1LanguagePreference`) references LanguagePreference(preferLanguageId),
+	`IO1InstitutionType` int not null,
+	constraint IOfk5 foreign key (`IO1InstitutionType`) references InstitutionType(institutionTypeId),
+	`IO1ReferredBy`int not null,
+	`IO1LengthOrientation` int not null,
+    constraint IOfk6 foreign key (`IO1LengthOrientation`) references LengthOfOrientation(lengthOfOrientationId),
+    `IO1LengthOrientationHours` int check (`IO1LengthOrientationHours` >= 0 and `IO1LengthOrientationHours` <= 500),
+	`IO1LengthOrientationMinutes`int,
+    constraint IOfk7 foreign key (`IO1LengthOrientationMinutes`) references TimeSpentMinutes(timeSpentMinutesId),
+	`IO1NumberClientsGroup`int,
+    constraint IOfk8 foreign key (`IO1NumberClientsGroup`) references NumberClientsGroup(numberClientsGroupId),
+    `IO1DirectedSpecificTG` bool,
+	`IO1TGChildren` bool,
+	`IO1TGYouth` bool,
+	`IO1TGSeniors` bool,
+	`IO1TGGenderSpecific` bool,
+	`IO1TGRefugees` bool,
+	`IO1TGCultural` bool,
+	`IO1TGDeaf` bool,
+	`IO1TGBlind` bool,
+	`IO1TGLGBTQ` bool,
+	`IO1TGFamilies` bool,
+	`IO1TGImpairments` bool,
+	`IO1TGITProfession` bool,
+	`IO1TGITTrade` bool,
+	`IO1TGLanguageMin` bool,
+	`IO1OverviewCanada` bool,
+	`IO1OverviewCanadaRef` bool,
+	`IO1SourcesInformation` bool,
+	`IO1SourcesInformationRef` bool,
+	`IO1RightsFreedoms` bool,
+	`IO1RightsFreedomsRef` int,
+	`IO1CanadianLaw` bool,
+	`IO1CanadianLawRef` bool,
+	`IO1ImportantDocuments` bool,
+	`IO1ImportantDocumentsRef` bool,
+	`IO1ImprovingLanguage` bool,
+	`IO1ImprovingLanguageRef` bool,
+	`IO1EmploymentIncome` bool,
+	`IO1EmploymentIncomeRef` bool,
+	`IO1Education` bool,
+	`IO1EducationRef` bool,
+	`IO1Housing` bool,
+	`IO1HousingRef` bool,
+	`IO1Health` bool,
+	`IO1HealthRef` bool,
+	`IO1MoneyFinance` bool,
+	`IO1MoneyFinanceRef` bool,
+	`IO1Transportation` bool,
+	`IO1TransportationRef` bool,
+	`IO1ComMedia` bool,
+	`IO1ComMediaRef` bool,
+	`IO1ComEngagement` bool,
+	`IO1ComEngagementRef` bool,
+	`IO1CanadianCitizen` bool,
+	`IO1CanadianCitizenRef` bool,
+	`IO1InterpersonalConflicts` bool,
+	`IO1InterpersonalConflictsRef` bool,
+	`IO1EssentialSkills` bool not null,
+	`IO1ComputerSkills` bool,
+	`IO1DocumentUse` bool,
+	`IO1InterpersonalSkills` bool,
+	`IO1LeadershipTraining` bool,
+	`IO1Numeracy` bool,
+	`IO1LifeSkillsService` bool not null,
+	`IO1LifeSkills` bool,
+	`IO1RightsCitizenship` bool,
+	`IO1SupportServices` bool not null,
+	`IO1CareChildren` bool,
+	`IO1C1Age` int,
+    constraint IOfk9 foreign key (`IO1C1Age`) references Age(ageId),
+	`IO1C1TypeCare` int,
+    constraint IOfk10 foreign key (`IO1C1TypeCare`) references CareType(careTypeId),
+	`IO1C2Age` int,
+    constraint IOfk11 foreign key (`IO1C2Age`) references Age(ageId),
+	`IO1C2TypeCare` int,
+    constraint IOfk12 foreign key (`IO1C2TypeCare`) references CareType(careTypeId),
+	`IO1C3Age` int,
+    constraint IOfk13 foreign key (`IO1C3Age`) references Age(ageId),
+	`IO1C3TypeCare` int, 
+    constraint IOfk14 foreign key (`IO1C3TypeCare`)  references CareType(careTypeId),
+	`IO1C4Age` int,
+    constraint IOfk15 foreign key (`IO1C4Age`) references Age(ageId),
+	`IO1C4TypeCare` int, 
+    constraint IOfk16 foreign key (`IO1C4TypeCare`)  references CareType(careTypeId),
+	`IO1C5Age` int,
+    constraint IOfk17 foreign key (`IO1C5Age`) references Age(ageId),
+	`IO1C5TypeCare` int,
+    constraint IOfk18 foreign key (`IO1C5TypeCare`) references CareType(careTypeId),
+	`IO1Transportation` bool,
+	`IO1ProvisionsDisabilities` bool,
+	`IO1Translation` bool,
+    `IO1TranslationBetween` int,
+    constraint IOfk19 foreign key (`IO1TranslationBetween`) references ServiceLanguage(serviceLanguageId),
+	`IO1TranslationAnd`int,
+    constraint IOfk20 foreign key (`IO1TranslationAnd`) references ServiceLanguage(serviceLanguageId),
+	`IO1Interpretation` bool,
+    `IO1InterpretationBetween` int,
+    constraint IOfk21 foreign key (`IO1InterpretationBetween`) references ServiceLanguage(serviceLanguageId),
+	`IO1InterpretationAnd`int,
+    constraint IOfk22 foreign key (`IO1InterpretationAnd`) references ServiceLanguage(serviceLanguageId),
+	`IO1CrisisCounselling` bool,
+	`IO1EndDateService` date not null,
+	`IO1UpdateReason` int,
+    constraint IOfk23 foreign key (`IO1UpdateReason`) references ReasonUpdate(reasonUpdateId));
+
 
 #create table CommunityConnections();
 #create table LTEnrolment();
@@ -1549,3 +1559,160 @@ create table VariableName(
     realName varchar(255) not null);
 
 insert into VariableName(variableName, realName) values ('CP1uniqueId', 'Unique Identifier');
+
+#Insert column names of Employment - ER
+insert into VariableName(variableName, realName) values ('ER1UpdateRecordID', 'Update Record ID');
+insert into VariableName(variableName, realName) values ('ER1UniqueID', 'Unique Identifier');
+insert into VariableName(variableName, realName) values ('ER1UniqueIDValue', 'Unique Identifier Value');
+insert into VariableName(variableName, realName) values ('ER1DOB', 'Date of Birth (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('ER1PostalCode', 'Postal Code where the service was received');
+insert into VariableName(variableName, realName) values ('ER1RegistrationEI', 'Registration in an employment intervention');
+insert into VariableName(variableName, realName) values ('ER1Referral', 'A referral to');
+insert into VariableName(variableName, realName) values ('ER1LanguageService', 'Language of Service');
+insert into VariableName(variableName, realName) values ('ER1LanguagePreference', 'Official Language of Preference');
+insert into VariableName(variableName, realName) values ('ER1InstitutionType', 'Type of Institution/Organization Where Client Received Services');
+insert into VariableName(variableName, realName) values ('ER1ReferredBy', 'Referred By');
+insert into VariableName(variableName, realName) values ('ER1ReferralDate', 'Referral Date (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('ER1EmploymentStatus', 'Employment Status');
+insert into VariableName(variableName, realName) values ('ER1EducationStatus', 'Education Status');
+insert into VariableName(variableName, realName) values ('ER1Occupation', 'Occupation in Canada');
+insert into VariableName(variableName, realName) values ('ER1IntendedOccupation', 'Intended Occupation');
+insert into VariableName(variableName, realName) values ('ER1InterventionType', 'Intervention Type');
+insert into VariableName(variableName, realName) values ('ER1LTIInterventionReceived', 'Long Term Intervention: Intervention Received');
+insert into VariableName(variableName, realName) values ('ER1LTIStatus', 'Long Term Intervention: Status of Intervention');
+insert into VariableName(variableName, realName) values ('ER1LTIReasonLeaving', 'Long Term Intervention: Reason For Leaving Intervention');
+insert into VariableName(variableName, realName) values ('ER1LTIEndDate', 'Long Term Intervention: End Date (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('ER1LTISizeEmployer', 'Long Term Intervention: Size of Employer');
+insert into VariableName(variableName, realName) values ('ER1LTIPlacement', 'Long Term Intervention: Placement Was');
+insert into VariableName(variableName, realName) values ('ER1LTIHoursPerWeek', 'Long Term Intervention: Hours Per Week');
+insert into VariableName(variableName, realName) values ('ER1LTIMetMentor', 'Long Term Intervention: Client Met Mentor Regularly at');
+insert into VariableName(variableName, realName) values ('ER1LTIContactMentor', 'Long Term Intervention: Average Hours/Week in Contact with Mentor');
+insert into VariableName(variableName, realName) values ('ER1LTIProfessionTrade', 'Long Term Intervention: Profession/Trade For Which Services Were Received');
+insert into VariableName(variableName, realName) values ('ER1EssentialSkills', 'Was Essential Skills and Aptitude Training Received as Part of this Service?');
+insert into VariableName(variableName, realName) values ('ER1ComputerSkills', 'Computer skills');
+insert into VariableName(variableName, realName) values ('ER1DocumentUse', 'Document Use');
+insert into VariableName(variableName, realName) values ('ER1InterpersonalSkills', 'Interpersonal Skills and Workplace Culture');
+insert into VariableName(variableName, realName) values ('ER1LeadershipTraining', 'Leadership Training');
+insert into VariableName(variableName, realName) values ('ER1Numeracy', 'Numeracy');
+insert into VariableName(variableName, realName) values ('ER1STIService', 'Short Term Intervention: Service Received');
+insert into VariableName(variableName, realName) values ('ER1STIDate', 'Short Term Intervention: Date (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('ER1SupportServices', 'Support Services Received');
+insert into VariableName(variableName, realName) values ('ER1CareChildren', 'Care for Newcomer Children');
+insert into VariableName(variableName, realName) values ('ER1C1Age', 'Child 1: Age');
+insert into VariableName(variableName, realName) values ('ER1C1TypeCare', 'Child 1: Type of Care');
+insert into VariableName(variableName, realName) values ('ER1C2Age', 'Child 2: Age');
+insert into VariableName(variableName, realName) values ('ER1C2TypeCare', 'Child 2: Type of Care');
+insert into VariableName(variableName, realName) values ('ER1C3Age', 'Child 3: Age');
+insert into VariableName(variableName, realName) values ('ER1C3TypeCare', 'Child 3: Type of Care');
+insert into VariableName(variableName, realName) values ('ER1C4Age', 'Child 4: Age');
+insert into VariableName(variableName, realName) values ('ER1C4TypeCare', 'Child 4: Type of Care');
+insert into VariableName(variableName, realName) values ('ER1C5Age', 'Child 5: Age');
+insert into VariableName(variableName, realName) values ('ER1C5TypeCare', 'Child 5: Type of Care');
+insert into VariableName(variableName, realName) values ('ER1Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('ER1ProvisionsDisabilities', 'Provisions for Disabilities');
+insert into VariableName(variableName, realName) values ('ER1Translation', 'Translation');
+insert into VariableName(variableName, realName) values ('ER1TranslationBetween', 'Translation: Between');
+insert into VariableName(variableName, realName) values ('ER1TranslationAnd', 'Translation: And');
+insert into VariableName(variableName, realName) values ('ER1Interpretation', 'Interpretation');
+insert into VariableName(variableName, realName) values ('ER1InterpretationBetween', 'Interpretation: Between');
+insert into VariableName(variableName, realName) values ('ER1InterpretationAnd', 'Interpretation: And');
+insert into VariableName(variableName, realName) values ('ER1CrisisCounselling', 'Crisis Counselling');
+insert into VariableName(variableName, realName) values ('ER1Tim]peSpendHours', 'Time Spent With Client/Addressing Client\'s Employment Needs: Hours');
+insert into VariableName(variableName, realName) values ('ER1TipeSpendMinutes', 'Time Spent With Client/Addressing Client\'s Employment Needs: Minutes');
+insert into VariableName(variableName, realName) values ('ER1UpdateReason', 'Reason for update');
+
+
+#Insert column names of Info and Orientation - IO
+insert into VariableName(variableName, realName) values ('IO1UpdateRecordID', 'Update Record ID');
+insert into VariableName(variableName, realName) values ('IO1UniqueID', 'Unique Identifier');
+insert into VariableName(variableName, realName) values ('IO1UniqueIDValue', 'Unique Identifier Value');
+insert into VariableName(variableName, realName) values ('IO1DOB', 'Date of Birth (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('IO1PostalCode', 'Postal Code where the service was received');
+insert into VariableName(variableName, realName) values ('IO1StartDate', 'Start Date of Service (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('IO1LanguageService', 'Language of Service');
+insert into VariableName(variableName, realName) values ('IO1LanguagePreference', 'Official Language of Preference');
+insert into VariableName(variableName, realName) values ('IO1InstitutionType', 'Type of Institution/Organization Where Client Received Services');
+insert into VariableName(variableName, realName) values ('IO1ReferredBy', 'Referred By');
+insert into VariableName(variableName, realName) values ('IO1LengthOrientation', 'Total Length of Orientation');
+insert into VariableName(variableName, realName) values ('IO1LengthOrientationHours', 'Total Length of Orientation: Hours');
+insert into VariableName(variableName, realName) values ('IO1LengthOrientationMinutes', 'Total Length of Orientation: Minutes');
+insert into VariableName(variableName, realName) values ('IO1NumberClientsGroup', 'Number of Clients in Group');
+insert into VariableName(variableName, realName) values ('IO1DirectedSpecificTG', 'Directed at a specific Target Group');
+insert into VariableName(variableName, realName) values ('IO1TGChildren', 'Target Group: Children (0-14 yrs)');
+insert into VariableName(variableName, realName) values ('IO1TGYouth', 'Target Group: Youth (15-24 yrs)');
+insert into VariableName(variableName, realName) values ('IO1TGSeniors', 'Target Group: Seniors');
+insert into VariableName(variableName, realName) values ('IO1TGGenderSpecific', 'Target Group: Gender-specific');
+insert into VariableName(variableName, realName) values ('IO1TGRefugees', 'Target Group: Refugees');
+insert into VariableName(variableName, realName) values ('IO1TGCultural', 'Target Group: Ethnic/cultural/linguistic group');
+insert into VariableName(variableName, realName) values ('IO1TGDeaf', 'Target Group: Deaf or Hard of Hearing');
+insert into VariableName(variableName, realName) values ('IO1TGBlind', 'Target Group: Blind or Partially Sighted');
+insert into VariableName(variableName, realName) values ('IO1TGLGBTQ', 'Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)');
+insert into VariableName(variableName, realName) values ('IO1TGFamilies', 'Target Group: Families/Parents');
+insert into VariableName(variableName, realName) values ('IO1TGImpairments', 'Target Group: Clients with other impairments (physical, mental)');
+insert into VariableName(variableName, realName) values ('IO1TGITProfession', 'Target Group: Clients with international training in a regulated profession');
+insert into VariableName(variableName, realName) values ('IO1TGITTrade', 'Target Group: Clients with international training in a regulated trade');
+insert into VariableName(variableName, realName) values ('IO1TGLanguageMin', 'Target Group: Official Language minorities');
+insert into VariableName(variableName, realName) values ('IO1OverviewCanada', 'Overview of Canada');
+insert into VariableName(variableName, realName) values ('IO1OverviewCanadaRef', 'Overview of Canada Referrals');
+insert into VariableName(variableName, realName) values ('IO1SourcesInformation', 'Sources of Information');
+insert into VariableName(variableName, realName) values ('IO1SourcesInformationRef', 'Sources of Information Referrals');
+insert into VariableName(variableName, realName) values ('IO1RightsFreedoms', 'Rights and Freedoms');
+insert into VariableName(variableName, realName) values ('IO1RightsFreedomsRef', 'Rights and Freedoms Referrals');
+insert into VariableName(variableName, realName) values ('IO1CanadianLaw', 'Canadian Law and Justice');
+insert into VariableName(variableName, realName) values ('IO1CanadianLawRef', 'Canadian Law and Justice Referrals');
+insert into VariableName(variableName, realName) values ('IO1ImportantDocuments', 'Important Documents');
+insert into VariableName(variableName, realName) values ('IO1ImportantDocumentsRef', 'Important Documents Referrals');
+insert into VariableName(variableName, realName) values ('IO1ImprovingLanguage', 'Improving English or French');
+insert into VariableName(variableName, realName) values ('IO1ImprovingLanguageRef', 'Improving English or French Referrals');
+insert into VariableName(variableName, realName) values ('IO1EmploymentIncome', 'Employment and Income');
+insert into VariableName(variableName, realName) values ('IO1EmploymentIncomeRef', 'Employment and Income Referrals');
+insert into VariableName(variableName, realName) values ('IO1Education', 'Education');
+insert into VariableName(variableName, realName) values ('IO1EducationRef', 'Education Referrals');
+insert into VariableName(variableName, realName) values ('IO1Housing', 'Housing');
+insert into VariableName(variableName, realName) values ('IO1HousingRef', 'Housing Referrals');
+insert into VariableName(variableName, realName) values ('IO1Health', 'Health');
+insert into VariableName(variableName, realName) values ('IO1HealthRef', 'Health Referrals');
+insert into VariableName(variableName, realName) values ('IO1MoneyFinance', 'Money and Finances');
+insert into VariableName(variableName, realName) values ('IO1MoneyFinanceRef', 'Money and Finances Referrals');
+insert into VariableName(variableName, realName) values ('IO1Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('IO1TransportationRef', 'Transportation Referrals');
+insert into VariableName(variableName, realName) values ('IO1ComMedia', 'Communications and Media');
+insert into VariableName(variableName, realName) values ('IO1ComMediaRef', 'Communications and Media Referrals');
+insert into VariableName(variableName, realName) values ('IO1ComEngagement', 'Community Engagement');
+insert into VariableName(variableName, realName) values ('IO1ComEngagementRef', 'Community Engagement Referrals');
+insert into VariableName(variableName, realName) values ('IO1CanadianCitizen', 'Becoming a Canadian Citizen');
+insert into VariableName(variableName, realName) values ('IO1CanadianCitizenRef', 'Becoming a Canadian Citizen Referrals');
+insert into VariableName(variableName, realName) values ('IO1InterpersonalConflicts', 'Interpersonal Conflict');
+insert into VariableName(variableName, realName) values ('IO1InterpersonalConflictsRef', 'Interpersonal Conflict Referrals');
+insert into VariableName(variableName, realName) values ('IO1EssentialSkills', 'Was Essential Skills and Aptitude Training Received as Part of this Service?');
+insert into VariableName(variableName, realName) values ('IO1ComputerSkills', 'Computer skills');
+insert into VariableName(variableName, realName) values ('IO1DocumentUse', 'Document Use');
+insert into VariableName(variableName, realName) values ('IO1InterpersonalSkills', 'Interpersonal Skills and Workplace Culture');
+insert into VariableName(variableName, realName) values ('IO1LeadershipTraining', 'Leadership Training');
+insert into VariableName(variableName, realName) values ('IO1Numeracy', 'Numeracy');
+insert into VariableName(variableName, realName) values ('IO1LifeSkillsService', 'Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?');
+insert into VariableName(variableName, realName) values ('IO1LifeSkills', 'Life Skills');
+insert into VariableName(variableName, realName) values ('IO1RightsCitizenship', 'Rights and Responsibilities of Citizenship (based on discover Canada)');
+insert into VariableName(variableName, realName) values ('IO1SupportServices', 'Support Services Received');
+insert into VariableName(variableName, realName) values ('IO1CareChildren', 'Care for Newcomer Children');
+insert into VariableName(variableName, realName) values ('IO1C1Age', 'Child 1: Age');
+insert into VariableName(variableName, realName) values ('IO1C1TypeCare', 'Child 1: Type of Care');
+insert into VariableName(variableName, realName) values ('IO1C2Age', 'Child 2: Age');
+insert into VariableName(variableName, realName) values ('IO1C2TypeCare', 'Child 2: Type of Care');
+insert into VariableName(variableName, realName) values ('IO1C3Age', 'Child 3: Age');
+insert into VariableName(variableName, realName) values ('IO1C3TypeCare', 'Child 3: Type of Care');
+insert into VariableName(variableName, realName) values ('IO1C4Age', 'Child 4: Age');
+insert into VariableName(variableName, realName) values ('IO1C4TypeCare', 'Child 4: Type of Care');
+insert into VariableName(variableName, realName) values ('IO1C5Age', 'Child 5: Age');
+insert into VariableName(variableName, realName) values ('IO1C5TypeCare', 'Child 5: Type of Care');
+insert into VariableName(variableName, realName) values ('IO1Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('IO1ProvisionsDisabilities', 'Provisions for Disabilities');
+insert into VariableName(variableName, realName) values ('IO1Translation', 'Translation');
+insert into VariableName(variableName, realName) values ('IO1TranslationBetween', 'Translation: Between');
+insert into VariableName(variableName, realName) values ('IO1TranslationAnd', 'Translation: And');
+insert into VariableName(variableName, realName) values ('IO1Interpretation', 'Interpretation');
+insert into VariableName(variableName, realName) values ('IO1InterpretationBetween', 'Interpretation: Between');
+insert into VariableName(variableName, realName) values ('IO1InterpretationAnd', 'Interpretation: And');
+insert into VariableName(variableName, realName) values ('IO1CrisisCounselling', 'Crisis Counselling');
+insert into VariableName(variableName, realName) values ('IO1EndDateService', 'End Date of Service (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('IO1UpdateReason', 'Reason for update');
