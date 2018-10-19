@@ -21,3 +21,6 @@ out/
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+
+.classpath
+.project
