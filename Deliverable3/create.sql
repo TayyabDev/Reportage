@@ -844,17 +844,17 @@ insert into Occupations(occupations) values ('95 Assemblers in manufacturing');
 insert into Occupations(occupations) values ('96 Labourers in processing, manufacturing and utilities');
 
 create table InterventionType(
-	intervationTypeId int not null auto_increment primary key,
-    intervationType varchar(255));
-insert into IntervationType(intervationType) values ('Long Term');
-insert into IntervationType(intervationType) values ('Short Term');
+	interventionTypeId int not null auto_increment primary key,
+    interventionType varchar(255));
+insert into InterventionType(interventionType) values ('Long Term');
+insert into InterventionType(interventionType) values ('Short Term');
 
 create table LongInterventionReceived(
-	longTermIntervationReceivedId int not null auto_increment primary key,
-    longTermIntervationReceived varchar(255));
-insert into LongIntervationReceived(longTermIntervationReceived) values ('Work placement');
-insert into LongIntervationReceived(longTermIntervationReceived) values ('Mentoring');
-insert into LongIntervationReceived(longTermIntervationReceived) values ('Preparation for licensure/certification');
+	longTermInterventionReceivedId int not null auto_increment primary key,
+    longTermInterventionReceived varchar(255));
+insert into LongInterventionReceived(longTermInterventionReceived) values ('Work placement');
+insert into LongInterventionReceived(longTermInterventionReceived) values ('Mentoring');
+insert into LongInterventionReceived(longTermInterventionReceived) values ('Preparation for licensure/certification');
 
 create table LongStatusOfIntervention(
 	statusOfInterventionId int not null auto_increment primary key,
@@ -1036,8 +1036,8 @@ insert into LongServicesReceivedIntervention(servicesReceivedIntervention) value
 insert into LongServicesReceivedIntervention(servicesReceivedIntervention) values ('Welder');
 
 create table ShortInterventionServiceReceived(
-	shortIntervationServiceReceivedId int not null auto_increment primary key,
-    shortIntervationServiceReceived varchar(255));
+	shortInterventionServiceReceivedId int not null auto_increment primary key,
+    shortInterventionServiceReceived varchar(255));
 insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Networking opportunities');
 insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume screening for referrals service');
 insert into ShortInterventionServiceReceived(shortInterventionServiceReceived) values ('Resume added to a matching system');
@@ -1335,6 +1335,31 @@ create table InfoAndOrientation(
 
 #create table CommunityConnections();
 #create table LTEnrolment();
+
+create table FormatOfTrainingProvided(
+	trainingProvidedId int not null auto_increment primary key,
+    trainingProvided varchar(255));
+insert into FormatOfTrainingProvided(trainingProvided) values ('Blended classroom and online training');
+insert into FormatOfTrainingProvided(trainingProvided) values ('Classroom');
+insert into FormatOfTrainingProvided(trainingProvided) values ('Itinerant teachers');
+insert into FormatOfTrainingProvided(trainingProvided) values ('One-on-one tutoring');
+insert into FormatOfTrainingProvided(trainingProvided) values ('Other distance learning (e.g. videoconferencing)');
+insert into FormatOfTrainingProvided(trainingProvided) values ('Online computer training');
+insert into FormatOfTrainingProvided(trainingProvided) values ('Workplace');
+
+create table NewEnrollmentInCourseFrequency(
+	frequencyId int not null auto_increment primary key,
+    frequency varchar(255));
+
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Daily');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Weekly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Biweekly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Monthly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Bimonthly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Quarterly');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Semianually');
+insert into NewEnrollmentInCourseFrequency(frequency) values ('Anually');
+
 create table LTCourseSetup(
 	`templateId` int primary key,
     constraint LTCS1
@@ -1466,23 +1491,6 @@ create table LTCourseSetup(
 	`writingSkillLevel16` int,
 	`writingSkillLevel17` int
 );
-
-create table FormatOfTrainingProvided(
-	trainingProvidedId int not null auto_increment primary key,
-    trainingProvided varchar(255));
-    
-create table NewEnrollmentInCourseFrequency(
-	frequencyId int not null auto_increment primary key,
-    frequency varchar(255));
-
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Daily');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Weekly');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Biweekly');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Monthly');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Bimonthly');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Quarterly');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Semianually');
-insert into NewEnrollmentInCourseFrequency(frequency) values ('Anually');
 
 create table LTClientExit(
 	`templateId` int primary key,
