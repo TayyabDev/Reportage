@@ -566,7 +566,7 @@ insert into Referrer(refferer) values ('Not referred');
 create table Reason(
 	ReasonId int not null auto_increment primary key,
     reason varchar(255));
-    
+
 insert into Reason(reason) values ('Find employment');
 insert into Reason(reason) values ('Get an education');
 insert into Reason(reason) values ('Participate in Canadian society');
@@ -582,7 +582,7 @@ insert into TimeFrame(timeFrame) values ('After one year');
 create table WorkExperience(
 	workExperienceId int not null auto_increment primary key,
     workExperience varchar(255));
-    
+
 insert into WorkExperience(workExperience) values ('No');
 insert into WorkExperience(workExperience) values ('Yes, within Canada');
 insert into WorkExperience(workExperience) values ('Yes, outside Canada');
@@ -591,7 +591,7 @@ insert into WorkExperience(workExperience) values ('Yes, both within and outside
 create table Occupation(
 	OccupationId int not null auto_increment primary key,
     Occupation varchar(255));
-    
+
 insert into Occupation(occupation) values ('O - Management occupations');
 insert into Occupation(occupation) values ('A - Professional');
 insert into Occupation(occupation) values ('B - Skilled and technical');
@@ -685,16 +685,16 @@ create table NeedsAssessmentAndReferrals(
 	`Find employment: Minimum one year's work experience?` int,
     constraint NAARfk10 foreign key (`Find employment: Minimum one year's work experience?`) references WorkExperience(workExperienceId),
 	`Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?` int,
-    constraint NAARfk11 
-		foreign key (`Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?`) 
+    constraint NAARfk11
+		foreign key (`Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?`)
 		references Occupation(occupationId),
 	`Find employment: Intends to obtain credential recognition or obtain license to work in Canada?` int,
     constraint NAARfk12
-		foreign key (`Find employment: Intends to obtain credential recognition or obtain license to work in Canada?`) 
+		foreign key (`Find employment: Intends to obtain credential recognition or obtain license to work in Canada?`)
 		references Answer(answerId),
 	`Client intends to become a Canadian citizen?` int not null,
     constraint NAARfk13
-		foreign key (`FClient intends to become a Canadian citizen?`) 
+		foreign key (`FClient intends to become a Canadian citizen?`)
 		references Answer(answerId),
 	`Support services may be required` bool not null,
 	`Care for Newcomer Children` bool,
@@ -728,35 +728,35 @@ create table NeedsAssessmentAndReferrals(
 	`Care for Newcomer Children` bool,
 	`Child 1: Age` int,
     constraint NAARfk14
-		foreign key (`Child 1: Age`) 
+		foreign key (`Child 1: Age`)
 		references Age(ageId),
 	`Child 1: Type of Care` int,
     constraint NAARfk15
-		foreign key (`Child 1: Type of Care`) 
+		foreign key (`Child 1: Type of Care`)
 		references CareType(careTypeId),
 	`Child 2: Age` int,
     constraint NAARfk16
-		foreign key (`Child 2: Age`) 
+		foreign key (`Child 2: Age`)
 		references Age(ageId),
 	`Child 2: Type of Care` int,
     constraint NAARfk17
-		foreign key (`Child 2: Type of Care`) 
+		foreign key (`Child 2: Type of Care`)
 		references CareType(careTypeId),
 	`Child 3: Age` int,
     constraint NAARfk18
-		foreign key (`Child 3: Age`) 
+		foreign key (`Child 3: Age`)
 		references Age(ageId),
 	`Child 4: Type of Care` int,
     constraint NAARfk19
-		foreign key (`Child 4: Type of Care`) 
+		foreign key (`Child 4: Type of Care`)
 		references CareType(careTypeId),
 	`Child 5: Age` int,
     constraint NAARfk20
-		foreign key (`Child 5: Age`) 
+		foreign key (`Child 5: Age`)
 		references Age(ageId),
 	`Child 5: Type of Care` int,
     constraint NAARfk15
-		foreign key (`Child 5: Type of Care`) 
+		foreign key (`Child 5: Type of Care`)
 		references CareType(careTypeId),
 	`Transportation` bool,
 	`Provisions for Disabilities` bool,
@@ -1136,11 +1136,11 @@ create table Employment(
     constraint Efk26 foreign key (`ER1C2TypeCare`) references CareType(careTypeId),
 	`ER1C3Age: Age` int,
     constraint Efk27 foreign key (`ER1C3Age`) references Age(ageId),
-	`ER1C3TypeCare` int, 
+	`ER1C3TypeCare` int,
     constraint Efk28 foreign key (`ER1C3TypeCare`)  references CareType(careTypeId),
 	`ER1C4Age` int,
     constraint Efk29 foreign key (`ER1C4Age`) references Age(ageId),
-	`ER1C4TypeCare` int, 
+	`ER1C4TypeCare` int,
     constraint Efk30 foreign key (`ER1C4TypeCare`)  references CareType(careTypeId),
 	`ER1C5Age` int,
     constraint Efk31 foreign key (`ER1C5Age`) references Age(ageId),
@@ -1315,11 +1315,11 @@ create table InfoAndOrientation(
     constraint IOfk12 foreign key (`IO1C2TypeCare`) references CareType(careTypeId),
 	`IO1C3Age` int,
     constraint IOfk13 foreign key (`IO1C3Age`) references Age(ageId),
-	`IO1C3TypeCare` int, 
+	`IO1C3TypeCare` int,
     constraint IOfk14 foreign key (`IO1C3TypeCare`)  references CareType(careTypeId),
 	`IO1C4Age` int,
     constraint IOfk15 foreign key (`IO1C4Age`) references Age(ageId),
-	`IO1C4TypeCare` int, 
+	`IO1C4TypeCare` int,
     constraint IOfk16 foreign key (`IO1C4TypeCare`)  references CareType(careTypeId),
 	`IO1C5Age` int,
     constraint IOfk17 foreign key (`IO1C5Age`) references Age(ageId),
@@ -1342,13 +1342,241 @@ create table InfoAndOrientation(
 	`IO1UpdateReason` int,
     constraint IOfk23 foreign key (`IO1UpdateReason`) references ReasonUpdate(reasonUpdateId));
 
+create table ClientServiceActivity(
+	clientServiceActivityId int not null auto_increment primary key,
+  clientServiceActivity varchar(255) not null);
 
-#create table CommunityConnections();
-#create table LTEnrolment();
+insert into ClientServiceActivity(clientServiceActivity) values (`Community-based group events and activities`);
+insert into ClientServiceActivity(clientServiceActivity) values (`Targeted Matching and Networking`);
+
+create table EventsAttended(
+	eventId int not null auto_increment primary key,
+	eventType varchar(255) not null);
+
+insert into EventsAttended(eventType) values (`Events/visits pertaining to culture or history`);
+insert into EventsAttended(eventType) values (`Field trip connecting newcomer to community resources or local services`);
+insert into EventsAttended(eventType) values (`Sports/recreation event`);
+insert into EventsAttended(eventType) values (`Neighbourhood day`);
+insert into EventsAttended(eventType) values (`Other community event`);
+
+create table ServiceTypes(
+	serviceTypeId int not null auto_increment primary key,
+	serviceType varchar(255) not null);
+
+insert into Services(serviceTypeId) values (`Conversation circle`);
+insert into Services(serviceTypeId) values (`Targeted matching between newcomer and settled immigrant or long-time Canadian`);
+insert into Services(serviceTypeId) values (`Networking activity with other newcomers or Canadian citizens`);
+insert into Services(serviceTypeId) values (`Youth leadership project`);
+insert into Services(serviceTypeId) values (`Other regular group activities to address ongoing needs or interests`);
+
+create table ServiceTopics(
+	serviceTopicId int not null auto_increment primary key,
+	serviceTopic varchar(255) not null);
+
+insert into ServiceTopics(serviceTopic) values (`Access to local community services`);
+insert into ServiceTopics(serviceTopic) values (`Connecting with other newcomers`);
+insert into ServiceTopics(serviceTopic) values (`Getting involved in the community`);
+insert into ServiceTopics(serviceTopic) values (`Targeted Matching and Networking: Accessing the labour market`);
+insert into ServiceTopics(serviceTopic) values (`Connecting with settled immigrants or long-time Canadians`);
+insert into ServiceTopics(serviceTopic) values (`Community-based group events and activities: Increasing knowledge of Canadian society/context`);
+insert into ServiceTopics(serviceTopic) values (`Targeted Matching and Networking: Informal problem solving`);
+insert into ServiceTopics(serviceTopic) values (`Inter-cultural sensitivity and understanding (e.g. interpersonal dynamics)`);
+insert into ServiceTopics(serviceTopic) values (`Targeted Matching and Networking: Language learning`);
+
+create table ServicesOffered(
+	serviceId int not null auto_increment primary key,
+	serviceDescription varchar(255) not null);
+
+insert into ServicesOffered(serviceDescription) values (`Community-based group events and activities: Group session (e.g. conversation circles)`);
+insert into ServicesOffered(serviceDescription) values (`Targeted Matching and Networking: One-on-one session (e.g. mentoring)`);
+insert into ServicesOffered(serviceDescription) values (`Targeted Matching and Networking: Group session (e.g. conversation circles)`);
+insert into ServicesOffered(serviceDescription) values (`One-on-one orientation`);
+insert into ServicesOffered(serviceDescription) values (`Family orientation`);
+insert into ServicesOffered(serviceDescription) values (`Group orientation`);
+
+create table UniqueParticipantSizes(
+	participantsizeId int not null auto_increment primary key,
+	participantsGroupSize varchar(255) not null);
+
+insert into UniqueParticipantSizes(participantsGroupSize) values (`Less than 10 people`);
+insert into UniqueParticipantSizes(participantsGroupSize) values (`10 - 20 people`);
+insert into UniqueParticipantSizes(participantsGroupSize) values (`More than 20 people`);
+
+create table ServiceStatus(
+	serviceStatusId int not null auto_increment primary key,
+	serviceStatus varchar(255) not null);
+
+insert into ServiceStatus(serviceStatus) values (`Service ended early (i.e. client ended participation)`);
+insert into ServiceStatus(serviceStatus) values (`Ongoing`);
+insert into ServiceStatus(serviceStatus) values (`Completed`);
+
+create table ServiceAbortReason(
+	serviceAbortReasonId int not null auto_increment primary key,
+	serviceAbortReason varchar(255) not null);
+
+insert into ServiceAbortReason(serviceAbortReason) values (`Client felt the service was not meeting current needs`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Found employment`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Lack of support services`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Moved/unable to contact client`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Obtained citizenship`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Medical reason`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Personal reason`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Parental leave/caring for family members`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Student left school`);
+insert into ServiceAbortReason(serviceAbortReason) values (`To attend school`);
+insert into ServiceAbortReason(serviceAbortReason) values (`To receive another settlement service`);
+insert into ServiceAbortReason(serviceAbortReason) values (` unknown`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Intervention ended by mentor`);
+insert into ServiceAbortReason(serviceAbortReason) values (`Intervention ended by third party/volunteer`);
+
+create table CommunityConnections(
+	connectionId int not null auto_increment primary key
+	connectionStatus varchar(255),
+
+	`Update Record ID` char(8),
+	`Unique Identifier` int not null,
+	constraint CPfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+	`Language of Service` int not null,
+	constraint Efk4 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
+	`Official Language of Preference` int not null,
+	constraint Efk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Referred By`int not null,
+  constraint Efk7 foreign key (`Referred By`) references Referrer(reffererId),
+	`Activity Under Which Client Received Services` int not null,
+	constraint Efk8 foreign key (`Activity Under Which Client Received Services`) references ClientServiceActivity(clientServiceActivityId),
+	`Type of Institution/Organization Where Client Received Services` int not null,
+	constraint IOfk5 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
+	`Type of Event Attended` int,
+	constraint eventType foreign key (`Type of Event Attended`) references EventsAttended(eventId),
+	`Type of Service` int,
+	constraint serviceType foreign key (`Type of Service`) references Services(serviceTypeId),
+	`Main Topic/Focus of the Service Received` int not null,
+	constraint serviceTopic foreign key (`Main Topic/Focus of the Service Received`) references ServiceTopics(serviceTopicId),
+	`Service Received` int not null,
+	constraint ServicesOffered foreign key (`Service Received`) references ServicesOffered(serviceId),
+	`Number of Unique Participants` int,
+	constraint participantsGroupSize foreign key (`Number of Unique Participants`) references UniqueParticipantSizes(participantsizeId),
+	`Did Volunteers from the Host Community Participate in the Activity` bool,
+	`Directed at a Specific Target Group` bool,
+	`Target Group: Children (0-14 yrs)` bool,
+	`Target Group: Youth (15-24 yrs)` bool,
+	`Target Group: Senior` bool,
+	`Target Group: Gender-specific` bool,
+	`Target Group: Refugees` bool,
+	`Target Group: Ethnic/cultural/linguistic group` bool,
+	`Target Group: Deaf or Hard of Hearing` bool,
+	`Target Group: Blind or Partially Sighted` bool,
+	`Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)` bool,
+	`Target Group: Families/Parents` bool,
+	`Target Group: Other impairments (physical, mental)` bool,
+	`Target Group: Clients with international training in a regulated profession` bool,
+	`Target Group: Clients with international training in a regulated trade` bool,
+	`Target Group: Official language minorities` bool,
+	`Status of Service` int not null,
+	constraint serviceStatus foreign key (`Status of Service`) references ServiceStatus(serviceStatusId),
+	`Reason for Leaving Service` int,
+	constraint serviceAbortReason foreign key (`Reason for Leaving Service`) references ServiceAbortReason(serviceAbortReasonId),
+	`Start Date (YYYY-MM-DD)` date not null,
+	`End Date (YYYY-MM-DD)` date not null,
+	`Projected End Date (YYYY-MM-DD)` date not null,
+	`Was Essential Skills and Aptitudes Training Received as Part of the Service?` bool not null,
+	`Computer Skills` bool,
+	`Document Use` bool,
+	`Interpersonal Skills and Workplace Culture` bool,
+	`Leadership Training` bool,
+	`Life Skills` bool,
+	`Numeracy` bool,
+	`Support Services Received` bool not null,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+	constraint childAge foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+	constraint childCareType foreign key ('Child 1 : Type of Care') references CareType(careTypeId),
+	`Child 2: Age` int,
+	constraint childAge foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint childCareType foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+  constraint childAge foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int,
+  constraint childCareType foreign key (`Child 4: Type of Care`) references CareType(careTypeId),
+	`Child 5: Age` int,
+  constraint childAge foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+  constraint childCareType foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+	`Translation: Between` int not null,
+  constraint translationFromLanguage foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And` int not null,
+  constraint translationToLanguage foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+  `Interpretation: Between` int not null,
+  constraint language foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And` int not null,
+  constraint language2 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+	`Total Length of Service: Hours` int,
+	`Total Length of Service: Minutes` int,
+	`Reason for update` int,
+  constraint updateReason foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+
+create table LTClientEnrolment(
+	enrolmentIdconnectionId int not null auto_increment primary key
+	connectionStatus varchar(255),
+
+	`Update record ID` char(8),
+	`Unique Identifier Type` int not null,
+	constraint CPfk2 foreign key (`Unique Identifier Type`) references UniqueIdentifier(identifierId),
+	`Unique Identifier Value` char(8) not null,
+	`Client Date of Birth (YYYY-MM-DD)` date not null,
+	`Postal Code where the service was received` char(6) not null,
+	`Course Code` varchar(255) not null,
+	`Date of Client's First Class (YYYY-MM-DD)` date not null,
+	`Official Language of Preference` int not null,
+	constraint Efk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
+	`Support Services Received` bool not null,
+	`Care for Newcomer Children` bool,
+	`Child 1: Age` int,
+	constraint childAge foreign key (`Child 1: Age`) references Age(ageId),
+	`Child 1: Type of Care` int,
+	constraint childCareType foreign key ('Child 1 : Type of Care') references CareType(careTypeId),
+	`Child 2: Age` int,
+	constraint childAge foreign key (`Child 2: Age`) references Age(ageId),
+	`Child 2: Type of Care` int,
+    constraint childCareType foreign key (`Child 2: Type of Care`) references CareType(careTypeId),
+	`Child 3: Age` int,
+  constraint childAge foreign key (`Child 3: Age`) references Age(ageId),
+	`Child 4: Type of Care` int,
+  constraint childCareType foreign key (`Child 4: Type of Care`) references CareType(careTypeId),
+	`Child 5: Age` int,
+  constraint childAge foreign key (`Child 5: Age`) references Age(ageId),
+	`Child 5: Type of Care` int,
+  constraint childCareType foreign key (`Child 5: Type of Care`) references CareType(careTypeId),
+	`Transportation` bool,
+	`Provisions for Disabilities` bool,
+	`Translation` bool,
+	`Translation: Between` int not null,
+  constraint translationFromLanguage foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Translation: And` int not null,
+  constraint translationToLanguage foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation` bool,
+  `Interpretation: Between` int not null,
+  constraint language foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
+	`Interpretation: And` int not null,
+  constraint language2 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
+	`Crisis Counselling` bool,
+	`Reason for update` int,
+  constraint updateReason foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
 
 create table FormatOfTrainingProvided(
 	trainingProvidedId int not null auto_increment primary key,
     trainingProvided varchar(255));
+
 insert into FormatOfTrainingProvided(trainingProvided) values ('Blended classroom and online training');
 insert into FormatOfTrainingProvided(trainingProvided) values ('Classroom');
 insert into FormatOfTrainingProvided(trainingProvided) values ('Itinerant teachers');
@@ -1382,7 +1610,7 @@ create table LTCourseSetup(
 	`courseCode` varchar(25) not null,
 	`notes` varchar(255),
 	`courseHeldOnAnOngoingBasis` bool not null,
-	`officialLanguageOfCourse` int not null, 
+	`officialLanguageOfCourse` int not null,
     constraint LTCS2 foreign key (`officialLanguageOfCourse`) references ServiceLanguage(serviceLanguageId),
 	`formatOfTrainingProvided` int not null,
     constraint LTCS3 foreign key (`formatOfTrainingProvided`) references FormatOfTrainingProvided(trainingProvidedId),
@@ -1562,6 +1790,7 @@ create table LTClientExit(
 	`crisisCounselling` bool,
 	`reasonForUpdat` varchar(255)
 );
+
 create table VariableName(
 	variableName varchar(30) primary key,
     realName varchar(255) not null);
@@ -1724,3 +1953,100 @@ insert into VariableName(variableName, realName) values ('IO1InterpretationAnd',
 insert into VariableName(variableName, realName) values ('IO1CrisisCounselling', 'Crisis Counselling');
 insert into VariableName(variableName, realName) values ('IO1EndDateService', 'End Date of Service (YYYY-MM-DD)');
 insert into VariableName(variableName, realName) values ('IO1UpdateReason', 'Reason for update');
+
+# Insert column names of CommunityConnections - CC
+Insert into VariableName(variableName, realName) values ('CC1UpdateRecordID', 'Update Record ID');
+Insert into VariableName(variableName, realName) values ('CC1UniqueIdentifier', 'Unique Identifier');
+Insert into VariableName(variableName, realName) values ('CC1UniqueIdentifierValue', 'Unique Identifier Value');
+Insert into VariableName(variableName, realName) values ('CC1DateofBirth(YYYY-MM-DD)', 'Date of Birth (YYYY-MM-DD)');
+Insert into VariableName(variableName, realName) values ('CC1PostalCodewheretheservicewasreceived', 'Postal Code where the service was received');
+Insert into VariableName(variableName, realName) values ('CC1LanguageofService', 'Language of Service');
+Insert into VariableName(variableName, realName) values ('CC1OfficialLanguageofPreference', 'Official Language of Preference');
+Insert into VariableName(variableName, realName) values ('CC1ReferredBy', 'Referred By');
+Insert into VariableName(variableName, realName) values ('CC1ActivityUnderWhichClientReceivedServices', 'Activity Under Which Client Received Services');
+Insert into VariableName(variableName, realName) values ('CC1TypeofInstitution/OrganizationWhereClientReceivedServices', 'Type of Institution/Organization Where Client Received Services');
+Insert into VariableName(variableName, realName) values ('CC1TypeofEventAttended', 'Type of Event Attended');
+Insert into VariableName(variableName, realName) values ('CC1TypeofService', 'Type of Service');
+Insert into VariableName(variableName, realName) values ('CC1MainTopic/FocusoftheServiceReceived', 'Main Topic/Focus of the Service Received');
+Insert into VariableName(variableName, realName) values ('CC1ServiceReceived', 'Service Received');
+Insert into VariableName(variableName, realName) values ('CC1NumberofUniqueParticipants', 'Number of Unique Participants');
+Insert into VariableName(variableName, realName) values ('CC1DidVolunteersfromtheHostCommunityParticipateintheActivity', 'Did Volunteers from the Host Community Participate in the Activity');
+Insert into VariableName(variableName, realName) values ('CC1DirectedataSpecificTargetGroup', 'Directed at a Specific Target Group');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Children(0-14yrs)', 'Target Group: Children (0-14 yrs)');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Youth(15-24yrs)', 'Target Group: Youth (15-24 yrs)');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Senior', 'Target Group: Senior');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Gender-specific', 'Target Group: Gender-specific');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Refugees', 'Target Group: Refugees');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Ethnic/cultural/linguisticgroup', 'Target Group: Ethnic/cultural/linguistic group');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:DeaforHardofHearing', 'Target Group: Deaf or Hard of Hearing');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:BlindorPartiallySighted', 'Target Group: Blind or Partially Sighted');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Lesbian,Gay,Bisexual,Transgender,Queer(LGBTQ)', 'Target Group: Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Families/Parents', 'Target Group: Families/Parents');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Otherimpairments(physical,mental)', 'Target Group: Other impairments (physical, mental)');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Clientswithinternationaltraininginaregulatedprofession', 'Target Group: Clients with international training in a regulated profession');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Clientswithinternationaltraininginaregulatedtrade', 'Target Group: Clients with international training in a regulated trade');
+Insert into VariableName(variableName, realName) values ('CC1TargetGroup:Officiallanguageminorities', 'Target Group: Official language minorities');
+Insert into VariableName(variableName, realName) values ('CC1StatusofService', 'Status of Service');
+Insert into VariableName(variableName, realName) values ('CC1ReasonforLeavingService', 'Reason for Leaving Service');
+Insert into VariableName(variableName, realName) values ('CC1StartDate(YYYY-MM-DD)', 'Start Date (YYYY-MM-DD)');
+Insert into VariableName(variableName, realName) values ('CC1EndDate(YYYY-MM-DD)', 'End Date (YYYY-MM-DD)');
+Insert into VariableName(variableName, realName) values ('CC1ProjectedEndDate(YYYY-MM-DD)', 'Projected End Date (YYYY-MM-DD)');
+Insert into VariableName(variableName, realName) values ('CC1WasEssentialSkillsandAptitudesTrainingReceivedasPartoftheService?', 'Was Essential Skills and Aptitudes Training Received as Part of the Service?');
+Insert into VariableName(variableName, realName) values ('CC1ComputerSkills', 'Computer Skills');
+Insert into VariableName(variableName, realName) values ('CC1DocumentUse', 'Document Use');
+Insert into VariableName(variableName, realName) values ('CC1InterpersonalSkillsandWorkplaceCulture', 'Interpersonal Skills and Workplace Culture');
+Insert into VariableName(variableName, realName) values ('CC1LeadershipTraining', 'Leadership Training');
+Insert into VariableName(variableName, realName) values ('CC1LifeSkills', 'Life Skills');
+Insert into VariableName(variableName, realName) values ('CC1Numeracy', 'Numeracy');
+Insert into VariableName(variableName, realName) values ('CC1SupportServicesReceived', 'Support Services Received');
+Insert into VariableName(variableName, realName) values ('CC1CareforNewcomerChildren', 'Care for Newcomer Children');
+Insert into VariableName(variableName, realName) values ('CC1Child1:Age', 'Child 1: Age');
+Insert into VariableName(variableName, realName) values ('CC1Child1:TypeofCare', 'Child 1: Type of Care');
+Insert into VariableName(variableName, realName) values ('CC1Child2:Age', 'Child 2: Age');
+Insert into VariableName(variableName, realName) values ('CC1Child2:TypeofCare', 'Child 2: Type of Care');
+Insert into VariableName(variableName, realName) values ('CC1Child3:Age', 'Child 3: Age');
+Insert into VariableName(variableName, realName) values ('CC1Child4:TypeofCare', 'Child 4: Type of Care');
+Insert into VariableName(variableName, realName) values ('CC1Child5:Age', 'Child 5: Age');
+Insert into VariableName(variableName, realName) values ('CC1Child5:TypeofCare', 'Child 5: Type of Care');
+Insert into VariableName(variableName, realName) values ('CC1Transportation', 'Transportation');
+Insert into VariableName(variableName, realName) values ('CC1ProvisionsforDisabilities', 'Provisions for Disabilities');
+Insert into VariableName(variableName, realName) values ('CC1Translation', 'Translation');
+Insert into VariableName(variableName, realName) values ('CC1Translation:Between', 'Translation: Between');
+Insert into VariableName(variableName, realName) values ('CC1Translation:And', 'Translation: And');
+Insert into VariableName(variableName, realName) values ('CC1Interpretation', 'Interpretation');
+Insert into VariableName(variableName, realName) values ('CC1Interpretation:Between', 'Interpretation: Between');
+Insert into VariableName(variableName, realName) values ('CC1Interpretation:And', 'Interpretation: And');
+Insert into VariableName(variableName, realName) values ('CC1CrisisCounselling', 'Crisis Counselling');
+Insert into VariableName(variableName, realName) values ('CC1TotalLengthofService:Hours', 'Total Length of Service: Hours');
+Insert into VariableName(variableName, realName) values ('CC1TotalLengthofService:Minutes', 'Total Length of Service: Minutes');
+Insert into VariableName(variableName, realName) values ('CC1Reasonforupdate', 'Reason for update');
+
+#Insert column names for LTClientEnrolment - LTCE
+Insert into VariableName(variableName, realName) values ('LTCE1UpdaterecordID', 'Update record ID');
+Insert into VariableName(variableName, realName) values ('LTCE1UniqueIdentifierType', 'Unique Identifier Type');
+Insert into VariableName(variableName, realName) values ('LTCE1UniqueIdentifierValue', 'Unique Identifier Value');
+Insert into VariableName(variableName, realName) values ('LTCE1ClientDateofBirth(YYYY-MM-DD)', 'Client Date of Birth (YYYY-MM-DD)');
+Insert into VariableName(variableName, realName) values ('LTCE1PostalCodewheretheservicewasreceived', 'Postal Code where the service was received');
+Insert into VariableName(variableName, realName) values ('LTCE1CourseCode', 'Course Code');
+Insert into VariableName(variableName, realName) values ("LTCE1DateofClient'sFirstClass(YYYY-MM-DD)", "Date of Client's First Class (YYYY-MM-DD)");
+Insert into VariableName(variableName, realName) values ('LTCE1OfficialLanguageofPreference', 'Official Language of Preference');
+Insert into VariableName(variableName, realName) values ('LTCE1SupportServicesReceived', 'Support Services Received');
+Insert into VariableName(variableName, realName) values ('LTCE1CareforNewcomerChildren', 'Care for Newcomer Children');
+Insert into VariableName(variableName, realName) values ('LTCE1Child1:Age', 'Child 1: Age');
+Insert into VariableName(variableName, realName) values ('LTCE1Child1:TypeofCare', 'Child 1: Type of Care');
+Insert into VariableName(variableName, realName) values ('LTCE1Child2:Age', 'Child 2: Age');
+Insert into VariableName(variableName, realName) values ('LTCE1Child2:TypeofCare', 'Child 2: Type of Care');
+Insert into VariableName(variableName, realName) values ('LTCE1Child3:Age', 'Child 3: Age');
+Insert into VariableName(variableName, realName) values ('LTCE1Child4:TypeofCare', 'Child 4: Type of Care');
+Insert into VariableName(variableName, realName) values ('LTCE1Child5:Age', 'Child 5: Age');
+Insert into VariableName(variableName, realName) values ('LTCE1Child5:TypeofCare', 'Child 5: Type of Care');
+Insert into VariableName(variableName, realName) values ('LTCE1Transportation', 'Transportation');
+Insert into VariableName(variableName, realName) values ('LTCE1ProvisionsforDisabilities', 'Provisions for Disabilities');
+Insert into VariableName(variableName, realName) values ('LTCE1Translation', 'Translation');
+Insert into VariableName(variableName, realName) values ('LTCE1Translation:Between', 'Translation: Between');
+Insert into VariableName(variableName, realName) values ('LTCE1Translation:And', 'Translation: And');
+Insert into VariableName(variableName, realName) values ('LTCE1Interpretation', 'Interpretation');
+Insert into VariableName(variableName, realName) values ('LTCE1Interpretation:Between', 'Interpretation: Between');
+Insert into VariableName(variableName, realName) values ('LTCE1Interpretation:And', 'Interpretation: And');
+Insert into VariableName(variableName, realName) values ('LTCE1CrisisCounselling', 'Crisis Counselling');
+Insert into VariableName(variableName, realName) values ('LTCE1Reasonforupdate', 'Reason for update');
