@@ -1,5 +1,5 @@
-create schema C01Project;
-use C01Project;
+#create schema cscc43s18_linjun9;
+use cscc43s18_linjun9;
 
 create table Account(
 	accountId int primary key,
@@ -46,15 +46,36 @@ create table Officier(
         on delete set null
         on update cascade);
 
-
 create table Template(
 	templateId int primary key,
-    uploadTime timestamp,
-    # teq staff id
-    reviewerId int,
-    agencyId int default 0,
-    templateType ENUM('CP', 'NAR', 'CC', 'IO', 'ER', 'LTER', 'LTS', 'LTEX') not null);
+    updateTime timestamp,
+    teqStaffId int,
+    constraint Templatefk1
+		foreign key (teqStaffId)
+        references TEQStaff(teqStaffId),
+    templateName varchar(255),
+    tableName varchar(255));
 
+create table ClientDataForm(
+	clientDataFormId int auto_increment primary key,
+    templateId int,
+    constraint CDFFk1
+		foreign key(templateId)
+        references Template(templateId),
+    uploadTime timestamp default now(),
+    reviewerId int,
+    constraint CDFFk2
+		foreign key(reviewerId)
+        references TEQStaff(teqStaffId),
+    agencyId int,
+    constraint CDFFk3
+		foreign key(agencyId)
+        references Agency(agencyId),
+    year year(4),
+    month int(2) check (month > 0 and month < 13));
+
+
+    
 create table UniqueIdentifier(
 	identifierId int primary key,
     identifierType varchar(255));
