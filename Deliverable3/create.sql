@@ -237,26 +237,26 @@ create table ClientProfile(
         references Template(templateId)
         on delete no action
         on update cascade,
-	`Unique Identifier` int not null,
-    constraint CPfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
-	`Unique Identifier Value` char(8) not null,
-	`Date of Birth (YYYY-MM-DD)` date not null,
-	`Phone Number` varchar(20),
-	`Does the Client Have an Email Address` bool,
-	`Email Address` varchar(255) default null,
-	`Street Number` varchar(5),
-	`Street Name` varchar(255),
-	`Street Type` int,
-    constraint CPfk3 foreign key (`Street Type`) references StreetType(streetTypeId),
-	`Street Direction` int,
-    constraint CPfk4 foreign key (`Street Direction`) references StreetDirection(streetDirectionId),
-	`Unit/Suite/Apt` varchar(10),
-	`City` varchar(255),
-	`Province` varchar(255),
-	`Postal Code` char(6) not null,
-	`Official Language of Preference` int not null,
-    constraint CPfk5 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
-	`Consent for Future Research/Consultation` bool not null);
+	`CP1UniqueID` int not null,
+    constraint CPfk2 foreign key (`CP1UniqueID`) references UniqueIdentifier(identifierId),
+	`CP1UniqueIDValue` char(8) not null,
+	`CP1DOB` date not null,
+	`CP1PhoneNum` varchar(20),
+	`CP1QuesEmailAddress` bool,
+	`CP1EmailAddress` varchar(255) default null,
+	`CP1StreetNum` varchar(5),
+	`CP1StreetName` varchar(255),
+	`CP1StreetType` int,
+    constraint CPfk3 foreign key (`CP1StreetType`) references StreetType(streetTypeId),
+	`CP1StreetDirection` int,
+    constraint CPfk4 foreign key (`CP1StreetDirection`) references StreetDirection(streetDirectionId),
+	`CP1UnitNum` varchar(10),
+	`CP1City` varchar(255),
+	`CP1Province` varchar(255),
+	`CP1PostalCode` char(6) not null,
+	`CP1OfficialLanguagePrefered` int not null,
+    constraint CPfk5 foreign key (`CP1OfficialLanguagePrefered`) references LanguagePreference(preferLanguageId),
+	`CP1ConsetForResearch` bool not null);
 
 create table ServiceLanguage(
 	serviceLanguageId int not null auto_increment primary key,
@@ -639,142 +639,150 @@ create table NeedsAssessmentAndReferrals(
         references Template(templateId)
         on delete no action
         on update cascade,
-	`Update Record ID` char(8), # does it need to be 8 digits
-	`Unique Identifier` int not null,
-    constraint NAARfk2 foreign key (`Unique Identifier`) references UniqueIdentifier(identifierId),
-	`Unique Identifier Value` char(8) not null,
-	`Date of Birth (YYYY-MM-DD)` date not null,
-	`Postal Code where the service was received` char(6) not null,
-	`Start Date of Assessment (YYYY-MM-DD)` date not null,
-	`Language of Service` int not null,
-    constraint NAARfk3 foreign key (`Language of Service`) references ServiceLanguage(serviceLanguageId),
-	`Official Language of Preference` int not null,
-    constraint NAARfk4 foreign key (`Official Language of Preference`) references LanguagePreference(preferLanguageId),
-	`Type of Institution/Organization Where Client Received Services` int not null,
-	constraint NAARfk5 foreign key (`Type of Institution/Organization Where Client Received Services`) references InstitutionType(institutionTypeId),
-	`Referred By`int not null,
-    constraint NAARfk6 foreign key (`Referred By`) references Referrer(reffererId),
-	`Increase knowledge of: Life in Canada` bool,
-	`Increase knowledge of: Life in Canada Referrals` bool,
-	`Increase knowledge of: Community and Government Services` bool,
-	`Increase knowledge of: Community and Government Services Referrals` bool,
-	`Increase knowledge of: Working in Canada` bool,
-	`Increase knowledge of: Working in Canada Referrals` bool,
-	`Increase knowledge of: Education in Canada` bool,
-	`Increase knowledge of: Education in Canada Referrals` bool,
-	`Increase the following: Social networks` bool,
-	`Increase the following: Social networks Referrals` bool,
-	`Increase the following: Professional networks` bool,
-	`Increase the following: Professional networks Referrals` bool,
-	`Increase the following: Access to local community services` bool,
-	`Increase the following: Access to local community services Referrals` bool,
-	`Increase the following: Level of community involvement` bool,
-	`Increase the following: Level of community involvement Referrals` bool,
-	`Improve Language Skills` bool,
-	`Improve Language Skills Referrals` bool,
-	`Improve Language Skills to` int,
-    constraint NAARfk7 foreign key (`Improve Language Skills to`) references Reason(reasonId),
-	`Improve Other Skills` bool,
-	`Improve Other Skills Referrals` bool,
-	`Improve Other Skills to` int,
-    constraint NAARfk8 foreign key (`Improve Other Skills to`) references Reason(reasonId),
-	`Find employment` bool,
-	`Find employment Referrals` bool,
-	`Find employment: TimeFrame` int,
-    constraint NAARfk9 foreign key (`Find employment: TimeFrame`) references TimeFrame(timeFrameId),
-	`Find employment: Minimum one year's work experience?` int,
-    constraint NAARfk10 foreign key (`Find employment: Minimum one year's work experience?`) references WorkExperience(workExperienceId),
-	`Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?` int,
+	`NAR1UpdateRecordID` char(8), # does it need to be 8 digits
+	`NAR1UniqueID` int not null,
+    constraint NAARfk2 foreign key (`NAR1UniqueID`) references UniqueIdentifier(identifierId),
+	`NAR1UniqueIDValue` char(8) not null,
+	`NAR1DOB` date not null,
+	`NAR1PostalCode` char(6) not null,
+	`NAR1StartDate` date not null,
+	`NAR1ServiceLanguage` int not null,
+    constraint NAARfk3 foreign key (`NAR1ServiceLanguage`) references ServiceLanguage(serviceLanguageId),
+	`NAR1OfficialLanguagePrefered` int not null,
+    constraint NAARfk4 foreign key (`NAR1OfficialLanguagePrefered`) references LanguagePreference(preferLanguageId),
+	`NAR1InstitutionType` int not null,
+	constraint NAARfk5 foreign key (`NAR1InstitutionType`) references InstitutionType(institutionTypeId),
+	`NAR1ReferredBy`int not null,
+    constraint NAARfk6 foreign key (`NAR1ReferredBy`) references Referrer(referrerId),
+	`NAR1IncKnowledgeLifeInCanada` bool,
+	`NAR1IncKnowledgeLifeInCanadaRef` bool,
+	`NAR1IncKnowledgeCommunityService` bool,
+	`NAR1IncKnowledgeCommunityServiceRef` bool,
+	`NAR1IncKnowledgeWorkInCanada` bool,
+	`NAR1IncKnowledgeWorkInCanadaRef` bool,
+	`NAR1IncKnowledgeEduInCanada` bool,
+	`NAR1IncKnowledgeEduInCanadaRef` bool,
+	`NAR1IncSocialNetworks` bool,
+	`NAR1IncSocialNetworksRef` bool,
+	`NAR1IncProfessionalNetworks` bool,
+	`NAR1IncProfessionalNetworksRef` bool,
+	`NAR1IncLocalCommunityService` bool,
+	`NAR1IncLocalCommunityServiceRef` bool,
+	`NAR1IncCommunityInvolvement` bool,
+	`NAR1IncCommunityInvolvementRef` bool,
+	`NAR1ImpLanguageSkill` bool,
+	`NAR1ImpLanguageSkillRef` bool,
+	`NAR1ReasonLanguageSkill` int,
+    constraint NAARfk7 foreign key (`NAR1ReasonLanguageSkill`) references Reason(reasonId),
+	`NAR1ImpOtherSkill` bool,
+	`NAR1ImpOtherSkillRef` bool,
+	`NAR1ReasonOtherSkill` int,
+    constraint NAARfk8 foreign key (`NAR1ReasonOtherSkill`) references Reason(reasonId),
+	`NAR1FindEmployment` bool,
+	`NAR1FindEmploymentRef` bool,
+	`NAR1TimeFrame` int,
+    constraint NAARfk9 foreign key (`NAR1TimeFrame`) references TimeFrame(timeFrameId),
+	`NAR1WorkExp` int,
+    constraint NAARfk10 foreign key (`NAR1WorkExp`) references WorkExperience(workExperienceId),
+	`NAR1IntendWorkOccupation` int,
     constraint NAARfk11 
-		foreign key (`Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?`) 
+		foreign key (`NAR1IntendWorkOccupation`) 
 		references Occupation(occupationId),
-	`Find employment: Intends to obtain credential recognition or obtain license to work in Canada?` int,
+	`NAR1IntendObtainCredential` int,
     constraint NAARfk12
-		foreign key (`Find employment: Intends to obtain credential recognition or obtain license to work in Canada?`) 
+		foreign key (`NAR1IntendObtainCredential`) 
 		references Answer(answerId),
-	`Client intends to become a Canadian citizen?` int not null,
+	`NAR1IntendCanadianCitizen` int not null,
     constraint NAARfk13
-		foreign key (`FClient intends to become a Canadian citizen?`) 
+		foreign key (`NAR1IntendCanadianCitizen`) 
 		references Answer(answerId),
-	`Support services may be required` bool not null,
-	`Care for Newcomer Children` bool,
-	`Transportation` bool,
-	`Provisions for Disabilities` bool,
-	`Translation` bool,
-	`Interpretation` bool,
-	`Crisis Counselling` bool,
-	`Non-IRCC program services needed` bool not null,
-	`Food/Clothing/Other Material Needs` bool,
-	`Food/Clothing/Other Material Needs Referrals` bool,
-	`Housing/Accommodation` bool,
-	`Housing/Accommodation Referrals` bool,
-	`Health/Mental Health/Well Being` bool,
-	`Health/Mental Health/Well Being Referrals` bool,
-	`Financial` bool,
-	`Financial Referrals` bool,
-	`Family Support` bool,
-	`Family Support Referrals` bool,
-	`Language (Non-IRCC)` bool,
-	`Language (Non-IRCC) Referrals` bool,
-	`Education/Skills Development` bool,
-	`Education/Skills Development Referrals` bool,
-	`Employment-related` bool,
-	`Employment-related Referrals` bool,
-	`Legal Information and Services` bool,
-	`Legal Information and Services Referrals` bool,
-	`Community Services` bool,
-	`Community Services Referrals` bool,
-	`Support Services Received` bool not null,
-	`Care for Newcomer Children` bool,
-	`Child 1: Age` int,
+	`NAR1SupportServiceRequired` bool not null,
+	`NAR1CareChildren` bool,
+	`NAR1Transportation` bool,
+	`NAR1Disability` bool,
+	`NAR1Translation` bool,
+	`NAR1Interpretation` bool,
+	`NAR1CrisisCounselling` bool,
+	`NAR1NonIRCCServicesNeeded` bool not null,
+	`NAR1MaterialNeeds` bool,
+	`NAR1MaterialNeedsRef` bool,
+	`NAR1Accommodation` bool,
+	`NAR1AccommodationRef` bool,
+	`NAR1Health` bool,
+	`NAR1HealthRef` bool,
+	`NAR1Financial` bool,
+	`NAR1FinancialRef` bool,
+	`NAR1FamilySupport` bool,
+	`NAR1FamilySupportRef` bool,
+	`NAR1LanguageNonIRCC` bool,
+	`NAR1LanguageNonIRCCRef` bool,
+	`NAR1Education` bool,
+	`NAR1EducationRef` bool,
+	`NAR1EmploymentRelated` bool,
+	`NAR1EmploymentRelatedRef` bool,
+	`NAR1LegalInfoAndService` bool,
+	`NAR1LegalInfoAndServiceRef` bool,
+	`NAR1CommunityService` bool,
+	`NAR1CommunityServiceRef` bool,
+	`NAR1SupportServiceReceived` bool not null,
+	`NAR2CareChildren` bool,
+	`NAR1Child1Age` int,
     constraint NAARfk14
-		foreign key (`Child 1: Age`) 
+		foreign key (`NAR1Child1Age`) 
 		references Age(ageId),
-	`Child 1: Type of Care` int,
+	`NAR1Child1Type` int,
     constraint NAARfk15
-		foreign key (`Child 1: Type of Care`) 
+		foreign key (`NAR1Child1Type`) 
 		references CareType(careTypeId),
-	`Child 2: Age` int,
+	`NAR1Child2Age` int,
     constraint NAARfk16
-		foreign key (`Child 2: Age`) 
+		foreign key (`NAR1Child2Age`) 
 		references Age(ageId),
-	`Child 2: Type of Care` int,
+	`NAR1Child2Type` int,
     constraint NAARfk17
-		foreign key (`Child 2: Type of Care`) 
+		foreign key (`NAR1Child2Type`) 
 		references CareType(careTypeId),
-	`Child 3: Age` int,
+	`NAR1Child3Age` int,
     constraint NAARfk18
-		foreign key (`Child 3: Age`) 
+		foreign key (`NAR1Child3Age`) 
 		references Age(ageId),
-	`Child 4: Type of Care` int,
+	`NAR1Child3Type` int,
     constraint NAARfk19
-		foreign key (`Child 4: Type of Care`) 
+		foreign key (`NAR1Child3Type`) 
 		references CareType(careTypeId),
-	`Child 5: Age` int,
+	`NAR1Child4Age` int,
     constraint NAARfk20
-		foreign key (`Child 5: Age`) 
+		foreign key (`NAR1Child4Age`) 
 		references Age(ageId),
-	`Child 5: Type of Care` int,
-    constraint NAARfk15
-		foreign key (`Child 5: Type of Care`) 
+	`NAR1Child4Type` int,
+    constraint NAARfk21
+		foreign key (`NAR1Child4Type`) 
 		references CareType(careTypeId),
-	`Transportation` bool,
-	`Provisions for Disabilities` bool,
-	`Translation` bool,
-    `Translation: Between` int not null,
-    constraint NAARfk16 foreign key (`Translation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Translation: And`int not null,
-    constraint NAARfk17 foreign key (`Translation: And`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation` bool,
-    `Interpretation: Between` int not null,
-    constraint NAARfk18 foreign key (`Interpretation: Between`) references ServiceLanguage(serviceLanguageId),
-	`Interpretation: And`int not null,
-    constraint NAARfk19 foreign key (`Interpretation: And`) references ServiceLanguage(serviceLanguageId),
-	`Crisis Counselling` bool,
-	`Settlement Plan completed and shared with client` bool not null,
-	`End Date of Assessment (YYYY-MM-DD)` date not null,
-	`Reason for update` int,
-    constraint NAARfk20 foreign key (`Reason for update`) references ReasonUpdate(reasonUpdateId));
+	`NAR1Child5Age` int,
+    constraint NAARfk22
+		foreign key (`NAR1Child5Age`) 
+		references Age(ageId),
+	`NAR1Child5Type` int,
+    constraint NAARfk23
+		foreign key (`NAR1Child5Type`) 
+		references CareType(careTypeId),
+	`NAR2Transportation` bool,
+	`NAR2Disability` bool,
+	`NAR2Translation` bool,
+    `NAR1TranslationBetween` int not null,
+    constraint NAARfk24 foreign key (`NAR1TranslationBetween`) references ServiceLanguage(serviceLanguageId),
+	`NAR1TranslationAnd`int not null,
+    constraint NAARfk25 foreign key (`NAR1TranslationAnd`) references ServiceLanguage(serviceLanguageId),
+	`NAR2Interpretation` bool,
+    `NAR1InterpretationBetween` int not null,
+    constraint NAARfk26 foreign key (`NAR1InterpretationBetween`) references ServiceLanguage(serviceLanguageId),
+	`NAR1InterpretationAnd`int not null,
+    constraint NAARfk27 foreign key (`NAR1InterpretationAnd`) references ServiceLanguage(serviceLanguageId),
+	`NAR2CrisisCounselling` bool,
+	`NAR1SettlementPlanCompleted` bool not null,
+	`NAR1EndDate` date not null,
+	`NAR1ReasonUpdate` int,
+    constraint NAARfk28 foreign key (`NAR1ReasonUpdate`) references ReasonUpdate(reasonUpdateId));
 
 
 create table AReferralTo(
@@ -1063,7 +1071,7 @@ insert into TimeSpentMinutes(timeSpentMinutes) values ('55');
 #create table Employment();
 create table Employment(
 	`templateId` int primary key,
-    constraint Efk1
+    #constraint Efk1
 		foreign key(templateId)
         references Template(templateId)
         on delete no action
@@ -1084,7 +1092,7 @@ create table Employment(
 	`ER1InstitutionType` int not null,
 	constraint Efk6 foreign key (`ER1InstitutionType`) references InstitutionType(institutionTypeId),
 	`ER1ReferredBy`int not null,
-    constraint Efk7 foreign key (`ER1ReferredBy`) references Referrer(reffererId),
+    constraint Efk7 foreign key (`ER1ReferredBy`) references Referrer(referrerId),
     `ER1ReferralDate` date,
     `ER1EmploymentStatus`int not null,
     constraint Efk8 foreign key (`ER1EmploymentStatus`) references EmploymentStatus(employmentStatusId),
@@ -1097,10 +1105,10 @@ create table Employment(
     `ER1InterventionType`int,
     constraint Efk12 foreign key (`ER1InterventionType`) references InterventionType(interventionTypeId),
     `ER1LTIInterventionReceived`int,
-    constraint Efk13 foreign key (`ER1LTIInterventionReceived`) references LongInterventionReceived(longTermIntervationReceivedId),
+    constraint Efk13 foreign key (`ER1LTIInterventionReceived`) references LongInterventionReceived(longTermInterventionReceivedId),
 	`ER1LTIStatus`int,
     constraint Efk14 foreign key (`ER1LTIStatus`) references LongStatusOfIntervention(statusOfInterventionId),
-	`LER1LTIReasonLeaving`int,
+	`ER1LTIReasonLeaving`int,
     constraint Efk15 foreign key (`ER1LTIReasonLeaving`) references LongLeavingIntervention(leavingInterventionId),
     `ER1LTIEndDate` date,
 	`ER1LTISizeEmployer`int,
@@ -1114,7 +1122,7 @@ create table Employment(
 	`ER1LTIContactMentor`int,
     constraint Efk20 foreign key (`ER1LTIContactMentor`) references LongHoursMetMentorIntervention(hoursMetMentorInterventionId),
 	`ER1LTIProfessionTrade`int,
-    constraint Efk21 foreign key (`ER1LTIProfessionTrade`) references LongServicesReceivedIntervention(serviceReceivedInterventionId),
+    constraint Efk21 foreign key (`ER1LTIProfessionTrade`) references LongServicesReceivedIntervention(servicesReceivedInterventionId),
     `ER1EssentialSkills` bool,
     `ER1ComputerSkills` bool,
     `ER1DocumentUse` bool,
@@ -1134,7 +1142,7 @@ create table Employment(
     constraint Efk25 foreign key (`ER1C2Age`) references Age(ageId),
 	`ER1C2TypeCare` int,
     constraint Efk26 foreign key (`ER1C2TypeCare`) references CareType(careTypeId),
-	`ER1C3Age: Age` int,
+	`ER1C3Age` int,
     constraint Efk27 foreign key (`ER1C3Age`) references Age(ageId),
 	`ER1C3TypeCare` int, 
     constraint Efk28 foreign key (`ER1C3TypeCare`)  references CareType(careTypeId),
@@ -1159,9 +1167,9 @@ create table Employment(
 	`ER1InterpretationAnd`int,
     constraint Efk36 foreign key (`ER1InterpretationAnd`) references ServiceLanguage(serviceLanguageId),
 	`ER1CrisisCounselling` bool,
-    `ER1Tim]peSpendHours` int check (`ER1Tim]peSpendHours` >= 0 and `ER1Tim]peSpendHours` <= 500),
-    `ER1TipeSpendMinutes` int,
-    constraint Efk37 foreign key (`ER1TipeSpendMinutes`) references TimeSpentMinutes(timeSpentMinutesId),
+    `ER1TimeSpendHours` int check (`ER1TimeSpendHours` >= 0 and `ER1TimeSpendHours` <= 500),
+    `ER1TimeSpendMinutes` int,
+    constraint Efk37 foreign key (`ER1TimeSpendMinutes`) references TimeSpentMinutes(timeSpentMinutesId),
 	`ER1UpdateReason` int,
     constraint Efk38 foreign key (`ER1UpdateReason`) references ReasonUpdate(reasonUpdateId));
 
@@ -1325,7 +1333,7 @@ create table InfoAndOrientation(
     constraint IOfk17 foreign key (`IO1C5Age`) references Age(ageId),
 	`IO1C5TypeCare` int,
     constraint IOfk18 foreign key (`IO1C5TypeCare`) references CareType(careTypeId),
-	`IO1Transportation` bool,
+	`IO2Transportation` bool,
 	`IO1ProvisionsDisabilities` bool,
 	`IO1Translation` bool,
     `IO1TranslationBetween` int,
@@ -1566,8 +1574,6 @@ create table VariableName(
 	variableName varchar(30) primary key,
     realName varchar(255) not null);
 
-insert into VariableName(variableName, realName) values ('CP1uniqueId', 'Unique Identifier');
-
 #Insert column names of Employment - ER
 insert into VariableName(variableName, realName) values ('ER1UpdateRecordID', 'Update Record ID');
 insert into VariableName(variableName, realName) values ('ER1UniqueID', 'Unique Identifier');
@@ -1625,8 +1631,8 @@ insert into VariableName(variableName, realName) values ('ER1Interpretation', 'I
 insert into VariableName(variableName, realName) values ('ER1InterpretationBetween', 'Interpretation: Between');
 insert into VariableName(variableName, realName) values ('ER1InterpretationAnd', 'Interpretation: And');
 insert into VariableName(variableName, realName) values ('ER1CrisisCounselling', 'Crisis Counselling');
-insert into VariableName(variableName, realName) values ('ER1Tim]peSpendHours', 'Time Spent With Client/Addressing Client\'s Employment Needs: Hours');
-insert into VariableName(variableName, realName) values ('ER1TipeSpendMinutes', 'Time Spent With Client/Addressing Client\'s Employment Needs: Minutes');
+insert into VariableName(variableName, realName) values ('ER1TimeSpendHours', 'Time Spent With Client/Addressing Client\'s Employment Needs: Hours');
+insert into VariableName(variableName, realName) values ('ER1TimeSpendMinutes', 'Time Spent With Client/Addressing Client\'s Employment Needs: Minutes');
 insert into VariableName(variableName, realName) values ('ER1UpdateReason', 'Reason for update');
 
 
@@ -1713,7 +1719,7 @@ insert into VariableName(variableName, realName) values ('IO1C4Age', 'Child 4: A
 insert into VariableName(variableName, realName) values ('IO1C4TypeCare', 'Child 4: Type of Care');
 insert into VariableName(variableName, realName) values ('IO1C5Age', 'Child 5: Age');
 insert into VariableName(variableName, realName) values ('IO1C5TypeCare', 'Child 5: Type of Care');
-insert into VariableName(variableName, realName) values ('IO1Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('IO2Transportation', 'Transportation');
 insert into VariableName(variableName, realName) values ('IO1ProvisionsDisabilities', 'Provisions for Disabilities');
 insert into VariableName(variableName, realName) values ('IO1Translation', 'Translation');
 insert into VariableName(variableName, realName) values ('IO1TranslationBetween', 'Translation: Between');
@@ -1724,3 +1730,114 @@ insert into VariableName(variableName, realName) values ('IO1InterpretationAnd',
 insert into VariableName(variableName, realName) values ('IO1CrisisCounselling', 'Crisis Counselling');
 insert into VariableName(variableName, realName) values ('IO1EndDateService', 'End Date of Service (YYYY-MM-DD)');
 insert into VariableName(variableName, realName) values ('IO1UpdateReason', 'Reason for update');
+
+#Insert column names of ClientProfile - CP
+insert into VariableName(variableName, realName) values ('CP1UniqueID', 'Unique Identifier');
+insert into VariableName(variableName, realName) values ('CP1UniqueIDValue', 'Unique Identifier Value');
+insert into VariableName(variableName, realName) values ('CP1DOB', 'Date of Birth (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('CP1PhoneNum', 'Phone Number');
+insert into VariableName(variableName, realName) values ('CP1QuesEmailAddress', 'Does the Client Have an Email Address');
+insert into VariableName(variableName, realName) values ('CP1EmailAddress', 'Email Address');
+insert into VariableName(variableName, realName) values ('CP1StreetNum', 'Street Number');
+insert into VariableName(variableName, realName) values ('CP1StreetName', 'Street Name');
+insert into VariableName(variableName, realName) values ('CP1StreetType', 'Street Type');
+insert into VariableName(variableName, realName) values ('CP1StreetDirection', 'Street Direction');
+insert into VariableName(variableName, realName) values ('CP1UnitNum', 'Unit/Suite/Apt');
+insert into VariableName(variableName, realName) values ('CP1City', 'City');
+insert into VariableName(variableName, realName) values ('CP1Province', 'Province');
+insert into VariableName(variableName, realName) values ('CP1PostalCode', 'Postal Code');
+insert into VariableName(variableName, realName) values ('CP1OfficialLanguagePrefered', 'Official Language of Preference');
+insert into VariableName(variableName, realName) values ('CP1ConsetForResearch', 'Consent for Future Research/Consultation');
+
+#Insert column names of Needs Accessement and Referrals -NAR
+insert into VariableName(variableName, realName) values ('NAR1UpdateRecordID', 'Update Record ID');
+insert into VariableName(variableName, realName) values ('NAR1UniqueID', 'Unique Identifier');
+insert into VariableName(variableName, realName) values ('NAR1UniqueIDValue', 'Unique Identifier Value');
+insert into VariableName(variableName, realName) values ('NAR1DOB', 'Date of Birth (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('NAR1PostalCode', 'Postal Code where the service was received');
+insert into VariableName(variableName, realName) values ('NAR1StartDate', 'Start Date of Assessment (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('NAR1ServiceLanguage', 'Language of Service');
+insert into VariableName(variableName, realName) values ('NAR1OfficialLanguagePrefered', 'Official Language of Preference');
+insert into VariableName(variableName, realName) values ('NAR1InstitutionType', 'Type of Institution/Organization Where Client Received Services');
+insert into VariableName(variableName, realName) values ('NAR1ReferredBy', 'Referred By');
+insert into VariableName(variableName, realName) values ('NAR1IncLifeInCanada', 'Increase knowledge of: Life in Canada');
+insert into VariableName(variableName, realName) values ('NAR1IncLifeInCanadaRef', 'Increase knowledge of: Life in Canada Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncCommunityService', 'Increase knowledge of: Community and Government Services');
+insert into VariableName(variableName, realName) values ('NAR1IncCommunityServiceRef', 'Increase knowledge of: Community and Government Services Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncWorkInCanada', 'Increase knowledge of: Working in Canada');
+insert into VariableName(variableName, realName) values ('NAR1IncWorkInCanadaRef', 'Increase knowledge of: Working in Canada Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncEduInCanada', 'Increase knowledge of: Education in Canada');
+insert into VariableName(variableName, realName) values ('NAR1IncEduInCanadaRef', 'Increase knowledge of: Education in Canada Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncSocialNetworks', 'Increase the following: Social networks');
+insert into VariableName(variableName, realName) values ('NAR1IncSocialNetworksRef', 'Increase the following: Social networks Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncProfNetworks', 'Increase the following: Professional networks');
+insert into VariableName(variableName, realName) values ('NAR1IncProfNetworksRef', 'Increase the following: Professional networks Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncLocCommunityService', 'Increase the following: Access to local community services');
+insert into VariableName(variableName, realName) values ('NAR1IncLocCommunityServiceRef', 'Increase the following: Access to local community services Referrals');
+insert into VariableName(variableName, realName) values ('NAR1IncCommunityInvolvement', 'Increase the following: Level of community involvement');
+insert into VariableName(variableName, realName) values ('NAR1IncCommunityInvolvementRef', 'Increase the following: Level of community involvement Referrals');
+insert into VariableName(variableName, realName) values ('NAR1ImpLanguageSkill', 'Improve Language Skills');
+insert into VariableName(variableName, realName) values ('NAR1ImpLanguageSkillRef', 'Improve Language Skills Referrals');
+insert into VariableName(variableName, realName) values ('NAR1ReasonLanguageSkill', 'Improve Language Skills to');
+insert into VariableName(variableName, realName) values ('NAR1ImpOtherSkill', 'Improve Other Skills');
+insert into VariableName(variableName, realName) values ('NAR1ImpOtherSkillRef', 'Improve Other Skills Referrals');
+insert into VariableName(variableName, realName) values ('NAR1ReasonOtherSkill', 'Improve Other Skills to');
+insert into VariableName(variableName, realName) values ('NAR1FindEmployment', 'Find employment');
+insert into VariableName(variableName, realName) values ('NAR1FindEmploymentRef', 'Find employment Referrals');
+insert into VariableName(variableName, realName) values ('NAR1TimeFrame', 'Find employment: TimeFrame');
+insert into VariableName(variableName, realName) values ('NAR1WorkExp', 'Find employment: Minimum one year\'s work experience?');
+insert into VariableName(variableName, realName) values ('NAR1IntendWorkOccupation', 'Find employment: Intends to work in an occupation corresponding to which National Occupation Classification skill level?');
+insert into VariableName(variableName, realName) values ('NAR1IntendObtainCredential', 'Find employment: Intends to obtain credential recognition or obtain license to work in Canada?');
+insert into VariableName(variableName, realName) values ('NAR1IntendCanadianCitizen', 'Client intends to become a Canadian citizen?');
+insert into VariableName(variableName, realName) values ('NAR1SupportServiceRequired', 'Support services may be required');
+insert into VariableName(variableName, realName) values ('NAR1CareChildren', 'Care for Newcomer Children');
+insert into VariableName(variableName, realName) values ('NAR1Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('NAR1Disability', 'Provisions for Disabilities');
+insert into VariableName(variableName, realName) values ('NAR1Translation', 'Translation');
+insert into VariableName(variableName, realName) values ('NAR1Interpretation', 'Interpretation');
+insert into VariableName(variableName, realName) values ('NAR1CrisisCounselling', 'Crisis Counselling');
+insert into VariableName(variableName, realName) values ('NAR1NonIRCCServicesNeeded', 'Non-IRCC program services needed');
+insert into VariableName(variableName, realName) values ('NAR1MaterialNeeds', 'Food/Clothing/Other Material Needs');
+insert into VariableName(variableName, realName) values ('NAR1MaterialNeedsRef', 'Food/Clothing/Other Material Needs Referrals');
+insert into VariableName(variableName, realName) values ('NAR1Accommodation', 'Housing/Accommodation');
+insert into VariableName(variableName, realName) values ('NAR1AccommodationRef', 'Housing/Accommodation Referrals');
+insert into VariableName(variableName, realName) values ('NAR1Health', 'Health/Mental Health/Well Being');
+insert into VariableName(variableName, realName) values ('NAR1HealthRef', 'Health/Mental Health/Well Being Referrals');
+insert into VariableName(variableName, realName) values ('NAR1Financial', 'Financial');
+insert into VariableName(variableName, realName) values ('NAR1FinancialRef', 'Financial Referrals');
+insert into VariableName(variableName, realName) values ('NAR1FamilySupport', 'Family Support');
+insert into VariableName(variableName, realName) values ('NAR1FamilySupportRef', 'Family Support Referrals');
+insert into VariableName(variableName, realName) values ('NAR1LanguageNonIRCC', 'Language (Non-IRCC)');
+insert into VariableName(variableName, realName) values ('NAR1LanguageNonIRCCRef', 'Language (Non-IRCC) Referrals');
+insert into VariableName(variableName, realName) values ('NAR1Education', 'Education/Skills Development');
+insert into VariableName(variableName, realName) values ('NAR1EducationRef', 'Education/Skills Development Referrals');
+insert into VariableName(variableName, realName) values ('NAR1EmploymentRelated', 'Employment-related');
+insert into VariableName(variableName, realName) values ('NAR1EmploymentRelatedRef', 'Employment-related Referrals');
+insert into VariableName(variableName, realName) values ('NAR1LegalInfoAndService', 'Legal Information and Services');
+insert into VariableName(variableName, realName) values ('NAR1LegalInfoAndServiceRef', 'Legal Information and Services Referrals');
+insert into VariableName(variableName, realName) values ('NAR1CommunityService', 'Community Services');
+insert into VariableName(variableName, realName) values ('NAR1CommunityServiceRef', 'Community Services Referrals');
+insert into VariableName(variableName, realName) values ('NAR1SupportServiceReceived', 'Support Services Received');
+insert into VariableName(variableName, realName) values ('NAR2CareChildren', 'Care for Newcomer Children');
+insert into VariableName(variableName, realName) values ('NAR1Child1Age', 'Child 1: Age');
+insert into VariableName(variableName, realName) values ('NAR1Child1Type', 'Child 1: Type of Care');
+insert into VariableName(variableName, realName) values ('NAR1Child2Age', 'Child 2: Age');
+insert into VariableName(variableName, realName) values ('NAR1Child2Type', 'Child 2: Type of Care');
+insert into VariableName(variableName, realName) values ('NAR1Child3Age', 'Child 3: Age');
+insert into VariableName(variableName, realName) values ('NAR1Child3Type', 'Child 3: Type of Care');
+insert into VariableName(variableName, realName) values ('NAR1Child4Age', 'Child 4: Age');
+insert into VariableName(variableName, realName) values ('NAR1Child4Type', 'Child 4: Type of Care');
+insert into VariableName(variableName, realName) values ('NAR1Child5Age', 'Child 5: Age');
+insert into VariableName(variableName, realName) values ('NAR1Child5Type', 'Child 5: Type of Care');
+insert into VariableName(variableName, realName) values ('NAR2Transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('NAR2Disability', 'Provisions for Disabilities');
+insert into VariableName(variableName, realName) values ('NAR2Translation', 'Translation');
+insert into VariableName(variableName, realName) values ('NAR1TranslationBetween', 'Between');
+insert into VariableName(variableName, realName) values ('NAR1TranslationAnd', 'And');
+insert into VariableName(variableName, realName) values ('NAR2Interpretation', 'Interpretation');
+insert into VariableName(variableName, realName) values ('NAR1InterpretationBetween', 'Between');
+insert into VariableName(variableName, realName) values ('NAR1InterpretationAnd', 'And');
+insert into VariableName(variableName, realName) values ('NAR2CrisisCounselling', 'Crisis Counselling');
+insert into VariableName(variableName, realName) values ('NAR1SettlementPlanCompleted', 'Settlement Plan completed and shared with client');
+insert into VariableName(variableName, realName) values ('NAR1EndDate', 'End Date of Assessment (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('NAR1ReasonUpdate', 'Reason for update');
