@@ -1239,7 +1239,7 @@ create table InfoAndOrientation(
 	constraint IOfk2 foreign key (`IO1UniqueID`) references UniqueIdentifier(identifierId),
 	`IO1UniqueIDValue` char(8) not null,
 	`IO1DOB` date not null,
-	`PIO1PostalCode` char(6) not null,
+	`IO1PostalCode` char(6) not null,
 	`IO1StartDate` date not null,
 	`IO1LanguageService` int not null,
     constraint IOfk3 foreign key (`IO1LanguageService`) references ServiceLanguage(serviceLanguageId),
@@ -1386,129 +1386,128 @@ create table LTCourseSetup(
         on delete no action
         on update cascade,
 	`processingDetails` varchar(255),
-	`updateRecordID` int(10),
-	`courseCode` varchar(25) not null,
-	`notes` varchar(255),
-	`courseHeldOnAnOngoingBasis` bool not null,
-	`officialLanguageOfCourse` int not null, 
-    constraint LTCS2 foreign key (`officialLanguageOfCourse`) references ServiceLanguage(serviceLanguageId),
-	`formatOfTrainingProvided` int not null,
-    constraint LTCS3 foreign key (`formatOfTrainingProvided`) references FormatOfTrainingProvided(trainingProvidedId),
-	`classesHeldAt` varchar(255),
-	`inPersonInstruction(%)` decimal(5, 2) check (`inPersonInstruction(%)` > 0 and `inPersonInstruction(%)` <= 100),
-	`onlineDistanceInstruction(%)` decimal(5, 2) check (`onlineDistanceInstruction(%)` > 0 and `onlineDistanceInstruction(%)` <= 100),
-	`totalNumberofSpotsinCourse` int not null,
-	`numberOfIRCCFundedSpotsinCourse` int not null,
-	`newStudentsCanEnrolInTheCourse` int not null,
-    constraint LTCS4 foreign key (`newStudentsCanEnrolInTheCourse`) references NewEnrollmentInCourseFrequency(frequencyId),
-	`supportServicesAvailableForClientInThisCourse` bool not null,
-	`careForNewcomerChildren` bool,
-	`transportation` bool,
-	`provisionsForDisabilities` bool,
-	`courseStartDate` date not null,
-	`courseEndDate` date not null,
-	`scheduleMorning` bool,
-	`scheduleAfternoon` bool,
-	`scheduleEvening` bool,
-	`scheduleWeekend` bool,
-	`scheduleAnytime` bool,
-	`scheduleOnline` bool,
-	`instructionalHoursPerClass` decimal(5, 2) not null,
-	`classesPerWeek` int not null,
-	`weeksOfInstruction` int,
-	`weeksOfInstructionPerYear` int,
-	`dominantFocusOfTheCourse` varchar(255) not null,
-	`courseDirectedAtASpecificTargetGroup` bool not null,
-	`children (0-14 yrs)` bool,
-	`youth (15-24 yrs)` bool,
-	`senior` bool,
-	`genderSpecific` bool,
-	`refugees` bool,
-	`officialLanguageMinorities` bool,
-	`ethnicCulturalLinguisticGroup` bool,
-	`deafOrHardOfHearing` bool,
-	`blindOrPartiallySighted` bool,
-	`clientsWithOtherImpairments (physical, mental)` bool,
-	`lesbianGayBisexualTransgenderQueer (LGBTQ)` bool,
-	`familiesParents` bool,
-	`clientsWithInternationalTrainingInARegulatedProfession` bool,
-	`clientsWithInternationalTrainingInARegulatedTrade` bool,
-	`materialsUsedInCourse` bool not null,
-	`citizenshipPreparation` bool,
-	`PBLALanguageCompanion` bool,
-	`contactName` varchar(255),
-	`streetNumber` int not null,
-	`streetName` varchar(255) not null,
-	`streetType` int not null,
-    constraint LTCS5 foreign key (`streetType`) references StreetType(streetTypeId),
-	`streetDirection` int,
-    constraint LTCS6 foreign key (`streetDirection`) references StreetDirection(streetDirectionId),
-	`unitSuite` int,
-	`province` varchar(255) not null,
-	`city` varchar(255) not null,
-	`postalCode` char(6) not null,
-	`telephoneNumber` int(20) not null,
-	`telephoneExtension` int(3),
-	`emailAddress` varchar(255) not null,
-	`listeningSkillLevel1` int,
-	`listeningSkillLevel2` int,
-	`listeningSkillLevel3` int,
-	`listeningSkillLevel4` int,
-	`listeningSkillLevel5` int,
-	`listeningSkillLevel6` int,
-	`listeningSkillLevel7` int,
-	`listeningSkillLevel8` int,
-	`listeningSkillLevel9` int,
-	`listeningSkillLevel10` int,
-	`listeningSkillLevel11` int,
-	`listeningSkillLevel12` int,
-	`speakingSkillLevel1` int,
-	`speakingSkillLevel2` int,
-	`speakingSkillLevel3` int,
-	`speakingSkillLevel4` int,
-	`speakingSkillLevel5` int,
-	`speakingSkillLevel6` int,
-	`speakingSkillLevel7` int,
-	`speakingSkillLevel8` int,
-	`speakingSkillLevel9` int,
-	`speakingSkillLevel10` int,
-	`speakingSkillLevel11` int,
-	`speakingSkillLevel12` int,
-	`readingSkillLevel1` int,
-	`readingSkillLevel2` int,
-	`readingSkillLevel3` int,
-	`readingSkillLevel4` int,
-	`readingSkillLevel5` int,
-	`readingSkillLevel6` int,
-	`readingSkillLevel7` int,
-	`readingSkillLevel8` int,
-	`readingSkillLevel9` int,
-	`readingSkillLevel10` int,
-	`readingSkillLevel11` int,
-	`readingSkillLevel12` int,
-	`readingSkillLevel13` int,
-	`readingSkillLevel14` int,
-	`readingSkillLevel15` int,
-	`readingSkillLevel16` int,
-	`readingSkillLevel17` int,
-	`writingSkillLevel1` int,
-	`writingSkillLevel2` int,
-	`writingSkillLevel3` int,
-	`writingSkillLevel4` int,
-	`writingSkillLevel5` int,
-	`writingSkillLevel6` int,
-	`writingSkillLevel7` int,
-	`writingSkillLevel8` int,
-	`writingSkillLevel9` int,
-	`writingSkillLevel10` int,
-	`writingSkillLevel11` int,
-	`writingSkillLevel12` int,
-	`writingSkillLevel13` int,
-	`writingSkillLevel14` int,
-	`writingSkillLevel15` int,
-	`writingSkillLevel16` int,
-	`writingSkillLevel17` int
-);
+	`LTS1updateRecordID` int(10),
+	`LTS1courseCode` varchar(25) not null,
+	`LTS1notes` varchar(255),
+	`LTS1courseHeldOnAnOngoingBasis` bool not null,
+	`LTS1officialLanguageOfCourse` int not null, 
+    constraint LTCS2 foreign key (`LTS1officialLanguageOfCourse`) references ServiceLanguage(serviceLanguageId),
+	`LTS1formatOfTrainingProvided` int not null,
+    constraint LTCS3 foreign key (`LTS1formatOfTrainingProvided`) references FormatOfTrainingProvided(trainingProvidedId),
+	`LTS1classesHeldAt` varchar(255),
+	`LTS1inPersonInstruction(%)` decimal(5, 2) check (`LTS1inPersonInstruction(%)` > 0 and `LTS1inPersonInstruction(%)` <= 100),
+	`LTS1onlineDistanceInstruction(%)` decimal(5, 2) check (`LTS1onlineDistanceInstruction(%)` > 0 and `LTS1onlineDistanceInstruction(%)` <= 100),
+	`LTS1totalNumberofSpotsinCourse` int not null,
+	`LTS1numberOfIRCCFundedSpotsinCourse` int not null,
+	`LTS1newStudentsCanEnrolInTheCourse` int not null,
+    constraint LTCS4 foreign key (`LTS1newStudentsCanEnrolInTheCourse`) references NewEnrollmentInCourseFrequency(frequencyId),
+	`LTS1supportServicesAvailableForClientInThisCourse` bool not null,
+	`LTS1careForNewcomerChildren` bool,
+	`LTS1transportation` bool,
+	`LTS1provisionsForDisabilities` bool,
+	`LTS1courseStartDate` date not null,
+	`LTS1courseEndDate` date not null,
+	`LTS1scheduleMorning` bool,
+	`LTS1scheduleAfternoon` bool,
+	`LTS1scheduleEvening` bool,
+	`LTS1scheduleWeekend` bool,
+	`LTS1scheduleAnytime` bool,
+	`LTS1scheduleOnline` bool,
+	`LTS1instructionalHoursPerClass` decimal(5, 2) not null,
+	`LTS1classesPerWeek` int not null,
+	`LTS1weeksOfInstruction` int,
+	`LTS1weeksOfInstructionPerYear` int,
+	`LTS1dominantFocusOfTheCourse` varchar(255) not null,
+	`LTS1courseDirectedAtASpecificTargetGroup` bool not null,
+	`LTS1children (0-14 yrs)` bool,
+	`LTS1youth (15-24 yrs)` bool,
+	`LTS1senior` bool,
+	`LTS1genderSpecific` bool,
+	`LTS1refugees` bool,
+	`LTS1ethnicCulturalLinguisticGroup` bool,
+	`LTS1officialLanguageMinorities` bool,
+	`LTS1deafOrHardOfHearing` bool,
+	`LTS1blindOrPartiallySighted` bool,
+	`LTS1clientsWithOtherImpairments (physical, mental)` bool,
+	`LTS1lesbianGayBisexualTransgenderQueer (LGBTQ)` bool,
+	`LTS1familiesParents` bool,
+	`LTS1clientsWithInternationalTrainingInARegulatedProfession` bool,
+	`LTS1clientsWithInternationalTrainingInARegulatedTrade` bool,
+	`LTS1materialsUsedInCourse` bool not null,
+	`LTS1citizenshipPreparation` bool,
+	`LTS1PBLALanguageCompanion` bool,
+	`LTS1contactName` varchar(255),
+	`LTS1streetNumber` int not null,
+	`LTS1streetName` varchar(255) not null,
+	`LTS1streetType` int not null,
+    constraint LTCS5 foreign key (`LTS1streetType`) references StreetType(streetTypeId),
+	`LTS1streetDirection` int,
+    constraint LTCS6 foreign key (`LTS1streetDirection`) references StreetDirection(streetDirectionId),
+	`LTS1unitSuite` int,
+	`LTS1province` varchar(255) not null,
+	`LTS1city` varchar(255) not null,
+	`LTS1postalCode` char(6) not null,
+	`LTS1telephoneNumber` int(20) not null,
+	`LTS1telephoneExtension` int(3),
+	`LTS1emailAddress` varchar(255) not null,
+	`LTS1listeningSkillLevel1` int,
+	`LTS1listeningSkillLevel2` int,
+	`LTS1listeningSkillLevel3` int,
+	`LTS1listeningSkillLevel4` int,
+	`LTS1listeningSkillLevel5` int,
+	`LTS1listeningSkillLevel6` int,
+	`LTS1listeningSkillLevel7` int,
+	`LTS1listeningSkillLevel8` int,
+	`LTS1listeningSkillLevel9` int,
+	`LTS1listeningSkillLevel10` int,
+	`LTS1listeningSkillLevel11` int,
+	`LTS1listeningSkillLevel12` int,
+	`LTS1speakingSkillLevel1` int,
+	`LTS1speakingSkillLevel2` int,
+	`LTS1speakingSkillLevel3` int,
+	`LTS1speakingSkillLevel4` int,
+	`LTS1speakingSkillLevel5` int,
+	`LTS1speakingSkillLevel6` int,
+	`LTS1speakingSkillLevel7` int,
+	`LTS1speakingSkillLevel8` int,
+	`LTS1speakingSkillLevel9` int,
+	`LTS1speakingSkillLevel10` int,
+	`LTS1speakingSkillLevel11` int,
+	`LTS1speakingSkillLevel12` int,
+	`LTS1readingSkillLevel1` int,
+	`LTS1readingSkillLevel2` int,
+	`LTS1readingSkillLevel3` int,
+	`LTS1readingSkillLevel4` int,
+	`LTS1readingSkillLevel5` int,
+	`LTS1readingSkillLevel6` int,
+	`LTS1readingSkillLevel7` int,
+	`LTS1readingSkillLevel8` int,
+	`LTS1readingSkillLevel9` int,
+	`LTS1readingSkillLevel10` int,
+	`LTS1readingSkillLevel11` int,
+	`LTS1readingSkillLevel12` int,
+	`LTS1readingSkillLevel13` int,
+	`LTS1readingSkillLevel14` int,
+	`LTS1readingSkillLevel15` int,
+	`LTS1readingSkillLevel16` int,
+	`LTS1readingSkillLevel17` int,
+	`LTS1writingSkillLevel1` int,
+	`LTS1writingSkillLevel2` int,
+	`LTS1writingSkillLevel3` int,
+	`LTS1writingSkillLevel4` int,
+	`LTS1writingSkillLevel5` int,
+	`LTS1writingSkillLevel6` int,
+	`LTS1writingSkillLevel7` int,
+	`LTS1writingSkillLevel8` int,
+	`LTS1writingSkillLevel9` int,
+	`LTS1writingSkillLevel10` int,
+	`LTS1writingSkillLevel11` int,
+	`LTS1writingSkillLevel12` int,
+	`LTS1writingSkillLevel13` int,
+	`LTS1writingSkillLevel14` int,
+	`LTS1writingSkillLevel15` int,
+	`LTS1writingSkillLevel16` int,
+	`LTS1writingSkillLevel17` int);
 
 create table LTClientExit(
 	`templateId` int primary key,
@@ -1517,61 +1516,61 @@ create table LTClientExit(
         references Template(templateId)
         on delete no action
         on update cascade,
-	`processingDetails` varchar(255),
-	`updateRecordID` int(10),
-	`uniqueIdentifierType` varchar(255) not null,
-	`uniqueIdentifierValue` int(10) not null,
-	`clientDateOfBirth` date not null,
-	`courseCode` varchar(255) not null,
-	`clientTrainingStatus` varchar(255) not null,
-	`dateClientExitedCourse` date,
-	`reasonForExitingCourse` varchar(255),
-	`listeningCLBLevel` int,
-	`speakingCLBLevel` int,
-	`readingCLBLevel` int,
-	`writingCLBLevel` int,
-	`wasACertificateIssuedToTheClient` bool not null,
-	`listeningLevelIndicatedOnCertificate` int,
-	`speakingLevelIndicatedOnCertificate` int,
-	`supportServicesReceived` bool not null,
-	`careForNewcomerChildren` bool,
-	`child1Age` int,
-    constraint LTCE2 foreign key (`child1Age`) references Age(ageId),
-	`child1TypeOfCare` int,
-    constraint LTCE3 foreign key (`child1TypeOfCare`) references CareType(careTypeId),
-	`child2Age` int,
-	constraint LTCE4 foreign key (`child2Age`) references Age(ageId),
-	`child2TypeOfCare` int,
-    constraint LTCE5 foreign key (`child2TypeOfCare`) references CareType(careTypeId),
-	`child3Age` int,
-	constraint LTCE6 foreign key (`child3Age`) references Age(ageId),
-	`child3TypeOfCare` int,
-    constraint LTCE7 foreign key (`child3TypeOfCare`) references CareType(careTypeId),
-	`child4Age` int,
-	constraint LTCE8 foreign key (`child4Age`) references Age(ageId),
-	`child4TypeOfCare` int,
-    constraint LTCE9 foreign key (`child4TypeOfCare`) references CareType(careTypeId),
-	`child5Age` int,
-	constraint LTCE10 foreign key (`child5Age`) references Age(ageId),
-	`child5TypeOfCare` int,
-    constraint LTCE11 foreign key (`child5TypeOfCare`) references CareType(careTypeId),
-	`transportation` bool,
-	`provisionsForDisabilities` bool,
-	`translation` bool,
-	`translationLanguageBetween` int,
-    constraint LTCE12 foreign key (`translationLanguageBetween`) references ServiceLanguage(serviceLanguageId),
-	`translationLanguageAnd` int,
-    constraint LTCE13 foreign key (`translationLanguageAnd`) references ServiceLanguage(serviceLanguageId),
-	`interpretation` bool,
-	`interpretationBetween`int,
-    constraint LTCE14 foreign key (`interpretationBetween`) references ServiceLanguage(serviceLanguageId),
-	`interpretationAnd` int,
-    constraint LTCE15 foreign key (`interpretationAnd`) references ServiceLanguage(serviceLanguageId),
-	`crisisCounselling` bool,
-	`reasonForUpdat` varchar(255)
+	`LTE1processingDetails` varchar(255),
+	`LTE1updateRecordID` int(10),
+	`LTE1uniqueIdentifierType` varchar(255) not null,
+	`LTE1uniqueIdentifierValue` int(10) not null,
+	`LTE1clientDateOfBirth` date not null,
+	`LTE1courseCode` varchar(255) not null,
+	`LTE1clientTrainingStatus` varchar(255) not null,
+	`LTE1dateClientExitedCourse` date,
+	`LTE1reasonForExitingCourse` varchar(255),
+	`LTE1listeningCLBLevel` int,
+	`LTE1speakingCLBLevel` int,
+	`LTE1readingCLBLevel` int,
+	`LTE1writingCLBLevel` int,
+	`LTE1wasACertificateIssuedToTheClient` bool not null,
+	`LTE1listeningLevelIndicatedOnCertificate` int,
+	`LTE1speakingLevelIndicatedOnCertificate` int,
+	`LTE1supportServicesReceived` bool not null,
+	`LTE1careForNewcomerChildren` bool,
+	`LTE1child1Age` int,
+    constraint LTCE2 foreign key (`LTE1child1Age`) references Age(ageId),
+	`LTE1child1TypeOfCare` int,
+    constraint LTCE3 foreign key (`LTE1child1TypeOfCare`) references CareType(careTypeId),
+	`LTE1child2Age` int,
+	constraint LTCE4 foreign key (`LTE1child2Age`) references Age(ageId),
+	`LTE1child2TypeOfCare` int,
+    constraint LTCE5 foreign key (`LTE1child2TypeOfCare`) references CareType(careTypeId),
+	`LTE1child3Age` int,
+	constraint LTCE6 foreign key (`LTE1child3Age`) references Age(ageId),
+	`LTE1child3TypeOfCare` int,
+    constraint LTCE7 foreign key (`LTE1child3TypeOfCare`) references CareType(careTypeId),
+	`LTE1child4Age` int,
+	constraint LTCE8 foreign key (`LTE1child4Age`) references Age(ageId),
+	`LTE1child4TypeOfCare` int,
+    constraint LTCE9 foreign key (`LTE1child4TypeOfCare`) references CareType(careTypeId),
+	`LTE1child5Age` int,
+	constraint LTCE10 foreign key (`LTE1child5Age`) references Age(ageId),
+	`LTE1child5TypeOfCare` int,
+    constraint LTCE11 foreign key (`LTE1child5TypeOfCare`) references CareType(careTypeId),
+	`LTE1transportation` bool,
+	`LTE1provisionsForDisabilities` bool,
+	`LTE1translation` bool,
+	`LTE1translationLanguageBetween` int,
+    constraint LTCE12 foreign key (`LTE1translationLanguageBetween`) references ServiceLanguage(serviceLanguageId),
+	`LTE1translationLanguageAnd` int,
+    constraint LTCE13 foreign key (`LTE1translationLanguageAnd`) references ServiceLanguage(serviceLanguageId),
+	`LTE1interpretation` bool,
+	`LTE1interpretationBetween`int,
+    constraint LTCE14 foreign key (`LTE1interpretationBetween`) references ServiceLanguage(serviceLanguageId),
+	`LTE1interpretationAnd` int,
+    constraint LTCE15 foreign key (`LTE1interpretationAnd`) references ServiceLanguage(serviceLanguageId),
+	`LTE1crisisCounselling` bool,
+	`LTE1reasonForUpdate` varchar(255)
 );
 create table VariableName(
-	variableName varchar(30) primary key,
+	variableName varchar(255) primary key,
     realName varchar(255) not null);
 
 #Insert column names of Employment - ER
@@ -1841,3 +1840,161 @@ insert into VariableName(variableName, realName) values ('NAR2CrisisCounselling'
 insert into VariableName(variableName, realName) values ('NAR1SettlementPlanCompleted', 'Settlement Plan completed and shared with client');
 insert into VariableName(variableName, realName) values ('NAR1EndDate', 'End Date of Assessment (YYYY-MM-DD)');
 insert into VariableName(variableName, realName) values ('NAR1ReasonUpdate', 'Reason for update');
+
+# insert variable names for LTS
+insert into VariableName(variableName, realName) values ('LTS1updateRecordID', 'Update record ID');
+insert into VariableName(variableName, realName) values ('LTS1courseCode', 'Course Code');
+insert into VariableName(variableName, realName) values ('LTS1notes', 'Notes');
+insert into VariableName(variableName, realName) values ('LTS1courseHeldOnAnOngoingBasis', 'Course Held On An Ongoing Basis');
+insert into VariableName(variableName, realName) values ('LTS1officialLanguageOfCourse', 'Official Language of Course');
+insert into VariableName(variableName, realName) values ('LTS1formatOfTrainingProvided', 'Format of Training Provided');
+insert into VariableName(variableName, realName) values ('LTS1classesHeldAt', 'Classes Held At');
+insert into VariableName(variableName, realName) values ('LTS1inPersonInstruction(%)', 'In-Person Instruction (%)');
+insert into VariableName(variableName, realName) values ('LTS1onlineDistanceInstruction(%)', 'Online/Distance Instruction (%)');
+insert into VariableName(variableName, realName) values ('LTS1totalNumberofSpotsinCourse', 'Total Number of Spots in Course');
+insert into VariableName(variableName, realName) values ('LTS1numberOfIRCCFundedSpotsinCourse', 'Number of IRCC-Funded Spots in Course');
+insert into VariableName(variableName, realName) values ('LTS1newStudentsCanEnrolInTheCourse', 'New Students Can Enrol in the Course');
+insert into VariableName(variableName, realName) values ('LTS1supportServicesAvailableForClientInThisCourse', 'Support Services Available for Client in this Course');
+insert into VariableName(variableName, realName) values ('LTS1careForNewcomerChildren', 'Care for Newcomer Children');
+insert into VariableName(variableName, realName) values ('LTS1transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('LTS1provisionsForDisabilities', 'Provisions for Disabilities');
+insert into VariableName(variableName, realName) values ('LTS1courseStartDate', 'Course Start Date (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('LTS1courseEndDate', 'Course End Date (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('LTS1scheduleMorning', 'Schedule: Morning');
+insert into VariableName(variableName, realName) values ('LTS1scheduleAfternoon', 'Schedule: Afternoon');
+insert into VariableName(variableName, realName) values ('LTS1scheduleEvening', 'Schedule: Evening');
+insert into VariableName(variableName, realName) values ('LTS1scheduleWeekend', 'Schedule: Weekend');
+insert into VariableName(variableName, realName) values ('LTS1scheduleAnytime', 'Schedule: Anytime');
+insert into VariableName(variableName, realName) values ('LTS1scheduleOnline', 'Schedule: Online');
+insert into VariableName(variableName, realName) values ('LTS1instructionalHoursPerClass', 'Instructional Hours Per Class');
+insert into VariableName(variableName, realName) values ('LTS1classesPerWeek', 'Classes Per Week');
+insert into VariableName(variableName, realName) values ('LTS1weeksOfInstruction', 'Weeks of Instruction');
+insert into VariableName(variableName, realName) values ('LTS1weeksOfInstructionPerYear', 'Weeks of Instruction Per Year');
+insert into VariableName(variableName, realName) values ('LTS1dominantFocusOfTheCourse', 'Dominant Focus of the Course');
+insert into VariableName(variableName, realName) values ('LTS1courseDirectedAtASpecificTargetGroup', 'Course Directed at a Specific Target Group');
+insert into VariableName(variableName, realName) values ('LTS1children (0-14 yrs)', 'Children (0-14 yrs)');
+insert into VariableName(variableName, realName) values ('LTS1youth (15-24 yrs)', 'Youth (15-24 yrs)');
+insert into VariableName(variableName, realName) values ('LTS1senior', 'Senior');
+insert into VariableName(variableName, realName) values ('LTS1genderSpecific', 'Gender-specific');
+insert into VariableName(variableName, realName) values ('LTS1refugees', 'Refugees');
+insert into VariableName(variableName, realName) values ('LTS1officialLanguageMinorities', 'Official language minorities');
+insert into VariableName(variableName, realName) values ('LTS1ethnicCulturalLinguisticGroup', 'Ethnic/cultural/linguistic group');
+insert into VariableName(variableName, realName) values ('LTS1deafOrHardOfHearing', 'Deaf or Hard of Hearing');
+insert into VariableName(variableName, realName) values ('LTS1blindOrPartiallySighted', 'Blind or Partially Sighted');
+insert into VariableName(variableName, realName) values ('LTS1clientsWithOtherImpairments (physical, mental)', 'Clients with other impairments (physical, mental)');
+insert into VariableName(variableName, realName) values ('LTS1lesbianGayBisexualTransgenderQueer (LGBTQ)', 'Lesbian, Gay, Bisexual, Transgender, Queer (LGBTQ)');
+insert into VariableName(variableName, realName) values ('LTS1familiesParents', 'Families/Parents');
+insert into VariableName(variableName, realName) values ('LTS1clientsWithInternationalTrainingInARegulatedProfession', 'Clients with international training in a regulated profession');
+insert into VariableName(variableName, realName) values ('LTS1clientsWithInternationalTrainingInARegulatedTrade', 'Clients with international training in a regulated trade');
+insert into VariableName(variableName, realName) values ('LTS1materialsUsedInCourse', 'Materials Used in Course');
+insert into VariableName(variableName, realName) values ('LTS1citizenshipPreparation', 'Citizenship preparation');
+insert into VariableName(variableName, realName) values ('LTS1PBLALanguageCompanion', 'PBLA language companion');
+insert into VariableName(variableName, realName) values ('LTS1contactName', 'Contact Name');
+insert into VariableName(variableName, realName) values ('LTS1streetNumber', 'Street Number');
+insert into VariableName(variableName, realName) values ('LTS1streetName', 'Street Name');
+insert into VariableName(variableName, realName) values ('LTS1streetType', 'Street Type');
+insert into VariableName(variableName, realName) values ('LTS1streetDirection', 'Street Direction');
+insert into VariableName(variableName, realName) values ('LTS1unitSuite', 'Unit/Suite');
+insert into VariableName(variableName, realName) values ('LTS1province', 'Province');
+insert into VariableName(variableName, realName) values ('LTS1city', 'City');
+insert into VariableName(variableName, realName) values ('LTS1postalCode', 'Postal Code (A#A#A#)');
+insert into VariableName(variableName, realName) values ('LTS1telephoneNumber', 'Telephone Number (###-###-####)');
+insert into VariableName(variableName, realName) values ('LTS1telephoneExtension', 'Telephone Extension');
+insert into VariableName(variableName, realName) values ('LTS1emailAddress', 'Email Address');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel1', 'Listening Skill Level 1');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel2', 'Listening Skill Level 2');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel3', 'Listening Skill Level 3');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel4', 'Listening Skill Level 4');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel5', 'Listening Skill Level 5');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel6', 'Listening Skill Level 6');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel7', 'Listening Skill Level 7');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel8', 'Listening Skill Level 8');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel9', 'Listening Skill Level 9');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel10', 'Listening Skill Level 10');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel11', 'Listening Skill Level 11');
+insert into VariableName(variableName, realName) values ('LTS1listeningSkillLevel12', 'Listening Skill Level 12');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel1', 'Speaking Skill Level 1');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel2', 'Speaking Skill Level 2');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel3', 'Speaking Skill Level 3');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel4', 'Speaking Skill Level 4');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel5', 'Speaking Skill Level 5');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel6', 'Speaking Skill Level 6');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel7', 'Speaking Skill Level 7');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel8', 'Speaking Skill Level 8');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel9', 'Speaking Skill Level 9');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel10', 'Speaking Skill Level 10');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel11', 'Speaking Skill Level 11');
+insert into VariableName(variableName, realName) values ('LTS1speakingSkillLevel12', 'Speaking Skill Level 12');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel1', 'Reading Skill Level 1');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel2', 'Reading Skill Level 2');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel3', 'Reading Skill Level 3');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel4', 'Reading Skill Level 4');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel5', 'Reading Skill Level 5');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel6', 'Reading Skill Level 6');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel7', 'Reading Skill Level 7');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel8', 'Reading Skill Level 8');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel9', 'Reading Skill Level 9');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel10', 'Reading Skill Level 10');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel11', 'Reading Skill Level 11');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel12', 'Reading Skill Level 12');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel13', 'Reading Skill Level 13');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel14', 'Reading Skill Level 14');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel15', 'Reading Skill Level 15');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel16', 'Reading Skill Level 16');
+insert into VariableName(variableName, realName) values ('LTS1readingSkillLevel17', 'Reading Skill Level 17');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel1', 'Writing Skill Level 1');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel2', 'Writing Skill Level 2');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel3', 'Writing Skill Level 3');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel4', 'Writing Skill Level 4');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel5', 'Writing Skill Level 5');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel6', 'Writing Skill Level 6');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel7', 'Writing Skill Level 7');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel8', 'Writing Skill Level 8');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel9', 'Writing Skill Level 9');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel10', 'Writing Skill Level 10');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel11', 'Writing Skill Level 11');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel12', 'Writing Skill Level 12');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel13', 'Writing Skill Level 13');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel14', 'Writing Skill Level 14');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel15', 'Writing Skill Level 15');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel16', 'Writing Skill Level 16');
+insert into VariableName(variableName, realName) values ('LTS1writingSkillLevel17', 'Writing Skill Level 17');
+
+# insert variable names for LTExit
+insert into VariableName(variableName, realName) values ('LTE1updateRecordID', 'Update record ID');
+insert into VariableName(variableName, realName) values ('LTE1uniqueIdentifierType', 'Unique Identifier Type');
+insert into VariableName(variableName, realName) values ('LTE1uniqueIdentifierValue', 'Unique Identifier Value');
+insert into VariableName(variableName, realName) values ('LTE1clientDateOfBirth', 'Client Date of Birth (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('LTE1courseCode', 'Course Code');
+insert into VariableName(variableName, realName) values ('LTE1clientTrainingStatus', 'Client\'s Training Status');
+insert into VariableName(variableName, realName) values ('LTE1dateClientExitedCourse', 'Date Client Exited Course (YYYY-MM-DD)');
+insert into VariableName(variableName, realName) values ('LTE1reasonForExitingCourse', 'Reason for Exiting course');
+insert into VariableName(variableName, realName) values ('LTE1listeningCLBLevel', 'Listening CLB Level');
+insert into VariableName(variableName, realName) values ('LTE1speakingCLBLevel', 'Speaking CLB Level');
+insert into VariableName(variableName, realName) values ('LTE1readingCLBLevel', 'Reading CLB Level');
+insert into VariableName(variableName, realName) values ('LTE1writingCLBLevel', 'Writing CLB Level');
+insert into VariableName(variableName, realName) values ('LTE1wasACertificateIssuedToTheClient', 'Was a Certificate issued to the client?');
+insert into VariableName(variableName, realName) values ('LTE1listeningLevelIndicatedOnCertificate', 'Listening level indicated on Certificate');
+insert into VariableName(variableName, realName) values ('LTE1speakingLevelIndicatedOnCertificate', 'Speaking level indicated on Certificate');
+insert into VariableName(variableName, realName) values ('LTE1supportServicesReceived', 'Support services received');
+insert into VariableName(variableName, realName) values ('LTE1careForNewcomerChildren', 'Care for newcomer children');
+insert into VariableName(variableName, realName) values ('LTE1child1Age', 'Child 1: Age');
+insert into VariableName(variableName, realName) values ('LTE1child1TypeOfCare', 'Child 1: Type of Care');
+insert into VariableName(variableName, realName) values ('LTE1child2Age', 'Child 2: Age');
+insert into VariableName(variableName, realName) values ('LTE1child2TypeOfCare', 'Child 2: Type of Care');
+insert into VariableName(variableName, realName) values ('LTE1child3Age', 'Child 3: Age');
+insert into VariableName(variableName, realName) values ('LTE1child3TypeOfCare', 'Child 3: Type of Care');
+insert into VariableName(variableName, realName) values ('LTE1child4Age', 'Child 4: Age');
+insert into VariableName(variableName, realName) values ('LTE1child4TypeOfCare', 'Child 4: Type of Care');
+insert into VariableName(variableName, realName) values ('LTE1child5Age', 'Child 5: Age');
+insert into VariableName(variableName, realName) values ('LTE1child5TypeOfCare', 'Child 5: Type of Care');
+insert into VariableName(variableName, realName) values ('LTE1transportation', 'Transportation');
+insert into VariableName(variableName, realName) values ('LTE1provisionsForDisabilities', 'Provisions for disabilities');
+insert into VariableName(variableName, realName) values ('LTE1translation', 'Translation');
+insert into VariableName(variableName, realName) values ('LTE1translationLanguageBetween', 'Translation language Between');
+insert into VariableName(variableName, realName) values ('LTE1translationLanguageAnd', 'Translation language And');
+insert into VariableName(variableName, realName) values ('LTE1interpretation', 'Interpretation');
+insert into VariableName(variableName, realName) values ('LTE1interpretationBetween', 'Between');
+insert into VariableName(variableName, realName) values ('LTE1interpretationAnd', 'And');
+insert into VariableName(variableName, realName) values ('LTE1crisisCounselling', 'Crisis Counselling');
+insert into VariableName(variableName, realName) values ('LTE1reasonForUpdate', 'Reason for update');
