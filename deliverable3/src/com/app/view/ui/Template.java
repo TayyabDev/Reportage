@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+
 
 public class Template {
 	 private JPanel panel;
@@ -27,7 +29,26 @@ public class Template {
  		c.fill = GridBagConstraints.BOTH;
  		
  		c.gridwidth = GridBagConstraints.REMAINDER;
-    	 create = UIHelpers.buttonGenerator("Create a template");
+
+
+
+    	 create = UIHelpers.buttonGenerator("Create a new template");
+		 create.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				 jfc.setDialogTitle("Select your file");
+				 int returnValue = jfc.showSaveDialog(null);
+				 if (returnValue == JFileChooser.APPROVE_OPTION) {
+					 if (jfc.getSelectedFile().isDirectory()) {
+						 System.out.println("You selected the directory: " + jfc.getSelectedFile());
+					 }
+				 }
+
+			 }
+		 });
+
+
     	 view = UIHelpers.buttonGenerator("View the existing templates");
     	 select = UIHelpers.buttonGenerator("Select a template");
     	
