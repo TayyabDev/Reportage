@@ -252,15 +252,16 @@ insert into LanguagePreference(languagePreference) values ('French');
 insert into LanguagePreference(languagePreference) values ('Unknown/No preference');
 
 create table ClientProfile(
-	`templateId` int primary key,
+	`templateId` int,
     constraint CPfk1
-		foreign key(templateId)
+		foreign key(`templateId`)
         references Template(templateId)
         on delete no action
         on update cascade,
 	`CP1UniqueID` int not null,
     constraint CPfk2 foreign key (`CP1UniqueID`) references UniqueIdentifier(identifierId),
 	`CP1UniqueIDValue` char(8) not null,
+    primary key (`templateId`, `CP1UniqueID`, `CP1UniqueIDValue`),
 	`CP1DOB` date not null,
 	`CP1PhoneNum` varchar(20),
 	`CP1QuesEmailAddress` bool,
@@ -654,16 +655,17 @@ insert into ReasonUpdate(reasonUpdate) values ('Amend record');
 insert into ReasonUpdate(reasonUpdate) values ('Correct error');
 
 create table NeedsAssessmentAndReferrals(
-	`templateId` int primary key,
+	`templateId` int,
     constraint NAARfk1
 		foreign key(templateId)
         references Template(templateId)
         on delete no action
         on update cascade,
-	`NAR1UpdateRecordID` char(8), # does it need to be 8 digits
+	`NAR1UpdateRecordID` char(8),
 	`NAR1UniqueID` int not null,
     constraint NAARfk2 foreign key (`NAR1UniqueID`) references UniqueIdentifier(identifierId),
 	`NAR1UniqueIDValue` char(8) not null,
+    primary key (`templateId`, `NAR1UniqueID`, `NAR1UniqueIDValue`),
 	`NAR1DOB` date not null,
 	`NAR1PostalCode` char(6) not null,
 	`NAR1StartDate` date not null,
@@ -1091,7 +1093,7 @@ insert into TimeSpentMinutes(timeSpentMinutes) values ('55');
 
 #create table Employment();
 create table Employment(
-	`templateId` int primary key,
+	`templateId` int,
     #constraint Efk1
 		foreign key(templateId)
         references Template(templateId)
@@ -1101,6 +1103,7 @@ create table Employment(
 	`ER1UniqueID` int not null,
 	constraint Efk2 foreign key (`ER1UniqueID`) references UniqueIdentifier(identifierId),
 	`ER1UniqueIDValue` char(8) not null,
+    primary key (`templateId`, `ER1UniqueID`, `ER1UniqueIDValue`),
 	`ER1DOB` date not null,
 	`ER1PostalCode` char(6) not null,
     `ER1RegistrationEI` bool not null,
@@ -1249,7 +1252,7 @@ insert into NumberClientsGroup(numberClientsGroup) values ('More than 20 people'
 
 #create table InfoAndOrientation();
 create table InfoAndOrientation(
-	`templateId` int primary key,
+	`templateId` int,
     constraint IOfk1
 		foreign key(templateId)
         references Template(templateId)
@@ -1259,6 +1262,7 @@ create table InfoAndOrientation(
 	`IO1UniqueID` int not null,
 	constraint IOfk2 foreign key (`IO1UniqueID`) references UniqueIdentifier(identifierId),
 	`IO1UniqueIDValue` char(8) not null,
+    primary key (`templateId`, `IO1UniqueID`, `IO1UniqueIDValue`),
 	`IO1DOB` date not null,
 	`IO1PostalCode` char(6) not null,
 	`IO1StartDate` date not null,
@@ -1459,19 +1463,17 @@ insert into ServiceAbortReason(serviceAbortReason) values ('Intervention ended b
 insert into ServiceAbortReason(serviceAbortReason) values ('Intervention ended by third party/volunteer');
 
 create table CommunityConnections(
-	`templateId` int primary key,
+	`templateId` int,
     constraint CCfk1
 		foreign key(templateId)
         references Template(templateId)
         on delete no action
         on update cascade,
-	# connection id? 
-	#connectionId int not null auto_increment primary key,
-	#connectionStatus varchar(255),
 	`CC1UpdateRecordID` char(8),
 	`CC1UniqueID` int not null,
 	constraint CCfk2 foreign key (`CC1UniqueID`) references UniqueIdentifier(identifierId),
 	`CC1UniqueIDVal` char(8) not null,
+    primary key (`templateId`, `CC1UniqueID`, `CC1UniqueIDVal`),
 	`CC1DOB` date not null,
 	`CC1PostalCode` char(6) not null,
 	`CC1ServiceLanguage` int not null,
@@ -1565,19 +1567,17 @@ create table CommunityConnections(
   constraint CCfk29 foreign key (`CC1Reasonforupdate`) references ReasonUpdate(reasonUpdateId));
 
 create table LTClientEnrolment(
-	`templateId` int primary key,
+	`templateId` int,
     constraint LTCEfk1
 		foreign key(templateId)
         references Template(templateId)
         on delete no action
         on update cascade,
-    #enrolmentIdconnectionId int not null auto_increment primary key
-	#connectionStatus varchar(255),
-
 	`LTCE1UpdaterecordID` char(8),
 	`LTCE1UniqueIDType` int not null,
 	constraint LTCEfk2 foreign key (`LTCE1UniqueIDType`) references UniqueIdentifier(identifierId),
 	`LTCE1UniqueIDValue` char(8) not null,
+    primary key (`templateId`, `LTCE1UniqueIDType`, `LTCE1UniqueIDValue`),
 	`LTCE1DOB` date not null,
 	`LTCE1PostalCode` char(6) not null,
 	`LTCE1CourseCode` varchar(255) not null,
@@ -1648,7 +1648,7 @@ insert into NewEnrollmentInCourseFrequency(frequency) values ('Semianually');
 insert into NewEnrollmentInCourseFrequency(frequency) values ('Anually');
 
 create table LTCourseSetup(
-	`templateId` int primary key,
+	`templateId` int,
     constraint LTCS1
 		foreign key(templateId)
         references Template(templateId)
@@ -1657,6 +1657,7 @@ create table LTCourseSetup(
 	`processingDetails` varchar(255),
 	`LTS1updateRecordID` int(10),
 	`LTS1courseCode` varchar(25) not null,
+    primary key (`templateId`, `LTS1courseCode`),
 	`LTS1notes` varchar(255),
 	`LTS1courseHeldOnAnOngoingBasis` bool not null,
 	`LTS1officialLanguageOfCourse` int not null, 
@@ -1779,7 +1780,7 @@ create table LTCourseSetup(
 	`LTS1writingSkillLevel17` int);
 
 create table LTClientExit(
-	`templateId` int primary key,
+	`templateId` int,
     constraint LTCE1
 		foreign key(templateId)
         references Template(templateId)
@@ -1787,8 +1788,10 @@ create table LTClientExit(
         on update cascade,
 	`LTE1processingDetails` varchar(255),
 	`LTE1updateRecordID` int(10),
-	`LTE1uniqueIdentifierType` varchar(255) not null,
+	`LTE1uniqueIdentifierType` int not null,
+    constraint LTCE0 foreign key (`LTE1uniqueIdentifierType`) references UniqueIdentifier(identifierId),
 	`LTE1uniqueIdentifierValue` int(10) not null,
+    primary key (`templateId`,`LTE1uniqueIdentifierType`,`LTE1uniqueIdentifierValue`),
 	`LTE1clientDateOfBirth` date not null,
 	`LTE1courseCode` varchar(255) not null,
 	`LTE1clientTrainingStatus` varchar(255) not null,
