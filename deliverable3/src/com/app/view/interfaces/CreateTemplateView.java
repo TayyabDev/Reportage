@@ -4,7 +4,7 @@ public interface CreateTemplateView {
 
     void onSuccessTemplateCreated();
 
-    void isFileValid();
+    boolean isFileValid();
 
     void onErrorUploadingFile();
 }

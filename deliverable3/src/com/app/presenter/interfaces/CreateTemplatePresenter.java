@@ -1,13 +1,17 @@
 package com.app.presenter.interfaces;
 
+import com.app.view.interfaces.CreateTemplateView;
+
 import java.io.File;
 
 public interface CreateTemplatePresenter {
 
-    void createTemplate(File file);
+    void createTemplateWithFile(File file);
 
-    void onSuccess();
+    void createTemplateWithQuery(String query);
 
-    void onError();
+    void attachView(CreateTemplateView view);
+
+    void unbindView();
 
 }
