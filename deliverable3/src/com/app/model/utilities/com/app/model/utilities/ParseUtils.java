@@ -114,8 +114,37 @@ class ParseUtils {
 		return result;
 	}
 	
+	public static int getNumOfSheet(String fileName) {
+		Workbook workbook = null;
+		try {
+			workbook = WorkbookFactory.create(new File(fileName));
+		} catch (EncryptedDocumentException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		int numOfSheet = workbook.getNumberOfSheets();
+		return numOfSheet;
+	}
+	
+	public static List<String> getSheetNames(String fileName) {
+		Workbook workbook = null;
+		try {
+			workbook = WorkbookFactory.create(new File(fileName));
+		} catch (EncryptedDocumentException | IOException e) {
+			e.printStackTrace();
+		}
+		List<String> sheetNames = new ArrayList<String>();
+		
+		int numOfSheet = workbook.getNumberOfSheets();
+		for (int i = 0; i<numOfSheet; i++) {
+			String sheetName = workbook.getSheetName(i);
+			sheetNames.add(sheetName);
+		}
+		return sheetNames;
+	}
+	
 	public static void main(String[] args) throws EncryptedDocumentException, IOException  {
-		String fileName = "C:\\Users\\leo\\Desktop\\New_iCARE_Template_Comb_with_Examples.xlsx";
+		String fileName = "C:\\Users\\joeli\\Desktop\\winhome\\c01_project\\New_iCARE_Template_Comb_with_Examples.xlsx";
 		System.out.println(getTemplateNameExcel(fileName, 2));
 		System.out.println(getColumnsIdsExcel(fileName, 2).toString());
 		System.out.println(getColumnsNamesExcel(fileName, 2).toString());
