@@ -1,5 +1,7 @@
 package com.app.view.ui;
 
+import com.app.view.interfaces.CreateTemplateView;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -10,17 +12,17 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
-
 public class Template {
 	 private JPanel panel;
 	 private JButton create;
 	 private JButton view;
 	 private JButton select ;
-	 
+	 private JButton createSQL;
 	
      public Template() {
-    	 GridBagLayout gb = new GridBagLayout();
- 		GridBagConstraints c = new GridBagConstraints();
+
+         GridBagLayout gb = new GridBagLayout();
+         GridBagConstraints c = new GridBagConstraints();
  		panel = new JPanel();
  		panel.setLayout(gb);
  		panel.setBackground(Color.decode("#f1f8e9"));
@@ -32,7 +34,7 @@ public class Template {
 
 
 
-    	 create = UIHelpers.buttonGenerator("Create a new template");
+    	 create = UIHelpers.buttonGenerator("Create a new template using file");
 		 create.addActionListener(new ActionListener() {
 			 @Override
 			 public void actionPerformed(ActionEvent e) {
@@ -48,15 +50,30 @@ public class Template {
 			 }
 		 });
 
+		 createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
+         createSQL.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+
+             }
+         });
+
+
+
 
     	 view = UIHelpers.buttonGenerator("View the existing templates");
+
     	 select = UIHelpers.buttonGenerator("Select a template");
-    	
+
+
+
     	 gb.setConstraints(create, c);
+    	 gb.setConstraints(createSQL, c);
     	 gb.setConstraints(view, c);
     	 gb.setConstraints(select, c);
     	 
     	 panel.add(create);
+    	 panel.add(createSQL);
     	 panel.add(view);
     	 panel.add(select);
     	 
@@ -71,7 +88,8 @@ public class Template {
 	        frame.pack();
 	        frame.setVisible(true);
 	        
-	    }
+     }
+
 
 }
 
