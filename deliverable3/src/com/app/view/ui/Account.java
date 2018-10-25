@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -16,6 +17,7 @@ public class Account {
 	 private JButton edit;
 	 private JButton search;
 	 private static JFrame frame;
+	 private ArrayList<String> info = new ArrayList<String>();
 	
      public Account() {
     	 GridBagLayout gb = new GridBagLayout();
@@ -38,6 +40,8 @@ public class Account {
     	      {
     	        // display/center the jdialog when the button is pressed
     	        JDialog d = new JDialog(frame, "Create an account", true);
+    	        d.setBackground(Color.decode("#f1f8e9"));
+
     	        
     	        GridBagLayout dgb = new GridBagLayout();
     	 		GridBagConstraints dc = new GridBagConstraints();
@@ -53,6 +57,19 @@ public class Account {
     	        
     	        JLabel lblAge = new JLabel("Age");
     	        JTextField age = new JTextField();
+    	        
+    	        JButton submit = UIHelpers.buttonGenerator("Submit");
+    	        submit.addActionListener(new ActionListener() {
+    	            @Override
+    	            public void actionPerformed(ActionEvent e) {
+    	                info = new ArrayList<>();
+    	            	info.add(firstName.getText());
+    	            	info.add(lastName.getText());
+    	            	info.add(age.getText());
+    	            	System.out.println(info);
+    	                d.dispose();
+    	            }
+    	        });
     	 		
     	        
     	 		dgb.setConstraints(lblFirstName, dc);
@@ -61,6 +78,7 @@ public class Account {
     	    	dgb.setConstraints(lastName, dc);  
     	    	dgb.setConstraints(lblAge, dc);
     	    	dgb.setConstraints(age, dc);  
+    	    	dgb.setConstraints(submit, dc);
     	        
     	        d.add(lblFirstName);    	   
     	        d.add(firstName);
@@ -68,8 +86,8 @@ public class Account {
     	        d.add(lastName);
     	        d.add(lblAge);
     	        d.add(age);
+    	        d.add(submit);
     	        
-    	        d.setBackground(Color.decode("#f1f8e9"));
     	        d.setLocationRelativeTo(frame);
     	        d.setSize(500, 600);
     	        d.setVisible(true);
