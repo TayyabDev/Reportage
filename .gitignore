@@ -27,6 +27,7 @@ out/
 .classpath
 .project
 .settings
+/lib/
 
 # macOS auto generated
 .DS_Store
