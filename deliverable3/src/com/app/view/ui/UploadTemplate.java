@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 public class UploadTemplate {
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
@@ -28,6 +30,7 @@ public class UploadTemplate {
 		lblDate.setBounds(80, 120, 180, 25);
 		panel.add(lblDate);
 		
+		// Date textbox
 		JTextField txtDate = new JTextField();
 		txtDate.setBounds(400, 120, 200, 25);
 		panel.add(txtDate);
@@ -38,7 +41,6 @@ public class UploadTemplate {
 		
 		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
 		JComboBox cbTemplate = new JComboBox(templateNames);
-		//cbTemplate.addActionListener((ActionListener) this);
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
@@ -49,6 +51,10 @@ public class UploadTemplate {
 		JButton btnSelectFile = UIHelpers.buttonGenerator("Upload");
 		JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
 		
+		 JLabel lblSelectedFile = new JLabel("You selected a file");
+		 lblSelectedFile.setBounds(400, 230, 700, 25);
+		
+		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
 			 @Override
 			 public void actionPerformed(ActionEvent e) {
@@ -56,13 +62,16 @@ public class UploadTemplate {
 				 jfc.setDialogTitle("Select your file");
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
-					 if (jfc.getSelectedFile().isDirectory()) {
-						 System.out.println("You selected the directory: " + jfc.getSelectedFile());
+					 if (jfc.getSelectedFile() != null) {
+						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
+						 panel.add(lblSelectedFile);
+						 panel.repaint();
 					 }
 				 }
 
 			 }
 		 });
+
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
@@ -70,8 +79,6 @@ public class UploadTemplate {
 		panel.add(btnSubmit);
 
 	}
-	
-
 
 	
 	 public static void main(String[] args) {
