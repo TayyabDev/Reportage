@@ -19,6 +19,9 @@ public class ExcelFile {
 	
 	/**
 	 * The main constructor for ExcelFile.
+	 * 
+	 * RUNS OUT OF MEMORY IF THE EXCEL FILE HAS TOO MANY SHEETS!
+	 * PLEASE LIMIT EXCEL FILE TO 1 SHEET!
 	 * @param fileName the fileName to parse.
 	 */
 	public ExcelFile(String fileName) {
