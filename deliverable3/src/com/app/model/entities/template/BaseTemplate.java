@@ -5,7 +5,7 @@ import java.util.List;
 public class BaseTemplate extends Template {
 
     private String templateName;
-    private List<> templateColumnNames;
+    private List<String> templateColumnNames;
     private List<String> columnIds;
 
     public BaseTemplate(String templateName, List<String> templateColumnNames,
@@ -16,6 +16,7 @@ public class BaseTemplate extends Template {
     }
 
     public List<String> getTemplateColumnNames() {
+
         return templateColumnNames;
     }
 

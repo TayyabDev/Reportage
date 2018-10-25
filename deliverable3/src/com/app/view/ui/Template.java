@@ -8,16 +8,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 public class Template {
+	private static JFrame frame;
 	 private JPanel panel;
 	 private JButton create;
 	 private JButton view;
 	 private JButton select ;
 	 private JButton createSQL;
+	 private String sqlQuery;
+
 	
      public Template() {
 
@@ -50,10 +54,40 @@ public class Template {
 			 }
 		 });
 
+		 // tayyab task
+         // SYNTAX
+         /*CREATE TABLE table_name (
+            column1 datatype,
+            column2 datatype,
+            column3 datatype,
+                  ....
+            );
+          */
 		 createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
          createSQL.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
+				JDialog sqlDialog = new JDialog(frame,"Enter the SQL command");
+
+				JTextArea txtAreaSqlQuery = new JTextArea();
+				txtAreaSqlQuery.setLineWrap(true);
+				txtAreaSqlQuery.setWrapStyleWord(true);
+
+				JButton submit = UIHelpers.buttonGenerator("Submit");
+                 submit.addActionListener(new ActionListener() {
+                     @Override
+                     public void actionPerformed(ActionEvent e) {
+                         sqlQuery = txtAreaSqlQuery.getText();
+                         sqlDialog.dispose();
+                     }
+                 });
+
+				sqlDialog.add(txtAreaSqlQuery);
+                sqlDialog.add(submit);
+
+				sqlDialog.setSize(600, 200);
+				sqlDialog.setVisible(true);
+				sqlDialog.setLocationRelativeTo(frame);
 
              }
          });
@@ -82,13 +116,15 @@ public class Template {
      }
 	
 	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("Template Settings");
+	        frame = new JFrame("Template Settings");
 	        frame.add(new Template().panel);
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
 	        frame.setVisible(true);
 	        
      }
+
+
 
 
 }
