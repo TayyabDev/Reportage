@@ -1,5 +1,10 @@
 # Team11
 
+## Required Libraries
+Please download the following libraries and add them to your project:
+Apache POI - https://poi.apache.org/download.html#POI-4.0.0
+Apache Commons Compress - https://commons.apache.org/proper/commons-compress/
+
 ## Deliverable 2 - October 15th, 2018
 
 The Personas and User Stories are located in the \Deliverable2\ directory in the master branch.
