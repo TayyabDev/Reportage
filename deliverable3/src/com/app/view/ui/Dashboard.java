@@ -1,12 +1,16 @@
 package com.app.view.ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Dashboard {
+    static JFrame frame;
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
+
 
 
 	
@@ -33,8 +37,38 @@ public class Dashboard {
 		c.weighty = 2.0;
 		
 		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
+        btnTemplate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Template t  = new Template();
+                t.main(null);
+                frame.dispose();
+            }
+        });
+
+
 		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
+        btnAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Account ac = new Account();
+                ac.main(null);
+                frame.dispose();
+            }
+        });
+
 		JButton btnReport = UIHelpers.buttonGenerator("Reports");
+        btnReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Report r = new Report();
+                r.main(null);
+                frame.dispose();
+            }
+        });
+
+
+
 		JButton btnAgency = UIHelpers.buttonGenerator("Agency");
 		
 		
@@ -54,7 +88,7 @@ public class Dashboard {
 
 	
 	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("TEQ Dashboard");
+	        frame = new JFrame("TEQ Dashboard");
 	        frame.add(new Dashboard().panel);
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
