@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
 public class QueryOnDatabase {
 	
 	/*
@@ -65,35 +67,46 @@ public class QueryOnDatabase {
 		}
 		return "(" + result.substring(0, result.length()) + ")";
 	}
+	
+	
 	/*
-	 * insert data into specific table (columnIds) given
-	 * columnIds and data must match
+	 * insert Row given query String. the columnIds and the data should match each other.
+	 * @param tableName table name of the table in the database
+	 * @param columnIds in the form of (columnId1, columnId2, columnId3)
+	 * @param data in the form of (data1, data2, data3)
 	 */
-	public static boolean insertRow(String tableName, List<String> columnIds, List<String> data) {
-		
-		// formulate the columnIds into the one single string with comma separate
-		String formulatedColumnId = formulateString(columnIds);
-		String formulatedData = formulateString(data);
-		String sql = "insert into " + tableName + formulatedColumnId 
-				+ " values " + formulatedData + ";" ;
+	public static int insertRowRawQuery(String tableName, String columnIds, String data) {
+		String sql = "insert into " + tableName + columnIds 
+				+ " values " + data + ";" ;
 		Connection conn;
 		try {
 			conn = ConnectDatabase.connect();
 			Statement st = conn.createStatement();
-			st.executeUpdate(sql);
+			int id = st.executeUpdate(sql);
 			st.close();
 			conn.close();
-			return true;
+			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
+	}
+	/*
+	 * insert data into specific table (columnIds) given
+	 * columnIds and data must match
+	 */
+	public static int insertRow(String tableName, List<String> columnIds, List<String> data) {
+		
+		// formulate the columnIds into the one single string with comma separate
+		String formulatedColumnId = formulateString(columnIds);
+		String formulatedData = formulateString(data);
+		return insertRowRawQuery(tableName, formulatedColumnId, formulatedData);
 	}
 
 	/*
 	 * insert variableName mapping to variableName table
 	 */
-	public static boolean insertVariableName(String columnId, String columnName) {
+	public static int insertVariableName(String columnId, String columnName) {
 		List<String> columns = new ArrayList<String>();
 		columns.add("variableName");
 		columns.add("realName");
@@ -134,11 +147,87 @@ public class QueryOnDatabase {
 	
 	/*
 	 * create an empty table with id as primary key
+	 * @param attrs attributes with constraints
 	 */
-	public static boolean createTable(String tableName) {
-		String sql = "create table " + tableName + " ("
-				+ " id int not null auto_increment primary key);";
+	public static boolean createTable(String tableName, String attrs) {
+		String sql;
+		if (attrs.compareTo("") == 0) {
+			sql = "create table " + tableName + " ("
+					+ " id int not null auto_increment primary key);";
+		} else {
+			sql = "create table " + tableName + " ( " + attrs + " );" ;
+		}
+		 
 		return runCreate(sql);
+	}
+	
+	
+	public static List<String> getColumnIds(String tableName) {
+		String sql = "select * from " + tableName;
+		Connection conn;
+		List<String> columnIds = new ArrayList<String>();
+		try {
+			conn = ConnectDatabase.connect();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+			int numOfColumn = rsmd.getColumnCount();
+			for (int i = 1; i <= numOfColumn; i++) {
+				String name = rsmd.getColumnName(i);
+				columnIds.add(name);
+			}
+			st.close();
+			conn.close();
+			return columnIds;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	public static boolean createTemplate(String temName, String tableName, List<String> columnIds, List<String> columnNames) {
+		// store the template's real name and table name in the database
+		List<String> attrNames = new ArrayList<String>();
+		attrNames.add("templateName");
+		attrNames.add("tableName");
+		
+		List<String> vals = new ArrayList<String>();
+		vals.add(temName);
+		vals.add(tableName);
+		int id = insertRow("Template", attrNames, vals);
+//		exception here
+		
+		// create an empty table 
+		boolean createRes = createTable(tableName, "");
+		// insert all the columnIds to the empty table
+		int numOfColumn = columnIds.size();
+		boolean insertColRes = true;
+		for (int i = 0; i<numOfColumn; i++) {
+			insertColRes = runInsertColumn(columnIds.get(i), tableName, ""); // constraint is not set for now
+			if (insertColRes) {
+				break;
+			}
+		}
+		
+		
+		// store all the columnIds and columnNames into the variableName table in database
+		for (int i = 0; i < numOfColumn; i++) {
+			int res = insertRowRawQuery(tableName, 
+					"(variableName, realName)",
+					"(" + columnIds.get(i) + ", " + columnNames.get(i) +")");
+
+//			if (res < 0) {
+//				throw new Exception();
+//			}
+		}
+		
+		return (createRes && insertColRes);
+		
+		
+		
+		
+		
 	}
 	
 	

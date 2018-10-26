@@ -155,4 +155,24 @@ public class ExcelFile {
 		result -= 3;
 		return result;
 	}
+	
+	public String getTemplateName(int sheetNum) {
+		Sheet sheet = workbook.getSheetAt(sheetNum);
+		// add template name by getting indexes 
+		String temName = sheet.getRow(0).getCell(0).getStringCellValue();
+		int start = temName.indexOf("\n", 0);
+		start = temName.indexOf("\n", start+1);
+		int end = temName.indexOf("\n", start+1);
+		end = temName.indexOf("\n", end);
+		temName = temName.substring(start, end);
+		temName = temName.replace("\n", "");
+		return temName;
+	}
+	
+	public static void main(String[] args){
+		String fileName = "C:\\Users\\joeli\\Desktop\\winhome\\c01_project\\New_iCARE_Template_Comb_with_Examples.xlsx";
+		ExcelFile e = new ExcelFile(fileName);
+		
+		System.out.println(e.getSheetNumRows(2));
+	}
 }
