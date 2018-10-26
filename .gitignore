@@ -8,6 +8,8 @@ out/
 .idea/**/dictionaries
 .idea/**/shelf
 
+*.idea
+
 *.iml
 
 # Generated files

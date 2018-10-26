@@ -1,5 +1,8 @@
 package com.app.view.ui;
 
+import com.app.model.CreateTemplateModelImpl;
+import com.app.presenter.CreateTemplatePresenterImpl;
+import com.app.presenter.interfaces.CreateTemplatePresenter;
 import com.app.view.interfaces.CreateTemplateView;
 
 import java.awt.Color;
@@ -12,8 +15,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-
-public class Template {
+import java.io.File;
+public class Template implements CreateTemplateView{
 	private static JFrame frame;
 	 private JPanel panel;
 	 private JButton create;
@@ -21,18 +24,24 @@ public class Template {
 	 private JButton select ;
 	 private JButton createSQL;
 	 private String sqlQuery;
-
+	 private CreateTemplatePresenter presenter;
 	
      public Template() {
 
+
          GridBagLayout gb = new GridBagLayout();
          GridBagConstraints c = new GridBagConstraints();
- 		panel = new JPanel();
- 		panel.setLayout(gb);
- 		panel.setBackground(Color.decode("#f1f8e9"));
- 		
- 		
- 		c.fill = GridBagConstraints.BOTH;
+         panel = new JPanel();
+ 		 panel.setLayout(gb);
+ 		 panel.setBackground(Color.decode("#f1f8e9"));
+
+
+
+         presenter = new CreateTemplatePresenterImpl(new CreateTemplateModelImpl());
+         presenter.attachView(this);
+
+
+         c.fill = GridBagConstraints.BOTH;
  		
  		c.gridwidth = GridBagConstraints.REMAINDER;
 
@@ -47,7 +56,9 @@ public class Template {
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 if (jfc.getSelectedFile().isDirectory()) {
+
 						 System.out.println("You selected the directory: " + jfc.getSelectedFile());
+						 presenter.createTemplateWithFile(jfc.getSelectedFile());
 					 }
 				 }
 
@@ -78,6 +89,7 @@ public class Template {
                      @Override
                      public void actionPerformed(ActionEvent e) {
                          sqlQuery = txtAreaSqlQuery.getText();
+                         presenter.createTemplateWithQuery(sqlQuery);
                          sqlDialog.dispose();
                      }
                  });
@@ -114,6 +126,13 @@ public class Template {
     	 
     	 
      }
+
+     public ArrayList<String> parseFile(File file){
+         // read the column names
+         ArrayList<String> headers = new ArrayList<>();
+         return headers;
+
+     }
 	
 	 public static void main(String[] args) {
 	        frame = new JFrame("Template Settings");
@@ -121,10 +140,28 @@ public class Template {
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
 	        frame.setVisible(true);
-	        
      }
 
 
+    @Override
+    public void onSuccessTemplateCreated() {
+
+    }
+
+    @Override
+    public boolean isFileValid() {
+        return false;
+    }
+
+    @Override
+    public void onErrorUploadingFile() {
+
+    }
+
+    public void disposeView(){
+         frame.dispose();
+         presenter.unbindView();
+    }
 
 
 }
