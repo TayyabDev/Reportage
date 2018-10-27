@@ -2,10 +2,7 @@
 out/
 
 # User-specific stuff
-<<<<<<< HEAD
 .idea/**/workspace.xml
-=======
->>>>>>> develop
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
@@ -30,7 +27,6 @@ out/
 .classpath
 .project
 .settings
-<<<<<<< HEAD
 
 # macOS auto generated
 .DS_Store
@@ -38,9 +34,3 @@ out/
 /lib/
 .metadata
 .recommenders
-=======
-/lib/
-
-# macOS auto generated
-.DS_Store
->>>>>>> develop
