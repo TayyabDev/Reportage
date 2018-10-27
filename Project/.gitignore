@@ -2,16 +2,11 @@
 out/
 
 # User-specific stuff
-
-
-
-
+.idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
-*.idea
 
 *.iml
 
@@ -31,13 +26,7 @@ out/
 *.class
 .classpath
 .project
-
-
-*.log
-
-
 .settings
-
 
 # macOS auto generated
 .DS_Store
@@ -45,10 +34,3 @@ out/
 /lib/
 .metadata
 .recommenders
-=======
-/lib/
-
-# macOS auto generated
-.DS_Store
-
-

@@ -6,5 +6,5 @@ public interface CreateTemplateModel {
 
     void runRawQuery(CreateTemplateResultInterface resultInterface, String query);
 
-    void createUsingFile(CreateTemplateResultInterface resultInterface, File file);
+    void createUsingFile(CreateTemplateResultInterface resultInterface, String fileName);
 }

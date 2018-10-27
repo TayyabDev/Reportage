@@ -20,7 +20,7 @@ public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, Cre
     @Override
     public void createTemplateWithFile(File file) {
         if(view.isFileValid()) {
-            model.createUsingFile(this, file);
+            model.createUsingFile(this, file.getName());
         }
     }
 
