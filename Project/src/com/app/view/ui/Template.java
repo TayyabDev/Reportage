@@ -91,6 +91,14 @@ public class Template implements CreateTemplateView{
     	 view = UIHelpers.buttonGenerator("View the existing templates");
 
     	 select = UIHelpers.buttonGenerator("Select a template");
+		 select.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				// go to the upload template screen
+				 UploadTemplate ut = new UploadTemplate();
+				 ut.main(null);
+
+			 }});
 
 
 

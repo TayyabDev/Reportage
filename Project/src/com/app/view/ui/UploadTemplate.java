@@ -1,5 +1,11 @@
 package com.app.view.ui;
 
+import com.app.model.UploadTemplateModelImpl;
+import com.app.presenter.UploadTemplatePresenterImpl;
+import com.app.presenter.interfaces.CreateTemplatePresenter;
+import com.app.presenter.interfaces.UploadTemplatePresenter;
+import com.app.view.interfaces.UploadTemplateView;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,12 +13,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
-public class UploadTemplate {
+public class UploadTemplate implements UploadTemplateView {
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
+	UploadTemplatePresenter presenter;
 
 
 	
@@ -20,6 +25,11 @@ public class UploadTemplate {
 		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
+
+		presenter = new UploadTemplatePresenterImpl(new UploadTemplateModelImpl());
+		presenter.attachView(this);
+
+
 		
 		JLabel lblTitle = new JLabel("Upload Data");
 		lblTitle.setFont(new Font(null, Font.BOLD, 36));
@@ -87,6 +97,23 @@ public class UploadTemplate {
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
 	        frame.setVisible(true);
+	        frame.setLocationRelativeTo(null);
+	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	        
 	    }
+
+	@Override
+	public void onSuccessTemplateCreated() {
+
+	}
+
+	@Override
+	public boolean isFileValid() {
+		return false;
+	}
+
+	@Override
+	public void onErrorUploadingFile() {
+
+	}
 }
