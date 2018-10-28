@@ -4,6 +4,7 @@
 Please download the following libraries and add them to your project:
 Apache POI - https://poi.apache.org/download.html#POI-4.0.0
 Apache Commons Compress - https://commons.apache.org/proper/commons-compress/
+MYSQL Connector Java -https://dev.mysql.com/downloads/connector/j/8.0.html
 
 ## Deliverable 2 - October 15th, 2018
 
