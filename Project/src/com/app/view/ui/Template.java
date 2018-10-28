@@ -78,32 +78,13 @@ public class Template implements CreateTemplateView{
          createSQL.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-				JDialog sqlDialog = new JDialog(frame,"Enter the SQL command");
+                 // get sql query
+                 String sqlQuery = JOptionPane.showInputDialog(frame, "Enter the query");
+                 presenter.createTemplateWithQuery(sqlQuery);
 
-				JTextArea txtAreaSqlQuery = new JTextArea();
-				txtAreaSqlQuery.setLineWrap(true);
-				txtAreaSqlQuery.setWrapStyleWord(true);
+                 System.exit(0);
 
-				JButton submit = UIHelpers.buttonGenerator("Submit");
-                 submit.addActionListener(new ActionListener() {
-                     @Override
-                     public void actionPerformed(ActionEvent e) {
-                         sqlQuery = txtAreaSqlQuery.getText();
-                         presenter.createTemplateWithQuery(sqlQuery);
-                         sqlDialog.dispose();
-                     }
-                 });
-
-				sqlDialog.add(txtAreaSqlQuery);
-                sqlDialog.add(submit);
-
-				sqlDialog.setSize(600, 200);
-				sqlDialog.setVisible(true);
-				sqlDialog.setLocationRelativeTo(frame);
-
-             }
-         });
-
+         }});
 
 
 
@@ -140,6 +121,7 @@ public class Template implements CreateTemplateView{
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
 	        frame.setVisible(true);
+	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
      }
 
 

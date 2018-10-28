@@ -42,20 +42,20 @@ public class Login {
 		password = new JPasswordField();
 		gb.setConstraints(username, c);
 		gb.setConstraints(password, c);
-		
-		panel.add(labelUsername);
-		panel.add(username);
-		panel.add(labelPassword);
-		panel.add(password);
-		
-		c.fill = GridBagConstraints.CENTER;
-		JButton login = UIHelpers.buttonGenerator("Login");
-		login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Dashboard db = new Dashboard();
-                db.main(null);
-                frame.dispose();
+
+                panel.add(labelUsername);
+                panel.add(username);
+                panel.add(labelPassword);
+                panel.add(password);
+
+                c.fill = GridBagConstraints.CENTER;
+                JButton login = UIHelpers.buttonGenerator("Login");
+                login.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Dashboard db = new Dashboard();
+                        db.main(null);
+                        frame.dispose();
             }
         });
 		
@@ -75,6 +75,8 @@ public class Login {
 	        frame.setPreferredSize(new Dimension(800, 400));
 	        frame.pack();
 	        frame.setVisible(true);
+			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
 	}
 

@@ -20,6 +20,8 @@ public class Report {
         frame.setPreferredSize(new Dimension(1000, 600));
         frame.pack();
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     }
 }
