@@ -1,4 +1,4 @@
-package com.app.model.usecase;
+package app.java.com.model.usecase;
 
 public abstract class BaseUsecase {
 

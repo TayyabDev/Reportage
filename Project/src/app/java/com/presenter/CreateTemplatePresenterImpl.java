@@ -1,11 +1,11 @@
-package com.app.presenter;
-
-import com.app.model.interfaces.CreateTemplateModel;
-import com.app.model.interfaces.CreateTemplateResultInterface;
-import com.app.presenter.interfaces.CreateTemplatePresenter;
-import com.app.view.interfaces.CreateTemplateView;
+package app.java.com.presenter;
 
 import java.io.File;
+
+import app.java.com.model.interfaces.CreateTemplateModel;
+import app.java.com.model.interfaces.CreateTemplateResultInterface;
+import app.java.com.presenter.interfaces.CreateTemplatePresenter;
+import app.java.com.view.interfaces.CreateTemplateView;
 
 public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, CreateTemplateResultInterface {
 

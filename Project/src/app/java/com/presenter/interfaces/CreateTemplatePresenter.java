@@ -1,8 +1,8 @@
-package com.app.presenter.interfaces;
-
-import com.app.view.interfaces.CreateTemplateView;
+package app.java.com.presenter.interfaces;
 
 import java.io.File;
+
+import app.java.com.view.interfaces.CreateTemplateView;
 
 public interface CreateTemplatePresenter {
 

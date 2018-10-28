@@ -1,27 +1,30 @@
-package com.app.model;
+package app.java.com.model;
 
-import com.app.model.database.api.QueryOnDatabase;
-import com.app.model.interfaces.CreateTemplateResultInterface;
-import com.app.model.usecase.CreateTemplate;
-import com.app.model.utilities.ExcelFile;
 
-import java.io.File;
 import java.util.List;
 
-public class CreateTemplateModelImpl implements com.app.model.interfaces.CreateTemplateModel {
+import app.java.com.model.Exceptions.AlterException;
+import app.java.com.model.Exceptions.CreateException;
+import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.database.api.QueryOnDatabase;
+import app.java.com.model.interfaces.CreateTemplateModel;
+import app.java.com.model.interfaces.CreateTemplateResultInterface;
+import app.java.com.model.utilities.ExcelFile;
+
+public class CreateTemplateModelImpl implements CreateTemplateModel {
 
     @Override
     /*
      * run Raw create Statement in database
      */
     public void runRawQuery(CreateTemplateResultInterface templateResultInterface, String query) {
-    	boolean success = QueryOnDatabase.runCreate(query);
+    	try {
+			QueryOnDatabase.runCreate(query);
+		} catch (CreateException e) {
+			templateResultInterface.onErrorCreateTemplate("failed when create " + e.getTable());
+		}
         // Look at templateResultInterface for communication back with the presenter
-    	if (success) {
-    		templateResultInterface.onSuccessCreateTemplate("success");
-    	} else {
-    		templateResultInterface.onErrorCreateTemplate("failed");
-    	}
+		templateResultInterface.onSuccessCreateTemplate("success");
     }
 
     @Override
@@ -38,13 +41,13 @@ public class CreateTemplateModelImpl implements com.app.model.interfaces.CreateT
         String sheetName = exc.getSheetName(2);
         String tableName = sheetName.replace(' ', '_');
         
-        boolean success = QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
-        
-        if (success) {
-        	templateResultInterface.onSuccessCreateTemplate("success");
-        } else {
-        	templateResultInterface.onErrorCreateTemplate("failed");
-        }
+        try {
+			QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
+		} catch (InsertException | CreateException | AlterException e) {
+			// TODO Auto-generated catch block
+			templateResultInterface.onErrorCreateTemplate("failed");
+		}
+        templateResultInterface.onSuccessCreateTemplate("success");
         
         // Look at templateResultInterface for communication back with the presenter
     }

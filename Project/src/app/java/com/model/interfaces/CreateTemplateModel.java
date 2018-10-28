@@ -1,4 +1,4 @@
-package com.app.model.interfaces;
+package app.java.com.model.interfaces;
 
 import java.io.File;
 

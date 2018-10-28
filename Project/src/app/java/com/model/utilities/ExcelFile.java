@@ -1,4 +1,4 @@
-package com.app.model.utilities;
+package app.java.com.model.utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -167,12 +167,5 @@ public class ExcelFile {
 		temName = temName.substring(start, end);
 		temName = temName.replace("\n", "");
 		return temName;
-	}
-	
-	public static void main(String[] args){
-		String fileName = "C:\\Users\\joeli\\Desktop\\winhome\\c01_project\\New_iCARE_Template_Comb_with_Examples.xlsx";
-		ExcelFile e = new ExcelFile(fileName);
-		
-		System.out.println(e.getSheetNumRows(2));
 	}
 }

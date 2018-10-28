@@ -1842,7 +1842,7 @@ create table LTClientExit(
 	`LTE1reasonForUpdate` varchar(255)
 );
 
-create table VariableName(
+create table VariableNameVariableName(
 	variableName varchar(255) primary key,
     realName varchar(255) not null);
 
