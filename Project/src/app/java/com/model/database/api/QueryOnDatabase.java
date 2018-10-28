@@ -248,8 +248,6 @@ public class QueryOnDatabase {
 		vals.add(temName);
 		vals.add(tableName);
 		int id = insertRow("Template", attrNames, vals);
-		System.out.println(id);
-//		exception here
 		
 		// create an empty table 
 		boolean createRes = createEmptyTable(tableName);
@@ -258,22 +256,11 @@ public class QueryOnDatabase {
 		boolean insertColRes = true;
 		for (int i = 0; i<numOfColumn; i++) {
 			insertColRes = runInsertColumn(columnIds.get(i), tableName); // constraint is not set for now
-			// if any error happens, insertColRes will be false
-			// need to throw exception here
-			if (!insertColRes) {
-				
-				break;
-			}
 		}
 
 		// store all the columnIds and columnNames into the variableName table in database
 		for (int i = 0; i < numOfColumn; i++) {
 			int res = insertVariableName(columnIds.get(i), columnNames.get(i));
-
-			if (res < 0) {
-				System.out.println("insert error" + columnIds.get(i) + " " + columnNames.get(i));
-				break;
-			}
 		}
 		
 		return (createRes && insertColRes);
