@@ -1,6 +1,7 @@
 package app.java.com.model.database.api;
 
 import app.java.com.model.Exceptions.*;
+import com.mysql.jdbc.ResultSetMetaData;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 public class QueryOnDatabase {
 	

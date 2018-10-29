@@ -16,7 +16,6 @@ import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 import java.io.File;
 
@@ -91,14 +90,7 @@ public class Template implements CreateTemplateView{
     	 view = UIHelpers.buttonGenerator("View the existing templates");
 
     	 select = UIHelpers.buttonGenerator("Select a template");
-		 select.addActionListener(new ActionListener() {
-			 @Override
-			 public void actionPerformed(ActionEvent e) {
-				// go to the upload template screen
-				 UploadTemplate ut = new UploadTemplate();
-				 ut.main(null);
 
-			 }});
 
 
 
