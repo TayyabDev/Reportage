@@ -18,6 +18,8 @@ import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.model.UploadTemplateModelImpl;
 
 import java.io.File;
+import java.util.Collections;
+
 public class Template implements CreateTemplateView{
 	private static JFrame frame;
 	 private JPanel panel;
@@ -57,8 +59,7 @@ public class Template implements CreateTemplateView{
 				 jfc.setDialogTitle("Select your file");
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
-					 System.out.println("You selected the directory: " + jfc.getSelectedFile());
-					 presenter.createTemplateWithFile(jfc.getSelectedFile());
+					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath());
 				 }
 
 			 }
@@ -134,17 +135,23 @@ public class Template implements CreateTemplateView{
 
     @Override
     public void onSuccessTemplateCreated() {
-
+        JOptionPane.showMessageDialog(frame, "Template created.");
+        System.exit(0);
     }
 
     @Override
-    public boolean isFileValid() {
-        return true;
+    public boolean isFileValid(String filePath ){
+        String extension = filePath.split(".")[1];
+        if (extension.equals("csv") || extension.equals("xlsx")) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void onErrorUploadingFile() {
-
+        JOptionPane.showMessageDialog(frame, "There was en error uploading the file.");
+        System.exit(0);
     }
 
     public void disposeView(){

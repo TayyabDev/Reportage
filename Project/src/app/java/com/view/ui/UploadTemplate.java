@@ -5,6 +5,7 @@ package app.java.com.view.ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -16,6 +17,7 @@ import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.model.UploadTemplateModelImpl;
 
 public class UploadTemplate implements UploadTemplateView {
+    static JFrame frame;
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
@@ -94,7 +96,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 	
 	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("Upload Data");
+	        frame = new JFrame("Upload Data");
 	        frame.add(new UploadTemplate().panel);
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
@@ -106,16 +108,22 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void onSuccessTemplateCreated() {
+		JOptionPane.showMessageDialog(frame,"Uploaded data to the template.");
 
 	}
 
 	@Override
-	public boolean isFileValid() {
-		return false;
+	public boolean isFileValid(File file) {
+        String extension = file.getName().split(".")[1];
+        if (extension.equals("csv") || extension.equals("xlsx")) {
+            return true;
+        }
+        return false;
+
 	}
 
 	@Override
 	public void onErrorUploadingFile() {
-
+        JOptionPane.showMessageDialog(frame, "There was an error uploading the data.");
 	}
 }

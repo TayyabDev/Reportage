@@ -6,7 +6,7 @@ import app.java.com.view.interfaces.CreateTemplateView;
 
 public interface CreateTemplatePresenter {
 
-    void createTemplateWithFile(File file);
+    void createTemplateWithFile(String string);
 
     void createTemplateWithQuery(String query);
 
