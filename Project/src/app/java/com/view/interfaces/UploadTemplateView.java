@@ -5,7 +5,7 @@ import java.io.File;
 public interface UploadTemplateView {
     void onSuccessTemplateCreated();
 
-    boolean isFileValid(File file);
+    boolean isFileValid(String filePath);
 
     void onErrorUploadingFile();
 

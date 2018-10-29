@@ -112,14 +112,12 @@ public class UploadTemplate implements UploadTemplateView {
 
 	}
 
-	@Override
-	public boolean isFileValid(File file) {
-        String extension = file.getName().split(".")[1];
-        if (extension.equals("csv") || extension.equals("xlsx")) {
+    @Override
+    public boolean isFileValid(String filePath) {
+        if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
         return false;
-
 	}
 
 	@Override
