@@ -1,2 +1,6 @@
 before_script: cd Project
 language: java
+jdk:
+  - oraclejdk8
+
+script: ant build

@@ -1,4 +1,8 @@
-package app.java.com.view.ui;
+package app.java.com.view.ui.createAccountViews;
+
+import app.java.com.view.ui.uploadTemplateViews.Report;
+import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createTemplateViews.Template;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

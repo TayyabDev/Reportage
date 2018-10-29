@@ -1,4 +1,4 @@
-package app.java.com.view.ui;
+package app.java.com.view.ui.createTemplateViews;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,10 +15,10 @@ import app.java.com.presenter.CreateTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.CreateTemplateModelImpl;
-import app.java.com.model.UploadTemplateModelImpl;
+import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 import java.io.File;
-import java.util.Collections;
 
 public class Template implements CreateTemplateView{
 	private static JFrame frame;
