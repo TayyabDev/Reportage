@@ -57,11 +57,8 @@ public class Template implements CreateTemplateView{
 				 jfc.setDialogTitle("Select your file");
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
-					 if (jfc.getSelectedFile().isDirectory()) {
-
-						 System.out.println("You selected the directory: " + jfc.getSelectedFile());
-						 presenter.createTemplateWithFile(jfc.getSelectedFile());
-					 }
+					 System.out.println("You selected the directory: " + jfc.getSelectedFile());
+					 presenter.createTemplateWithFile(jfc.getSelectedFile());
 				 }
 
 			 }
@@ -142,7 +139,7 @@ public class Template implements CreateTemplateView{
 
     @Override
     public boolean isFileValid() {
-        return false;
+        return true;
     }
 
     @Override
