@@ -12,13 +12,13 @@ import app.java.com.model.utilities.ExcelFile;
 
 public class ExcelFileTest {
 
-	String file1 = "./src/com/test/model/utilities/testFile1.xlsx";
+	String file1 = "./src/test/java/com/model/utilities/testFile1.xlsx";
 	List<String> file1SheetNames = Arrays.asList("Example Template", "My Template");
-	List<String> file1Sheet0ColumnIds = Arrays.asList("first_name", "last_name", "age");
+	List<String> file1Sheet0ColumnIds = Arrays.asList("`first_name`", "`last_name`", "`age`");
 	List<String> file1Sheet0ColumnNames = Arrays.asList("First Name", "Last Name", "Age");
 	List<String> file1Sheet0Row1 = Arrays.asList("Jane", "Doe", "20.0");
 	List<String> file1Sheet0Row2 = Arrays.asList("Joe", "Smith", "30.0");
-	List<String> file1Sheet1ColumnIds = Arrays.asList("student_id", "student_name", "student_enrol_date");
+	List<String> file1Sheet1ColumnIds = Arrays.asList("`student_id`", "`student_name`", "`student_enrol_date`");
 	List<String> file1Sheet1ColumnNames = Arrays.asList("Student Id", "Student Name", "Student Enrollment Date");
 	List<String> file1Sheet1Row1 = Arrays.asList("100.0", "Jane Doe", "01/02/2018");
 	List<String> file1Sheet1Row2 = Arrays.asList("200.0", "Joe Smith", "09/01/2018");
