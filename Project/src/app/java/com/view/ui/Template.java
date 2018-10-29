@@ -140,9 +140,8 @@ public class Template implements CreateTemplateView{
     }
 
     @Override
-    public boolean isFileValid(String filePath ){
-        String extension = filePath.split(".")[1];
-        if (extension.equals("csv") || extension.equals("xlsx")) {
+    public boolean isFileValid(String filePath) {
+        if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
         return false;

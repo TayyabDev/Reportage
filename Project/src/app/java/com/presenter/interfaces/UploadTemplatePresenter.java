@@ -8,7 +8,7 @@ import app.java.com.view.interfaces.UploadTemplateView;
 
 public interface UploadTemplatePresenter {
 
-    void uploadTemplateWithFile(File file);
+    void uploadTemplateWithFile(String filepath);
 
     void attachView(UploadTemplateView view);
 
