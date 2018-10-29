@@ -47,12 +47,12 @@ create table Officier(
         on update cascade);
 
 create table Template(
-	templateId int primary key,
-    updateTime timestamp,
-    teqStaffId int,
-    constraint Templatefk1
-		foreign key (teqStaffId)
-        references TEQStaff(teqStaffId),
+	templateId int auto_increment primary key,
+    updateTime timestamp default now(),
+#    teqStaffId int,
+#    constraint Templatefk1
+#		foreign key (teqStaffId)
+#        references TEQStaff(teqStaffId),
     templateName varchar(255),
     tableName varchar(255));
 
@@ -1842,7 +1842,7 @@ create table LTClientExit(
 	`LTE1reasonForUpdate` varchar(255)
 );
 
-create table VariableName(
+create table VariableNameVariableName(
 	variableName varchar(255) primary key,
     realName varchar(255) not null);
 
