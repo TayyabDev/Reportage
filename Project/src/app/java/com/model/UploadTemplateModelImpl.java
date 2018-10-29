@@ -1,6 +1,6 @@
-package com.app.model;
+package app.java.com.model;
 
-import com.app.model.interfaces.UploadTemplateModel;
+import app.java.com.model.interfaces.UploadTemplateModel;
 
 public class UploadTemplateModelImpl implements UploadTemplateModel {
 

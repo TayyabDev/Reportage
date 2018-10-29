@@ -1,4 +1,4 @@
-package com.app.model.interfaces;
+package app.java.com.model.interfaces;
 
 public interface UploadTemplateModel {
 

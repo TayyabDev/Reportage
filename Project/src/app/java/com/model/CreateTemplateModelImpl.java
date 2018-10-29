@@ -56,4 +56,31 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
         
         // Look at templateResultInterface for communication back with the presenter
     }
+    public static void main(String[] argv) {
+    	ExcelFile exc = new ExcelFile("C:\\Users\\joeli\\Desktop\\New_iCARE_Template_Comb_with_Examples.xlsx");
+        
+        // ask ui for specific sheet number 
+        // for now by default the excel file only contain 1 sheet
+        String temName = exc.getTemplateName(8);
+        List<String> columnIds = exc.getSheetColumnIds(8);
+        List<String> columnNames = exc.getSheetColumnNames(8);
+        
+        // using the sheet Name as the table name in the database
+        String sheetName = exc.getSheetName(8);
+        String tableName = "`" + sheetName.replace(' ', '_') + "`";
+        boolean success = false;
+        try {
+			success = QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
+		} catch (AlterException e) {
+			System.out.println(e.getMessage());
+		} catch (CreateException e) {
+			System.out.println(e.getMessage());
+			
+		}
+        if (success) {
+        	System.out.println("Success");
+        } else {
+        	System.out.println("failed");
+        }
+    }
 }

@@ -1,10 +1,6 @@
 package app.java.com.view.ui;
 
-import com.app.model.UploadTemplateModelImpl;
-import com.app.presenter.UploadTemplatePresenterImpl;
-import com.app.presenter.interfaces.CreateTemplatePresenter;
-import com.app.presenter.interfaces.UploadTemplatePresenter;
-import com.app.view.interfaces.UploadTemplateView;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+
+import app.java.com.presenter.UploadTemplatePresenterImpl;
+import app.java.com.presenter.interfaces.UploadTemplatePresenter;
+import app.java.com.view.interfaces.UploadTemplateView;
+import app.java.com.model.CreateTemplateModelImpl;
+import app.java.com.model.UploadTemplateModelImpl;
 
 public class UploadTemplate implements UploadTemplateView {
 	JPanel panel = new JPanel();

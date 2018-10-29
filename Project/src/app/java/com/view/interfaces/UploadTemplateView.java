@@ -1,4 +1,4 @@
-package com.app.view.interfaces;
+package app.java.com.view.interfaces;
 
 public interface UploadTemplateView {
     void onSuccessTemplateCreated();

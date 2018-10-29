@@ -1,11 +1,13 @@
-package com.app.presenter;
+package app.java.com.presenter;
 
-import com.app.model.interfaces.UploadTemplateModel;
-import com.app.presenter.interfaces.UploadTemplatePresenter;
-import com.app.view.interfaces.UploadTemplateView;
+
 
 
 import java.io.File;
+
+import app.java.com.model.interfaces.UploadTemplateModel;
+import app.java.com.presenter.interfaces.UploadTemplatePresenter;
+import app.java.com.view.interfaces.UploadTemplateView;
 
 public class UploadTemplatePresenterImpl implements UploadTemplatePresenter {
 

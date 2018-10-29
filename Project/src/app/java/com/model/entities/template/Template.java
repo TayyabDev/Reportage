@@ -1,4 +1,4 @@
-package com.app.model.entities.template;
+package app.java.com.model.entities.template;
 
 import java.util.List;
 

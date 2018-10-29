@@ -1,10 +1,5 @@
 package app.java.com.view.ui;
 
-import com.app.model.CreateTemplateModelImpl;
-import com.app.presenter.CreateTemplatePresenterImpl;
-import com.app.presenter.interfaces.CreateTemplatePresenter;
-import com.app.view.interfaces.CreateTemplateView;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -15,6 +10,13 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+
+import app.java.com.presenter.CreateTemplatePresenterImpl;
+import app.java.com.presenter.interfaces.CreateTemplatePresenter;
+import app.java.com.view.interfaces.CreateTemplateView;
+import app.java.com.model.CreateTemplateModelImpl;
+import app.java.com.model.UploadTemplateModelImpl;
+
 import java.io.File;
 public class Template implements CreateTemplateView{
 	private static JFrame frame;
