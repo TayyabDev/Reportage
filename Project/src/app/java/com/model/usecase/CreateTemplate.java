@@ -8,7 +8,6 @@ public class CreateTemplate extends BaseUsecase {
 	 */
 	public boolean run() {
 		return false;
-		
 	}
 
 }

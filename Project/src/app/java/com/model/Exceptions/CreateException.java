@@ -21,4 +21,9 @@ public class CreateException extends Exception {
 	public String getTable() {
 		return table;
 	}
+	@Override
+	public String getMessage(){
+		String message = "error when creating new table " + this.table + ".";
+		return message;
+	}
 }

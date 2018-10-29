@@ -18,13 +18,16 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
      * run Raw create Statement in database
      */
     public void runRawQuery(CreateTemplateResultInterface templateResultInterface, String query) {
+    	boolean success = false;
     	try {
-			QueryOnDatabase.runCreate(query);
+			success = QueryOnDatabase.runCreate(query);
 		} catch (CreateException e) {
 			templateResultInterface.onErrorCreateTemplate("failed when create " + e.getTable());
 		}
+    	if (success) {
         // Look at templateResultInterface for communication back with the presenter
-		templateResultInterface.onSuccessCreateTemplate("success");
+    		templateResultInterface.onSuccessCreateTemplate("success");
+    	}
     }
 
     @Override
@@ -39,15 +42,17 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
         
         // using the sheet Name as the table name in the database
         String sheetName = exc.getSheetName(2);
-        String tableName = sheetName.replace(' ', '_');
+        String tableName = "`" + sheetName.replace(' ', '_') + "`";
+        boolean success = false;
         
-        try {
-			QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
-		} catch (InsertException | CreateException | AlterException e) {
-			// TODO Auto-generated catch block
-			templateResultInterface.onErrorCreateTemplate("failed");
+		try {
+			success = QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
+		} catch (AlterException | CreateException e) {
+			templateResultInterface.onErrorCreateTemplate(e.getMessage());
 		}
-        templateResultInterface.onSuccessCreateTemplate("success");
+        if (success) {
+        	templateResultInterface.onSuccessCreateTemplate("success");
+        } 
         
         // Look at templateResultInterface for communication back with the presenter
     }

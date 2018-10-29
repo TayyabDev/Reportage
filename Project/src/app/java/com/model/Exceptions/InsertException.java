@@ -32,5 +32,9 @@ public class InsertException extends Exception{
 	public String getVal() {
 		return val;
 	}
-
+	@Override
+	public String getMessage(){
+		String message = "error when insert new row "+ this.val + " to table " + this.table + ".";
+		return message;
+	}
 }

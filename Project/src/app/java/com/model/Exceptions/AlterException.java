@@ -27,6 +27,11 @@ public class AlterException extends Exception {
 	public void setNewCol(String newCol) {
 		this.newCol = newCol;
 	}
+	@Override
+	public String getMessage(){
+		String message = "error when adding new column "+ this.newCol + " to table " + this.table + ".";
+		return message;
+	}
 
 
 }

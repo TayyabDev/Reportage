@@ -67,7 +67,7 @@ public class ExcelFile {
 
 		// add column names to list
 		for (Cell cell : columnRow) {
-			result.add(cell.getStringCellValue());
+			result.add("`"+ cell.getStringCellValue() + "`");
 		}
 		return result;
 	}
@@ -85,7 +85,7 @@ public class ExcelFile {
 
 		// add column names to list
 		for (Cell cell : columnRow) {
-			result.add(cell.getStringCellValue());
+			result.add(cell.getStringCellValue().replace('\'', '_'));
 		}
 		return result;
 	}

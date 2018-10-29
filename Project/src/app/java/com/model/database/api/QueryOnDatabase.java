@@ -238,7 +238,26 @@ public class QueryOnDatabase {
 	}
 
 
-	public static boolean createTemplate(String temName, String tableName, List<String> columnIds, List<String> columnNames) throws InsertException, CreateException, AlterException {
+	public static boolean createTemplate(String temName, String tableName, List<String> columnIds, List<String> columnNames) throws AlterException, CreateException {
+
+		// create an empty table 
+		boolean createRes = false;
+		createRes = createEmptyTable(tableName);
+		// insert all the columnIds to the empty table
+		int numOfColumn = columnIds.size();
+		boolean insertColRes = true;
+		for (int i = 0; i<numOfColumn; i++) {
+			runInsertColumn(columnIds.get(i), tableName); // constraint is not set for now
+		}
+
+		// store all the columnIds and columnNames into the variableName table in database
+		for (int i = 0; i < numOfColumn; i++) {
+			try{
+				insertVariableName(columnIds.get(i), columnNames.get(i));
+			} catch (InsertException e) {
+				continue;
+			}
+		}
 		// store the template's real name and table name in the database
 		List<String> attrNames = new ArrayList<String>();
 		attrNames.add("templateName");
@@ -247,22 +266,11 @@ public class QueryOnDatabase {
 		List<String> vals = new ArrayList<String>();
 		vals.add(temName);
 		vals.add(tableName);
-		int id = insertRow("Template", attrNames, vals);
-		
-		// create an empty table 
-		boolean createRes = createEmptyTable(tableName);
-		// insert all the columnIds to the empty table
-		int numOfColumn = columnIds.size();
-		boolean insertColRes = true;
-		for (int i = 0; i<numOfColumn; i++) {
-			insertColRes = runInsertColumn(columnIds.get(i), tableName); // constraint is not set for now
+		try {
+			insertRow("Template", attrNames, vals);
+		} catch (InsertException e) {
+			System.out.println("template " + temName + " already exist.");
 		}
-
-		// store all the columnIds and columnNames into the variableName table in database
-		for (int i = 0; i < numOfColumn; i++) {
-			int res = insertVariableName(columnIds.get(i), columnNames.get(i));
-		}
-		
 		return (createRes && insertColRes);
 	}
 }
