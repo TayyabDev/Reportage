@@ -1,11 +1,10 @@
-package app.java.com.view.ui;
+package app.java.com.view.ui.uploadTemplateViews;
 
 
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -13,8 +12,8 @@ import javax.swing.filechooser.FileSystemView;
 import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
-import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.model.UploadTemplateModelImpl;
+import app.java.com.view.ui.UIHelpers;
 
 public class UploadTemplate implements UploadTemplateView {
     static JFrame frame;
