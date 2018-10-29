@@ -95,7 +95,7 @@ public class ExcelFile {
 	 * @param sheetNum the index of sheet to get the number of columns from.
 	 * @return returns an int of the number of columns in sheet sheetNum.
 	 */
-	public int getNumColumns(int sheetNum) {
+	public int getSheetNumColumns(int sheetNum) {
 		Sheet sheet = workbook.getSheetAt(sheetNum);
 		return sheet.getRow(2).getPhysicalNumberOfCells();
 	}
@@ -123,14 +123,14 @@ public class ExcelFile {
 	/**
 	 * Get the data of row rowNum at the sheet sheetNum.
 	 * @param sheetNum the index of the sheet to get row of.
-	 * @param rowNum the index of the row to get data of (first entry is row 2).
+	 * @param rowNum the index of the row to get data of (first entry is row 3).
 	 * @return returns a List of Strings of all the data of rowNum of sheetNum.
 	 */
 	public List<String> getSheetRow(int sheetNum, int rowNum) {
 		Sheet sheet = workbook.getSheetAt(sheetNum);
 		Row row = sheet.getRow(rowNum);
 		List<String> result = new ArrayList<String>();
-		for (int i = 0; i < getNumColumns(sheetNum); i++) {
+		for (int i = 0; i < getSheetNumColumns(sheetNum); i++) {
 			if (row.getCell(i).getCellType() == CellType.STRING) {
 				result.add(row.getCell(i).getStringCellValue());
 			} 
@@ -169,10 +169,4 @@ public class ExcelFile {
 		return temName;
 	}
 	
-	public static void main(String[] args){
-		String fileName = "C:\\Users\\joeli\\Desktop\\winhome\\c01_project\\New_iCARE_Template_Comb_with_Examples.xlsx";
-		ExcelFile e = new ExcelFile(fileName);
-		
-		System.out.println(e.getSheetNumRows(2));
-	}
 }
