@@ -1,4 +1,6 @@
-package app.java.com.view.ui;
+package app.java.com.view.ui.createAccountViews;
+
+import app.java.com.view.ui.UIHelpers;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,4 +1,4 @@
-package app.java.com.view.ui;
+package app.java.com.view.ui.uploadTemplateViews;
 
 import javax.swing.*;
 import java.awt.*;
