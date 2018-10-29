@@ -1,4 +1,4 @@
-package com.test.model.utilities;
+package test.java.com.model.utilities;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.app.model.utilities.ExcelFile;
+import app.java.com.model.utilities.ExcelFile;
 
 
 public class ExcelFileTest {
