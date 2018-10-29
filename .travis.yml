@@ -1,2 +1,2 @@
-"before_script: cd Project"
+before_script: cd Project
 language: java
