@@ -5,7 +5,6 @@ import java.util.List;
 
 import app.java.com.model.Exceptions.AlterException;
 import app.java.com.model.Exceptions.CreateException;
-import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.interfaces.CreateTemplateModel;
 import app.java.com.model.interfaces.CreateTemplateResultInterface;
@@ -34,7 +33,6 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
     public void createUsingFile(CreateTemplateResultInterface templateResultInterface, String fileName) {
     	String formulatedFileName = fileName.replace("\\", "\\\\");
     	ExcelFile exc = new ExcelFile(formulatedFileName);
-        
         
         // ask ui for specific sheet number 
         // for now by default the excel file only contain 1 sheet
