@@ -19,7 +19,7 @@ import app.java.com.view.ui.UIHelpers;
 
 import java.io.File;
 
-public class Template implements CreateTemplateView{
+public class Template implements CreateTemplateView {
 	private static JFrame frame;
 	 private JPanel panel;
 	 private JButton create;
@@ -85,14 +85,9 @@ public class Template implements CreateTemplateView{
 
          }});
 
-
-
     	 view = UIHelpers.buttonGenerator("View the existing templates");
 
     	 select = UIHelpers.buttonGenerator("Select a template");
-
-
-
 
     	 gb.setConstraints(create, c);
     	 gb.setConstraints(createSQL, c);
@@ -103,9 +98,6 @@ public class Template implements CreateTemplateView{
     	 panel.add(createSQL);
     	 panel.add(view);
     	 panel.add(select);
-    	 
-    	 
-    	 
      }
 
      public ArrayList<String> parseFile(File file){
@@ -144,6 +136,13 @@ public class Template implements CreateTemplateView{
         JOptionPane.showMessageDialog(frame, "There was en error uploading the file.");
         System.exit(0);
     }
+
+    @Override
+    public int onGetSheetNumber() {
+        // Get input
+        return 2;
+    }
+
 
     public void disposeView(){
          frame.dispose();

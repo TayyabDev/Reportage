@@ -9,4 +9,6 @@ public interface CreateTemplateView {
     boolean isFileValid(String filePath);
 
     void onErrorUploadingFile();
+
+    int onGetSheetNumber();
 }
