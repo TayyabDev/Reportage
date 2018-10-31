@@ -1,14 +1,15 @@
 package app.java.com.model.usecase;
 
-import app.java.com.model.usecase.*;
+import app.java.com.model.database.api.CreateCommand;
+import app.java.com.model.interfaces.CreateTemplateResultInterface;
 
-public class CreateTemplateWithQueryUseCase extends app.java.com.model.usecase.BaseUsecase {
+public class CreateTemplateWithQueryUseCase extends UseCase {
 
     private String query;
 
-    private app.java.com.model.interfaces.CreateTemplateResultInterface resultInterface;
+    private CreateTemplateResultInterface resultInterface;
 
-	public CreateTemplateWithQueryUseCase(app.java.com.model.interfaces.CreateTemplateResultInterface resultInterface, String query) {
+	public CreateTemplateWithQueryUseCase(CreateTemplateResultInterface resultInterface, String query) {
         this.query = query;
         this.resultInterface = resultInterface;
     }
@@ -17,20 +18,21 @@ public class CreateTemplateWithQueryUseCase extends app.java.com.model.usecase.B
 	/*
 	 * create a template table with al
 	 */
-	public boolean run() {
-
+	public void run() {
         boolean success = false;
 
         try {
-            success =
-        } catch (app.java.com.model.Exceptions.CreateException e) {
-            templateResultInterface.onErrorCreateTemplate("failed when create " + e.getTable());
-        }
-        if (success) {
-            // Look at templateResultInterface for communication back with the presenter
-            templateResultInterface.onSuccessCreateTemplate("success");
+
+            success = new CreateCommand().runExecuteUpdate(query);
+
+        } catch (Exception e) {
+            resultInterface.onErrorCreateTemplate("failed when create " + e.getMessage());
         }
 
+        if (success) {
+            // Look at templateResultInterface for communication back with the presenter
+            resultInterface.onSuccessCreateTemplate("success");
+        }
 	}
 
 }

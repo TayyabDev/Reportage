@@ -28,7 +28,7 @@ public class SelectCommand extends Command {
 	}
 	
 	public boolean handle() {
-		
+		return false;
 	}
 	
 }

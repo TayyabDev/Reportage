@@ -1,11 +1,10 @@
 package app.java.com.presenter;
 
-import java.io.File;
-
 import app.java.com.model.interfaces.CreateTemplateModel;
 import app.java.com.model.interfaces.CreateTemplateResultInterface;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
+import app.java.com.model.usecase.UseCase;
 
 public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, CreateTemplateResultInterface {
 
@@ -26,7 +25,8 @@ public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, Cre
 
     @Override
     public void createTemplateWithQuery(String query) {
-        model.runRawQuery(this, query);
+        UseCase usecase = new app.java.com.model.usecase.CreateTemplateWithQueryUseCase(this, query);
+        usecase.run();
     }
 
     @Override
