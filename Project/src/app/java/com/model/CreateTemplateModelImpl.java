@@ -17,16 +17,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
      * run Raw create Statement in database
      */
     public void runRawQuery(CreateTemplateResultInterface templateResultInterface, String query) {
-    	boolean success = false;
-    	try {
-			success = QueryOnDatabase.runCreate(query);
-		} catch (CreateException e) {
-			templateResultInterface.onErrorCreateTemplate("failed when create " + e.getTable());
-		}
-    	if (success) {
-        // Look at templateResultInterface for communication back with the presenter
-    		templateResultInterface.onSuccessCreateTemplate("success");
-    	}
+
     }
 
     @Override
