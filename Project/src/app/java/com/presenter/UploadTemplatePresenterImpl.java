@@ -19,10 +19,8 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     }
 
     @Override
-    public void uploadTemplateWithFile(File file) {
-       // if(view.isFileValid()){
-       //     model.uploadUsingFile();  // model needs to be replaced
-       // }
+    public void uploadTemplateWithFile(String filePath) {
+
 
     }
 

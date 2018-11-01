@@ -22,7 +22,6 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
         boolean success = false;
 
         try {
-
             success = new CreateCommand().runExecuteUpdate(query);
 
         } catch (Exception e) {

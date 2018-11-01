@@ -117,4 +117,9 @@ public class UploadTemplate implements UploadTemplateView {
 	public void onErrorUploadingFile() {
 
 	}
+
+	@Override
+	public void onInCompatibleTemplateSelected() {
+
+	}
 }
