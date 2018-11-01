@@ -56,6 +56,10 @@ public class UploadTemplate implements UploadTemplateView {
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
+		JLabel lblIncompatible = new JLabel("Incompatible template");
+		lblIncompatible.setBounds(620, 160, 180, 25);
+		panel.add(lblTemplate);
+		
 		JLabel lblFile = new JLabel("Select file: ");
 		lblFile.setBounds(80, 200, 180, 25);
 		panel.add(lblFile);
@@ -63,8 +67,8 @@ public class UploadTemplate implements UploadTemplateView {
 		JButton btnSelectFile = UIHelpers.buttonGenerator("Upload");
 		JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
 		
-		 JLabel lblSelectedFile = new JLabel("You selected a file");
-		 lblSelectedFile.setBounds(400, 230, 700, 25);
+		JLabel lblSelectedFile = new JLabel("You selected a file");
+		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
