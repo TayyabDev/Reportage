@@ -2,7 +2,6 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 
 
-import app.java.com.model.UploadTemplateModelImpl;
 import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
@@ -28,7 +27,7 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
 
-		presenter = new UploadTemplatePresenterImpl(new UploadTemplateModelImpl());
+		presenter = new UploadTemplatePresenterImpl();
 		presenter.attachView(this);
 
 
@@ -121,6 +120,11 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void onErrorUploadingFile() {
+
+	}
+
+	@Override
+	public void onInCompatibleTemplateSelected() {
 
 	}
 }

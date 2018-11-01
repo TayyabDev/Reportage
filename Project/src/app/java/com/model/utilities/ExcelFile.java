@@ -157,6 +157,7 @@ public class ExcelFile {
 	}
 	
 	public String getTemplateName(int sheetNum) {
+		System.out.println(sheetNum + " is the sheet " + getNumSheets() + " is the num of sheets");
 		Sheet sheet = workbook.getSheetAt(sheetNum);
 		// add template name by getting indexes 
 		String temName = sheet.getRow(0).getCell(0).getStringCellValue();
