@@ -14,12 +14,12 @@ public class CreateTemplateParamExcelImpl implements CreateTemplateParamInterfac
         
         // ask ui for specific sheet number 
         // for now by default the excel file only contain 1 sheet
-        String temName = exc.getTemplateName(2);
-        List<String> columnIds = exc.getSheetColumnIds(2);
-        List<String> columnNames = exc.getSheetColumnNames(2);
+        String temName = exc.getTemplateName(sheetNum);
+        List<String> columnIds = exc.getSheetColumnIds(sheetNum);
+        List<String> columnNames = exc.getSheetColumnNames(sheetNum);
         
         // using the sheet Name as the table name in the database
-        String sheetName = exc.getSheetName(2);
+        String sheetName = exc.getSheetName(sheetNum);
         String tableName = "`" + sheetName.replace(' ', '_') + "`";
         
         Template result = new BaseTemplate(temName, columnIds, columnNames, tableName);

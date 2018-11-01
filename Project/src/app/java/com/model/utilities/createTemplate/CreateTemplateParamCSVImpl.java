@@ -10,6 +10,11 @@ public class CreateTemplateParamCSVImpl implements CreateTemplateParamInterface 
 
 	@Override
 	public Template getTemplateNameColumns(String fileName, int sheetNum) {
+		if (sheetNum != -1) {
+			Exception e = new Exception("CSV files do not have sheet numbers.");
+			e.printStackTrace();
+			return null;
+		}
 		
 		CSVFile csv = new CSVFile(fileName);
 		
