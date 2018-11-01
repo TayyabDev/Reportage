@@ -54,4 +54,16 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     public String onErrorFetchingNames() {
         return null;
     }
+
+	@Override
+	public List<String> fetchTemplateNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean verifyFileUploaded() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

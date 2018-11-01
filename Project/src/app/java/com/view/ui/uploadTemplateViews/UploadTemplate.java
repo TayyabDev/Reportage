@@ -10,6 +10,7 @@ import app.java.com.view.ui.UIHelpers;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -19,6 +20,7 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
+	String filePath;
 
 
 	
@@ -79,6 +81,7 @@ public class UploadTemplate implements UploadTemplateView {
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 if (jfc.getSelectedFile() != null) {
 						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
+						 filePath = jfc.getSelectedFile().getPath();
 						 panel.add(lblSelectedFile);
 						 panel.repaint();
 					 }
@@ -87,12 +90,22 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
+		
 		// Check if template uploaded is incompatible
+		btnSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				presenter.uploadTemplateWithFile(filePath);
+			}
+			
+		});
+
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
+
 
 	}
 
@@ -124,7 +137,14 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
 	@Override
-	public void onInCompatibleTemplateSelected() {
+	public boolean onInCompatibleTemplateSelected() {
+		return false;
+	}
 
+
+	@Override
+	public List<String> fillDropdownWithTemplateNames() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
