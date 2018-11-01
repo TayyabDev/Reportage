@@ -7,7 +7,7 @@ import app.java.com.model.Exceptions.AlterException;
 import app.java.com.model.Exceptions.CreateException;
 import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.interfaces.CreateTemplateModel;
-import app.java.com.model.interfaces.CreateTemplateResultInterface;
+import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 import app.java.com.model.utilities.ExcelFile;
 
 public class CreateTemplateModelImpl implements CreateTemplateModel {
@@ -24,7 +24,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
     public void createUsingFile(CreateTemplateResultInterface templateResultInterface, String fileName) {
     	String formulatedFileName = fileName.replace("\\", "\\\\");
     	ExcelFile exc = new ExcelFile(formulatedFileName);
-        int sheetNum = 9;
+        int sheetNum = 3;
 //        if (exc.getNumSheets() > 1) {
 //        	//ask ui for select
 
@@ -33,6 +33,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 
         // ask ui for specific sheet number
         // for now by default the excel file only contain 1 sheet
+        System.out.println(exc == null);
         String temName = exc.getTemplateName(sheetNum);
         List<String> columnIds = exc.getSheetColumnIds(sheetNum);
         List<String> columnNames = exc.getSheetColumnNames(sheetNum);
@@ -47,6 +48,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 		} catch (AlterException | CreateException e) {
 			templateResultInterface.onErrorCreateTemplate(e.getMessage());
 		}
+
         if (success) {
         	templateResultInterface.onSuccessCreateTemplate("success");
         }

@@ -1,7 +1,7 @@
 package app.java.com.model.usecase;
 
 import app.java.com.model.database.api.CreateCommand;
-import app.java.com.model.interfaces.CreateTemplateResultInterface;
+import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
 public class CreateTemplateWithQueryUseCase extends UseCase {
 

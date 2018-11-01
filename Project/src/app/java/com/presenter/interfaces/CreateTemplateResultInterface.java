@@ -1,4 +1,4 @@
-package app.java.com.model.interfaces;
+package app.java.com.presenter.interfaces;
 
 public interface CreateTemplateResultInterface {
 
