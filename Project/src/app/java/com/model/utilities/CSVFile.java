@@ -38,7 +38,6 @@ public class CSVFile {
 	    } catch (IOException e) {
 	    	e.printStackTrace();
 	    }
-	    System.out.println(result.toString());
 	    return result;
 	}
 	
