@@ -16,7 +16,6 @@ import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 import java.io.File;
 
@@ -38,8 +37,6 @@ public class Template implements CreateTemplateView{
          panel = new JPanel();
  		 panel.setLayout(gb);
  		 panel.setBackground(Color.decode("#f1f8e9"));
-
-
 
          presenter = new CreateTemplatePresenterImpl(new CreateTemplateModelImpl());
          presenter.attachView(this);
@@ -91,14 +88,7 @@ public class Template implements CreateTemplateView{
     	 view = UIHelpers.buttonGenerator("View the existing templates");
 
     	 select = UIHelpers.buttonGenerator("Select a template");
-		 select.addActionListener(new ActionListener() {
-			 @Override
-			 public void actionPerformed(ActionEvent e) {
-				// go to the upload template screen
-				 UploadTemplate ut = new UploadTemplate();
-				 ut.main(null);
 
-			 }});
 
 
 
@@ -136,7 +126,6 @@ public class Template implements CreateTemplateView{
     @Override
     public void onSuccessTemplateCreated() {
         JOptionPane.showMessageDialog(frame, "Template created.");
-        System.exit(0);
     }
 
     @Override
@@ -150,7 +139,6 @@ public class Template implements CreateTemplateView{
     @Override
     public void onErrorUploadingFile() {
         JOptionPane.showMessageDialog(frame, "There was en error uploading the file.");
-        System.exit(0);
     }
 
     public void disposeView(){

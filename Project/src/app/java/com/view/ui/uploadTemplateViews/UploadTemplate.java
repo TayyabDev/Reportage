@@ -2,6 +2,12 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 
 
+import app.java.com.model.UploadTemplateModelImpl;
+import app.java.com.presenter.UploadTemplatePresenterImpl;
+import app.java.com.presenter.interfaces.UploadTemplatePresenter;
+import app.java.com.view.interfaces.UploadTemplateView;
+import app.java.com.view.ui.UIHelpers;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
-import app.java.com.presenter.UploadTemplatePresenterImpl;
-import app.java.com.presenter.interfaces.UploadTemplatePresenter;
-import app.java.com.view.interfaces.UploadTemplateView;
-import app.java.com.model.UploadTemplateModelImpl;
-import app.java.com.view.ui.UIHelpers;
-
 public class UploadTemplate implements UploadTemplateView {
-    static JFrame frame;
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
@@ -95,7 +94,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 	
 	 public static void main(String[] args) {
-	        frame = new JFrame("Upload Data");
+	        JFrame frame = new JFrame("Upload Data");
 	        frame.add(new UploadTemplate().panel);
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
@@ -107,20 +106,16 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void onSuccessTemplateCreated() {
-		JOptionPane.showMessageDialog(frame,"Uploaded data to the template.");
 
 	}
 
-    @Override
-    public boolean isFileValid(String filePath) {
-        if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
-            return true;
-        }
-        return false;
+	@Override
+	public boolean isFileValid() {
+		return false;
 	}
 
 	@Override
 	public void onErrorUploadingFile() {
-        JOptionPane.showMessageDialog(frame, "There was an error uploading the data.");
+
 	}
 }

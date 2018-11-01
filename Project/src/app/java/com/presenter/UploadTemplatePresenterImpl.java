@@ -1,13 +1,11 @@
 package app.java.com.presenter;
 
-
-
-
-import java.io.File;
-
 import app.java.com.model.interfaces.UploadTemplateModel;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
+
+
+import java.io.File;
 
 public class UploadTemplatePresenterImpl implements UploadTemplatePresenter {
 
@@ -21,8 +19,8 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter {
     }
 
     @Override
-    public void uploadTemplateWithFile(String filepath) {
-        if(view.isFileValid(filepath)){
+    public void uploadTemplateWithFile(File file) {
+        if(view.isFileValid()){
         model.uploadUsingFile();
         }
 

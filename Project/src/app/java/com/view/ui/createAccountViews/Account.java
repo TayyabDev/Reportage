@@ -2,10 +2,7 @@ package app.java.com.view.ui.createAccountViews;
 
 import app.java.com.view.ui.UIHelpers;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -40,59 +37,69 @@ public class Account {
     	    {
     	      public void actionPerformed(ActionEvent e)
     	      {
-    	        // display/center the jdialog when the button is pressed
-    	        JDialog d = new JDialog(frame, "Create an account", true);
-    	        d.setBackground(Color.decode("#f1f8e9"));
+    	        // create a new form to accept user input
+				  JPanel createAccPanel = new JPanel();
+				  createAccPanel.setLayout(null);
 
-    	        
-    	        GridBagLayout dgb = new GridBagLayout();
-    	 		GridBagConstraints dc = new GridBagConstraints();
-    	 		d.setLayout(dgb);
-    	 		dc.fill = GridBagConstraints.BOTH;
-    	 		dc.gridwidth = GridBagConstraints.REMAINDER;
-    	 		
-    	 		JLabel lblFirstName = new JLabel("First Name");
-    	        JTextField firstName = new JTextField();
-    	        
-    	        JLabel lblLastName = new JLabel("Last Name");
-    	        JTextField lastName = new JTextField();
-    	        
-    	        JLabel lblAge = new JLabel("Age");
-    	        JTextField age = new JTextField();
-    	        
-    	        JButton submit = UIHelpers.buttonGenerator("Submit");
-    	        submit.addActionListener(new ActionListener() {
-    	            @Override
-    	            public void actionPerformed(ActionEvent e) {
-    	                info = new ArrayList<>();
-    	            	info.add(firstName.getText());
-    	            	info.add(lastName.getText());
-    	            	info.add(age.getText());
-    	            	System.out.println(info);
-    	                d.dispose();
-    	            }
-    	        });
-    	 		
-    	        
-    	 		dgb.setConstraints(lblFirstName, dc);
-    	    	dgb.setConstraints(firstName, dc);    
-    	    	dgb.setConstraints(lblLastName, dc);
-    	    	dgb.setConstraints(lastName, dc);  
-    	    	dgb.setConstraints(lblAge, dc);
-    	    	dgb.setConstraints(age, dc);  
-    	    	dgb.setConstraints(submit, dc);
-    	        
-    	        d.add(lblFirstName);    	   
-    	        d.add(firstName);
-    	        d.add(lblLastName);
-    	        d.add(lastName);
-    	        d.add(lblAge);
-    	        d.add(age);
-    	        d.add(submit);
-    	        
-    	        d.setLocationRelativeTo(frame);
-    	        d.setSize(500, 600);
-    	        d.setVisible(true);
+				  JLabel lblEnterInfo = new JLabel("Please specify the name and password.");
+				  lblEnterInfo.setBounds(150,5, 400, 20);
+
+				  JLabel lblName = new JLabel("Name");
+				  lblName.setBounds(150, 50, 400, 20);
+
+				  JTextField txtName = new JTextField();
+				  txtName.setBounds(150, 100, 400, 20);
+
+				  JLabel lblPassword = new JLabel("Password");
+				  lblPassword.setBounds(150, 150, 400, 20);
+
+				  JPasswordField txtPassword = new JPasswordField();
+				  txtPassword.setBounds(150, 200, 400, 20);
+
+				  JButton submit = UIHelpers.buttonGenerator("Submit");
+				  submit.setBounds( 150, 250, 150,50);
+
+				  JButton cancel = UIHelpers.buttonGenerator("Cancel");
+				  cancel.setBounds(350, 250, 150, 50);
+
+
+				  createAccPanel.add(lblEnterInfo);
+				  createAccPanel.add(lblName);
+				  createAccPanel.add(txtName);
+				  createAccPanel.add(lblPassword);
+				  createAccPanel.add(txtPassword);
+				  createAccPanel.add(submit);
+				  createAccPanel.add(cancel);
+				  
+
+				  frame.setContentPane(createAccPanel);
+				  frame.revalidate();
+
+				  submit.addActionListener(new ActionListener() {
+                      public void actionPerformed(ActionEvent e) {
+                          //  NOTE TO PRESENTER: THIS IS THE USERS INFO!
+                            String name = txtName.getText();
+                            char [] password = txtPassword.getPassword();
+
+                            // createAccount
+                            // get account ID
+                            // then show user dialog giving account id
+                            //JOptionPane.showInputDialog("Your id is " +id);
+
+                          frame.setContentPane(panel);
+                          frame.revalidate();
+                      }
+                  });
+
+                  cancel.addActionListener(new ActionListener() {
+                      public void actionPerformed(ActionEvent e) {
+                          // go back to previous frame
+                          frame.setContentPane(panel);
+                          frame.revalidate();
+                      }
+                  });
+
+
     	      }
     	    });
     	 
@@ -121,11 +128,13 @@ public class Account {
 	        frame.pack();
 	        frame.setVisible(true);
 		 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
 
 
 
 
 
-	 }
+
+     }
 
 }
