@@ -58,7 +58,7 @@ public class UploadTemplate implements UploadTemplateView {
 		
 		JLabel lblIncompatible = new JLabel("Incompatible template");
 		lblIncompatible.setBounds(620, 160, 180, 25);
-		panel.add(lblTemplate);
+		//panel.add(lblIncompatible);
 		
 		JLabel lblFile = new JLabel("Select file: ");
 		lblFile.setBounds(80, 200, 180, 25);
@@ -88,6 +88,7 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
+		// Check if template uploaded is incompatible
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
