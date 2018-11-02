@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import app.java.com.presenter.CreateTemplatePresenterImpl;
@@ -54,6 +55,9 @@ public class Template implements CreateTemplateView{
 			 public void actionPerformed(ActionEvent e) {
 				 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 				 jfc.setDialogTitle("Select your file");
+				 jfc.addChoosableFileFilter(new FileNameExtensionFilter("*.csv", "csv"));
+				 jfc.addChoosableFileFilter(new FileNameExtensionFilter("*.xlsx", "xlsx"));
+
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath());
@@ -62,35 +66,21 @@ public class Template implements CreateTemplateView{
 			 }
 		 });
 
-		 // tayyab task
-         // SYNTAX
-         /*CREATE TABLE table_name (
-            column1 datatype,
-            column2 datatype,
-            column3 datatype,
-                  ....
-            );
-          */
 		 createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
          createSQL.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                  // get sql query
                  String sqlQuery = JOptionPane.showInputDialog(frame, "Enter the query");
-                 presenter.createTemplateWithQuery(sqlQuery);
-
-                 System.exit(0);
-
+                 if(sqlQuery != null ){
+					 presenter.createTemplateWithQuery(sqlQuery);
+				 }
          }});
-
 
 
     	 view = UIHelpers.buttonGenerator("View the existing templates");
 
     	 select = UIHelpers.buttonGenerator("Select a template");
-
-
-
 
     	 gb.setConstraints(create, c);
     	 gb.setConstraints(createSQL, c);
@@ -114,13 +104,15 @@ public class Template implements CreateTemplateView{
      }
 	
 	 public static void main(String[] args) {
-	        frame = new JFrame("Template Settings");
-	        frame.add(new Template().panel);
-	        frame.setPreferredSize(new Dimension(1000, 600));
-	        frame.pack();
-	        frame.setVisible(true);
-	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-     }
+		 frame = new JFrame("Template Settings");
+		 frame.add(new Template().panel);
+		 frame.setPreferredSize(new Dimension(1000, 600));
+		 frame.pack();
+		 frame.setVisible(true);
+		 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		 frame.setLocationRelativeTo(null);
+		 UIHelpers.setLook();
+	 }
 
 
     @Override
@@ -130,6 +122,7 @@ public class Template implements CreateTemplateView{
 
     @Override
     public boolean isFileValid(String filePath) {
+     	// check if excel or csv file
         if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
@@ -138,7 +131,7 @@ public class Template implements CreateTemplateView{
 
     @Override
     public void onErrorUploadingFile() {
-        JOptionPane.showMessageDialog(frame, "There was en error uploading the file.");
+        JOptionPane.showMessageDialog(frame, "There was an error uploading the file.");
     }
 
     public void disposeView(){

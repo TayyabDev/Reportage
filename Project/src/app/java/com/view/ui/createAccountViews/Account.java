@@ -16,8 +16,7 @@ public class Account {
 	 private JButton edit;
 	 private JButton search;
 	 private static JFrame frame;
-	 private ArrayList<String> info = new ArrayList<String>();
-	
+
      public Account() {
     	 GridBagLayout gb = new GridBagLayout();
  		GridBagConstraints c = new GridBagConstraints();
@@ -40,6 +39,8 @@ public class Account {
     	        // create a new form to accept user input
 				  JPanel createAccPanel = new JPanel();
 				  createAccPanel.setLayout(null);
+				  createAccPanel.setBackground(Color.decode("#f1f8e9"));
+
 
 				  JLabel lblEnterInfo = new JLabel("Please specify the name and password.");
 				  lblEnterInfo.setBounds(150,5, 400, 20);
@@ -84,7 +85,7 @@ public class Account {
                             // createAccount
                             // get account ID
                             // then show user dialog giving account id
-                            //JOptionPane.showInputDialog("Your id is " +id);
+                            JOptionPane.showMessageDialog(frame, "Account created with ID <insert id>");
 
                           frame.setContentPane(panel);
                           frame.revalidate();
@@ -130,11 +131,11 @@ public class Account {
 		 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
 
+            UIHelpers.setLook();
 
 
 
 
-
-     }
+	 }
 
 }
