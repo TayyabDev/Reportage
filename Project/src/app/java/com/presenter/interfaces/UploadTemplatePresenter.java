@@ -6,7 +6,7 @@ import java.io.File;
 
 public interface UploadTemplatePresenter {
 
-    void uploadTemplateWithFile(File file);
+    void uploadTemplateWithFile(String filepath);
 
     void attachView(UploadTemplateView view);
 

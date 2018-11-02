@@ -20,7 +20,7 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
-
+	static JFrame frame;
 
 	
 	public UploadTemplate() {
@@ -94,28 +94,34 @@ public class UploadTemplate implements UploadTemplateView {
 
 	
 	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("Upload Data");
+	        frame = new JFrame("Upload Data");
 	        frame.add(new UploadTemplate().panel);
 	        frame.setPreferredSize(new Dimension(1000, 600));
 	        frame.pack();
 	        frame.setVisible(true);
 	        frame.setLocationRelativeTo(null);
 	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	        UIHelpers.setLook();
 	        
 	    }
 
 	@Override
 	public void onSuccessTemplateCreated() {
+	    JOptionPane.showMessageDialog(frame, "Uploaded data to the template.");
 
 	}
 
 	@Override
-	public boolean isFileValid() {
-		return false;
+	public boolean isFileValid(String filePath) {
+        // check if excel or csv file
+        if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
+            return true;
+        }
+        return false;
 	}
 
 	@Override
 	public void onErrorUploadingFile() {
-
+        JOptionPane.showMessageDialog(frame, "Upload was not successful.");
 	}
 }
