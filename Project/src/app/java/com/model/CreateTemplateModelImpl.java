@@ -6,9 +6,9 @@ import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.entities.template.Template;
 import app.java.com.model.interfaces.CreateTemplateModel;
 import app.java.com.model.interfaces.CreateTemplateResultInterface;
-import app.java.com.model.utilities.createTemplate.CreateTemplateParamCSVImpl;
-import app.java.com.model.utilities.createTemplate.CreateTemplateParamExcelImpl;
-import app.java.com.model.utilities.createTemplate.CreateTemplateParamInterface;
+import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
+import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
+import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 
 public class CreateTemplateModelImpl implements CreateTemplateModel {
 
@@ -35,16 +35,15 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
     		// TODO: make this a parameter of the function and get from UI. 
     		int sheetNum = 0;
     		
-    		CreateTemplateParamInterface templateParam = null;
+    		TemplateFileInterface templateParam = null;
     		if (formulatedFileName.substring(formulatedFileName.length()-4).equals("xlsx")) {
-    			templateParam = new CreateTemplateParamExcelImpl();
     			sheetNum = 2;
+    			templateParam = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
     		}
     		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
-    			templateParam = new CreateTemplateParamCSVImpl();
-    			sheetNum = -1;
+    			templateParam = new TemplateFileCsvImpl(formulatedFileName);
     		}
-    		Template template = templateParam.getTemplateNameColumns(formulatedFileName, sheetNum);
+    		Template template = templateParam.getTemplateNameColumns();
 
         boolean success = false;
         
