@@ -1,6 +1,5 @@
 package app.java.com.model.usecase;
 
-import app.java.com.model.entities.template.Template;
 import app.java.com.model.utilities.ExcelFile;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 

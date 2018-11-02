@@ -10,6 +10,7 @@ import app.java.com.view.ui.UIHelpers;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -69,6 +70,7 @@ public class UploadTemplate implements UploadTemplateView {
 		JLabel lblSelectedFile = new JLabel("You selected a file");
 		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
+		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
 			 @Override
@@ -126,5 +128,12 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void onInCompatibleTemplateSelected() {
 
+	}
+
+
+	@Override
+	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+		// TODO Auto-generated method stub
+		
 	}
 }
