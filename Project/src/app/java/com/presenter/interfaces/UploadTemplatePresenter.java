@@ -1,5 +1,6 @@
 package app.java.com.presenter.interfaces;
 
+import app.java.com.model.Exceptions.SelectException;
 import app.java.com.view.interfaces.UploadTemplateView;
 
 import java.io.File;
@@ -10,8 +11,8 @@ public interface UploadTemplatePresenter {
     void uploadTemplateWithFile(String filePath);
 
     void attachView(UploadTemplateView view);
-
-    List<String> fetchTemplateNames();
+    
+    void fetchTemplateNames();
 
     boolean verifyFileUploaded();
 

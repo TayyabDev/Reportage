@@ -12,6 +12,6 @@ public interface UploadTemplateView {
 
     boolean onInCompatibleTemplateSelected();
 
-    List<String> fillDropdownWithTemplateNames();
+    void fillDropdownWithTemplateNames(List<String> templateNames);
 
 }

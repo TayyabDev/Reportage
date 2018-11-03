@@ -24,7 +24,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
     public void createUsingFile(CreateTemplateResultInterface templateResultInterface, String fileName) {
     	String formulatedFileName = fileName.replace("\\", "\\\\");
     	ExcelFile exc = new ExcelFile(formulatedFileName);
-        int sheetNum = 3;
+        int sheetNum = 2;
 //        if (exc.getNumSheets() > 1) {
 //        	//ask ui for select
 
@@ -33,7 +33,6 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 
         // ask ui for specific sheet number
         // for now by default the excel file only contain 1 sheet
-        System.out.println(exc == null);
         String temName = exc.getTemplateName(sheetNum);
         List<String> columnIds = exc.getSheetColumnIds(sheetNum);
         List<String> columnNames = exc.getSheetColumnNames(sheetNum);

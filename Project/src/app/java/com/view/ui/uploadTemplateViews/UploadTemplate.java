@@ -72,6 +72,7 @@ public class UploadTemplate implements UploadTemplateView {
 		JLabel lblSelectedFile = new JLabel("You selected a file");
 		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
+		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
 			 @Override
@@ -153,5 +154,12 @@ public class UploadTemplate implements UploadTemplateView {
 	public List<String> fillDropdownWithTemplateNames() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+		// TODO Auto-generated method stub
+		
 	}
 }
