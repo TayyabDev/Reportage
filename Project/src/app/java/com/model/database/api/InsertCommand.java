@@ -36,4 +36,6 @@ public class InsertCommand extends Command {
 		}
 		
 	}
+
+
 }
