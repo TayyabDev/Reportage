@@ -1,14 +1,14 @@
 package app.java.com.model;
 
-
-import java.util.List;
-
 import app.java.com.model.Exceptions.AlterException;
 import app.java.com.model.Exceptions.CreateException;
 import app.java.com.model.database.api.QueryOnDatabase;
+import app.java.com.model.entities.template.Template;
 import app.java.com.model.interfaces.CreateTemplateModel;
-import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
-import app.java.com.model.utilities.ExcelFile;
+import app.java.com.model.interfaces.CreateTemplateResultInterface;
+import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
+import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
+import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 
 public class CreateTemplateModelImpl implements CreateTemplateModel {
 
@@ -22,28 +22,24 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 
     @Override
     public void createUsingFile(CreateTemplateResultInterface templateResultInterface, String fileName) {
-    	String formulatedFileName = fileName.replace("\\", "\\\\");
-    	ExcelFile exc = new ExcelFile(formulatedFileName);
-        int sheetNum = 2;
-//        if (exc.getNumSheets() > 1) {
-//        	//ask ui for select
-
-
-//        }
-
-        // ask ui for specific sheet number
-        // for now by default the excel file only contain 1 sheet
-        String temName = exc.getTemplateName(sheetNum);
-        List<String> columnIds = exc.getSheetColumnIds(sheetNum);
-        List<String> columnNames = exc.getSheetColumnNames(sheetNum);
-
-        // using the sheet Name as the table name in the database
-        String sheetName = exc.getSheetName(sheetNum);
-        String tableName = "`" + sheetName.replace(' ', '_') + "`";
+		String formulatedFileName = fileName.replace("\\", "\\\\");
+		// TODO: make this a parameter of the function and get from UI. 
+		int sheetNum = 0;
+		
+		TemplateFileInterface templateParam = null;
+		if (formulatedFileName.substring(formulatedFileName.length()-4).equals("xlsx")) {
+			sheetNum = 2;
+			templateParam = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
+		}
+		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
+			templateParam = new TemplateFileCsvImpl(formulatedFileName);
+		}
+		Template template = templateParam.getTemplateNameColumns();
         boolean success = false;
 
 		try {
-			success = QueryOnDatabase.createTemplate(temName, tableName, columnIds, columnNames);
+			success = QueryOnDatabase.createTemplate(template.getTemplateName(),
+					template.getTableName(), template.getColumnIds(), template.getColumnNames());
 		} catch (AlterException | CreateException e) {
 			templateResultInterface.onErrorCreateTemplate(e.getMessage());
 		}

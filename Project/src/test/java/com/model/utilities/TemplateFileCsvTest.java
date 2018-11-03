@@ -7,10 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import app.java.com.model.utilities.CSVFile;
+import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
+import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 
 
-public class CSVFileTest {
+public class TemplateFileCsvTest {
 
 	String file1 = "./src/test/java/com/model/utilities/exampleTemplate.csv";
 	String file2 = "./src/test/java/com/model/utilities/myTemplate.csv";
@@ -29,105 +30,105 @@ public class CSVFileTest {
 	
 	@Test
 	public void testGetName1() {
-		CSVFile csvFile1 = new CSVFile(file1);
-		String result = csvFile1.getName();
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
+		String result = csvFile1.getTableName();
 		assertEquals(file1Name, result);
 	}
 	
 	@Test
 	public void testGetName2() {
-		CSVFile csvFile2 = new CSVFile(file2);
-		String result = csvFile2.getName();
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
+		String result = csvFile2.getTableName();
 		assertEquals(file2Name, result);
 	}
 	
 	@Test
 	public void testGetColumnIds1() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		List<String> result = csvFile1.getColumnIds();
 		assertEquals(file1ColumnIds, result);
 	}
 
 	@Test
 	public void testGetColumnIds2() {
-		CSVFile csvFile2 = new CSVFile(file2);
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
 		List<String> result = csvFile2.getColumnIds();
 		assertEquals(file2ColumnIds, result);
 	}
 	
 	@Test
 	public void testGetColumnNames1() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		List<String> result = csvFile1.getColumnNames();
 		assertEquals(file1ColumnNames, result);
 	}
 	
 	@Test
 	public void testGetColumnNames2() {
-		CSVFile csvFile2 = new CSVFile(file2);
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
 		List<String> result = csvFile2.getColumnNames();
 		assertEquals(file2ColumnNames, result);
 	}
 	
 	@Test
 	public void testGetNumColumns() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		int result = csvFile1.getNumColumns();
 		assertEquals(3, result);
 	}
 	
 	@Test
 	public void testGetRows1() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		List<String> result = csvFile1.getRow(3);
 		assertEquals(file1Row1, result);
 	}
 	
 	@Test
 	public void testGetRows2() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		List<String> result = csvFile1.getRow(4);
 		assertEquals(file1Row2, result);
 	}
 	
 	@Test
 	public void testGetRows3() {
-		CSVFile csvFile2 = new CSVFile(file2);
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
 		List<String> result = csvFile2.getRow(3);
 		assertEquals(file2Row1, result);
 	}
 	
 	@Test
 	public void testGetRows4() {
-		CSVFile csvFile2 = new CSVFile(file2);
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
 		List<String> result = csvFile2.getRow(4);
 		assertEquals(file2Row2, result);
 	}
 	
 	@Test
 	public void testGetNumRows1() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		int result = csvFile1.getNumRows();
 		assertEquals(2, result);
 	}
 	
 	@Test
 	public void testGetNumRows2() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		int result = csvFile1.getNumRows();
 		assertEquals(2, result);
 	}
 	
 	@Test
 	public void testGetTemplateName1() {
-		CSVFile csvFile1 = new CSVFile(file1);
+		TemplateFileInterface csvFile1 = new TemplateFileCsvImpl(file1);
 		String result = csvFile1.getTemplateName();
 		assertEquals(template1Name, result);
 	}
 	
 	@Test
 	public void testGetTemplateName2() {
-		CSVFile csvFile2 = new CSVFile(file2);
+		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);
 		String result = csvFile2.getTemplateName();
 		assertEquals(template2Name, result);
 	}
