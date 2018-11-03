@@ -53,6 +53,7 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(lblTemplate);
 		
 		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
+		// cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 		JComboBox cbTemplate = new JComboBox(templateNames);
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
