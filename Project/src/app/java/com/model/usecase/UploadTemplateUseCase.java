@@ -35,14 +35,27 @@ public class UploadTemplateUseCase extends UseCase {
 
 
 
-        // Upload the template into the database using insert command
+        List<Exception> errorList = insertAllRows(exc);
+        // all rows inserted successfully if errorList is empty
+        if (!errorList.isEmpty()) {
+        	for (Exception e : errorList) {
+        		System.out.println(e.getMessage());
+        	}
+        }
+        // Notify the presenter
+    }
+
+    /*
+     * inserting all the data rows in the TemplateFileInterface into the database
+     */
+    private List<Exception> insertAllRows(TemplateFileInterface exc) {
+    	// Upload the template into the database using insert command
         List<String> columnIds = exc.getColumnIds();
         List<String> row = null;
         // get the tableName in the database
         String templateName = exc.getTableName();
         int numOfRow = exc.getNumRows();
-        System.out.println(numOfRow);
-        List<Integer> errorList = new ArrayList<Integer>();
+        List<Exception> errorList = new ArrayList<Exception>();
         int i;
         for (i = 0; i < numOfRow; i++){
         	row = exc.getRow(i+3);
@@ -50,11 +63,9 @@ public class UploadTemplateUseCase extends UseCase {
         	try {
 				insert.handle();
 			} catch (Exception e) {
-				errorList.add(i);
+				errorList.add(e);
 			}
         }
-        // Notify the presenter
-
-
+        return errorList;
     }
 }
