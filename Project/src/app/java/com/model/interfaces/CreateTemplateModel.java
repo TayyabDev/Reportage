@@ -1,6 +1,6 @@
 package app.java.com.model.interfaces;
 
-import java.io.File;
+import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
 public interface CreateTemplateModel {
 

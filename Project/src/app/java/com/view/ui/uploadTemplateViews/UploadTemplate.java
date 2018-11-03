@@ -2,7 +2,6 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 
 
-import app.java.com.model.UploadTemplateModelImpl;
 import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
@@ -11,6 +10,7 @@ import app.java.com.view.ui.UIHelpers;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -28,7 +28,7 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
 
-		presenter = new UploadTemplatePresenterImpl(new UploadTemplateModelImpl());
+		presenter = new UploadTemplatePresenterImpl();
 		presenter.attachView(this);
 
 
@@ -56,6 +56,10 @@ public class UploadTemplate implements UploadTemplateView {
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
+		JLabel lblIncompatible = new JLabel("Incompatible template");
+		lblIncompatible.setBounds(620, 160, 180, 25);
+		//panel.add(lblIncompatible);
+		
 		JLabel lblFile = new JLabel("Select file: ");
 		lblFile.setBounds(80, 200, 180, 25);
 		panel.add(lblFile);
@@ -63,8 +67,8 @@ public class UploadTemplate implements UploadTemplateView {
 		JButton btnSelectFile = UIHelpers.buttonGenerator("Upload");
 		JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
 		
-		 JLabel lblSelectedFile = new JLabel("You selected a file");
-		 lblSelectedFile.setBounds(400, 230, 700, 25);
+		JLabel lblSelectedFile = new JLabel("You selected a file");
+		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
@@ -84,6 +88,7 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
+		// Check if template uploaded is incompatible
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
@@ -123,5 +128,15 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void onErrorUploadingFile() {
         JOptionPane.showMessageDialog(frame, "Upload was not successful.");
+	}
+
+	@Override
+	public void onInCompatibleTemplateSelected() {
+
+	}
+
+	@Override
+	public List<String> fillDropdownWithTemplateNames() {
+		return null;
 	}
 }

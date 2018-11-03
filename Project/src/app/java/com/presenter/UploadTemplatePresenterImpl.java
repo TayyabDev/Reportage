@@ -1,28 +1,24 @@
 package app.java.com.presenter;
 
-import app.java.com.model.interfaces.UploadTemplateModel;
+import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
+import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
 
 
 import java.io.File;
+import java.util.List;
 
-public class UploadTemplatePresenterImpl implements UploadTemplatePresenter {
+public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, UploadTemplateResultInterface,
+        FetchTemplateNamesResultInterface {
 
     private UploadTemplateView view;
-    private UploadTemplateModel model;
 
-
-    public UploadTemplatePresenterImpl(UploadTemplateModel model){
+    public UploadTemplatePresenterImpl() {
         this.view = null;
-        this.model = model;
     }
 
-    @Override
-    public void uploadTemplateWithFile(String filepath) {
-        if(view.isFileValid(filepath)){
-        model.uploadUsingFile();
-        }
+    public void uploadTemplateWithFile(String filePath) {
 
     }
 
@@ -32,8 +28,38 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter {
     }
 
     @Override
-    public void unbindView() {
-        this.view=null;
+    public List<String> fetchTemplateNames() {
+        return null;
+    }
 
+    @Override
+    public boolean verifyFileUploaded() {
+        return false;
+    }
+
+    @Override
+    public void unbindView() {
+        this.view = null;
+
+    }
+
+    @Override
+    public void onSuccessUploadingTemplate() {
+        this.view.onSuccessTemplateCreated();
+    }
+
+    @Override
+    public void onErrorUploadingTemplate() {
+        this.view.onErrorUploadingFile();
+    }
+
+    @Override
+    public List<String> onSuccessFetchingNames() {
+        return null;
+    }
+
+    @Override
+    public String onErrorFetchingNames() {
+        return null;
     }
 }
