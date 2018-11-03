@@ -10,6 +10,7 @@ import app.java.com.view.ui.UIHelpers;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -52,9 +53,11 @@ public class UploadTemplate implements UploadTemplateView {
 		lblTemplate.setBounds(80, 160, 180, 25);
 		panel.add(lblTemplate);
 		
-		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
-		// cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
-		JComboBox cbTemplate = new JComboBox(templateNames);
+		List<String> templateNames = new ArrayList<String>(); 
+		fillDropdownWithTemplateNames(templateNames);
+		presenter.fetchTemplateNames();
+		JComboBox cbTemplate = new JComboBox();
+		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
@@ -129,10 +132,6 @@ public class UploadTemplate implements UploadTemplateView {
 	        
 	    }
 
-	@Override
-	public void onSuccessTemplateCreated() {
-
-	}
 
 	@Override
 	public boolean isFileValid() {
@@ -149,16 +148,15 @@ public class UploadTemplate implements UploadTemplateView {
 		return false;
 	}
 
-
 	@Override
-	public List<String> fillDropdownWithTemplateNames() {
+	public void fillDropdownWithTemplateNames(List<String> templateNames) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 
 	@Override
-	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+	public void onSuccessTemplateCreated() {
 		// TODO Auto-generated method stub
 		
 	}
