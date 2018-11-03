@@ -10,6 +10,7 @@ import app.java.com.view.ui.UIHelpers;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
+	String filePath;
 
 
 	
@@ -51,8 +53,11 @@ public class UploadTemplate implements UploadTemplateView {
 		lblTemplate.setBounds(80, 160, 180, 25);
 		panel.add(lblTemplate);
 		
-		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
-		JComboBox cbTemplate = new JComboBox(templateNames);
+		List<String> templateNames = new ArrayList<String>(); 
+		fillDropdownWithTemplateNames(templateNames);
+		presenter.fetchTemplateNames();
+		JComboBox cbTemplate = new JComboBox();
+		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
@@ -81,6 +86,7 @@ public class UploadTemplate implements UploadTemplateView {
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 if (jfc.getSelectedFile() != null) {
 						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
+						 filePath = jfc.getSelectedFile().getPath();
 						 panel.add(lblSelectedFile);
 						 panel.repaint();
 					 }
@@ -89,12 +95,28 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
+		
 		// Check if template uploaded is incompatible
+		btnSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!onInCompatibleTemplateSelected()) {
+					presenter.uploadTemplateWithFile(filePath);
+				}
+				else {
+					panel.add(lblIncompatible);
+					panel.repaint();
+				}
+			}
+			
+		});
+
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
+
 
 	}
 
@@ -110,10 +132,6 @@ public class UploadTemplate implements UploadTemplateView {
 	        
 	    }
 
-	@Override
-	public void onSuccessTemplateCreated() {
-
-	}
 
 	@Override
 	public boolean isFileValid() {
@@ -126,13 +144,19 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
 	@Override
-	public void onInCompatibleTemplateSelected() {
+	public boolean onInCompatibleTemplateSelected() {
+		return false;
+	}
 
+	@Override
+	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
 	@Override
-	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+	public void onSuccessTemplateCreated() {
 		// TODO Auto-generated method stub
 		
 	}

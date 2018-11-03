@@ -50,6 +50,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         this.view.onErrorUploadingFile();
     }
 
+
 	@Override
 	public boolean verifyFileUploaded() {
 		// TODO Auto-generated method stub
@@ -70,6 +71,6 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 	public void fetchTemplateNames() {
 		// TODO Auto-generated method stub
 		UseCase usecase = new FetchTemplateNamesUseCase(this);
-		usecase.run();		
+		usecase.run();
 	}
 }
