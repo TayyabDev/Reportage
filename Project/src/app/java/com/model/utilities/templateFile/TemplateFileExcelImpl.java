@@ -76,7 +76,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 
 	@Override
 	public String getTableName() {
-		return this.sheetName;
+		return '`'+this.sheetName.replace(' ', '_')+'`';
 	}
 
 	@Override
