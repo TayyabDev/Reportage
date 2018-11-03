@@ -95,7 +95,13 @@ public class UploadTemplate implements UploadTemplateView {
 		btnSubmit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				presenter.uploadTemplateWithFile(filePath);
+				if (!onInCompatibleTemplateSelected()) {
+					presenter.uploadTemplateWithFile(filePath);
+				}
+				else {
+					panel.add(lblIncompatible);
+					panel.repaint();
+				}
 			}
 			
 		});
