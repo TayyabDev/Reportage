@@ -51,7 +51,6 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -93,10 +92,14 @@
             <classpath refid="Project.classpath"/>
         </java>
     </target>
-    <target name="Template">
-        <java classname="com.app.view.ui.Template" failonerror="true" fork="yes">
+    <target name="TemplateFileCsvTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.java.com.model.utilities.TemplateFileCsvTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
             <classpath refid="Project.classpath"/>
-        </java>
+        </junit>
     </target>
     <target name="ExcelFileTest">
         <mkdir dir="${junit.output.dir}"/>
@@ -107,6 +110,11 @@
             <classpath refid="Project.classpath"/>
         </junit>
     </target>
+    <target name="Template">
+        <java classname="com.app.view.ui.Template" failonerror="true" fork="yes">
+            <classpath refid="Project.classpath"/>
+        </java>
+    </target>
     <target name="Test (1)">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -116,20 +124,39 @@
             <classpath refid="Project.classpath"/>
         </junit>
     </target>
+    <target name="TemplateFileExcelTest (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.java.com.model.utilities.TemplateFileExcelTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="Project.classpath"/>
+        </junit>
+    </target>
+    <target name="Dashboard">
+        <java classname="app.java.com.view.ui.createAccountViews.Dashboard" failonerror="true" fork="yes">
+            <classpath refid="Project.classpath"/>
+        </java>
+    </target>
+    <target name="CreateTemplateParamTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.java.com.model.utilities.CreateTemplateParamTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="Project.classpath"/>
+        </junit>
+    </target>
+    <target name="Template (1)">
+        <java classname="app.java.com.view.ui.createTemplateViews.Template" failonerror="true" fork="yes">
+            <classpath refid="Project.classpath"/>
+        </java>
+    </target>
     <target name="ExcelFileTest.testGetSheetRows1">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="com.test.model.utilities.ExcelFileTest" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="Project.classpath"/>
-        </junit>
-    </target>
-    <target name="ExcelFileTest (1)">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="test.java.com.model.utilities.ExcelFileTest" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="Project.classpath"/>
         </junit>
