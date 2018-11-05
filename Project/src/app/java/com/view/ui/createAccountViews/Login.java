@@ -55,6 +55,7 @@ public class Login {
                 login.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+
                         Dashboard db = new Dashboard();
                         db.main(null);
                         frame.dispose();

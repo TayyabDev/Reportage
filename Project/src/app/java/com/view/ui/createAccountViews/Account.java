@@ -51,19 +51,19 @@ public class Account implements CreateAccountView {
 
 
 				  JLabel lblEnterInfo = new JLabel("Please specify the name and password.");
-				  lblEnterInfo.setBounds(150,5, 400, 20);
-				  JLabel lblName = new JLabel("Name");
-				  lblName.setBounds(150, 50, 400, 20);
+				  lblEnterInfo.setBounds(300,50, 400, 20);
+				  JLabel lblName = new JLabel("Username");
+				  lblName.setBounds(300, 100, 400, 20);
 				  JTextField txtName = new JTextField();
-				  txtName.setBounds(150, 100, 400, 20);
+				  txtName.setBounds(300, 150, 400, 20);
 				  JLabel lblPassword = new JLabel("Password");
-				  lblPassword.setBounds(150, 150, 400, 20);
+				  lblPassword.setBounds(300, 200, 400, 20);
 				  JPasswordField txtPassword = new JPasswordField();
-				  txtPassword.setBounds(150, 200, 400, 20);
+				  txtPassword.setBounds(300, 250, 400, 20);
 				  JButton submit = UIHelpers.buttonGenerator("Submit");
-				  submit.setBounds( 150, 250, 150,50);
+				  submit.setBounds( 325, 300, 150,50);
 				  JButton cancel = UIHelpers.buttonGenerator("Cancel");
-				  cancel.setBounds(350, 250, 150, 50);
+				  cancel.setBounds(500, 300, 150, 50);
 
 
 				  createAccPanel.add(lblEnterInfo);
@@ -145,7 +145,7 @@ public class Account implements CreateAccountView {
 	@Override
 	public void onSuccessAccountCreated() {
      	// must send in account id to user
-		JOptionPane.showMessageDialog(frame, "Account created with ID <insert id>.");
+		JOptionPane.showMessageDialog(frame, "Account created.");
 	}
 
 	@Override
@@ -155,9 +155,6 @@ public class Account implements CreateAccountView {
 
 	@Override
 	public boolean isFieldsValid(String name, String password) {
-     	System.out.println(name);
-		System.out.println(password);
-
 		boolean valid = true;
 		if (name.matches(".*\\d+.*")){
 			valid = false;
@@ -165,9 +162,6 @@ public class Account implements CreateAccountView {
 		if(password.length() == 0){
 			valid = false;
 		}
-		System.out.println(valid);
-
-
 		return valid;
 	}
 
