@@ -4,7 +4,11 @@ import java.util.List;
 
 public abstract class Template {
     
-    public abstract List<String> getTemplateColumnNames();
+	public abstract String getTemplateName();
+	
+    public abstract List<String> getColumnNames();
 
     public abstract List<String> getColumnIds();
+    
+    public abstract String getTableName();
 }
