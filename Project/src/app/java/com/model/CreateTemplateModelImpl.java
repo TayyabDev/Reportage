@@ -5,10 +5,10 @@ import app.java.com.model.Exceptions.CreateException;
 import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.entities.template.Template;
 import app.java.com.model.interfaces.CreateTemplateModel;
-import app.java.com.model.interfaces.CreateTemplateResultInterface;
 import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
+import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
 public class CreateTemplateModelImpl implements CreateTemplateModel {
 
