@@ -144,6 +144,7 @@ public class SelectCommand extends Command {
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraint
 	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
+	 * return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
@@ -174,8 +175,7 @@ public class SelectCommand extends Command {
 			if (constraint== null) {
 				rs = st.executeQuery(sqlNoConstraint + ";");
 			} else {
-                System.out.println(sqlWithConstraint);
-                rs = st.executeQuery(sqlWithConstraint);
+				rs = st.executeQuery(sqlWithConstraint);
 			}
 			while (rs.next()) {
 				List<String> row = new ArrayList<String>();
@@ -190,7 +190,7 @@ public class SelectCommand extends Command {
 			conn.close();
 			return data;
 		} catch (Exception e) {
-		    System.out.println("In exception in select ");
+			
 			if (constraint== "") {
 				throw new SelectException(sqlNoConstraint);
 			} else {

@@ -128,7 +128,6 @@ public class Template implements CreateTemplateView{
     @Override
     public void onSuccessTemplateCreated() {
         JOptionPane.showMessageDialog(frame, "Template created.");
-        System.exit(0);
     }
 
     @Override
@@ -142,7 +141,6 @@ public class Template implements CreateTemplateView{
     @Override
     public void onErrorUploadingFile() {
         JOptionPane.showMessageDialog(frame, "There was en error uploading the file.");
-        System.exit(0);
     }
 
     public void disposeView(){

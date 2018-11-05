@@ -88,20 +88,4 @@ public abstract class Command {
 		return rs;
 		
 	}
-	
-	public static void main(String[] argc) {
-		String s = "select * from test";
-		try {
-			ResultSet res = RunExecuteQuery(s);
-			while(res.next()) {
-				String name = res.getString("name");
-				String lastName = res.getString("lastName");
-				System.out.println(name + " ----" + lastName);
-				
-			}
-		} catch (Exception e) {
-			
-		}
-		
-	}
 }

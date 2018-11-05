@@ -10,8 +10,8 @@ public interface UploadTemplateView {
 
     void onErrorUploadingFile();
 
-    void onInCompatibleTemplateSelected(boolean isInCompatible);
+    boolean onInCompatibleTemplateSelected();
 
-    List<String> fillDropdownWithTemplateNames();
+    void fillDropdownWithTemplateNames(List<String> templateNames);
 
 }
