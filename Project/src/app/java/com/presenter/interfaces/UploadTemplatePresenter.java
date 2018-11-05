@@ -13,7 +13,7 @@ public interface UploadTemplatePresenter {
 
     List<String> fetchTemplateNames();
 
-    boolean verifyFileUploaded();
+    void verifyFileUploaded(String filePath, String templateName);
 
     void unbindView();
 

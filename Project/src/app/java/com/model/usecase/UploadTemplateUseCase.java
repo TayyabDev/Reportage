@@ -22,10 +22,6 @@ public class UploadTemplateUseCase extends UseCase {
         System.out.println(formulatedFileName);
         ExcelFile exc = new ExcelFile(formulatedFileName);
 
-        // Verify template matches the chosen template's format
-        int numColumns = exc.getSheetNumColumns(SHEET_NUMBER);
-
-
 
         // Upload the template into the database using insert command
 

@@ -11,10 +11,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.List;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 public class UploadTemplate implements UploadTemplateView {
+
 	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
@@ -64,6 +66,12 @@ public class UploadTemplate implements UploadTemplateView {
 		
 		 JLabel lblSelectedFile = new JLabel("You selected a file");
 		 lblSelectedFile.setBounds(400, 230, 700, 25);
+
+
+		 String filePath = "/Users/vishwa/Downloads/TestFile.xlsx";
+		 String templateName = "Client Profile";
+		 System.out.println("Verify");
+		 presenter.verifyFileUploaded(filePath, templateName);
 		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
@@ -118,8 +126,13 @@ public class UploadTemplate implements UploadTemplateView {
 
 	}
 
-	@Override
-	public void onInCompatibleTemplateSelected() {
+    @Override
+    public void onInCompatibleTemplateSelected(boolean isInCompatible) {
 
+    }
+
+	@Override
+	public List<String> fillDropdownWithTemplateNames() {
+		return null;
 	}
 }

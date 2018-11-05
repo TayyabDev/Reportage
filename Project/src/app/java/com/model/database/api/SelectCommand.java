@@ -174,7 +174,8 @@ public class SelectCommand extends Command {
 			if (constraint== null) {
 				rs = st.executeQuery(sqlNoConstraint + ";");
 			} else {
-				rs = st.executeQuery(sqlWithConstraint);
+                System.out.println(sqlWithConstraint);
+                rs = st.executeQuery(sqlWithConstraint);
 			}
 			while (rs.next()) {
 				List<String> row = new ArrayList<String>();
@@ -189,6 +190,7 @@ public class SelectCommand extends Command {
 			conn.close();
 			return data;
 		} catch (Exception e) {
+		    System.out.println("In exception in select ");
 			if (constraint== "") {
 				throw new SelectException(sqlNoConstraint);
 			} else {
