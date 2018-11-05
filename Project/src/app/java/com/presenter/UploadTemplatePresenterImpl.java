@@ -1,17 +1,12 @@
 package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.SelectException;
-import app.java.com.model.database.api.SelectCommand;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
-
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, UploadTemplateResultInterface,
