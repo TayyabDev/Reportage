@@ -1,4 +1,8 @@
 package app.java.com.presenter.interfaces;
 
-public class CreateAccountResultInterface {
+public interface CreateAccountResultInterface {
+    void onSuccessCreateAccount(String message);
+
+    void onErrorCreateAccount(String message);
+
 }

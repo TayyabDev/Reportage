@@ -1,5 +1,8 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.presenter.LoginPresenterImpl;
+import app.java.com.presenter.interfaces.LoginPresenter;
+import app.java.com.view.interfaces.LoginView;
 import app.java.com.view.ui.UIHelpers;
 
 import java.awt.Color;
@@ -10,8 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-public class Login {
-	
+public class Login implements LoginView {
+
+    LoginPresenter presenter;
 	static JFrame frame;
 	JPanel panel;
 	JLabel labelLogo;
@@ -27,6 +31,9 @@ public class Login {
 		panel = new JPanel();
 		panel.setLayout(gb);
 		panel.setBackground(Color.decode("#f1f8e9"));
+
+		presenter = new LoginPresenterImpl(this);
+
 		
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));
@@ -55,9 +62,8 @@ public class Login {
                 login.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Dashboard db = new Dashboard();
-                        db.main(null);
-                        frame.dispose();
+                        presenter.verifyAccount(username.getText(), String.valueOf(password.getPassword()));
+
             }
         });
 		
@@ -67,8 +73,6 @@ public class Login {
 		
 		
 	}
-	
-	
 
 	public static void main(String[] args) {
 		
@@ -84,4 +88,32 @@ public class Login {
 
 	}
 
+    @Override
+    public void onSuccessLogin() {
+        Dashboard db = new Dashboard();
+        db.main(null);
+        frame.dispose();
+    }
+
+    @Override
+    public void onErrorLogin() {
+	    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
+
+    }
+
+    @Override
+    public boolean isFieldsValid(String username, String password) {
+	    if (username.length() > 0 && password.length() > 0){
+	        return true;
+        } else {
+	        return false;
+        }
+
+    }
+
+    @Override
+    public void invalidFields() {
+	    JOptionPane.showMessageDialog(frame, "Please enter a valid username or password.");
+
+    }
 }
