@@ -22,10 +22,12 @@ public class UploadTemplate implements UploadTemplateView {
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
 	String filePath;
+	boolean templateCompatible = false;
 
 
 	
 	public UploadTemplate() {
+		
 		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
@@ -79,6 +81,7 @@ public class UploadTemplate implements UploadTemplateView {
 					 if (jfc.getSelectedFile() != null) {
 						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
 						 filePath = jfc.getSelectedFile().getPath();
+						 presenter.uploadTemplateWithFile(filePath);
 						 panel.add(lblSelectedFile);
 						 panel.repaint();
 					 }
@@ -92,10 +95,7 @@ public class UploadTemplate implements UploadTemplateView {
 		btnSubmit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!onInCompatibleTemplateSelected()) {
-					presenter.uploadTemplateWithFile(filePath);
-				}
-				else {
+				if (!templateCompatible) {
 					panel.add(lblIncompatible);
 					panel.repaint();
 				}
@@ -139,8 +139,10 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
 	@Override
-	public boolean onInCompatibleTemplateSelected() {
-		return false;
+	public void onCompatibleTemplateSelected(boolean compatible) {
+		if (compatible) {
+			templateCompatible = true;
+		}
 	}
 
 	@Override
