@@ -1,5 +1,6 @@
 package app.java.com.model;
 
+
 import app.java.com.model.Exceptions.AlterException;
 import app.java.com.model.Exceptions.CreateException;
 import app.java.com.model.database.api.QueryOnDatabase;
@@ -22,32 +23,32 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 
     @Override
     public void createUsingFile(CreateTemplateResultInterface templateResultInterface, String fileName) {
-		String formulatedFileName = fileName.replace("\\", "\\\\");
-		// TODO: make this a parameter of the function and get from UI. 
-		int sheetNum = 0;
-		
-		TemplateFileInterface templateParam = null;
-		if (formulatedFileName.substring(formulatedFileName.length()-4).equals("xlsx")) {
-			sheetNum = 2;
-			templateParam = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
-		}
-		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
-			templateParam = new TemplateFileCsvImpl(formulatedFileName);
-		}
-		Template template = templateParam.getTemplateNameColumns();
-        boolean success = false;
+    		String formulatedFileName = fileName.replace("\\", "\\\\");
+    		// TODO: make this a parameter of the function and get from UI.
+    		int sheetNum = 0;
 
+    		TemplateFileInterface templateParam = null;
+    		if (formulatedFileName.substring(formulatedFileName.length()-4).equals("xlsx")) {
+    			sheetNum = 2;
+    			templateParam = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
+    		}
+    		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
+    			templateParam = new TemplateFileCsvImpl(formulatedFileName);
+    		}
+    		Template template = templateParam.getTemplateNameColumns();
+
+        boolean success = false;
+        
 		try {
 			success = QueryOnDatabase.createTemplate(template.getTemplateName(),
 					template.getTableName(), template.getColumnIds(), template.getColumnNames());
 		} catch (AlterException | CreateException e) {
 			templateResultInterface.onErrorCreateTemplate(e.getMessage());
 		}
-
         if (success) {
         	templateResultInterface.onSuccessCreateTemplate("success");
-        }
-
+        } 
+        
         // Look at templateResultInterface for communication back with the presenter
     }
 }

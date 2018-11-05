@@ -1,14 +1,12 @@
 package app.java.com.model.usecase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
-import app.java.com.model.utilities.ExcelFile;
 import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UploadTemplateUseCase extends UseCase {
 
