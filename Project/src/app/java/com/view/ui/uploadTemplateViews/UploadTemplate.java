@@ -17,7 +17,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 public class UploadTemplate implements UploadTemplateView {
-	JPanel panel = new JPanel();
+	JPanel panel;
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
@@ -32,8 +32,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 		presenter = new UploadTemplatePresenterImpl();
 		presenter.attachView(this);
-
-
+		presenter.fetchTemplateNames();
 		
 		JLabel lblTitle = new JLabel("Upload Data");
 		lblTitle.setFont(new Font(null, Font.BOLD, 36));
@@ -53,13 +52,6 @@ public class UploadTemplate implements UploadTemplateView {
 		lblTemplate.setBounds(80, 160, 180, 25);
 		panel.add(lblTemplate);
 		
-		List<String> templateNames = new ArrayList<String>(); 
-		presenter.fetchTemplateNames();
-		fillDropdownWithTemplateNames(templateNames);
-		JComboBox cbTemplate = new JComboBox();
-		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
-		cbTemplate.setBounds(400, 160, 200, 25);
-		panel.add(cbTemplate);
 		
 		JLabel lblIncompatible = new JLabel("Incompatible template");
 		lblIncompatible.setBounds(620, 160, 180, 25);
@@ -153,7 +145,10 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void fillDropdownWithTemplateNames(List<String> templateNames) {
-		// TODO Auto-generated method stub
+		JComboBox cbTemplate = new JComboBox();
+		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
+		cbTemplate.setBounds(400, 160, 200, 25);
+		panel.add(cbTemplate);
 	}
 
 
