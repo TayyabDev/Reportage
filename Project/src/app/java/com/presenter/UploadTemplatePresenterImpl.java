@@ -40,18 +40,6 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         this.view.onSuccessTemplateCreated();
     }
 
-    @Override
-    public void onErrorUploadingTemplate() {
-        this.view.onErrorUploadingFile();
-    }
-
-
-	@Override
-	public boolean verifyFileUploaded() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public void onSuccessFetchingNames(List<String> names) throws SelectException {
 		this.view.fillDropdownWithTemplateNames(names);
@@ -67,5 +55,17 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 		// TODO Auto-generated method stub
 		UseCase usecase = new FetchTemplateNamesUseCase(this);
 		usecase.run();
+	}
+
+	@Override
+	public void onErrorUploadingTemplate(List<String> errorMessages) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void verifyFileUploaded(String filePath, String templateName) {
+		// TODO Auto-generated method stub
+		
 	}
 }

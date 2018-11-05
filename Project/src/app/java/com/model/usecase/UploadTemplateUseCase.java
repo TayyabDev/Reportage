@@ -2,6 +2,8 @@ package app.java.com.model.usecase;
 
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
+import app.java.com.model.utilities.FileTypeFinder;
+import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
@@ -24,23 +26,26 @@ public class UploadTemplateUseCase extends UseCase {
 
         String formulatedFileName = templateFilePath.replace("\\", "\\\\");
         System.out.println(formulatedFileName);
-        TemplateFileInterface exc = new TemplateFileExcelImpl(formulatedFileName, 2);
-        
-//        ExcelFile exc = new ExcelFile(formulatedFileName);
+        TemplateFileInterface exc;
+        if (FileTypeFinder.isCSVFile(formulatedFileName)){
+        	exc = new TemplateFileCsvImpl(formulatedFileName);
+        } else {
+        	exc = new TemplateFileExcelImpl(formulatedFileName, 2);
+        }
 
         // Verify template matches the chosen template's format
-//        int numColumns = exc.getSheetNumColumns(SHEET_NUMBER);
-
-
-
         List<Exception> errorList = insertAllRows(exc);
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
+        	List<String> errorMessages = new ArrayList<String>();
         	for (Exception e : errorList) {
-        		System.out.println(e.getMessage());
+        		errorMessages.add(e.getMessage());
         	}
+        	resultInterface.onErrorUploadingTemplate(errorMessages);
+        } else {
+        	resultInterface.onSuccessUploadingTemplate();
         }
-        // Notify the presenter
+        
     }
 
     /*
