@@ -4,9 +4,11 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.model.usecase.VerifyTemplateUseCase;
+import app.java.com.model.usecase.VerifyTemplateUseCase;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
+import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
 import java.util.List;
@@ -37,17 +39,6 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 
     }
 
-    @Override
-    public void onSuccessUploadingTemplate() {
-        this.view.onSuccessTemplateCreated();
-    }
-
-    @Override
-    public void onErrorUploadingTemplate() {
-        this.view.onErrorUploadingFile();
-    }
-
-
 	@Override
 	public void verifyFileUploaded(String filePath, String templateName) {
 		UseCase verifyUseCase = new VerifyTemplateUseCase(this, filePath, templateName);
@@ -76,4 +67,16 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
             view.onInCompatibleTemplateSelected();
         }
     }
+
+    @Override
+    public void onSuccessUploadingTemplate() {
+        this.view.onSuccessTemplateCreated();
+    }
+
+	@Override
+	public void onErrorUploadingTemplate(List<String> errorMessages) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
