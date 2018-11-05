@@ -151,7 +151,6 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void fillDropdownWithTemplateNames(List<String> templateNames) {
 		// TODO Auto-generated method stub
-		System.out.println(templateNames);
 		
 	}
 
