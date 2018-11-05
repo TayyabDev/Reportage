@@ -54,8 +54,8 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(lblTemplate);
 		
 		List<String> templateNames = new ArrayList<String>(); 
-		fillDropdownWithTemplateNames(templateNames);
 		presenter.fetchTemplateNames();
+		fillDropdownWithTemplateNames(templateNames);
 		JComboBox cbTemplate = new JComboBox();
 		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 		cbTemplate.setBounds(400, 160, 200, 25);
@@ -154,7 +154,6 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void fillDropdownWithTemplateNames(List<String> templateNames) {
 		// TODO Auto-generated method stub
-		
 	}
 
 
