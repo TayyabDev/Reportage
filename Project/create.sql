@@ -32,15 +32,15 @@ create table Agency(
 	agencyId int primary key,
     name varchar(50) not null);
 
-create table Officier(
-	officierId int primary key,
+create table Officer(
+	officerId int primary key,
     agencyId int,
-    constraint officierFk1
-		foreign key(OfficierId)
+    constraint officerFk1
+		foreign key(OfficerId)
         references User(userId)
         on delete cascade
         on update cascade,
-	constraint officierFk2
+	constraint officerFk2
 		foreign key(agencyId)
         references Agency(agencyId)
         on delete set null
