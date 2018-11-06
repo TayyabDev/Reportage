@@ -21,24 +21,34 @@ public class Account implements CreateAccountView {
 	 private static JFrame frame;
 	 private CreateAccountPresenter presenter;
 
-     public Account() {
+     public Account(JFrame frame) {
+		this.frame = frame;
 
 
-    	 GridBagLayout gb = new GridBagLayout();
- 		GridBagConstraints c = new GridBagConstraints();
  		panel = new JPanel();
- 		panel.setLayout(gb);
+
+
  		panel.setBackground(Color.decode("#f1f8e9"));
+ 		panel.setLayout(null);
 
  		presenter = new CreateAccountPresenterImpl();
  		presenter.attachView(this);
  		
- 		
- 		c.fill = GridBagConstraints.BOTH;
- 		
- 		c.gridwidth = GridBagConstraints.REMAINDER;
+
+
+ 		JButton back = UIHelpers.generateBackButton(50,50,50,50);
+        panel.add(back);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dashboard d = new Dashboard(frame, false);
+            }
+        });
  		
     	 create = UIHelpers.buttonGenerator("Create an Account");
+    	 create.setBounds(400,150, 150,50);
+
     	 
     	 // create account dialog box
     	 create.addActionListener(new ActionListener() {
@@ -60,11 +70,11 @@ public class Account implements CreateAccountView {
 				  lblPassword.setBounds(300, 200, 400, 20);
 				  JPasswordField txtPassword = new JPasswordField();
 				  txtPassword.setBounds(300, 250, 400, 20);
+
 				  JButton submit = UIHelpers.buttonGenerator("Submit");
 				  submit.setBounds( 325, 300, 150,50);
 				  JButton cancel = UIHelpers.buttonGenerator("Cancel");
 				  cancel.setBounds(500, 300, 150, 50);
-
 
 				  createAccPanel.add(lblEnterInfo);
 				  createAccPanel.add(lblName);
@@ -89,8 +99,6 @@ public class Account implements CreateAccountView {
                             // then show user dialog giving account id
 						  	presenter.createAccount(name, password);
 
-
-
                           frame.setContentPane(panel);
                           frame.revalidate();
                       }
@@ -110,37 +118,24 @@ public class Account implements CreateAccountView {
     	 
     	 
     	 edit = UIHelpers.buttonGenerator("Edit an Account");
+         edit.setBounds(400,250, 150,50);
+
     	 search = UIHelpers.buttonGenerator("Search for an Account");
-    	
-    	 gb.setConstraints(create, c);
-    	 gb.setConstraints(edit, c);
-    	 gb.setConstraints(search, c);
+         search.setBounds(400,350, 150,50);
     	 
     	 panel.add(create);
     	 panel.add(edit);
     	 panel.add(search);
+
+		 this.frame.setContentPane(panel);
+		 this.frame.revalidate();
     	 
     	 
     	 
     	 
     	 
      }
-	
-	 public static void main(String[] args) {
-	        frame = new JFrame("Account Settings");
-	        frame.add(new Account().panel);
-	        frame.setPreferredSize(new Dimension(1000, 600));
-	        frame.pack();
-	        frame.setVisible(true);
-		 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
 
-            UIHelpers.setLook();
-
-
-
-
-	 }
 
 	@Override
 	public void onSuccessAccountCreated() {

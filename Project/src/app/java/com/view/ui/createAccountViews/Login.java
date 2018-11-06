@@ -90,9 +90,10 @@ public class Login implements LoginView {
 
     @Override
     public void onSuccessLogin() {
-        Dashboard db = new Dashboard();
-        db.main(null);
+        Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true);
+
         frame.dispose();
+        presenter.unbindView();
     }
 
     @Override

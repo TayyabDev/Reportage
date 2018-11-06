@@ -17,6 +17,8 @@ import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.CreateTemplateModelImpl;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 import java.io.File;
 
@@ -30,27 +32,30 @@ public class Template implements CreateTemplateView{
 	 private String sqlQuery;
 	 private CreateTemplatePresenter presenter;
 	
-     public Template() {
+     public Template(JFrame frame) {
+     	 this.frame = frame;
 
-
-         GridBagLayout gb = new GridBagLayout();
-         GridBagConstraints c = new GridBagConstraints();
          panel = new JPanel();
- 		 panel.setLayout(gb);
+ 		 panel.setLayout(null);
  		 panel.setBackground(Color.decode("#f1f8e9"));
 
          presenter = new CreateTemplatePresenterImpl(new CreateTemplateModelImpl());
          presenter.attachView(this);
 
 
-         c.fill = GridBagConstraints.BOTH;
- 		
- 		c.gridwidth = GridBagConstraints.REMAINDER;
-
+         JButton back = UIHelpers.generateBackButton(50,50,50,50);
+         panel.add(back);
+         back.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 Dashboard d = new Dashboard(frame, false);
+             }
+         });
 
 
     	 create = UIHelpers.buttonGenerator("Create a new template using file");
-		 create.addActionListener(new ActionListener() {
+         create.setBounds(400,100, 250,50);
+         create.addActionListener(new ActionListener() {
 			 @Override
 			 public void actionPerformed(ActionEvent e) {
 				 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -67,6 +72,7 @@ public class Template implements CreateTemplateView{
 		 });
 
 		 createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
+         createSQL.setBounds(400,200, 250,50);
          createSQL.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -77,21 +83,29 @@ public class Template implements CreateTemplateView{
 				 }
          }});
 
-
     	 view = UIHelpers.buttonGenerator("View the existing templates");
+         view.setBounds(400,300, 250,50);
 
-    	 select = UIHelpers.buttonGenerator("Select a template");
 
-    	 gb.setConstraints(create, c);
-    	 gb.setConstraints(createSQL, c);
-    	 gb.setConstraints(view, c);
-    	 gb.setConstraints(select, c);
+         select = UIHelpers.buttonGenerator("Upload data to a template");
+         select.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 UploadTemplate ut = new UploadTemplate(frame);
+                 presenter.unbindView();
+             }
+         });
+
+         select.setBounds(400,400, 250,50);
+
     	 
     	 panel.add(create);
     	 panel.add(createSQL);
     	 panel.add(view);
     	 panel.add(select);
-    	 
+
+		 this.frame.setContentPane(panel);
+		 this.frame.revalidate();
     	 
     	 
      }
@@ -102,17 +116,6 @@ public class Template implements CreateTemplateView{
          return headers;
 
      }
-	
-	 public static void main(String[] args) {
-		 frame = new JFrame("Template Settings");
-		 frame.add(new Template().panel);
-		 frame.setPreferredSize(new Dimension(1000, 600));
-		 frame.pack();
-		 frame.setVisible(true);
-		 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		 frame.setLocationRelativeTo(null);
-		 UIHelpers.setLook();
-	 }
 
 
     @Override

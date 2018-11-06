@@ -1,6 +1,8 @@
 package app.java.com.view.ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -18,5 +20,11 @@ public class UIHelpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static JButton generateBackButton(int x, int y, int width, int height){
+		JButton back = buttonGenerator("←");
+		back.setBounds(x,y,width,height);
+		return back;
 	}
 }
