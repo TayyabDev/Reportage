@@ -15,15 +15,10 @@ public class FetchUserDataPresenterImpl
 	public FetchUserDataPresenterImpl(ViewUserDataView view) {
 		this.view = view;
 	} 
-	@Override
-	public void fetchUserDataWithQuery(String query) {
-		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, query);
-		useCase.run();
-	}
 	
 	@Override
-	public void fetchUserDataWithSelection(List<String> selection) {
-		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, selection);
+	public void fetchUserDataWithSelection(List<String> target, String tableName, List<String> constraint) {
+		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, target, tableName, constraint);
 		useCase.run();
 
 	}

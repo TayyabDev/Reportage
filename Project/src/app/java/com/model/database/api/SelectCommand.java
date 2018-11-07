@@ -209,7 +209,7 @@ public class SelectCommand extends Command {
 	
 	@Override
 	public boolean handle() throws SelectException {
-		List<List<String>> res = selectHandle();
+		selectHandle();
 		return true;
 	}
 }

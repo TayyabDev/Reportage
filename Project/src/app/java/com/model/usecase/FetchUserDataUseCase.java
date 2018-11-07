@@ -1,7 +1,5 @@
 package app.java.com.model.usecase;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,62 +9,36 @@ import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
 
 public class FetchUserDataUseCase extends UseCase {
 
-	private String query = null;
-	private List<String> selections = null;
+	private String table = null;
+	private List<String> target = null;
+	private List<String> constraints = null;
 	private FetchUserDataResultInterface resultInterface;
 	
-	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, String query) {
+	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, List<String> target, String table, List<String> constraint) {
 		this.resultInterface = resultInterface;
-		this.query = query;
-	}
-	
-	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, List<String> selections) {
-		this.resultInterface = resultInterface;
-		this.selections = selections;
+		this.target = target;
+		this.table = table;
+		this.constraints = constraint;
 	}
 	
 	@Override
 	public void run() {
-		List<List<String>> data = null;
+		List<List<String>> data = new ArrayList<List<String>>();
 		
-		SelectCommand selectCommand = new SelectCommand(selections.get(0));
+		SelectCommand selectCommand = new SelectCommand(target, table, constraints);
 		
 		try {
-			if (this.query != null) {	
-				data = getListFromResultSet(SelectCommand.RunExecuteQuery(query));
-			} 
-			else if (this.selections != null) {
-				data = selectCommand.selectHandle();
-			}
+			data.add(selectCommand.getColumnIds());
+			data.addAll(selectCommand.selectHandle());
         } catch (SelectException e) {
             resultInterface.onErrorSelectTable("failed when select " + e.getMessage());
-        } catch (Exception e) {
-        	resultInterface.onErrorSelectTable("failed when executing query " + e.getMessage());
-		}
+        }
 		
-		if (data == null) {
+		if (data.isEmpty()) {
 			resultInterface.onErrorSelectTable("No Data Returned");
 		}
 		else {
 			resultInterface.onSuccessSelectTable(data);
 		}
-	}
-	
-	private static List<List<String>> getListFromResultSet(ResultSet rs) {
-		List<List<String>> result = new ArrayList<List<String>>();
-		int columns = 0;
-		try {
-			columns = rs.getMetaData().getColumnCount();
-			while (rs.next()) {
-				List<String> row = new ArrayList<String>();
-				for (int i = 1; i < columns + 1; i++) {
-					row.add(rs.getString(i));
-				}
-				result.add(row);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
 	}
 }
