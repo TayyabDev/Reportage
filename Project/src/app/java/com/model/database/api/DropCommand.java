@@ -15,10 +15,11 @@ public class DropCommand extends Command {
 	}
 	
 	@Override
-	public boolean handle() throws CreateException, DropException {
+	public boolean handle() throws DropException {
 		String sql = "drop table "+ tableName + ";" ;
 		try {
-			return runExecuteUpdate(sql);
+			runExecuteUpdate(sql);
+			return true;
 		} catch (Exception e) {
 		    System.out.println(e.getMessage());
 			throw new DropException(tableName);

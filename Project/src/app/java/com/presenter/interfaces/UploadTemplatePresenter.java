@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UploadTemplatePresenter {
 
+
     void uploadTemplateWithFile(String filePath);
 
     void attachView(UploadTemplateView view);

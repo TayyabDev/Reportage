@@ -6,11 +6,16 @@ import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createTemplateViews.Template;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> develop
 import java.util.List;
 
 import javax.swing.*;
@@ -21,27 +26,40 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
+<<<<<<< HEAD
 	String filePath;
 
+=======
+	static JFrame frame;
+>>>>>>> develop
 
 	
-	public UploadTemplate() {
-		panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#f1f8e9"));
+	public UploadTemplate(JFrame frame) {
+		this.frame = frame;
 
-		presenter = new UploadTemplatePresenterImpl();
-		presenter.attachView(this);
+        panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(Color.decode("#f1f8e9"));
 
+        presenter = new UploadTemplatePresenterImpl();
+        presenter.attachView(this);
 
-		
-		JLabel lblTitle = new JLabel("Upload Data");
-		lblTitle.setFont(new Font(null, Font.BOLD, 36));
-		lblTitle.setBounds(390, 20, 400, 40);
-		panel.add(lblTitle);
-		
-		JLabel lblDate = new JLabel("Template date (MM/YYYY): ");
-		lblDate.setBounds(80, 120, 180, 25);
+        JButton back = UIHelpers.generateBackButton(50,50,50,50);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 Template t = new Template(frame);
+            }
+        });
+
+        JLabel lblTitle = new JLabel("Upload Data");
+        lblTitle.setFont(new Font(null, Font.BOLD, 36));
+        lblTitle.setBounds(390, 20, 400, 40);
+        panel.add(lblTitle);
+
+        JLabel lblDate = new JLabel("Template date (MM/YYYY): ");
+        lblDate.setBounds(80, 120, 180, 25);
 		panel.add(lblDate);
 		
 		// Date textbox
@@ -117,24 +135,31 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
+<<<<<<< HEAD
 
+=======
+		this.frame.setContentPane(panel);
+		this.frame.revalidate();
+>>>>>>> develop
 	}
 
-	
-	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("Upload Data");
-	        frame.add(new UploadTemplate().panel);
-	        frame.setPreferredSize(new Dimension(1000, 600));
-	        frame.pack();
-	        frame.setVisible(true);
-	        frame.setLocationRelativeTo(null);
-	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	        
-	    }
 
+
+<<<<<<< HEAD
 
 	@Override
 	public boolean isFileValid() {
+=======
+	@Override
+	public void onSuccessTemplateCreated() {
+	    JOptionPane.showMessageDialog(frame, "Uploaded data to the template.");
+
+	}
+
+	@Override
+	public boolean isFileValid(String filePath) {
+        // check if excel or csv file
+>>>>>>> develop
         if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
@@ -143,7 +168,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void onErrorUploadingFile() {
-
+        JOptionPane.showMessageDialog(frame, "Upload was not successful.");
 	}
 
 	@Override
@@ -162,5 +187,10 @@ public class UploadTemplate implements UploadTemplateView {
 	public void onSuccessTemplateCreated() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<String> fillDropdownWithTemplateNames() {
+		return null;
 	}
 }

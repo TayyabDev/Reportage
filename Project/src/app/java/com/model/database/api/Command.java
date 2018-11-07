@@ -44,14 +44,14 @@ public abstract class Command {
 	 * run Insert/Drop/Update/Alter commands directly in the database
 	 * @param query create statement
 	 */
-	public boolean runExecuteUpdate(String query) throws Exception {
+	public int runExecuteUpdate(String query) throws Exception {
 		Connection conn;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
-		st.executeUpdate(query);
+		int res = st.executeUpdate(query);
 		st.close();
 		conn.close();
-		return true;
+		return res;
 	}
 	
 	/*

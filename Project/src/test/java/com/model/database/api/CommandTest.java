@@ -26,9 +26,11 @@ public class CommandTest {
 	// create test1 table only given table name
 	// create test2 table given table name and list of attributes name
 	// create test3 table which will be used to test alterCommand
+	// create test4 table to test the select command functions
 	private final String table1 = "test1";
 	private final String table2 = "test2";
 	private final String table3 = "test3";
+	private final String table4 = "test4";
 
 	
 	@Test
@@ -196,8 +198,57 @@ public class CommandTest {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
-		
-		
 	}
 	
+	@Test
+	public void testCommand4() {
+		Command createComm = new CreateCommand(table4);
+		try {
+			// will create a test table with attribute id
+			createComm.handle();
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		// test on different SelectCommand constructor
+		SelectCommand commGiventableName = new SelectCommand(table4);
+		
+		List<String> target = new ArrayList<String>();
+		target.add("id");
+		SelectCommand commGivenNameTarget = new SelectCommand(target, table4);
+		
+		List<String> cons = new ArrayList<String>();
+		SelectCommand commGivenNameTargetCons = new SelectCommand(target, table4, cons);
+		
+		try {
+			List<List<String>> QueryRes = commGiventableName.selectHandle();
+			List<List<String>> expectedRes = new ArrayList<List<String>>();
+			assertEquals(expectedRes, QueryRes);
+		} catch (SelectException e) {
+			fail(e.getMessage());
+		}
+		
+		try {
+			List<List<String>> QueryRes = commGivenNameTarget.selectHandle();
+			List<List<String>> expectedRes = new ArrayList<List<String>>();
+			assertEquals(expectedRes, QueryRes);
+		} catch (SelectException e) {
+			fail(e.getMessage());
+		}
+		
+		try {
+			List<List<String>> QueryRes = commGivenNameTargetCons.selectHandle();
+			List<List<String>> expectedRes = new ArrayList<List<String>>();
+			assertEquals(expectedRes, QueryRes);
+		} catch (SelectException e) {
+			fail(e.getMessage());
+		}
+		
+		//drop the test1 table in database
+		Command dropComm = new DropCommand(table4);
+		try {
+			dropComm.handle();
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
 }

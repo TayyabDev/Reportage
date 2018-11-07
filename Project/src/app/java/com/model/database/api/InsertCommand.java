@@ -23,6 +23,11 @@ public class InsertCommand extends Command {
 	
 	@Override
 	public boolean handle() throws InsertException {
+		insertHandle();
+		return true;
+	}
+
+	public int insertHandle() throws InsertException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
@@ -32,6 +37,5 @@ public class InsertCommand extends Command {
 		} catch (Exception e) {
 			throw new InsertException(tableName, formulatedData);
 		}
-		
 	}
 }

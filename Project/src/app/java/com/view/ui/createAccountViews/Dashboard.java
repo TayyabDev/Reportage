@@ -18,12 +18,16 @@ public class Dashboard {
 
 
 	
-	public Dashboard() {
+	public Dashboard(JFrame frame, boolean init) {
+		this.frame = frame;
+
 		GridBagLayout gb = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		panel = new JPanel();
 		panel.setLayout(gb);
 		panel.setBackground(Color.decode("#f1f8e9"));
+
+
 		
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));
@@ -44,9 +48,7 @@ public class Dashboard {
         btnTemplate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Template t  = new Template();
-                t.main(null);
-                frame.dispose();
+                Template t  = new Template(frame);
             }
         });
 
@@ -55,9 +57,7 @@ public class Dashboard {
         btnAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Account ac = new Account();
-                ac.main(null);
-                frame.dispose();
+                Account ac = new Account(frame);
             }
         });
 
@@ -65,9 +65,7 @@ public class Dashboard {
         btnReport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Report r = new Report();
-                r.main(null);
-                frame.dispose();
+                Report r = new Report(frame);
             }
         });
 
@@ -86,19 +84,20 @@ public class Dashboard {
 		panel.add(btnReport);
 		panel.add(btnAgency);
 
+		if(init) {
+            this.frame.add(panel);
+            this.frame.setPreferredSize(new Dimension(1000, 600));
+            this.frame.pack();
+            this.frame.setVisible(true);
+            this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            this.frame.setLocationRelativeTo(null);
+            UIHelpers.setLook();
+        }
+        else{
+            this.frame.setContentPane(panel);
+            this.frame.revalidate();
+        }
+
 	}
-	
 
-
-	
-	 public static void main(String[] args) {
-	        frame = new JFrame("TEQ Dashboard");
-	        frame.add(new Dashboard().panel);
-	        frame.setPreferredSize(new Dimension(1000, 600));
-	        frame.pack();
-	        frame.setVisible(true);
-		 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-
-	 }
 }
