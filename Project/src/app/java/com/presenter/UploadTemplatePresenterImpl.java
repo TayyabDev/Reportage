@@ -22,15 +22,23 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         this.view = null;
     }
 
-    @Override
     public void uploadTemplateWithFile(String filePath) {
-
 
     }
 
     @Override
     public void attachView(UploadTemplateView view) {
         this.view = view;
+    }
+
+    @Override
+    public List<String> fetchTemplateNames() {
+        return null;
+    }
+
+    @Override
+    public boolean verifyFileUploaded() {
+        return false;
     }
 
     @Override

@@ -6,7 +6,8 @@ public interface UploadTemplateView {
 
     void onSuccessTemplateUploaded();
 
-    boolean isFileValid();
+
+    boolean isFileValid(String filePath);
 
     void onErrorUploadingFile();
 

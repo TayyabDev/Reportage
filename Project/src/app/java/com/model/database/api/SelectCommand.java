@@ -15,7 +15,7 @@ public class SelectCommand extends Command {
 
 	private List<String> target;
 	private String tableName;
-	private String constraint;
+	private List<String> constraints;
 	private HashMap<String, String> IdConstraint;
 	private List<String> ids;
 	
@@ -27,17 +27,17 @@ public class SelectCommand extends Command {
 	public SelectCommand(String tableName) {
 		this.target = new ArrayList<String>();
 		this.tableName = tableName;
-		this.constraint = null;
+		this.constraints = null;
 	}
 	
 	/*
 	 * constructor used when want to execute
-	 * select * from tableName where constraint;
+	 * select * from tableName where constraints;
 	 */
-	public SelectCommand(String tableName, String constraint) {
-		this.target = new ArrayList<String>();
+	public SelectCommand(String tableName, List<String> constraint) {
+		this.target = new ArrayList<>();
 		this.tableName = tableName;
-		this.constraint = constraint;
+		this.constraints = constraint;
 	}
 	
 	public SelectCommand(List<String> target, String tableName) {
@@ -46,12 +46,12 @@ public class SelectCommand extends Command {
 	}
 	/*
 	 * constructor used when want to execute
-	 * select target from tableName where constraint
+	 * select target from tableName where constraints
 	 */
-	public SelectCommand(List<String> target, String tableName, String constraint) {
+	public SelectCommand(List<String> target, String tableName, List<String> constraint) {
 		this.target = target;
 		this.tableName = tableName;
-		this.constraint = constraint;
+		this.constraints = constraint;
 	}
 	
 	/*
@@ -142,9 +142,8 @@ public class SelectCommand extends Command {
 	
 	/*
 	 * return [ [1st row], [2nd row], ...]
-	 * given the target, tableName, constraint
+	 * given the target, tableName, constraints
 	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
-	 * return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
@@ -163,16 +162,25 @@ public class SelectCommand extends Command {
 			String formulatedIds = formulateIds(target);
 			formulatedTarget = formulatedIds.substring(1, formulatedIds.length()-1);
 		}
+
+		System.out.println("Hey here after");
 		
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;
-		String sqlWithConstraint = sqlNoConstraint + " where " + constraint + ";";
+		String sqlWithConstraint = sqlNoConstraint + " where ";
+
+		for(int index = 0; index < constraints.size() - 1; index++) {
+		    sqlWithConstraint += constraints.get(index) + " AND ";
+        }
+
+        sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+        System.out.println(sqlWithConstraint);
 		Connection conn;
 		List<List<String>> data = new ArrayList<List<String>>();
 		try {
 			conn = ConnectDatabase.connect();
 			Statement st = conn.createStatement();
 			ResultSet rs;
-			if (constraint== null) {
+			if (constraints == null) {
 				rs = st.executeQuery(sqlNoConstraint + ";");
 			} else {
 				rs = st.executeQuery(sqlWithConstraint);
@@ -186,12 +194,13 @@ public class SelectCommand extends Command {
 				}
 				data.add(row);
 			}
-			st.close();
+			System.out.println(data);
+			st.close();// select name,apsw rd from account where userName = .. AND
 			conn.close();
 			return data;
 		} catch (Exception e) {
-			
-			if (constraint== "") {
+			System.out.println("except");
+			if (constraints.isEmpty()) {
 				throw new SelectException(sqlNoConstraint);
 			} else {
 				throw new SelectException(sqlWithConstraint);

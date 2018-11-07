@@ -6,43 +6,51 @@ import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createTemplateViews.Template;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 public class UploadTemplate implements UploadTemplateView {
-	JPanel panel;
+	JPanel panel = new JPanel();
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
-	String filePath;
-	boolean templateCompatible = false;
-
+	static JFrame frame;
 
 	
-	public UploadTemplate() {
-		
-		panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#f1f8e9"));
+	public UploadTemplate(JFrame frame) {
+		this.frame = frame;
 
-		presenter = new UploadTemplatePresenterImpl();
-		presenter.attachView(this);
-		presenter.fetchTemplateNames();
-		
-		JLabel lblTitle = new JLabel("Upload Data");
-		lblTitle.setFont(new Font(null, Font.BOLD, 36));
-		lblTitle.setBounds(390, 20, 400, 40);
-		panel.add(lblTitle);
-		
-		JLabel lblDate = new JLabel("Template date (MM/YYYY): ");
-		lblDate.setBounds(80, 120, 180, 25);
+        panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(Color.decode("#f1f8e9"));
+
+        presenter = new UploadTemplatePresenterImpl();
+        presenter.attachView(this);
+
+        JButton back = UIHelpers.generateBackButton(50,50,50,50);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 Template t = new Template(frame);
+            }
+        });
+
+        JLabel lblTitle = new JLabel("Upload Data");
+        lblTitle.setFont(new Font(null, Font.BOLD, 36));
+        lblTitle.setBounds(390, 20, 400, 40);
+        panel.add(lblTitle);
+
+        JLabel lblDate = new JLabel("Template date (MM/YYYY): ");
+        lblDate.setBounds(80, 120, 180, 25);
 		panel.add(lblDate);
 		
 		// Date textbox
@@ -54,6 +62,10 @@ public class UploadTemplate implements UploadTemplateView {
 		lblTemplate.setBounds(80, 160, 180, 25);
 		panel.add(lblTemplate);
 		
+		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
+		JComboBox cbTemplate = new JComboBox(templateNames);
+		cbTemplate.setBounds(400, 160, 200, 25);
+		panel.add(cbTemplate);
 		
 		JLabel lblIncompatible = new JLabel("Incompatible template");
 		lblIncompatible.setBounds(620, 160, 180, 25);
@@ -69,7 +81,6 @@ public class UploadTemplate implements UploadTemplateView {
 		JLabel lblSelectedFile = new JLabel("You selected a file");
 		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
-		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
 			 @Override
@@ -80,8 +91,6 @@ public class UploadTemplate implements UploadTemplateView {
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 if (jfc.getSelectedFile() != null) {
 						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
-						 filePath = jfc.getSelectedFile().getPath();
-						 presenter.uploadTemplateWithFile(filePath);
 						 panel.add(lblSelectedFile);
 						 panel.repaint();
 					 }
@@ -90,43 +99,28 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
-		
 		// Check if template uploaded is incompatible
-		btnSubmit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!templateCompatible) {
-					panel.add(lblIncompatible);
-					panel.repaint();
-				}
-			}
-			
-		});
-
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
-
+		this.frame.setContentPane(panel);
+		this.frame.revalidate();
 	}
 
-	
-	 public static void main(String[] args) {
-	        JFrame frame = new JFrame("Upload Data");
-	        frame.add(new UploadTemplate().panel);
-	        frame.setPreferredSize(new Dimension(1000, 600));
-	        frame.pack();
-	        frame.setVisible(true);
-	        frame.setLocationRelativeTo(null);
-	        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	        
-	    }
 
 
 	@Override
-	public boolean isFileValid() {
+	public void onSuccessTemplateCreated() {
+	    JOptionPane.showMessageDialog(frame, "Uploaded data to the template.");
+
+	}
+
+	@Override
+	public boolean isFileValid(String filePath) {
+        // check if excel or csv file
         if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
@@ -135,28 +129,16 @@ public class UploadTemplate implements UploadTemplateView {
 
 	@Override
 	public void onErrorUploadingFile() {
+        JOptionPane.showMessageDialog(frame, "Upload was not successful.");
+	}
+
+	@Override
+	public void onInCompatibleTemplateSelected() {
 
 	}
 
 	@Override
-	public void onCompatibleTemplateSelected(boolean compatible) {
-		if (compatible) {
-			templateCompatible = true;
-		}
-	}
-
-	@Override
-	public void fillDropdownWithTemplateNames(List<String> templateNames) {
-		JComboBox cbTemplate = new JComboBox();
-		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
-		cbTemplate.setBounds(400, 160, 200, 25);
-		panel.add(cbTemplate);
-	}
-
-
-	@Override
-	public void onSuccessTemplateCreated() {
-		// TODO Auto-generated method stub
-		
+	public List<String> fillDropdownWithTemplateNames() {
+		return null;
 	}
 }
