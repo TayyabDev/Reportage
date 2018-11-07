@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UploadTemplateView {
 
-    void onSuccessTemplateCreated();
+    void onSuccessTemplateUploaded();
 
     boolean isFileValid();
 
