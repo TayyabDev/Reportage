@@ -92,6 +92,6 @@ public class Report implements CreateReportView{
 
 	@Override
 	public void sendReport(String report) {
-		System.out.print("preparing report");
+		System.out.print(report);
 	}
 }

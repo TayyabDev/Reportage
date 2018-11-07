@@ -2,6 +2,7 @@ package app.java.com.model.database.api;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -77,19 +78,36 @@ public abstract class Command {
 	/*
 	 * select all the data under the columnId and satisfies the specific constraint
 	 */
-	public static ResultSet RunExecuteQuery(String sql) throws Exception {
+	public static String runExecuteQuery(String sql) throws Exception {
 		Connection conn;
+        String report = "";
+        int column = 0;
+        
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
+		ResultSetMetaData rsmd = rs.getMetaData();
 		
-//		st.close();
-//		conn.close();
-		return rs;
+        int columnsNumber = rsmd.getColumnCount() + 1;
+        
+        while (rs.next()) {
+        	while (column <= columnsNumber) {
+        		report += rs.getString(column + 1);
+        		report += ",";
+        		column++;
+        	}
+        	report = report.substring(0, report.length()-1);
+        	report += "\n";
+        	column = 0;
+        }
+		
+		st.close();
+		conn.close();
+		return report;
 		
 	}
 	
-	public static void main(String[] argc) {
+	/*public static void main(String[] argc) {
 		String s = "select * from test";
 		try {
 			ResultSet res = RunExecuteQuery(s);
@@ -103,5 +121,5 @@ public abstract class Command {
 			
 		}
 		
-	}
+	}*/
 }

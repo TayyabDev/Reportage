@@ -16,35 +16,19 @@ public class CreateReportWithQueryUseCase extends UseCase{
         this.query = query;
         this.resultInterface = resultInterface;
     }
+	
 	@Override
 	public void run() {
-        ResultSet rs = null;
-        ResultSetMetaData rsmd;
-        Command cmd = new SelectCommand();
-        String report = "";
-        int column = 0;
-
+		String report = null;
+		Command cmd = new SelectCommand();
+		
         try {
-            rs = cmd.RunExecuteQuery(query);
-            rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount() + 1;
-            while (rs.next()) {
-            	while (column <= columnsNumber) {
-            		report += rs.getString(column + 1);
-            		report += ",";
-            		column++;
-            	}
-            	report = report.substring(0, report.length()-1);
-            	report += "\n";
-            	column = 0;
-            }
-            rs.close();
-            
+            report = cmd.runExecuteQuery(query);
         } catch (Exception e) {
             resultInterface.onErrorCreateReport("failed when ran " + e.getMessage());
         }
 
-        if (rs != null) {
+        if (report != null) {
             resultInterface.onSuccessCreateReport("success");
             resultInterface.report(report);
         }
