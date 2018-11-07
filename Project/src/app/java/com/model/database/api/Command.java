@@ -27,6 +27,11 @@ public abstract class Command {
 		for (String s : listOfString) {
 			result = result + quote + s + quote +",";
 		}
+
+		if(result.length() == 0) {
+			return "";
+		}
+
 		return "(" + result.substring(0, result.length()-1) + ")";
 	}
 	

@@ -1,13 +1,10 @@
 package app.java.com.model.usecase;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
 import app.java.com.model.Exceptions.SelectException;
-import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FetchTemplateNamesUseCase extends UseCase {
 
@@ -34,10 +31,13 @@ public class FetchTemplateNamesUseCase extends UseCase {
 		//Fetch all Template Names using the SelectCommand
 		SelectCommand command = new SelectCommand(columnName, tableName);
 		List<List<String>> templateNames = command.selectHandle();
-		List<String> formulatedTemplateNames = new ArrayList<String>(); 
+		List<String> formulatedTemplateNames = new ArrayList<>();
+        System.out.println("Printing stuff here");
+        System.out.println(templateNames);
 		for (List<String> template : templateNames) {
- 		formulatedTemplateNames.add(template.get(0));
+ 			formulatedTemplateNames.add(template.get(0));
 		}
+
 		return formulatedTemplateNames;
 	}
 }

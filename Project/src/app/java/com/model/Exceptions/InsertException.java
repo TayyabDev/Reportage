@@ -3,7 +3,7 @@ package app.java.com.model.Exceptions;
 /*
  * to be thrown when insert val to table failed
  */
-public class InsertException extends Exception{
+public class InsertException extends Exception {
 
 	private String table;
 	private String val;
