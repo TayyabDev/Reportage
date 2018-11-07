@@ -19,6 +19,10 @@ public class UserData implements CreateUserDataView {
 
 	private static JFrame frame;
 	private JPanel panel;
+	private JComboBox<String> cbTableNames;
+	private JComboBox<String> cbTarget;
+	private JComboBox<String> cbConstraint;
+	private JTable tbData;
 	private FetchUserDataPresenter presenter;
 	
 	public UserData(JFrame frame) {
