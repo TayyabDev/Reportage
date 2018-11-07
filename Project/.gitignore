@@ -34,3 +34,4 @@ out/
 /lib/
 .metadata
 .recommenders
+/target/
