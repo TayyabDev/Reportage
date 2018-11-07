@@ -5,14 +5,14 @@ import java.util.List;
 import app.java.com.model.usecase.FetchUserDataUseCase;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
-import app.java.com.view.interfaces.ViewUserDataView;
+import app.java.com.view.interfaces.CreateUserDataView;
 
 public class FetchUserDataPresenterImpl
 		implements FetchUserDataPresenter, FetchUserDataResultInterface {
 
-	private ViewUserDataView view;
+	private CreateUserDataView view;
 	
-	public FetchUserDataPresenterImpl(ViewUserDataView view) {
+	public FetchUserDataPresenterImpl(CreateUserDataView view) {
 		this.view = view;
 	} 
 	
@@ -35,7 +35,7 @@ public class FetchUserDataPresenterImpl
 	}
 
 	@Override
-	public void attachView(ViewUserDataView view) {
+	public void attachView(CreateUserDataView view) {
 		this.view = view;
 	}
 
