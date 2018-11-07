@@ -43,6 +43,12 @@ public class Report implements CreateReportView{
         
         standard = UIHelpers.buttonGenerator("Get standard reports");
         standard.setBounds(400,100, 250,50);
+        standard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CustomReport c = new CustomReport(frame);
+            }
+        });
 
 		createSQL = UIHelpers.buttonGenerator("Create custom reports using SQL");
         createSQL.setBounds(400,200, 250,50);
