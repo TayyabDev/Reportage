@@ -31,6 +31,7 @@ public class InsertCommand extends Command {
 		try {
 			return runExecuteUpdate(sql);
 		} catch (Exception e) {
+		    e.printStackTrace();
 			throw new InsertException(tableName, formulatedData);
 		}
 		

@@ -99,8 +99,13 @@ public class UploadTemplateUseCase extends UseCase {
         List<String> target = new ArrayList<>();
         target.add("templateId");
 
+        templateSelected = templateSelected.replace(' ', '_');
+        templateSelected = '`' + templateSelected + '`';
+
         List<String> constraints = new ArrayList<>();
-        constraints.add("`tableName`= \'" + templateSelected + "\'");
+        String constraintTemplateName = "`tableName`= \'" + templateSelected + "\'";
+
+        constraints.add(constraintTemplateName);
 
         SelectCommand selectTemplateId = new SelectCommand(target, "Template", constraints);
         List<List<String>> result = null;
@@ -112,8 +117,39 @@ public class UploadTemplateUseCase extends UseCase {
         System.out.println("Hey what is here");
         System.out.println(result);
 
-        int monthSelected = date.getMonth();
-        int year = date.getYear();
+        String templateId = result.get(0).get(0);
+
+        int month = dateSelected.getMonth() + 1; // normalize
+        System.out.println(String.valueOf(month + " is the month"));
+
+        int year = dateSelected.getYear() + 1900; // normalize
+        System.out.println(year + " is the year");
+
+
+        // Let's insert the information into the ClientDataForm table now
+        // we only need to upload the templateId, month, and year
+        String clientDataFormTableName = "ClientDataForm";
+        List<String> attributes = new ArrayList<>();
+        attributes.add("templateId");
+        attributes.add("reviewerId"); // for now it is set to 1
+        attributes.add("agencyId"); // for now it is set to 1
+        attributes.add("month");
+        attributes.add("year");
+
+        List<String> values = new ArrayList<>();
+        values.add(templateId);
+        values.add(String.valueOf(1));
+        values.add(String.valueOf(1));
+        values.add(String.valueOf(month));
+        values.add(String.valueOf(year));
+
+        Command insertCommand = new InsertCommand(clientDataFormTableName, attributes, values);
+
+        try {
+            insertCommand.handle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return 0;
 

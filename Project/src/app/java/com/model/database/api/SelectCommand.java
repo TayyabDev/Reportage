@@ -43,6 +43,7 @@ public class SelectCommand extends Command {
 	public SelectCommand(List<String> target, String tableName) {
 		this.tableName = tableName;
 		this.target = target;
+		this.constraints = new ArrayList<>();
 	}
 	/*
 	 * constructor used when want to execute
@@ -214,7 +215,7 @@ public class SelectCommand extends Command {
 	
 	@Override
 	public boolean handle() throws SelectException {
-		List<List<String>> res = selectHandle();
+		selectHandle();
 		return true;
 	}
 }

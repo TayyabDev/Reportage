@@ -122,6 +122,9 @@ public class UploadTemplate implements UploadTemplateView {
 		btnSubmit.setBounds(700, 400, 100, 25);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
+
+        this.jFrame.setContentPane(panel);
+        this.jFrame.revalidate();
 	}
 
 	private void showPopUpWithMessage(String message, String title) {
