@@ -57,7 +57,8 @@ public class CreateCommand extends Command {
 	public boolean handle() throws CreateException {
 		String sql = "create table " + tableName + " ( " + formulateAttrs(attrs) + " );" ;
 		try {
-			return runExecuteUpdate(sql);
+			runExecuteUpdate(sql);
+			return true;
 		} catch (Exception e) {
 		    System.out.println(e.getMessage());
 			throw new CreateException(tableName);

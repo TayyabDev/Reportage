@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
 	 * select * from tableName;
 	 */
 	public SelectCommand(String tableName) {
-		this.target = new ArrayList<>();
+		this.target = new ArrayList<String>();
 		this.tableName = tableName;
 		this.constraints = new ArrayList<>();
 	}
@@ -61,7 +61,7 @@ public class SelectCommand extends Command {
 	public void setColumnIds() throws SelectException {
 		String sql = "select * from " + tableName + ";";
 		Connection conn;
-		List<String> columnIds = new ArrayList<>();
+		List<String> columnIds = new ArrayList<String>();
 		try {
 			conn = ConnectDatabase.connect();
 			Statement st = conn.createStatement();
@@ -94,7 +94,7 @@ public class SelectCommand extends Command {
 		String sql = "select DATA_TYPE from information_schema.columns "
 				+ "where table_name = '" + tableName + "';";
 		Connection conn;
-		List<String> constraints = new ArrayList<>();
+		List<String> constraints = new ArrayList<String>();
 		try {
 			conn = ConnectDatabase.connect();
 			Statement st = conn.createStatement();
@@ -145,6 +145,7 @@ public class SelectCommand extends Command {
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraints
 	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
+	 * return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
@@ -156,7 +157,6 @@ public class SelectCommand extends Command {
 			// need to check if the targets are in this table
 			for (String t : target) {
 				if (!this.getColumnIds().contains(t)) {
-                    System.out.println("Still going here " + t);
 					throw new SelectException(tableName);
 				}
 			}
@@ -171,12 +171,9 @@ public class SelectCommand extends Command {
 		for(int index = 0; index < constraints.size() - 1; index++) {
 		    sqlWithConstraint += constraints.get(index) + " AND ";
         }
-
-        if(constraints.size() > 0) {
-            sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
-        }
-
-        System.out.println(sqlWithConstraint);
+		if (constraints.size() > 0) {
+			sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+		}
 		Connection conn;
 		List<List<String>> data = new ArrayList<List<String>>();
 		try {
@@ -188,9 +185,8 @@ public class SelectCommand extends Command {
 			} else {
 				rs = st.executeQuery(sqlWithConstraint);
 			}
-
 			while (rs.next()) {
-				List<String> row = new ArrayList<>();
+				List<String> row = new ArrayList<String>();
 				for (String tar : target) {
 					String val = rs.getString(tar);
 					row.add(val);
@@ -198,8 +194,6 @@ public class SelectCommand extends Command {
 				}
 				data.add(row);
 			}
-
-			System.out.println(data);
 			st.close();// select name,apsw rd from account where userName = .. AND
 			conn.close();
 			return data;
