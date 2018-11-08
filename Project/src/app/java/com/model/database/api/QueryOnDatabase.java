@@ -134,12 +134,13 @@ public class QueryOnDatabase {
 	/*
 	 * insert variableName mapping to variableName table
 	 */
-	public static int insertVariableName(String columnId, String columnName) throws InsertException {
+	public static int insertVariableName(String columnId, String columnName, String templateName) throws InsertException {
 		List<String> data = new ArrayList<String>();
 		data.add(columnId);
 		data.add(columnName);
+		data.add(templateName);
 		String formulatedData = formulateData(data);
-		return insertRowRawQuery("VariableName", "(variableName, realName)", formulatedData);
+		return insertRowRawQuery("VariableName", "(variableName, realName, templateName)", formulatedData);
 	}
 	
 	/*
@@ -235,21 +236,27 @@ public class QueryOnDatabase {
 
 
 	public static boolean createTemplate(String temName, String tableName, List<String> columnIds, List<String> columnNames) throws AlterException, CreateException {
-
 		// create an empty table 
 		boolean createRes = false;
 		createRes = createEmptyTable(tableName);
+		// insert the client data form id
+		runInsertColumn("`clientDataFormId`", tableName, "int(8) default null");
+		try {
+			Command.runExecuteUpdate("alter table "+ tableName +" add foreign key (clientDataFormId) references ClientDataForm(clientDataFormId);");
+		} catch (Exception e1) {
+			throw new AlterException();
+		}
 		// insert all the columnIds to the empty table
 		int numOfColumn = columnIds.size();
 		boolean insertColRes = true;
 		for (int i = 0; i<numOfColumn; i++) {
-			runInsertColumn(columnIds.get(i), tableName); // constraint is not set for now
+			runInsertColumn("`"+columnIds.get(i)+"`", tableName); // constraint is not set for now
 		}
 
 		// store all the columnIds and columnNames into the variableName table in database
 		for (int i = 0; i < numOfColumn; i++) {
 			try{
-				insertVariableName(columnIds.get(i), columnNames.get(i));
+				insertVariableName("`" + columnIds.get(i)+ "`", columnNames.get(i), temName);
 			} catch (InsertException e) {
 				continue;
 			}

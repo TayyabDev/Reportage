@@ -44,7 +44,7 @@ public abstract class Command {
 	 * run Insert/Drop/Update/Alter commands directly in the database
 	 * @param query create statement
 	 */
-	public int runExecuteUpdate(String query) throws Exception {
+	public static int runExecuteUpdate(String query) throws Exception {
 		Connection conn;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
@@ -57,7 +57,7 @@ public abstract class Command {
 	/*
 	 * insert Column with contraint given
 	 */
-	public boolean runExecute(String sql) throws Exception {
+	public static boolean runExecute(String sql) throws Exception {
 		Connection conn;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();

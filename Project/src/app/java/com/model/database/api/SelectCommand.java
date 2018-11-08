@@ -40,6 +40,9 @@ public class SelectCommand extends Command {
 		this.constraints = constraint;
 	}
 	
+	/*
+	 * select tar1,tar2,... from tableName;
+	 */
 	public SelectCommand(List<String> target, String tableName) {
 		this.tableName = tableName;
 		this.target = target;
@@ -141,6 +144,46 @@ public class SelectCommand extends Command {
 		return this.IdConstraint;
 	}
 	
+	public List<String> selectHandleSingle() throws SelectException {
+		if (!(this.target.size() == 1)) {
+			throw new SelectException();
+		}
+		List<String> res = new ArrayList<>();
+		String id = this.target.get(0);
+		String sqlNoConstraint = "select " + id + " from " + tableName + ";";
+		String sqlWithConstraint = "";
+		try{
+			Connection conn = ConnectDatabase.connect();;
+			Statement st= conn.createStatement();
+			ResultSet rs;
+			if (this.constraints.isEmpty()) {
+				rs = st.executeQuery(sqlNoConstraint);
+			} else {
+				sqlWithConstraint = "select " + id + " from " + tableName + " where ";
+				for(int index = 0; index < constraints.size() - 1; index++) {
+				    sqlWithConstraint += constraints.get(index) + " AND ";
+		        }
+				if (constraints.size() > 0) {
+					sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+				}
+				rs = st.executeQuery(sqlWithConstraint);
+	
+			}
+			while (rs.next()) {
+				String val = rs.getString(id);
+				res.add(val);
+			}
+			st.close();// select name,apsw rd from account where userName = .. AND
+			conn.close();
+		} catch (Exception e) {
+			if (constraints.isEmpty()) {
+				throw new SelectException(sqlNoConstraint);
+			} else {
+				throw new SelectException(sqlWithConstraint);
+			}
+		}
+		return res;
+	}
 	/*
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraints
@@ -198,7 +241,6 @@ public class SelectCommand extends Command {
 			conn.close();
 			return data;
 		} catch (Exception e) {
-			System.out.println("except");
 			if (constraints.isEmpty()) {
 				throw new SelectException(sqlNoConstraint);
 			} else {

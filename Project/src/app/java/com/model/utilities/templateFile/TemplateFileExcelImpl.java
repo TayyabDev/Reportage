@@ -57,7 +57,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
         List<String> columnNames = this.getColumnNames();
         String tableName = "`" + this.getTableName().replace(' ', '_') + "`";
         
-        Template result = new BaseTemplate(temName, columnIds, columnNames, tableName);
+        Template result = new BaseTemplate(temName, columnNames, columnIds , tableName);
         
 		return result;
 	}
@@ -76,7 +76,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 
 	@Override
 	public String getTableName() {
-		return '`'+this.sheetName.replace(' ', '_')+'`';
+		return this.sheetName;
 	}
 
 	@Override

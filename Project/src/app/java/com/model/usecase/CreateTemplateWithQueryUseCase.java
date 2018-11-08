@@ -22,8 +22,8 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
         boolean success = false;
 
         try {
-            success = new CreateCommand().runExecuteUpdate(query);
-
+            int res = new CreateCommand().runExecuteUpdate(query);
+            success = true;
         } catch (Exception e) {
             resultInterface.onErrorCreateTemplate("failed when create " + e.getMessage());
         }
