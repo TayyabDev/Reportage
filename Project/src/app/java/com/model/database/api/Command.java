@@ -87,11 +87,20 @@ public abstract class Command {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		ResultSetMetaData rsmd = rs.getMetaData();
-		
-        int columnsNumber = rsmd.getColumnCount() + 1;
+        int columnsNumber = rsmd.getColumnCount();
         
+        // Get the column name
+		for (int i = 1; i <= columnsNumber; i++) {
+			String name = rsmd.getColumnName(i);
+			report += name;
+			report += ",";
+		}
+		report = report.substring(0, report.length()-1);
+    	report += "\n";
+        
+		// Get column values
         while (rs.next()) {
-        	while (column <= columnsNumber) {
+        	while (column < columnsNumber) {
         		report += rs.getString(column + 1);
         		report += ",";
         		column++;

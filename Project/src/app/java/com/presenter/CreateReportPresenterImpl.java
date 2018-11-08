@@ -1,5 +1,7 @@
 package app.java.com.presenter;
 
+import java.io.FileNotFoundException;
+
 import app.java.com.model.usecase.CreateReportWithQueryUseCase;
 import app.java.com.presenter.interfaces.CreateReportPresenter;
 import app.java.com.presenter.interfaces.CreateReportResultInterface;
@@ -47,7 +49,12 @@ public class CreateReportPresenterImpl implements CreateReportPresenter, CreateR
 
 	@Override
 	public void report(String report) {
-		view.sendReport(report);
+		try {
+			view.sendReport(report);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

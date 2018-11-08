@@ -12,7 +12,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Report implements CreateReportView{
     private static JFrame frame;
@@ -91,7 +95,17 @@ public class Report implements CreateReportView{
 	}
 
 	@Override
-	public void sendReport(String report) {
+	public void sendReport(String report) throws FileNotFoundException {
 		System.out.print(report);
+		String timeStamp, fileName;
+		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		fileName = "report-";
+		fileName += timeStamp;
+		fileName += ".csv";
+		PrintWriter pw = new PrintWriter(new File(fileName));
+        StringBuilder sb = new StringBuilder();
+        sb.append(report);
+        pw.write(sb.toString());
+        pw.close();
 	}
 }

@@ -1,5 +1,7 @@
 package app.java.com.view.interfaces;
 
+import java.io.FileNotFoundException;
+
 public interface CreateReportView {
     void onSuccessReportCreated();
 
@@ -9,5 +11,5 @@ public interface CreateReportView {
 
     void invalidFields();
     
-    void sendReport(String report);
+    void sendReport(String report) throws FileNotFoundException;
 }
