@@ -6,6 +6,7 @@ public interface CreateUserDataView {
 
 	void invalidQuery(String message);
 
-	void displayData(List<List<String>> data);
+	void fillDropdownWithTemplateNames(List<String> templateNames);
 
+	void fillTableWithUserData(List<List<String>> data);
 }

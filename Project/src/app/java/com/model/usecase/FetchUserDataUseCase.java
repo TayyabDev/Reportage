@@ -23,13 +23,13 @@ public class FetchUserDataUseCase extends UseCase {
 	
 	@Override
 	public void run() {
-		List<List<String>> data = new ArrayList<List<String>>();
-		
+		List<List<String>> data = new ArrayList<List<String>>();		
 		SelectCommand selectCommand = new SelectCommand(target, table, constraints);
 		
 		try {
 			data.add(selectCommand.getColumnIds());
 			data.addAll(selectCommand.selectHandle());
+			
         } catch (SelectException e) {
             resultInterface.onErrorSelectTable("failed when select " + e.getMessage());
         }
