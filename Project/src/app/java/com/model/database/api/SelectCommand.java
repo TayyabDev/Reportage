@@ -144,6 +144,7 @@ public class SelectCommand extends Command {
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraints
 	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
+	 * return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";

@@ -6,13 +6,12 @@ public interface UploadTemplateView {
 
     void onSuccessTemplateCreated();
 
-
-    boolean isFileValid(String filePath);
+    boolean isFileValid();
 
     void onErrorUploadingFile();
 
-    void onInCompatibleTemplateSelected();
+    void onCompatibleTemplateSelected(boolean compatible);
 
-    List<String> fillDropdownWithTemplateNames();
+    void fillDropdownWithTemplateNames(List<String> templateNames);
 
 }

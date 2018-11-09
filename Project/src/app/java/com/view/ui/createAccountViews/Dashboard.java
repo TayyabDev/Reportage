@@ -49,24 +49,30 @@ public class Dashboard {
         btnTemplate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Template t  = new Template(frame);
+                Template t  = new Template();
+                t.main(null);
+                frame.dispose();
             }
         });
 
 
-		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
+        JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
         btnAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Account ac = new Account(frame);
+                Account ac = new Account();
+                ac.main(null);
+                frame.dispose();
             }
         });
 
-		JButton btnReport = UIHelpers.buttonGenerator("Reports");
+        JButton btnReport = UIHelpers.buttonGenerator("Reports");
         btnReport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Report r = new Report(frame);
+                Report r = new Report();
+                r.main(null);
+                frame.dispose();
             }
         });
 

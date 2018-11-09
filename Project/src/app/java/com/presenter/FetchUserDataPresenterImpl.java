@@ -36,7 +36,7 @@ public class FetchUserDataPresenterImpl
 	}
 	
 	public void fetchTemplateNames() {
-		FetchTemplateNamesUseCase useCase = new FetchTemplateNamesUseCase();
+		FetchTemplateNamesUseCase useCase = new FetchTemplateNamesUseCase(this);
 		useCase.run();
 	}
 

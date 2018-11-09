@@ -1,167 +1,131 @@
 package app.java.com.view.ui.createAccountViews;
 
-import app.java.com.presenter.CreateAccountPresenterImpl;
-import app.java.com.presenter.interfaces.CreateAccountPresenter;
-import app.java.com.view.interfaces.CreateAccountView;
 import app.java.com.view.ui.UIHelpers;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Account implements CreateAccountView {
+public class Account {
 	
 	 private JPanel panel;
 	 private JButton create;
 	 private JButton edit;
 	 private JButton search;
 	 private static JFrame frame;
-	 private CreateAccountPresenter presenter;
-
-     public Account(JFrame frame) {
-		this.frame = frame;
-
-
+	 private ArrayList<String> info = new ArrayList<String>();
+	
+     public Account() {
+    	 GridBagLayout gb = new GridBagLayout();
+ 		GridBagConstraints c = new GridBagConstraints();
  		panel = new JPanel();
-
-
+ 		panel.setLayout(gb);
  		panel.setBackground(Color.decode("#f1f8e9"));
- 		panel.setLayout(null);
-
- 		presenter = new CreateAccountPresenterImpl();
- 		presenter.attachView(this);
  		
-
-
- 		JButton back = UIHelpers.generateBackButton(50,50,50,50);
-        panel.add(back);
-
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Dashboard d = new Dashboard(frame, false);
-            }
-        });
+ 		
+ 		c.fill = GridBagConstraints.BOTH;
+ 		
+ 		c.gridwidth = GridBagConstraints.REMAINDER;
  		
     	 create = UIHelpers.buttonGenerator("Create an Account");
-    	 create.setBounds(400,150, 150,50);
-
     	 
     	 // create account dialog box
-    	 create.addActionListener(new ActionListener() {
+    	 create.addActionListener(new ActionListener()
+    	    {
     	      public void actionPerformed(ActionEvent e)
     	      {
-    	        // create a new form to accept user input
-				  JPanel createAccPanel = new JPanel();
-				  createAccPanel.setLayout(null);
-				  createAccPanel.setBackground(Color.decode("#f1f8e9"));
+    	        // display/center the jdialog when the button is pressed
+    	        JDialog d = new JDialog(frame, "Create an account", true);
+    	        d.setBackground(Color.decode("#f1f8e9"));
 
-
-				  JLabel lblEnterInfo = new JLabel("Please specify the name and password.");
-				  lblEnterInfo.setBounds(300,50, 400, 20);
-				  JLabel lblName = new JLabel("Username");
-				  lblName.setBounds(300, 100, 400, 20);
-				  JTextField txtName = new JTextField();
-				  txtName.setBounds(300, 150, 400, 20);
-				  JLabel lblPassword = new JLabel("Password");
-				  lblPassword.setBounds(300, 200, 400, 20);
-				  JPasswordField txtPassword = new JPasswordField();
-				  txtPassword.setBounds(300, 250, 400, 20);
-
-				  JButton submit = UIHelpers.buttonGenerator("Submit");
-				  submit.setBounds( 325, 300, 150,50);
-				  JButton cancel = UIHelpers.buttonGenerator("Cancel");
-				  cancel.setBounds(500, 300, 150, 50);
-
-				  createAccPanel.add(lblEnterInfo);
-				  createAccPanel.add(lblName);
-				  createAccPanel.add(txtName);
-				  createAccPanel.add(lblPassword);
-				  createAccPanel.add(txtPassword);
-				  createAccPanel.add(submit);
-				  createAccPanel.add(cancel);
-				  
-
-				  frame.setContentPane(createAccPanel);
-				  frame.revalidate();
-
-				  submit.addActionListener(new ActionListener() {
-                      public void actionPerformed(ActionEvent e) {
-                          //  NOTE TO PRESENTER: THIS IS THE USERS INFO!
-                            String name = txtName.getText();
-                            String password = String.valueOf(txtPassword.getPassword());
-
-                            // createAccount
-                            // get account ID
-                            // then show user dialog giving account id
-						  	presenter.createAccount(name, password);
-
-                          frame.setContentPane(panel);
-                          frame.revalidate();
-                      }
-                  });
-
-                  cancel.addActionListener(new ActionListener() {
-                      public void actionPerformed(ActionEvent e) {
-                          // go back to previous frame
-                          frame.setContentPane(panel);
-                          frame.revalidate();
-                      }
-                  });
-
-
+    	        
+    	        GridBagLayout dgb = new GridBagLayout();
+    	 		GridBagConstraints dc = new GridBagConstraints();
+    	 		d.setLayout(dgb);
+    	 		dc.fill = GridBagConstraints.BOTH;
+    	 		dc.gridwidth = GridBagConstraints.REMAINDER;
+    	 		
+    	 		JLabel lblFirstName = new JLabel("First Name");
+    	        JTextField firstName = new JTextField();
+    	        
+    	        JLabel lblLastName = new JLabel("Last Name");
+    	        JTextField lastName = new JTextField();
+    	        
+    	        JLabel lblAge = new JLabel("Age");
+    	        JTextField age = new JTextField();
+    	        
+    	        JButton submit = UIHelpers.buttonGenerator("Submit");
+    	        submit.addActionListener(new ActionListener() {
+    	            @Override
+    	            public void actionPerformed(ActionEvent e) {
+    	                info = new ArrayList<>();
+    	            	info.add(firstName.getText());
+    	            	info.add(lastName.getText());
+    	            	info.add(age.getText());
+    	            	System.out.println(info);
+    	                d.dispose();
+    	            }
+    	        });
+    	 		
+    	        
+    	 		dgb.setConstraints(lblFirstName, dc);
+    	    	dgb.setConstraints(firstName, dc);    
+    	    	dgb.setConstraints(lblLastName, dc);
+    	    	dgb.setConstraints(lastName, dc);  
+    	    	dgb.setConstraints(lblAge, dc);
+    	    	dgb.setConstraints(age, dc);  
+    	    	dgb.setConstraints(submit, dc);
+    	        
+    	        d.add(lblFirstName);    	   
+    	        d.add(firstName);
+    	        d.add(lblLastName);
+    	        d.add(lastName);
+    	        d.add(lblAge);
+    	        d.add(age);
+    	        d.add(submit);
+    	        
+    	        d.setLocationRelativeTo(frame);
+    	        d.setSize(500, 600);
+    	        d.setVisible(true);
     	      }
     	    });
     	 
     	 
     	 edit = UIHelpers.buttonGenerator("Edit an Account");
-         edit.setBounds(400,250, 150,50);
-
     	 search = UIHelpers.buttonGenerator("Search for an Account");
-         search.setBounds(400,350, 150,50);
+    	
+    	 gb.setConstraints(create, c);
+    	 gb.setConstraints(edit, c);
+    	 gb.setConstraints(search, c);
     	 
     	 panel.add(create);
     	 panel.add(edit);
     	 panel.add(search);
-
-		 this.frame.setContentPane(panel);
-		 this.frame.revalidate();
     	 
     	 
     	 
     	 
     	 
      }
+	
+	 public static void main(String[] args) {
+	        frame = new JFrame("Account Settings");
+	        frame.add(new Account().panel);
+	        frame.setPreferredSize(new Dimension(1000, 600));
+	        frame.pack();
+	        frame.setVisible(true);
+		 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
-	@Override
-	public void onSuccessAccountCreated() {
-     	// must send in account id to user
-		JOptionPane.showMessageDialog(frame, "Account created.");
-	}
 
-	@Override
-	public void onErrorCreatingAccount() {
-		JOptionPane.showMessageDialog(frame, "Error creating the account.");
-	}
 
-	@Override
-	public boolean isFieldsValid(String name, String password) {
-		boolean valid = true;
-		if (name.matches(".*\\d+.*")){
-			valid = false;
-		}
-		if(password.length() == 0){
-			valid = false;
-		}
-		return valid;
-	}
 
-	@Override
-	public void invalidFields() {
-		JOptionPane.showMessageDialog(frame, "Error. Please make sure names do not contain any numbers and passwords are greater than length 0.");
-	}
+	 }
+
 }
