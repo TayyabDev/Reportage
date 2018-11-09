@@ -66,7 +66,7 @@ public class FetchAttrbuteNamesUseCase extends UseCase{
 			if (!row.isEmpty()) {
 				String templateName = row.get(0);
 				String attrName = row.get(1);
-				formulatedRes.add(templateName + ": " + attrName);
+				formulatedRes.add(templateName + " -- " + attrName);
 			}
 		}
 		return formulatedRes;
