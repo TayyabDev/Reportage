@@ -20,6 +20,7 @@ public class UploadTemplateUseCase extends UseCase {
     private UploadTemplateResultInterface resultInterface;
     private Date dateSelected;
     private static final int SHEET_NUMBER = 2;
+    private static final String CLIENTDATAFORMCOLUMN = "clientDataFormId";
 
     public UploadTemplateUseCase(UploadTemplateResultInterface resultInterface, Date date, String templateName,
                                  String templateFilePath) {
@@ -34,13 +35,9 @@ public class UploadTemplateUseCase extends UseCase {
 
         // Get the clientFormId after uploading it to the database
         int clientFormId = insertClientDataForm(dateSelected, templateName);
-
+        System.out.println(clientFormId + " is the formId");
 
         // Now add this to the insert command since the template has a clientIdForm column
-
-
-
-
 
         String formulatedFileName = templateFilePath.replace("\\", "\\\\");
         System.out.println(formulatedFileName);
@@ -52,7 +49,7 @@ public class UploadTemplateUseCase extends UseCase {
         }
 
         // Verify template matches the chosen template's format
-        List<Exception> errorList = insertAllRows(exc);
+        List<Exception> errorList = insertAllRows(exc, clientFormId);
 
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
@@ -70,9 +67,10 @@ public class UploadTemplateUseCase extends UseCase {
     /*
      * inserting all the data rows in the TemplateFileInterface into the database
      */
-    private List<Exception> insertAllRows(TemplateFileInterface exc) {
+    private List<Exception> insertAllRows(TemplateFileInterface exc, int clientDataFormId) {
     	// Upload the template into the database using insert command
         List<String> columnIds = exc.getColumnIds();
+        columnIds.add(0, CLIENTDATAFORMCOLUMN);
         List<String> row = null;
         // get the tableName in the database
         String templateName = exc.getTableName();
@@ -81,6 +79,7 @@ public class UploadTemplateUseCase extends UseCase {
         System.out.println("no error in insertAllRows so far");
         for (int i = 0; i < numOfRow; i++){
         	row = exc.getRow(i+3);
+        	row.add(0, String.valueOf(clientDataFormId));
         	Command insert = new InsertCommand(templateName,columnIds, row);
         	try {
 				insert.handle();
@@ -143,15 +142,15 @@ public class UploadTemplateUseCase extends UseCase {
         values.add(String.valueOf(month));
         values.add(String.valueOf(year));
 
-        Command insertCommand = new InsertCommand(clientDataFormTableName, attributes, values);
+        InsertCommand insertCommand = new InsertCommand(clientDataFormTableName, attributes, values);
 
         try {
-            insertCommand.handle();
+            return insertCommand.insertHandle();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return 0;
+        return -1;
 
     }
 }

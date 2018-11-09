@@ -19,7 +19,7 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
 	 * create a template table with al
 	 */
 	public void run() {
-        boolean success = false;
+        int success = -1;
 
         try {
             success = new CreateCommand().runExecuteUpdate(query);
@@ -28,7 +28,7 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
             resultInterface.onErrorCreateTemplate("failed when create " + e.getMessage());
         }
 
-        if (success) {
+        if (success != -1) {
             // Look at templateResultInterface for communication back with the presenter
             resultInterface.onSuccessCreateTemplate("success");
         }
