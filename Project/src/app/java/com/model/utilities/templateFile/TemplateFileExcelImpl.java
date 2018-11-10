@@ -50,7 +50,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	}
 	
 	@Override
-	public Template getTemplateNameColumns() {
+	public Template getFileAsTemplate() {
         
 		String temName = this.getTemplateName();
         List<String> columnIds = this.getColumnIds();
@@ -130,9 +130,19 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 
 	@Override
 	public int getNumRows() {
-		int result = sheet.getPhysicalNumberOfRows();
-		result -= 3;
-		return result;
+
+	    int rowIndex = 3;
+	    boolean doneReading = false;
+	    while(!doneReading) {
+	        Row row = sheet.getRow(rowIndex);
+	        if(row == null || row.getCell(0).getStringCellValue().isEmpty()) {
+	            doneReading = true;
+            }
+
+            rowIndex++;
+	    }
+
+		return rowIndex - 4;
 	}
 
 }

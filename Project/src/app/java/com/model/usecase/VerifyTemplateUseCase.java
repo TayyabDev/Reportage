@@ -24,18 +24,18 @@ public class VerifyTemplateUseCase extends UseCase {
 
     @Override
     public void run() {
-        System.out.println("Hello here in Verify Template usecase");
         List<String> columnList = new ArrayList<>();
         columnList.add("tableName");
 
-        String constraint = "templateName = \'" + templateName + "\'";
+        List<String> constraints = new ArrayList<>();
+        constraints.add("templateName = \'" + templateName + "\'");
+
         // Get the table name based on template name given
-        SelectCommand tableNameCommand  = new SelectCommand(columnList, "`Template`", constraint);
+        SelectCommand tableNameCommand  = new SelectCommand(columnList, "`Template`", constraints);
         System.out.println();
         List<List<String> > resultSet = null;
         try {
             resultSet = tableNameCommand.selectHandle();
-            System.out.println("The result set is " + resultSet);
         } catch (SelectException e) {
             System.out.println("Hey Error message");
         }
@@ -66,16 +66,20 @@ public class VerifyTemplateUseCase extends UseCase {
 
         List<String> selectedFileColumns = fileInterface.getColumnIds();
 
-        if(selectedTemplateColumns.size() != selectedFileColumns.size()) {
+        int adjustedTemplateColumns = selectedTemplateColumns.size() - 2;
+        int templateColumnIndex = 2;
+
+        if(adjustedTemplateColumns != selectedFileColumns.size()) {
             this.resultInterface.onTemplateSelectedCompatible(false);
             return;
         }
 
-        for(int columnIdIndex = 0; columnIdIndex < selectedTemplateColumns.size(); columnIdIndex++) {
-            if(!selectedFileColumns.get(columnIdIndex).equals(selectedTemplateColumns.get(columnIdIndex))) {
+        for(int columnIdIndex = 0; columnIdIndex < selectedFileColumns.size(); columnIdIndex++) {
+            if(!selectedFileColumns.get(columnIdIndex).equals(selectedTemplateColumns.get(templateColumnIndex))) {
                 this.resultInterface.onTemplateSelectedCompatible(false);
                 return;
             }
+            templateColumnIndex++;
         }
 
         // If manage to get here, then send template valid result

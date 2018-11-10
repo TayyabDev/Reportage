@@ -21,6 +21,11 @@ public abstract class Command {
 		for (String s : listOfString) {
 			result = result + quote + s + quote +",";
 		}
+
+		if(result.length() == 0) {
+			return "";
+		}
+
 		return "(" + result.substring(0, result.length()-1) + ")";
 	}
 	
@@ -46,12 +51,20 @@ public abstract class Command {
 	 */
 	public static int runExecuteUpdate(String query) throws Exception {
 		Connection conn;
+		ResultSet rs;
+		int lastRow = -1;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
-		int res = st.executeUpdate(query);
+		int res = st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+	    if (res != -1) {
+			rs = st.getGeneratedKeys();
+		    if (rs.next()) {
+		        lastRow = rs.getInt(Statement.RETURN_GENERATED_KEYS);
+		    }
+	    }
 		st.close();
 		conn.close();
-		return res;
+		return lastRow;
 	}
 	
 	/*

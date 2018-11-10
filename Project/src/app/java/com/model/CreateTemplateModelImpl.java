@@ -35,7 +35,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
     		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
     			templateParam = new TemplateFileCsvImpl(formulatedFileName);
     		}
-    		Template template = templateParam.getTemplateNameColumns();
+    		Template template = templateParam.getFileAsTemplate();
 
         boolean success = false;
         

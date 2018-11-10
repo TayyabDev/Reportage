@@ -88,6 +88,7 @@ public class CommandTest {
 	@Test
 	public void testCommand2() {
 		List<String> attrCons = new ArrayList<>();
+		attrCons.add("id int not null auto_increment primary key");
 		attrCons.add("firstName varchar(255)");
 		attrCons.add("lastName varchar(255)");
 		Command createComm = new CreateCommand(table2, attrCons);
@@ -110,18 +111,18 @@ public class CommandTest {
 		val2.add("p");
 		Command insertComm1 = new InsertCommand(table2, attr, val1);
 		try {
-			insertComm1.handle();
+			assertEquals(1, ((InsertCommand)insertComm1).insertHandle());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 		Command insertComm2 = new InsertCommand(table2, attr, val2);
 		try {
-			insertComm2.handle();
+			assertEquals(2, ((InsertCommand)insertComm2).insertHandle());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 		
-		// select * from test1 should give [[j,l], [v, p]]
+		// select * from test1 should give [[1,j,l], [2,v, p]]
 		Command selectComm = new SelectCommand(table2);
 		List<List<String>> res = null;
 		try {
@@ -129,6 +130,8 @@ public class CommandTest {
 		} catch (SelectException e) {
 			fail(e.getMessage());
 		}
+		val1.add(0, "1");
+		val2.add(0, "2");
 		assertEquals(res.get(0), val1);
 		assertEquals(res.get(1), val2);
 		//drop the test1 table in database
