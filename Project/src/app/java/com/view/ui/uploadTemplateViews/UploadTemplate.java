@@ -12,6 +12,10 @@ import app.java.com.view.ui.createTemplateViews.Template;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+import java.util.ArrayList;
+=======
+>>>>>>> develop
 import java.util.List;
 
 import javax.swing.*;
@@ -22,7 +26,12 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
+<<<<<<< HEAD
+	String filePath;
+
+=======
 	static JFrame frame;
+>>>>>>> develop
 
 	
 	public UploadTemplate(JFrame frame) {
@@ -62,8 +71,11 @@ public class UploadTemplate implements UploadTemplateView {
 		lblTemplate.setBounds(80, 160, 180, 25);
 		panel.add(lblTemplate);
 		
-		String[] templateNames = {"Temp1", "Temp2", "Temp3"};
-		JComboBox cbTemplate = new JComboBox(templateNames);
+		List<String> templateNames = new ArrayList<String>(); 
+		fillDropdownWithTemplateNames(templateNames);
+		presenter.fetchTemplateNames();
+		JComboBox cbTemplate = new JComboBox();
+		cbTemplate.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 		cbTemplate.setBounds(400, 160, 200, 25);
 		panel.add(cbTemplate);
 		
@@ -81,6 +93,7 @@ public class UploadTemplate implements UploadTemplateView {
 		JLabel lblSelectedFile = new JLabel("You selected a file");
 		lblSelectedFile.setBounds(400, 230, 700, 25);
 		
+		
 		// Select file to upload
 		btnSelectFile.addActionListener(new ActionListener() {
 			 @Override
@@ -91,6 +104,7 @@ public class UploadTemplate implements UploadTemplateView {
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
 					 if (jfc.getSelectedFile() != null) {
 						 //JLabel lblSelectedFile = new JLabel("You selected the directory: " + jfc.getSelectedFile());
+						 filePath = jfc.getSelectedFile().getPath();
 						 panel.add(lblSelectedFile);
 						 panel.repaint();
 					 }
@@ -99,19 +113,43 @@ public class UploadTemplate implements UploadTemplateView {
 			 }
 		 });
 
+		
 		// Check if template uploaded is incompatible
+		btnSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!onInCompatibleTemplateSelected()) {
+					presenter.uploadTemplateWithFile(filePath);
+				}
+				else {
+					panel.add(lblIncompatible);
+					panel.repaint();
+				}
+			}
+			
+		});
+
 		
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
+<<<<<<< HEAD
+
+=======
 		this.frame.setContentPane(panel);
 		this.frame.revalidate();
+>>>>>>> develop
 	}
 
 
 
+<<<<<<< HEAD
+
+	@Override
+	public boolean isFileValid() {
+=======
 	@Override
 	public void onSuccessTemplateCreated() {
 	    JOptionPane.showMessageDialog(frame, "Uploaded data to the template.");
@@ -121,6 +159,7 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public boolean isFileValid(String filePath) {
         // check if excel or csv file
+>>>>>>> develop
         if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
@@ -133,8 +172,21 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
 	@Override
-	public void onInCompatibleTemplateSelected() {
+	public boolean onInCompatibleTemplateSelected() {
+		return false;
+	}
 
+	@Override
+	public void fillDropdownWithTemplateNames(List<String> templateNames) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onSuccessTemplateCreated() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

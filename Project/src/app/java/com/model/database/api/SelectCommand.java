@@ -27,7 +27,7 @@ public class SelectCommand extends Command {
 	public SelectCommand(String tableName) {
 		this.target = new ArrayList<String>();
 		this.tableName = tableName;
-		this.constraints = null;
+		this.constraints = new ArrayList<>();
 	}
 	
 	/*
@@ -43,6 +43,7 @@ public class SelectCommand extends Command {
 	public SelectCommand(List<String> target, String tableName) {
 		this.tableName = tableName;
 		this.target = target;
+		this.constraints = new ArrayList<>();
 	}
 	/*
 	 * constructor used when want to execute
@@ -144,6 +145,7 @@ public class SelectCommand extends Command {
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraints
 	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
+	 * return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
@@ -162,8 +164,6 @@ public class SelectCommand extends Command {
 			String formulatedIds = formulateIds(target);
 			formulatedTarget = formulatedIds.substring(1, formulatedIds.length()-1);
 		}
-
-		System.out.println("Hey here after");
 		
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;
 		String sqlWithConstraint = sqlNoConstraint + " where ";
@@ -171,16 +171,16 @@ public class SelectCommand extends Command {
 		for(int index = 0; index < constraints.size() - 1; index++) {
 		    sqlWithConstraint += constraints.get(index) + " AND ";
         }
-
-        sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
-        System.out.println(sqlWithConstraint);
+		if (constraints.size() > 0) {
+			sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+		}
 		Connection conn;
 		List<List<String>> data = new ArrayList<List<String>>();
 		try {
 			conn = ConnectDatabase.connect();
 			Statement st = conn.createStatement();
 			ResultSet rs;
-			if (constraints == null) {
+			if (constraints.isEmpty()) {
 				rs = st.executeQuery(sqlNoConstraint + ";");
 			} else {
 				rs = st.executeQuery(sqlWithConstraint);
@@ -194,7 +194,6 @@ public class SelectCommand extends Command {
 				}
 				data.add(row);
 			}
-			System.out.println(data);
 			st.close();// select name,apsw rd from account where userName = .. AND
 			conn.close();
 			return data;
@@ -210,7 +209,7 @@ public class SelectCommand extends Command {
 	
 	@Override
 	public boolean handle() throws SelectException {
-		List<List<String>> res = selectHandle();
+		selectHandle();
 		return true;
 	}
 }

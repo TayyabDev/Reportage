@@ -2,14 +2,8 @@ package app.java.com.model.database.api;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import app.java.com.model.Exceptions.AlterException;
-import app.java.com.model.Exceptions.CreateException;
-import app.java.com.model.Exceptions.SelectException;
 
 public abstract class Command {
 
@@ -50,14 +44,14 @@ public abstract class Command {
 	 * run Insert/Drop/Update/Alter commands directly in the database
 	 * @param query create statement
 	 */
-	public boolean runExecuteUpdate(String query) throws Exception {
+	public int runExecuteUpdate(String query) throws Exception {
 		Connection conn;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
-		st.executeUpdate(query);
+		int res = st.executeUpdate(query);
 		st.close();
 		conn.close();
-		return true;
+		return res;
 	}
 	
 	/*
@@ -86,22 +80,6 @@ public abstract class Command {
 //		st.close();
 //		conn.close();
 		return rs;
-		
-	}
-	
-	public static void main(String[] argc) {
-		String s = "select * from test";
-		try {
-			ResultSet res = RunExecuteQuery(s);
-			while(res.next()) {
-				String name = res.getString("name");
-				String lastName = res.getString("lastName");
-				System.out.println(name + " ----" + lastName);
-				
-			}
-		} catch (Exception e) {
-			
-		}
 		
 	}
 }

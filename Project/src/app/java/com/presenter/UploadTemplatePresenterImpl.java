@@ -1,12 +1,12 @@
 package app.java.com.presenter;
 
+import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.usecase.FetchTemplateNamesUseCase;
+import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
-
-
-import java.io.File;
 import java.util.List;
 
 public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, UploadTemplateResultInterface,
@@ -48,18 +48,32 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         this.view.onSuccessTemplateCreated();
     }
 
-    @Override
-    public void onErrorUploadingTemplate() {
-        this.view.onErrorUploadingFile();
-    }
+	@Override
+	public void onSuccessFetchingNames(List<String> names) throws SelectException {
+		this.view.fillDropdownWithTemplateNames(names);
+	}
 
-    @Override
-    public List<String> onSuccessFetchingNames() {
-        return null;
-    }
+	@Override
+	public String onErrorFetchingNames(String errorMessage) {
+		return errorMessage;
+	}
 
-    @Override
-    public String onErrorFetchingNames() {
-        return null;
-    }
+	@Override
+	public void fetchTemplateNames() {
+		// TODO Auto-generated method stub
+		UseCase usecase = new FetchTemplateNamesUseCase(this);
+		usecase.run();
+	}
+
+	@Override
+	public void onErrorUploadingTemplate(List<String> errorMessages) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void verifyFileUploaded(String filePath, String templateName) {
+		// TODO Auto-generated method stub
+		
+	}
 }
