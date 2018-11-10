@@ -21,31 +21,35 @@ public class UploadTemplateUseCase extends UseCase {
     private Date dateSelected;
     private static final int SHEET_NUMBER = 2;
     private static final String CLIENTDATAFORMCOLUMN = "clientDataFormId";
+    private static final int NORMALIZE_YEAR = 1900;
+    private static final int NORMALIZE_MONTH = 1;
 
     public UploadTemplateUseCase(UploadTemplateResultInterface resultInterface, Date date, String templateName,
                                  String templateFilePath) {
         this.resultInterface = resultInterface;
         this.dateSelected = date;
-        this.templateFilePath = templateFilePath;
+        this.templateFilePath = templateFilePath.replace("\\", "\\\\");
         this.templateName = templateName;
     }
 
     @Override
     public void run() {
 
+        TemplateFileInterface exc;
+    	List<String> errorMessages = new ArrayList<>();
+
         // Get the clientFormId after uploading it to the database
         int clientFormId = insertClientDataForm(dateSelected, templateName);
-        System.out.println(clientFormId + " is the formId");
-
-        // Now add this to the insert command since the template has a clientIdForm column
-
-        String formulatedFileName = templateFilePath.replace("\\", "\\\\");
-        System.out.println(formulatedFileName);
-        TemplateFileInterface exc;
-        if (FileTypeFinder.isCSVFile(formulatedFileName)){
-        	exc = new TemplateFileCsvImpl(formulatedFileName);
+        
+        if(clientFormId == -1) {
+        	errorMessages.add("Invalid ClientDataFormId");
+        	resultInterface.onErrorUploadingTemplate(errorMessages);
+        }
+        
+        if (FileTypeFinder.isCSVFile(templateFilePath)){
+        	exc = new TemplateFileCsvImpl(templateFilePath);
         } else {
-        	exc = new TemplateFileExcelImpl(formulatedFileName, SHEET_NUMBER);
+        	exc = new TemplateFileExcelImpl(templateFilePath, SHEET_NUMBER);
         }
 
         // Verify template matches the chosen template's format
@@ -53,7 +57,6 @@ public class UploadTemplateUseCase extends UseCase {
 
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
-        	List<String> errorMessages = new ArrayList<>();
         	for (Exception e : errorList) {
         		errorMessages.add(e.getMessage());
         	}
@@ -67,25 +70,25 @@ public class UploadTemplateUseCase extends UseCase {
     /*
      * inserting all the data rows in the TemplateFileInterface into the database
      */
-    private List<Exception> insertAllRows(TemplateFileInterface exc, int clientDataFormId) {
+    private List<Exception> insertAllRows(TemplateFileInterface file, int clientDataFormId) {
     	// Upload the template into the database using insert command
-        List<String> columnIds = exc.getColumnIds();
+        List<String> columnIds = file.getColumnIds();
         columnIds.add(0, CLIENTDATAFORMCOLUMN);
         List<String> row = null;
+        
         // get the tableName in the database
-        String templateName = exc.getTableName();
-        int numOfRow = exc.getNumRows();
+        String templateName = file.getTableName();
+        int numOfRow = file.getNumRows();
         List<Exception> errorList = new ArrayList<>();
-        System.out.println("no error in insertAllRows so far");
+
         for (int i = 0; i < numOfRow; i++){
-        	row = exc.getRow(i+3);
+        	row = file.getRow(i+3);
         	row.add(0, String.valueOf(clientDataFormId));
         	Command insert = new InsertCommand(templateName,columnIds, row);
         	try {
 				insert.handle();
 			} catch (Exception e) {
 				errorList.add(e);
-				e.printStackTrace();
 			}
         }
         return errorList;
@@ -111,19 +114,14 @@ public class UploadTemplateUseCase extends UseCase {
         try {
             result = selectTemplateId.selectHandle();
         } catch (SelectException e) {
-            e.printStackTrace();
+        	return -1;
         }
-        System.out.println("Hey what is here");
-        System.out.println(result);
 
         String templateId = result.get(0).get(0);
 
-        int month = dateSelected.getMonth() + 1; // normalize
-        System.out.println(String.valueOf(month + " is the month"));
+        int month = dateSelected.getMonth() + NORMALIZE_MONTH; // normalize
 
-        int year = dateSelected.getYear() + 1900; // normalize
-        System.out.println(year + " is the year");
-
+        int year = dateSelected.getYear() + NORMALIZE_YEAR; // normalize
 
         // Let's insert the information into the ClientDataForm table now
         // we only need to upload the templateId, month, and year
@@ -147,10 +145,8 @@ public class UploadTemplateUseCase extends UseCase {
         try {
             return insertCommand.insertHandle();
         } catch (Exception e) {
-            e.printStackTrace();
+            return -1;
         }
-
-        return -1;
-
+        
     }
 }
