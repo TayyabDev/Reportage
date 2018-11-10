@@ -135,7 +135,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	    boolean doneReading = false;
 	    while(!doneReading) {
 	        Row row = sheet.getRow(rowIndex);
-	        if(row.getCell(0).getStringCellValue().isEmpty()) {
+	        if(row == null || row.getCell(0).getStringCellValue().isEmpty()) {
 	            doneReading = true;
             }
 
