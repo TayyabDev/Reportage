@@ -1,6 +1,7 @@
 package app.java.com.model.usecase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import app.java.com.model.Exceptions.SelectException;
@@ -8,9 +9,25 @@ import app.java.com.model.database.api.SelectCommand;
 
 public class GenerateCustomReport extends UseCase{
 
+	private List<String> formatedText;
+	private String timeRange;
+	
+	public GenerateCustomReport(List<String> formatedText) {
+		this.formatedText = formatedText;
+		
+		
+	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		// get the tableName and variableName used in database
+		// based on the given templateName and realName used in ui
+		try {
+			List<List<String>> tableVar = getTableNameVarNames(formatedText);
+			
+		} catch (SelectException e) {
+			//error
+		}
+		// 
 		
 	}
 
@@ -85,17 +102,25 @@ public class GenerateCustomReport extends UseCase{
 	 * 
 	 * @param templateVarNames [[tableName, id]]
 	 */
-	public static List<List<String>> getData(List<List<String>> tableVarNames, List<String> dataFormIds) {
-		// format the [clientDataFormIds] into {clientDataFormIds}
+	public static HashMap<String, List<String>> getData(List<List<String>> tableVarNames, List<String> dataFormIds) throws SelectException {
+		// format the constraint: [clientDataFormIds] into {clientDataFormIds}
 		String dataFormIdsSet = dataFormIds.toString().replace('[', '{').replace(']', '}');
+		List<String> getDataCommCons = new ArrayList<>();
+		getDataCommCons.add("clientDataFormId in "+ dataFormIdsSet);
 		
+		HashMap<String, List<String>> results = new HashMap<String, List<String>>(); 
 		// get tableName
 		for (List<String> tableVarName : tableVarNames) {
+			// select varName from tableName where clientDataFormId in dataFormIds
 			String tableName = tableVarName.get(0);
 			String varName = tableVarName.get(1);
-
+			List<String> getDataCommTar = new ArrayList<>();
+			getDataCommTar.add(varName);
+			SelectCommand getDataComm = new SelectCommand(getDataCommTar, tableName, getDataCommCons);
+			List<String> dataCol = getDataComm.selectHandleSingle();
+			results.put(varName, dataCol);
 		}
-		return null;
+		return results;
 		
 	}
 	
