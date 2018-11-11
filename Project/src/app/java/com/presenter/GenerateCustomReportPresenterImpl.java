@@ -1,10 +1,12 @@
 package app.java.com.presenter;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import app.java.com.model.usecase.FetchAttributeNamesUseCase;
+import app.java.com.model.usecase.GenerateCustomReport;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.FetchAttributeNamesResultInterface;
 import app.java.com.presenter.interfaces.GenerateCustomReportPresenter;
@@ -20,14 +22,12 @@ public class GenerateCustomReportPresenterImpl implements FetchAttributeNamesRes
 		this.view = null;
 	}
 	@Override
-	public void onSuccessGenerateCustomReport() {
-		
+	public void onSuccessGenerateCustomReport(HashMap<String, List<List<String>>> res) {
 		
 	}
 
 	@Override
-	public void onErrorGenerateCustomReport() {
-		// TODO Auto-generated method stub
+	public void onErrorGenerateCustomReport(String errorMessage) {
 		
 	}
 
@@ -38,9 +38,9 @@ public class GenerateCustomReportPresenterImpl implements FetchAttributeNamesRes
 	}
 
 	@Override
-	public void generateCustomReport(List<String> attributes, Date begin, Date end) {
-		// TODO Auto-generated method stub
-		
+	public void generateCustomReport(HashMap<String, List<String>> attributes, Calendar begin, Calendar end) {
+		UseCase generateReport = new GenerateCustomReport(this, attributes, begin, end);
+		generateReport.run();
 	}
 
 	@Override
@@ -61,7 +61,6 @@ public class GenerateCustomReportPresenterImpl implements FetchAttributeNamesRes
 	@Override
 	public String onErrorFetchAttributeNames(String failedMessage) {
 		return failedMessage;
-		
 	}
 	
 

@@ -55,7 +55,6 @@ public abstract class Command {
 		int lastRow = -1;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
-		System.out.println(query);
 		int res = st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 	    if (res != -1) {
 			rs = st.getGeneratedKeys();
@@ -71,7 +70,7 @@ public abstract class Command {
 	/*
 	 * insert Column with contraint given
 	 */
-	public static boolean runExecute(String sql) throws Exception {
+	public boolean runExecute(String sql) throws Exception {
 		Connection conn;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
