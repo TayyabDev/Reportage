@@ -27,7 +27,7 @@ public class SelectCommand extends Command {
 	public SelectCommand(String tableName) {
 		this.target = new ArrayList<String>();
 		this.tableName = tableName;
-		this.constraints = new ArrayList<>();
+		this.constraints = new ArrayList<String>();
 	}
 	
 	/*
@@ -164,15 +164,18 @@ public class SelectCommand extends Command {
 			String formulatedIds = formulateIds(target);
 			formulatedTarget = formulatedIds.substring(1, formulatedIds.length()-1);
 		}
+
+//		System.out.println("Hey here after");
 		
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;
 		String sqlWithConstraint = sqlNoConstraint + " where ";
-
-		for(int index = 0; index < constraints.size() - 1; index++) {
+		
+		for (int index = 0; index < constraints.size() - 1; index++) {
 		    sqlWithConstraint += constraints.get(index) + " AND ";
         }
+		
 		if (constraints.size() > 0) {
-			sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+	        sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
 		}
 		Connection conn;
 		List<List<String>> data = new ArrayList<List<String>>();
@@ -190,15 +193,14 @@ public class SelectCommand extends Command {
 				for (String tar : target) {
 					String val = rs.getString(tar);
 					row.add(val);
-					
 				}
 				data.add(row);
 			}
-			st.close();// select name,apsw rd from account where userName = .. AND
+			st.close();
 			conn.close();
 			return data;
 		} catch (Exception e) {
-			System.out.println("except");
+			e.printStackTrace();
 			if (constraints.isEmpty()) {
 				throw new SelectException(sqlNoConstraint);
 			} else {
