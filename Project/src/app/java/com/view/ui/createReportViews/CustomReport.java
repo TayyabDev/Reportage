@@ -1,5 +1,8 @@
 package app.java.com.view.ui.createReportViews;
 
+import app.java.com.presenter.GenerateCustomReportPresenterImpl;
+import app.java.com.presenter.interfaces.GenerateCustomReportPresenter;
+import app.java.com.view.interfaces.GenerateCustomReportView;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createTemplateViews.Template;
 import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
@@ -11,12 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.UnresolvedPermission;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class CustomReport {
+public class CustomReport implements GenerateCustomReportView{
 
     private  JFrame frame;
     private  JPanel panel;
+    private GenerateCustomReportPresenter presenter;
 
     public  CustomReport(JFrame frame){
         /**
@@ -31,6 +36,12 @@ public class CustomReport {
 
         JButton back = UIHelpers.generateBackButton(0,0,50,50);
         panel.add(back);
+        
+        //need to be deleted
+        presenter = new GenerateCustomReportPresenterImpl();
+        presenter.attachView(this);
+        presenter.fetchAttributes();
+        
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,5 +117,11 @@ public class CustomReport {
 
 
     }
+
+	@Override
+	public void testDisplayAttributes(HashMap<String, List<String>> attributes) {
+		System.out.println(attributes);
+		
+	}
 
 }

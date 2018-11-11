@@ -55,6 +55,7 @@ public abstract class Command {
 		int lastRow = -1;
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
+		System.out.println(query);
 		int res = st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 	    if (res != -1) {
 			rs = st.getGeneratedKeys();

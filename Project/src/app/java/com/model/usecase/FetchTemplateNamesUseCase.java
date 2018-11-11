@@ -10,7 +10,7 @@ public class FetchTemplateNamesUseCase extends UseCase {
 
     public final String tableName = "Template";
     public final List<String> columnName = new ArrayList<String>();
-    FetchTemplateNamesResultInterface resultInterface;
+    public FetchTemplateNamesResultInterface resultInterface;
 
     public FetchTemplateNamesUseCase(FetchTemplateNamesResultInterface resultInterface) {
     	this.resultInterface = resultInterface;
@@ -32,8 +32,6 @@ public class FetchTemplateNamesUseCase extends UseCase {
 		SelectCommand command = new SelectCommand(columnName, tableName);
 		List<List<String>> templateNames = command.selectHandle();
 		List<String> formulatedTemplateNames = new ArrayList<>();
-        System.out.println("Printing stuff here");
-        System.out.println(templateNames);
 		for (List<String> template : templateNames) {
  			formulatedTemplateNames.add(template.get(0));
 		}
