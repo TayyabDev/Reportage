@@ -70,10 +70,10 @@ public class CustomReport implements CustomReportView {
         presenter.fetchTemplatesAndAttributes();
 
         JTextField search = new JTextField();
-        search.setBounds(150, 370, 500, 50);
+        search.setBounds(150, 370, 375, 50);
 
         JButton buttonSearch = UIHelpers.buttonGenerator("\uD83D\uDD0E");
-        buttonSearch.setBounds(655, 370, 50,50);
+        buttonSearch.setBounds(530, 370, 50,50);
         buttonSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,6 +92,25 @@ public class CustomReport implements CustomReportView {
                     scrollPane.revalidate();
                 }
             }
+        });
+
+
+        JButton viewSel = new JButton("View Selection");
+        viewSel.setBounds(585,370,120,50);
+        viewSel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                results = new ArrayList<>();
+                resultScrollPanel = new JPanel(new GridLayout(0, 1));
+                for (JCheckBox cb : attrsComboBoxes) {
+                    if (cb.isSelected()) { // check if selected
+                        results.add(cb);
+                        resultScrollPanel.add(cb);
+                    }
+                }
+                scrollPane.setViewportView(resultScrollPanel);
+                scrollPane.revalidate();
+                }
         });
 
         JButton clear = new JButton("Clear Search");
@@ -168,6 +187,7 @@ public class CustomReport implements CustomReportView {
          panel.add(toText);
          panel.add(reset);
          panel.add((generate));
+         panel.add(viewSel);
         this.frame.setContentPane(panel);
         this.frame.revalidate();
 
@@ -219,8 +239,7 @@ public class CustomReport implements CustomReportView {
     }
 
     @Override
-    public void sendReport(HashMap<String, List<List<String>>> data) {
-        System.out.println(data);
+    public boolean sendReport(HashMap<String, List<List<String>>> data) {
         String output = "";
 
         for(String table : data.keySet()){
@@ -230,7 +249,11 @@ public class CustomReport implements CustomReportView {
                 for(String currentIndex : lis){
                     if(currentIndex == null){
                         output += ",";
-                    } else {
+                    } else if(currentIndex.contains(",")){
+                        output += "\"" + currentIndex + "\",";
+                    }
+
+                    else {
                         output += currentIndex + ",";
                     }
                 }
@@ -244,10 +267,12 @@ public class CustomReport implements CustomReportView {
             PrintWriter pw = new PrintWriter(new File(file));
             pw.write(output);
             pw.close();
+            return true;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return false;
 
 
     }

@@ -180,8 +180,13 @@ public class GenerateCustomReportUseCase extends UseCase{
             } else {
                  getDataComm = new SelectCommand(varNames, table);
             }
-            List<List<String>> dataCol = getDataComm.selectHandle();
-            results.get(table).addAll(dataCol);
+            List<List<String>> dataCol;
+            try {
+                dataCol = getDataComm.selectHandle();
+                results.get(table).addAll(dataCol);
+            } catch (Exception e){
+
+            }
 
             tableIndex += 1;
         }

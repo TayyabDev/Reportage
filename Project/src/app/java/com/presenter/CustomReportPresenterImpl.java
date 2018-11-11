@@ -79,7 +79,9 @@ public class CustomReportPresenterImpl implements CustomReportPresenter, CustomR
 
     @Override
     public void sendReport(HashMap<String, List<List<String>>> data) {
-        this.view.sendReport(data);
+        if(this.view.sendReport(data)){
+            view.onSuccessReportCreated();
+        }
     }
 
 
