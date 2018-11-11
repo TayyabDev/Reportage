@@ -6,17 +6,15 @@ import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Dashboard;
 import app.java.com.view.ui.createTemplateViews.Template;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
->>>>>>> develop
+
 import java.util.List;
+import java.util.ArrayList;
+
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -26,12 +24,11 @@ public class UploadTemplate implements UploadTemplateView {
 	JLabel labelLogo;
 	ImageIcon teqLogo;
 	UploadTemplatePresenter presenter;
-<<<<<<< HEAD
+
 	String filePath;
 
-=======
 	static JFrame frame;
->>>>>>> develop
+
 
 	
 	public UploadTemplate(JFrame frame) {
@@ -135,21 +132,14 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
-<<<<<<< HEAD
 
-=======
 		this.frame.setContentPane(panel);
 		this.frame.revalidate();
->>>>>>> develop
 	}
 
 
 
-<<<<<<< HEAD
 
-	@Override
-	public boolean isFileValid() {
-=======
 	@Override
 	public void onSuccessTemplateCreated() {
 	    JOptionPane.showMessageDialog(frame, "Uploaded data to the template.");
@@ -159,7 +149,7 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public boolean isFileValid(String filePath) {
         // check if excel or csv file
->>>>>>> develop
+
         if (filePath.substring(filePath.length()-3).equals("csv") || filePath.substring(filePath.length()-4).equals("xlsx")) {
             return true;
         }
@@ -183,14 +173,4 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
 
-	@Override
-	public void onSuccessTemplateCreated() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<String> fillDropdownWithTemplateNames() {
-		return null;
-	}
 }

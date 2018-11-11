@@ -28,7 +28,9 @@ public class VerifyTemplateUseCase extends UseCase {
         List<String> columnList = new ArrayList<>();
         columnList.add("tableName");
 
-        String constraint = "templateName = \'" + templateName + "\'";
+        List<String> constraint = new ArrayList<>();
+        constraint.add("templateName = \'" + templateName + "\'");
+
         // Get the table name based on template name given
         SelectCommand tableNameCommand  = new SelectCommand(columnList, "`Template`", constraint);
         System.out.println();
