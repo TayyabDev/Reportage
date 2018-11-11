@@ -11,7 +11,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -182,23 +187,24 @@ public class CustomReport implements CustomReportView {
 
     @Override
     public boolean isFieldsValid(String date1, String date2) {
-        try {
-            boolean selection = false;
-            for (JCheckBox cb : attrsComboBoxes){
-                if(cb.isSelected()){
-                    selection = true;
-                    break;
-                }
-            }
-            int m1 = Integer.parseInt(date1.split("/")[0]);
-            int y1 = Integer.parseInt(date1.split("/")[1]);
+        boolean selection = false;
+        int m1,y1,m2,y2;
 
-            int m2 = Integer.parseInt(date2.split("/")[0]);
-            int y2 = Integer.parseInt(date2.split("/")[1]);
-            return selection && validDate(m1, y1) && validDate(m2, y2);
-        } catch (Exception e){
-            return false;
+        for (JCheckBox cb : attrsComboBoxes){
+            if(cb.isSelected()){
+                selection = true;
+                break;
+            }
         }
+        try {
+            m1 = Integer.parseInt(date1.split("/")[0]);
+            y1 = Integer.parseInt(date1.split("/")[1]);
+            m2 = Integer.parseInt(date2.split("/")[0]);
+            y2 = Integer.parseInt(date2.split("/")[1]);
+        } catch (Exception e){
+            return selection;
+        }
+        return selection && validDate(m1, y1) && validDate(m2, y2);
 
     }
 
@@ -216,18 +222,33 @@ public class CustomReport implements CustomReportView {
     public void sendReport(HashMap<String, List<List<String>>> data) {
         System.out.println(data);
         String output = "";
-        /*String [] cols = (String []) data.keySet().toArray();
 
-        for(String col : cols){
-            output += col + ",";
-        }
-        output += "\n";
+        for(String table : data.keySet()){
+            output += table + "\n";
 
-        for(int i = 0; i < cols.length; i++){
-            for(int j = 0; j < data.get(cols[0]).size(); i++){
-
+            for(List<String> lis : data.get(table)){
+                for(String currentIndex : lis){
+                    if(currentIndex == null){
+                        output += ",";
+                    } else {
+                        output += currentIndex + ",";
+                    }
+                }
+                output += "\n";
             }
-        }*/
+        }
+
+        // get filename
+        String file = "report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
+        try {
+            PrintWriter pw = new PrintWriter(new File(file));
+            pw.write(output);
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -235,7 +256,6 @@ public class CustomReport implements CustomReportView {
 
     @Override
     public void fetchAttributes(List<String> attrs) {
-        System.out.println("here");
         for (String attr : attrs){
             JCheckBox cb = new JCheckBox(attr);
             attrsComboBoxes.add(cb);

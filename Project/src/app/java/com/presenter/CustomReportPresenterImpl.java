@@ -18,13 +18,19 @@ public class CustomReportPresenterImpl implements CustomReportPresenter, CustomR
     @Override
     public void createReport(List<String> attributes, String date1, String date2) {
         if(view.isFieldsValid(date1, date2)){
-            int beginYear = Integer.parseInt(date1.split("/")[1]);
-            int beginMonth =  Integer.parseInt(date1.split("/")[0]);
-            Calendar  begin = new GregorianCalendar(beginYear, beginMonth, 1);
+            Calendar begin, end;
+            if(date1.equals("") || date2.equals("")){
+                 begin = null;
+                 end = null;
+            } else {
+                int beginYear = Integer.parseInt(date1.split("/")[1]);
+                int beginMonth = Integer.parseInt(date1.split("/")[0]);
+                 begin = new GregorianCalendar(beginYear, beginMonth, 1);
 
-            int endYear =  Integer.parseInt(date2.split("/")[1]);
-            int endMonth = Integer.parseInt(date2.split("/")[0]);
-            Calendar  end = new GregorianCalendar(endYear,endMonth, 31);
+                int endYear = Integer.parseInt(date2.split("/")[1]);
+                int endMonth = Integer.parseInt(date2.split("/")[0]);
+                 end = new GregorianCalendar(endYear, endMonth, 31);
+            }
 
             HashMap<String, List<String>> templateRealNameMap = new HashMap<>();
             for(String curr : attributes){

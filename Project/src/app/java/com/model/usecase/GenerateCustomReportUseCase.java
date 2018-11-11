@@ -1,5 +1,6 @@
 package app.java.com.model.usecase;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import app.java.com.model.Exceptions.SelectException;
@@ -8,7 +9,7 @@ import app.java.com.presenter.interfaces.CustomReportResultInterface;
 
 public class GenerateCustomReportUseCase extends UseCase{
 
-    private HashMap<String, List<String>> templateRealNameMap;
+    private static HashMap<String, List<String>> templateRealNameMap;
     private Calendar begin;
     private Calendar end;
     CustomReportResultInterface resultInterface;
@@ -16,6 +17,7 @@ public class GenerateCustomReportUseCase extends UseCase{
     public GenerateCustomReportUseCase(CustomReportResultInterface resultInterface, HashMap<String, List<String>> templateRealNameMap, Calendar begin, Calendar end) {
         this.resultInterface = resultInterface;
         this.templateRealNameMap = templateRealNameMap;
+        System.out.println(templateRealNameMap);
         this.begin = begin;
         this.end = end;
 
@@ -111,8 +113,13 @@ public class GenerateCustomReportUseCase extends UseCase{
      * return the formulated date 2018-01-01 given a calendar ignore the date in the calendar
      */
     private static String formulateCalendar(Calendar cal) {
-        String year = String.format("%04d", cal.get(Calendar.YEAR));
-        String month = String.format("%02d", cal.get(Calendar.MONTH));
+        String year, month;
+        if(cal == null){
+            return null;
+        } else {
+            year = String.format("%04d", cal.get(Calendar.YEAR));
+            month = String.format("%02d", cal.get(Calendar.MONTH));
+        }
         return "date(\'"+ year + "-" + month + "-" + "01\')";
     }
 
@@ -127,6 +134,10 @@ public class GenerateCustomReportUseCase extends UseCase{
 
         String beginStr = formulateCalendar(begin);
         String endStr = formulateCalendar(end);
+
+        if(beginStr == null || endStr == null){
+            return null;
+        }
         constraints.add("concat(year, '-', month, '-', '01') between "+ beginStr+ " and "+ endStr);
         SelectCommand getDataFormIdsComm = new SelectCommand(tar, "ClientDataForm", constraints);
         List<String> dataFormIds = getDataFormIdsComm.selectHandleSingle();
@@ -143,18 +154,36 @@ public class GenerateCustomReportUseCase extends UseCase{
      */
     public static HashMap<String, List<List<String>>> getData(HashMap<String, List<String>> tableVariableMap, List<String> dataFormIds) throws SelectException {
         // format the constraint: clientDataFormId in {dataFormIds}
-        String dataFormIdsSet = dataFormIds.toString().replace('[', '(').replace(']', ')');
-        List<String> getDataCommCons = new ArrayList<>();
-        getDataCommCons.add("clientDataFormId in "+ dataFormIdsSet);
-
+        List<String> getDataCommCons= null;
+        if(dataFormIds != null) {
+            String dataFormIdsSet = dataFormIds.toString().replace('[', '(').replace(']', ')');
+            getDataCommCons = new ArrayList<>();
+            getDataCommCons.add("clientDataFormId in " + dataFormIdsSet);
+        }
         HashMap<String, List<List<String>>> results = new HashMap<>();
         // get tableName
-        for (String table : tableVariableMap.keySet()) {
+
+        ArrayList<String> sortedTemplateRealMap = new ArrayList<String>(templateRealNameMap.keySet());
+        Collections.sort(sortedTemplateRealMap);
+        ArrayList<String> sortedTableVarMap = new ArrayList<String>(tableVariableMap.keySet());
+        Collections.sort(sortedTableVarMap);
+
+        int tableIndex = 0;
+        for (String table : sortedTableVarMap) {
             // select varName from tableName where clientDataFormId in dataFormIds
             List<String> varNames = tableVariableMap.get(table);
-            SelectCommand getDataComm = new SelectCommand(varNames, table, getDataCommCons);
+            results.put(table, new ArrayList<>(Arrays.asList(templateRealNameMap.get(sortedTemplateRealMap.get(tableIndex)))));
+
+            SelectCommand getDataComm;
+            if(getDataCommCons != null){
+                 getDataComm = new SelectCommand(varNames, table, getDataCommCons);
+            } else {
+                 getDataComm = new SelectCommand(varNames, table);
+            }
             List<List<String>> dataCol = getDataComm.selectHandle();
-            results.put(table, dataCol);
+            results.get(table).addAll(dataCol);
+
+            tableIndex += 1;
         }
         return results;
 
@@ -173,13 +202,13 @@ public class GenerateCustomReportUseCase extends UseCase{
 		lis.put("Client Profile", cp);
 		HashMap<String, List<String>> res = getTableVariableMap(lis);
             System.out.println(res);
-
 		Calendar  begin = new GregorianCalendar(2010, 9, 26);
-		Calendar  end = new GregorianCalendar(2018,11,10);
-		String x = "123";
-		System.out.println(x.substring(1, x.length()-1));
 
-		List<String> timeRange = getDataFormIds(begin, end);
+
+		Calendar  end = new GregorianCalendar(2018,11,12);
+		String x = "123";
+
+		List<String> timeRange = getDataFormIds(null, null);
 		System.out.println("no error");
 		System.out.println(getData(res, timeRange));
 	}
