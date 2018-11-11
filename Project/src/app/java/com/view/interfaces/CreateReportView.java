@@ -11,5 +11,5 @@ public interface CreateReportView {
 
     void invalidFields();
     
-    void sendReport(String report) throws FileNotFoundException;
+    String sendReport(String report) throws FileNotFoundException;
 }

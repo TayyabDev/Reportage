@@ -95,7 +95,7 @@ public class Report implements CreateReportView{
 	}
 
 	@Override
-	public void sendReport(String report) throws FileNotFoundException {
+	public String sendReport(String report) throws FileNotFoundException {
 		System.out.print(report);
 		String timeStamp, fileName;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -107,5 +107,6 @@ public class Report implements CreateReportView{
         sb.append(report);
         pw.write(sb.toString());
         pw.close();
+        return fileName;
 	}
 }
