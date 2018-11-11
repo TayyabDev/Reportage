@@ -55,7 +55,7 @@ public class CustomReport implements CustomReportView {
 
 
          scrollPanel = new JPanel(new GridLayout(0,1));
-         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please select some attributes."));
+         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please select attributes. Format is Template -- Attribute"));
 
 
          attrsComboBoxes = new ArrayList<>();
@@ -94,6 +94,7 @@ public class CustomReport implements CustomReportView {
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                search.setText("");
                 for(JCheckBox cb : results){
                     scrollPanel.add(cb);
 
@@ -128,17 +129,29 @@ public class CustomReport implements CustomReportView {
         fromText.setBounds(500, 470, 50,20);
         JTextField from = new JTextField();
         from.setToolTipText("MM/YYYY");
-        from.setBounds(500, 500, 50,20);
+        from.setBounds(500, 490, 50,20);
 
         JLabel toText = new JLabel("To");
         toText.setBounds(570, 470, 50,20);
         JTextField to = new JTextField();
         to.setToolTipText("MM/YYYY");
-        to.setBounds(570, 500, 50,20);
+        to.setBounds(570, 490, 50,20);
 
 
         JButton generate = UIHelpers.buttonGenerator("Generate");
         generate.setBounds(630, 470, 100,50);
+        generate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<String> attrs = new ArrayList<>();
+                for(JCheckBox cb : attrsComboBoxes){
+                    if(cb.isSelected()){
+                        attrs.add(cb.getText());
+                    }
+                }
+                presenter.createReport(attrs, from.getText(), to.getText());
+            }
+        });
 
          panel.add(scrollPane);
          panel.add(search);
@@ -200,9 +213,25 @@ public class CustomReport implements CustomReportView {
     }
 
     @Override
-    public void sendReport(String report) {
+    public void sendReport(HashMap<String, List<List<String>>> data) {
+        System.out.println(data);
+        String output = "";
+        /*String [] cols = (String []) data.keySet().toArray();
+
+        for(String col : cols){
+            output += col + ",";
+        }
+        output += "\n";
+
+        for(int i = 0; i < cols.length; i++){
+            for(int j = 0; j < data.get(cols[0]).size(); i++){
+
+            }
+        }*/
 
     }
+
+
 
     @Override
     public void fetchAttributes(List<String> attrs) {

@@ -36,7 +36,7 @@ public class Account implements CreateAccountView {
  		
 
 
- 		JButton back = UIHelpers.generateBackButton(50,50,50,50);
+ 		JButton back = UIHelpers.generateBackButton(0,0,50,50);
         panel.add(back);
 
         back.addActionListener(new ActionListener() {

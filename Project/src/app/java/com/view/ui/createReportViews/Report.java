@@ -31,7 +31,7 @@ public class Report implements CreateReportView{
     	presenter = new CreateReportPresenterImpl();
     	presenter.attachView(this);
 
-        JButton back = UIHelpers.generateBackButton(50,50,50,50);
+        JButton back = UIHelpers.generateBackButton(0,0,50,50);
         panel.add(back);
         back.addActionListener(new ActionListener() {
             @Override

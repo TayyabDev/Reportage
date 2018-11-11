@@ -13,9 +13,12 @@ public interface CustomReportView {
 
     void invalidFields();
 
-    void sendReport(String report);
+    void sendReport(HashMap<String, List<List<String>>> data);
 
     void fetchAttributes(List<String> attrs);
 
     void errorFetchingAttributes();
+
+
+
 }
