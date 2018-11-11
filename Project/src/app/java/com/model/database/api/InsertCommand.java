@@ -1,6 +1,5 @@
 package app.java.com.model.database.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.InsertException;
@@ -24,6 +23,11 @@ public class InsertCommand extends Command {
 	
 	@Override
 	public boolean handle() throws InsertException {
+		insertHandle();
+		return true;
+	}
+
+	public int insertHandle() throws InsertException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
@@ -31,10 +35,8 @@ public class InsertCommand extends Command {
 		try {
 			return runExecuteUpdate(sql);
 		} catch (Exception e) {
+		    e.printStackTrace();
 			throw new InsertException(tableName, formulatedData);
 		}
-		
 	}
-
-
 }

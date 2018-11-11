@@ -40,7 +40,7 @@ public class TemplateFileCsvImpl implements TemplateFileInterface {
 	}
 	
 	@Override
-	public Template getTemplateNameColumns() {
+	public Template getFileAsTemplate() {
 				
 		// csv files only have 1 sheet, so no need to ask for sheet
 		String temName = this.getTemplateName();

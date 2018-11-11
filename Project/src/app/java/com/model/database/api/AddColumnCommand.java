@@ -1,6 +1,5 @@
 package app.java.com.model.database.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.AlterException;
@@ -45,27 +44,9 @@ public class AddColumnCommand extends Command{
 			addColCommand = matchColsAndCons();
 			String sql = "alter table " + tableName + " "
 					+ addColCommand + ";";
-			System.out.print(sql);
 			return runExecute(sql);
 		} catch (Exception e) {
 			throw new AlterException(tableName, addColCommand);
 		}
 	}
-
-//	public static void main(String[] args) {
-//		String tableName = "test";
-//		List<String> newCols = new ArrayList<String>();
-//		newCols.add("middleName");
-//		newCols.add("age");
-//		List<String> constraints = new ArrayList<String>();
-//		constraints.add("varchar(255)");
-//		constraints.add("int");
-//		Command com = new AlterCommand(tableName, newCols, constraints);
-//		try {
-//			com.handle();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 }

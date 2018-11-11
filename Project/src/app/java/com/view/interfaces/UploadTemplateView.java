@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface UploadTemplateView {
 
-    void onSuccessTemplateCreated();
+    void onSuccessTemplateUploaded();
 
 
     boolean isFileValid(String filePath);
 
     void onErrorUploadingFile();
 
-    void onInCompatibleTemplateSelected();
+    void onCompatibleTemplateSelected(boolean compatible);
 
-    List<String> fillDropdownWithTemplateNames();
+    void fillDropdownWithTemplateNames(List<String> templateNames);
 
 }
