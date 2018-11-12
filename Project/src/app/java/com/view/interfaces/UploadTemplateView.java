@@ -6,6 +6,7 @@ public interface UploadTemplateView {
 
     void onSuccessTemplateUploaded();
 
+    void onErrorFetchingTemplateNames();
 
     boolean isFileValid(String filePath);
 

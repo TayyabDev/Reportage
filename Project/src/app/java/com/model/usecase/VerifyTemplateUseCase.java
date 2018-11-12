@@ -13,12 +13,12 @@ import java.util.List;
 public class VerifyTemplateUseCase extends UseCase {
 
     private VerifyTemplateResultInterface resultInterface;
-    private String filePath;
+    private TemplateFileInterface file;
     private String templateName;
 
-    public VerifyTemplateUseCase(VerifyTemplateResultInterface resultInterface, String filePath, String templateName) {
+    public VerifyTemplateUseCase(VerifyTemplateResultInterface resultInterface, TemplateFileInterface fileInterface, String templateName) {
         this.resultInterface = resultInterface;
-        this.filePath = filePath;
+        this.file = fileInterface;
         this.templateName = templateName;
     }
 
@@ -52,19 +52,7 @@ public class VerifyTemplateUseCase extends UseCase {
             e.printStackTrace();
         }
 
-        // Get the file from the file path
-        String formulatedFileName = filePath.replace("\\", "\\\\");
-        System.out.println(formulatedFileName);
-
-        TemplateFileInterface fileInterface = null;
-
-        if(FileTypeFinder.isCSVFile(formulatedFileName)) {
-            fileInterface = new TemplateFileCsvImpl(formulatedFileName);
-        } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName, 2);
-        }
-
-        List<String> selectedFileColumns = fileInterface.getColumnIds();
+        List<String> selectedFileColumns = file.getColumnIds();
 
         int adjustedTemplateColumns = selectedTemplateColumns.size() - 2;
         int templateColumnIndex = 2;
@@ -79,6 +67,7 @@ public class VerifyTemplateUseCase extends UseCase {
                 this.resultInterface.onTemplateSelectedCompatible(false);
                 return;
             }
+
             templateColumnIndex++;
         }
 

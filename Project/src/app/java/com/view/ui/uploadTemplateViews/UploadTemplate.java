@@ -169,4 +169,9 @@ public class UploadTemplate implements UploadTemplateView {
 	public void onSuccessTemplateUploaded() {
         showPopUpWithMessage("Template successfully uploaded", "Information");
 	}
+
+    @Override
+    public void onErrorFetchingTemplateNames() {
+        showPopUpWithMessage("Error fetching Templates", "Alert");
+    }
 }

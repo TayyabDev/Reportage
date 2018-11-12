@@ -1,14 +1,14 @@
 package test.java.com.model.utilities;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
 
 import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TemplateFileCsvTest {
@@ -34,7 +34,7 @@ public class TemplateFileCsvTest {
 		String result = csvFile1.getTableName();
 		assertEquals(file1Name, result);
 	}
-	
+
 	@Test
 	public void testGetName2() {
 		TemplateFileInterface csvFile2 = new TemplateFileCsvImpl(file2);

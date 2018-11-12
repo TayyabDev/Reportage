@@ -4,9 +4,6 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
-import app.java.com.model.utilities.FileTypeFinder;
-import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
-import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import java.util.ArrayList;
@@ -15,18 +12,17 @@ import java.util.List;
 
 public class UploadTemplateUseCase extends UseCase {
 
-    private String templateFilePath;
+    private TemplateFileInterface fileInterface;
     private String templateName;
     private UploadTemplateResultInterface resultInterface;
     private Date dateSelected;
-    private static final int SHEET_NUMBER = 2;
-    private static final String CLIENTDATAFORMCOLUMN = "clientDataFormId";
+    private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";
 
     public UploadTemplateUseCase(UploadTemplateResultInterface resultInterface, Date date, String templateName,
-                                 String templateFilePath) {
+                                 TemplateFileInterface file) {
         this.resultInterface = resultInterface;
         this.dateSelected = date;
-        this.templateFilePath = templateFilePath;
+        this.fileInterface = file;
         this.templateName = templateName;
     }
 
@@ -39,17 +35,9 @@ public class UploadTemplateUseCase extends UseCase {
 
         // Now add this to the insert command since the template has a clientIdForm column
 
-        String formulatedFileName = templateFilePath.replace("\\", "\\\\");
-        System.out.println(formulatedFileName);
-        TemplateFileInterface exc;
-        if (FileTypeFinder.isCSVFile(formulatedFileName)){
-        	exc = new TemplateFileCsvImpl(formulatedFileName);
-        } else {
-        	exc = new TemplateFileExcelImpl(formulatedFileName, SHEET_NUMBER);
-        }
 
         // Verify template matches the chosen template's format
-        List<Exception> errorList = insertAllRows(exc, clientFormId);
+        List<Exception> errorList = insertAllRows(fileInterface, clientFormId);
 
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
@@ -70,7 +58,7 @@ public class UploadTemplateUseCase extends UseCase {
     private List<Exception> insertAllRows(TemplateFileInterface exc, int clientDataFormId) {
     	// Upload the template into the database using insert command
         List<String> columnIds = exc.getColumnIds();
-        columnIds.add(0, CLIENTDATAFORMCOLUMN);
+        columnIds.add(0, CLIENT_DATA_FORM_ID);
         List<String> row = null;
         // get the tableName in the database
         String templateName = exc.getTableName();

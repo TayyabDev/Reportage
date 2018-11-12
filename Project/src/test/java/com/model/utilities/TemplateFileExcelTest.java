@@ -1,14 +1,14 @@
 package test.java.com.model.utilities;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
 
 import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TemplateFileExcelTest {

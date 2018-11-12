@@ -9,7 +9,7 @@ import java.util.List;
 public class FetchTemplateNamesUseCase extends UseCase {
 
     public final String tableName = "Template";
-    public final List<String> columnName = new ArrayList<String>();
+    public final List<String> columnName = new ArrayList<>();
     FetchTemplateNamesResultInterface resultInterface;
 
     public FetchTemplateNamesUseCase(FetchTemplateNamesResultInterface resultInterface) {
@@ -32,8 +32,7 @@ public class FetchTemplateNamesUseCase extends UseCase {
 		SelectCommand command = new SelectCommand(columnName, tableName);
 		List<List<String>> templateNames = command.selectHandle();
 		List<String> formulatedTemplateNames = new ArrayList<>();
-        System.out.println("Printing stuff here");
-        System.out.println(templateNames);
+
 		for (List<String> template : templateNames) {
  			formulatedTemplateNames.add(template.get(0));
 		}

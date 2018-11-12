@@ -6,21 +6,21 @@ import java.util.List;
 public class MockTemplate extends Template {
     @Override
     public String getTemplateName() {
-        return MockFile.TEMPLATE_NAME;
+        return ClientProfileMockFile.TEMPLATE_NAME;
     }
 
     @Override
     public List<String> getColumnNames() {
-        return MockFile.COLUMN_NAMES;
+        return ClientProfileMockFile.COLUMN_NAMES;
     }
 
     @Override
     public List<String> getColumnIds() {
-        return MockFile.COLUMN_IDS;
+        return ClientProfileMockFile.COLUMN_IDS;
     }
 
     @Override
     public String getTableName() {
-        return MockFile.TABLE_NAME;
+        return ClientProfileMockFile.TABLE_NAME;
     }
 }

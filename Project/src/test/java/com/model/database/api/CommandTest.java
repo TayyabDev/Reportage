@@ -1,12 +1,5 @@
 package test.java.com.model.database.api;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.AddColumnCommand;
 import app.java.com.model.database.api.Command;
@@ -14,6 +7,12 @@ import app.java.com.model.database.api.CreateCommand;
 import app.java.com.model.database.api.DropCommand;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * functio testing
