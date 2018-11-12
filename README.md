@@ -19,9 +19,9 @@ Apache Commons Compress - https://commons.apache.org/proper/commons-compress/dow
 - download the latest binaries
 
 MYSQL Connector Java - https://dev.mysql.com/downloads/connector/j/8.0.html
-- select 'Platform Independent' under 'Select Operating System'
-- press 'Download' next to 'Platform Independent (Architecture Independent), Compressed TAR Archive'
-- press 'No, just start my download'
+- select 'Platform Independent' under 'Select Operating System'.
+- press 'Download' next to 'Platform Independent (Architecture Independent), Compressed TAR Archive'.
+- press 'No, just start my download'.
 
 JCalendar - https://toedter.com/jcalendar/
 - download latest version
@@ -35,23 +35,16 @@ Libraries Preview:
 
 2. Either using workbench directly. (if prefer using command line, go to 3)
   
-  Create a new connection using:
-  
-  Hostname: mathlab.utsc.utoronto,ca
-  
-  Port: 3306
-  
-  Username: linjun9
-  
-  Password: linjun9
-  
-  Using the cscc43s18_linjun9 database
+  - Create a new connection using: 
+  - Hostname: mathlab.utsc.utoronto.ca
+  - Port: 3306
+  - Username: linjun9
+  - Password: linjun9
+  - Using the cscc43s18_linjun9 database
  
-3. Run the following commands:  
-  
-  mysql -u linjun9 -h mathlab.utsc.utoronto.ca -p linjun9
-  
-  use cscc43s18_linjun9;
+3. Run the following commands:
+  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -p linjun9
+  - use cscc43s18_linjun9;
 
 
 ## Deliverable 4 - November 12th, 2018
