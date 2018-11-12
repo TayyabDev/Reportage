@@ -13,6 +13,18 @@ import app.java.com.presenter.interfaces.FetchAttributeNamesResultInterface;
 public class FetchAttributeNamesUseCase extends UseCase{
 
     private FetchAttributeNamesResultInterface resultInterface;
+    // in VariableName Table, there are 3 columns
+ 	//variableName(name in database), realName(name in file), templateName(name in file)
+ 	private final String variableNameTable = "VariableName";
+ 	private final String variableNameCol = "variableName";
+ 	private final String realName = "realName";
+ 	private final String templateNameCol = "templateName";
+ 	
+ 	// in Template table
+ 	// templateName(name in file), tableName(name in database)
+ 	private final String templateTable = "Template";
+ 	private final String tableNameCol = "tableName";
+ 	
     public FetchAttributeNamesUseCase(FetchAttributeNamesResultInterface resultInterface){
         this.resultInterface = resultInterface;
     }
@@ -33,11 +45,11 @@ public class FetchAttributeNamesUseCase extends UseCase{
     /*
      * get the list of template table name in the database
      */
-    public static List<String> fetchTemplateTableName() throws SelectException {
+    public List<String> fetchTemplateTableName() throws SelectException {
         List<String> target = new ArrayList<String>();
 
-        target.add("tableName");
-        SelectCommand fetchTemplateTableNameComm = new SelectCommand(target, "Template");
+        target.add(tableNameCol);
+        SelectCommand fetchTemplateTableNameComm = new SelectCommand(target, templateTable);
         List<String> templateTableNames = fetchTemplateTableNameComm.selectHandleSingle();
         return templateTableNames;
     }
@@ -45,7 +57,7 @@ public class FetchAttributeNamesUseCase extends UseCase{
     /*
      * get the attributes names for each of the template table in the database
      */
-    public static List<String> fetchAttributeNames(List<String> tableNames) throws SelectException {
+    public List<String> fetchAttributeNames(List<String> tableNames) throws SelectException {
         List<String> allAttributeNames = new ArrayList<String>();
         for (String tableName : tableNames) {
             SelectCommand getAttributeComm = new SelectCommand(tableName);
@@ -61,21 +73,22 @@ public class FetchAttributeNamesUseCase extends UseCase{
         // need to get the real name for the user not the database ids
         for (String id : allAttributeNames) {
             List<String> target = new ArrayList<>();
-            target.add("realName");
+            target.add(realName);
             List<String> constraint = new ArrayList<>();
-            constraint.add("`variableName` = \'`" + id+ "`\'");
-            SelectCommand getRealNameComm = new SelectCommand(target, "VariableName", constraint);
+            constraint.add("`"+variableNameCol+"` = \'`" + id+ "`\'");
+            SelectCommand getRealNameComm = new SelectCommand(target, variableNameTable, constraint);
             List<String> realNames = getRealNameComm.selectHandleSingle();
             formulatedRealNames.addAll(realNames);
         }
         return formulatedRealNames;
     }
 
-    public static List<String> fetchAttributeNames() throws SelectException {
+    public List<String> fetchAttributeNames() throws SelectException {
         List<String> target = new ArrayList<>();
-        target.add("templateName");
-        target.add("realName");
-        SelectCommand fetchAttrComm = new SelectCommand(target, "VariableName");
+        target.add(templateNameCol);
+        target.add(realName);
+        String orderVariableNameTale = variableNameTable + " order by variableNameId";
+        SelectCommand fetchAttrComm = new SelectCommand(target, orderVariableNameTale);
         List<List<String>> res = fetchAttrComm.selectHandle();
         List<String> formulatedRes = new ArrayList<String>();
         for (List<String> row : res) {
@@ -110,13 +123,4 @@ public class FetchAttributeNamesUseCase extends UseCase{
         }
         return formulatedRes;
     }*/
-
-
-
-    public static void main(String[] agv) throws SelectException {
-//		List<String> tableNames = fetchTemplateTableName();
-        List<String> attrNames = fetchAttributeNames();
-
-        System.out.println(attrNames);
-    }
 }

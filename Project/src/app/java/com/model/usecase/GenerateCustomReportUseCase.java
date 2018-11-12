@@ -13,6 +13,24 @@ public class GenerateCustomReportUseCase extends UseCase{
     private Calendar begin;
     private Calendar end;
     CustomReportResultInterface resultInterface;
+    
+    // in VariableName Table, there are 3 columns
+  	//variableName(name in database), realName(name in file), templateName(name in file)
+  	private final String variableNameTable = "VariableName";
+  	private final String variableNameCol = "variableName";
+  	private final String realNameCol = "realName";
+  	private final String templateNameCol = "templateName";
+  	
+  	// in Template table
+  	// templateName(name in file), tableName(name in database)
+  	private final String templateTable = "Template";
+  	private final String tableNameCol = "tableName";
+  	
+  	// in ClientDataForm table
+   	// year, month
+  	private final String clientDataFormTable = "ClientDataForm";
+   	private final String yearCol = "year";
+   	private final String monthCol = "month";
 
     public GenerateCustomReportUseCase(CustomReportResultInterface resultInterface, HashMap<String, List<String>> templateRealNameMap, Calendar begin, Calendar end) {
         this.resultInterface = resultInterface;
@@ -42,12 +60,12 @@ public class GenerateCustomReportUseCase extends UseCase{
     /*
      * find the corresponding tableName given templateName
      */
-    public static String getTableName(String templateName) throws SelectException {
+    public String getTableName(String templateName) throws SelectException {
         List<String> getTableNameCommTar = new ArrayList<>();
-        getTableNameCommTar.add("tableName");
+        getTableNameCommTar.add(tableNameCol);
         List<String> getTableNameCommCons = new ArrayList<>();
-        getTableNameCommCons.add("templateName = \'" + templateName + "\'");
-        SelectCommand getTableNameComm = new SelectCommand(getTableNameCommTar, "Template", getTableNameCommCons);
+        getTableNameCommCons.add(templateNameCol + " = \'" + templateName + "\'");
+        SelectCommand getTableNameComm = new SelectCommand(getTableNameCommTar, templateTable, getTableNameCommCons);
         List<String> tableNameList = getTableNameComm.selectHandleSingle();
 
         if (tableNameList.size() == 1) {
@@ -61,18 +79,18 @@ public class GenerateCustomReportUseCase extends UseCase{
     /*
      * get the corresponding varNames in a list given the template Name and a list of realNames
      */
-    public static List<String> getVarNames(String templateName, List<String> realNames) throws SelectException {
+    public List<String> getVarNames(String templateName, List<String> realNames) throws SelectException {
         // get the corresponding varNames
         List<String> varNames = new ArrayList<>();
 
         List<String> getVariableCommTar = new ArrayList<String>();
-        getVariableCommTar.add("variableName");
+        getVariableCommTar.add(variableNameCol);
 
         for (String realName : realNames) {
             List<String> getVarNameCommCons = new ArrayList<>();
-            getVarNameCommCons.add("templateName = \'" + templateName + "\'");
-            getVarNameCommCons.add("realName = \'" + realName + "\'");
-            SelectCommand getVarNameComm = new SelectCommand(getVariableCommTar, "VariableName", getVarNameCommCons);
+            getVarNameCommCons.add(templateNameCol+ " = \'" + templateName + "\'");
+            getVarNameCommCons.add(realNameCol + " = \'" + realName + "\'");
+            SelectCommand getVarNameComm = new SelectCommand(getVariableCommTar, variableNameTable, getVarNameCommCons);
             List<String>  varNameList = getVarNameComm.selectHandleSingle();
             if (varNameList.size() != 1) {
                 // should never goto here, unless power off etc during the the program is running
@@ -87,12 +105,12 @@ public class GenerateCustomReportUseCase extends UseCase{
     /*
      * get the {tableName:[id]} used in the database given the {templateName: [realName]}
      */
-    public static HashMap<String, List<String>> getTableVariableMap(HashMap<String, List<String>> templateRealNameMap) throws SelectException {
+    public HashMap<String, List<String>> getTableVariableMap(HashMap<String, List<String>> templateRealNameMap) throws SelectException {
 
         HashMap<String, List<String>> tableVariableMap = new HashMap<>();
 
         List<String> getVariableCommTar = new ArrayList<String>();
-        getVariableCommTar.add("variableName");
+        getVariableCommTar.add(variableNameCol);
 
         for (String templateName : templateRealNameMap.keySet()) {
             // get the corresponding tableName
@@ -126,7 +144,7 @@ public class GenerateCustomReportUseCase extends UseCase{
     /*
      * get the ClientDataFormId given the time range
      */
-    public static List<String> getDataFormIds(Calendar begin, Calendar end) throws SelectException {
+    public List<String> getDataFormIds(Calendar begin, Calendar end) throws SelectException {
         // select id from ClientDataForm where year = year and month = month
         List<String> tar = new ArrayList<>();
         tar.add("clientDataFormId");
@@ -138,8 +156,8 @@ public class GenerateCustomReportUseCase extends UseCase{
         if(beginStr == null || endStr == null){
             return null;
         }
-        constraints.add("concat(year, '-', month, '-', '01') between "+ beginStr+ " and "+ endStr);
-        SelectCommand getDataFormIdsComm = new SelectCommand(tar, "ClientDataForm", constraints);
+        constraints.add("concat("+yearCol+", '-', "+monthCol+", '-', '01') between "+ beginStr+ " and "+ endStr);
+        SelectCommand getDataFormIdsComm = new SelectCommand(tar, clientDataFormTable, constraints);
         List<String> dataFormIds = getDataFormIdsComm.selectHandleSingle();
         return dataFormIds;
 
@@ -193,28 +211,4 @@ public class GenerateCustomReportUseCase extends UseCase{
         return results;
 
     }
-
-    	public static void main(String[] argv) throws SelectException {
-		List<String> cp = new ArrayList<>();
-		List<String> cc = new ArrayList<>();
-		cc.add("Referred By");
-		cc.add("Child 5: Type of Care");
-
-		cp.add("City");
-
-		HashMap<String, List<String>> lis = new HashMap<>();
-		lis.put("Community Connections", cc);
-		lis.put("Client Profile", cp);
-		HashMap<String, List<String>> res = getTableVariableMap(lis);
-            System.out.println(res);
-		Calendar  begin = new GregorianCalendar(2010, 9, 26);
-
-
-		Calendar  end = new GregorianCalendar(2018,11,12);
-		String x = "123";
-
-		List<String> timeRange = getDataFormIds(null, null);
-		System.out.println("no error");
-		System.out.println(getData(res, timeRange));
-	}
 }

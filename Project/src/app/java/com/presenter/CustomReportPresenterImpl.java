@@ -34,8 +34,8 @@ public class CustomReportPresenterImpl implements CustomReportPresenter, CustomR
 
             HashMap<String, List<String>> templateRealNameMap = new HashMap<>();
             for(String curr : attributes){
-                String template = curr.split("--")[0].strip();
-                String attr = curr.split("--")[1].strip();
+                String template = curr.split("--")[0].trim();
+                String attr = curr.split("--")[1].trim();
                 if(!templateRealNameMap.containsKey(template)){
                     templateRealNameMap.put(template, new ArrayList<>(Arrays.asList(attr)));
                 } else {
