@@ -83,6 +83,7 @@ public class Login implements LoginView {
 	        frame.setVisible(true);
 			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			frame.setLocationRelativeTo(null);
+			frame.setResizable(false);
 			UIHelpers.setLook();
 
 

@@ -1,12 +1,13 @@
 package app.java.com.model.database.api;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import app.java.com.model.Exceptions.SelectException;
 
@@ -17,7 +18,7 @@ public class SelectCommand extends Command {
 	private List<String> constraints;
 	private HashMap<String, String> IdConstraint;
 	private List<String> ids;
-	
+
 	public SelectCommand() {}
 	/*
 	 * constructor used when want to execute
@@ -26,9 +27,9 @@ public class SelectCommand extends Command {
 	public SelectCommand(String tableName) {
 		this.target = new ArrayList<String>();
 		this.tableName = tableName;
-		this.constraints = new ArrayList<String>();
+		this.constraints = new ArrayList<>();
 	}
-	
+
 	/*
 	 * constructor used when want to execute
 	 * select * from tableName where constraints;
@@ -38,7 +39,10 @@ public class SelectCommand extends Command {
 		this.tableName = tableName;
 		this.constraints = constraint;
 	}
-	
+
+	/*
+	 * select tar1,tar2,... from tableName;
+	 */
 	public SelectCommand(List<String> target, String tableName) {
 		this.tableName = tableName;
 		this.target = target;
@@ -53,7 +57,7 @@ public class SelectCommand extends Command {
 		this.tableName = tableName;
 		this.constraints = constraint;
 	}
-	
+
 	/*
 	 * set a list of columnId from the given tableName
 	 */
@@ -78,14 +82,14 @@ public class SelectCommand extends Command {
 			throw new SelectException(tableName);
 		}
 	}
-	
+
 	public List<String> getColumnIds() throws SelectException {
 		if (this.ids == null) {
 			this.setColumnIds();
 		}
 		return this.ids;
 	}
-	
+
 	/*
 	 * get a list of columnConstraint given the tableName
 	 */
@@ -105,17 +109,17 @@ public class SelectCommand extends Command {
 			}
 			st.close();
 			conn.close();
-			
+
 			return constraints;
 		} catch (Exception e) {
 			throw new SelectException(tableName);
 		}
 	}
-	
-	
+
+
 	/*
 	 * no need to set the IdConstraintMap every time we use the select command
-	 * but if we need to 
+	 * but if we need to
 	 */
 	public void setIdConstraintMap() throws SelectException {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -127,7 +131,7 @@ public class SelectCommand extends Command {
 		}
 		this.IdConstraint = map;
 	}
-	
+
 	public HashMap<String, String> getIdConstraintMap() {
 		if (this.IdConstraint == null) {
 			try {
@@ -139,7 +143,47 @@ public class SelectCommand extends Command {
 		}
 		return this.IdConstraint;
 	}
-	
+
+	public List<String> selectHandleSingle() throws SelectException {
+		if (!(this.target.size() == 1)) {
+			throw new SelectException();
+		}
+		List<String> res = new ArrayList<>();
+		String id = this.target.get(0);
+		String sqlNoConstraint = "select " + id + " from " + tableName + ";";
+		String sqlWithConstraint = "";
+		try{
+			Connection conn = ConnectDatabase.connect();;
+			Statement st= conn.createStatement();
+			ResultSet rs;
+			if (this.constraints.isEmpty()) {
+				rs = st.executeQuery(sqlNoConstraint);
+			} else {
+				sqlWithConstraint = "select " + id + " from " + tableName + " where ";
+				for(int index = 0; index < constraints.size() - 1; index++) {
+					sqlWithConstraint += constraints.get(index) + " AND ";
+				}
+				if (constraints.size() > 0) {
+					sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+				}
+				rs = st.executeQuery(sqlWithConstraint);
+
+			}
+			while (rs.next()) {
+				String val = rs.getString(id);
+				res.add(val);
+			}
+			st.close();// select name,apsw rd from account where userName = .. AND
+			conn.close();
+		} catch (Exception e) {
+			if (constraints.isEmpty()) {
+				throw new SelectException(sqlNoConstraint);
+			} else {
+				throw new SelectException(sqlWithConstraint);
+			}
+		}
+		return res;
+	}
 	/*
 	 * return [ [1st row], [2nd row], ...]
 	 * given the target, tableName, constraints
@@ -159,22 +203,19 @@ public class SelectCommand extends Command {
 					throw new SelectException(tableName);
 				}
 			}
-			
+
 			String formulatedIds = formulateIds(target);
 			formulatedTarget = formulatedIds.substring(1, formulatedIds.length()-1);
 		}
 
-//		System.out.println("Hey here after");
-		
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;
 		String sqlWithConstraint = sqlNoConstraint + " where ";
-		
-		for (int index = 0; index < constraints.size() - 1; index++) {
-		    sqlWithConstraint += constraints.get(index) + " AND ";
-        }
-		
+
+		for(int index = 0; index < constraints.size() - 1; index++) {
+			sqlWithConstraint += constraints.get(index) + " AND ";
+		}
 		if (constraints.size() > 0) {
-	        sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
+			sqlWithConstraint += constraints.get(constraints.size() - 1) + ";";
 		}
 		Connection conn;
 		List<List<String>> data = new ArrayList<List<String>>();
@@ -192,14 +233,14 @@ public class SelectCommand extends Command {
 				for (String tar : target) {
 					String val = rs.getString(tar);
 					row.add(val);
+
 				}
 				data.add(row);
 			}
-			st.close();
+			st.close();// select name,apsw rd from account where userName = .. AND
 			conn.close();
 			return data;
 		} catch (Exception e) {
-			e.printStackTrace();
 			if (constraints.isEmpty()) {
 				throw new SelectException(sqlNoConstraint);
 			} else {
@@ -207,7 +248,7 @@ public class SelectCommand extends Command {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean handle() throws SelectException {
 		selectHandle();

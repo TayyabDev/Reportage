@@ -1,9 +1,6 @@
 package app.java.com.view.ui.viewUserDataViews;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +33,8 @@ public class UserData implements CreateUserDataView{
 	private JTextField tfTarget;
 	private JTextField tfConstraint;
 	private JTable tbData;
+	private JScrollPane scrollPane;
+	private JPanel scrollPanel;
 	
 	private FetchUserDataPresenter presenter;
 	
@@ -51,7 +50,7 @@ public class UserData implements CreateUserDataView{
 		lTitle.setBounds(390, 20, 400, 40);
 		panel.add(lTitle);
 		
-		JButton back = UIHelpers.generateBackButton(50,50,50,50);
+		JButton back = UIHelpers.generateBackButton(0,0,50,50);
 		panel.add(back);
 		back.addActionListener(new ActionListener() {
 		    @Override
@@ -59,7 +58,14 @@ public class UserData implements CreateUserDataView{
 		    	Dashboard d = new Dashboard(frame, false);
 		    }
 		});
-		
+		tbData = new JTable();
+		scrollPanel = new JPanel();
+		scrollPanel.add(tbData);
+
+		scrollPane = new JScrollPane(scrollPanel);
+		scrollPane.setBounds(0,150,frame.getWidth(),frame.getHeight() - 190);
+		panel.add(scrollPane);
+
 		cbTemplates = new JComboBox();
 		cbTemplates.setBounds(120, 80, 200, 25);
 		panel.add(cbTemplates);
@@ -99,6 +105,7 @@ public class UserData implements CreateUserDataView{
 			List<String> target = new ArrayList<String>();
 			List<String> constraint = new ArrayList<String>();			
 			presenter.fetchUserDataWithSelection(target, templateName, constraint);
+			panel.revalidate();
         });
 		panel.add(btnSelect);
 		
@@ -126,13 +133,12 @@ public class UserData implements CreateUserDataView{
 				return false;
 			}
 		};
-		tbData.setBounds(100, 150, 800, 250);
-		tbData.setVisible(true);
+        System.out.println("here");
 		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		panel.add(new JScrollPane(tbData, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-		panel.add(tbData);
-		
-		JOptionPane.showMessageDialog(null, "There is a bug where data isn't shown.\nClose popup and click the centre area\nfor data table to appear.");
+        scrollPanel.add(tbData);
+		scrollPane.revalidate();
+		panel.revalidate();
+
 	}
 
 	@Override
