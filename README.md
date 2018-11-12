@@ -1,15 +1,24 @@
 # Team11
 
-## Required Libraries
+## Running Instructions
 
-Please download the following libraries and add them to your project:
+1. Create 'lib' directory under Team11/Project/ 
+2. Please download the libraries at the links below and extract all of them into the lib directory
+3. Run 'maven compile'
+4. Run **_INSERT CLASS NAME HERE_**
+
+### Required Libraries
 
 Apache POI - https://poi.apache.org/download.html#POI-4.0.0
+- download the latest binary distribution
 
-Apache Commons Compress - https://commons.apache.org/proper/commons-compress/
+Apache Commons Compress - https://commons.apache.org/proper/commons-compress/download_compress.cgi
+- download the latest binaries
 
 MYSQL Connector Java - https://dev.mysql.com/downloads/connector/j/8.0.html
-
+- select 'Platform Independent' under 'Select Operating System'
+- press 'Download' next to 'Platform Independent (Architecture Independent), Compressed TAR Archive'
+- press 'No, just start my download'
 
 ## Deliverable 3 - October 29th, 2018
 
