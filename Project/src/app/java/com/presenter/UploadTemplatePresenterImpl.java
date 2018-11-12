@@ -48,7 +48,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 
 	@Override
 	public void onSuccessFetchingNames(List<String> names) throws SelectException {
-        System.out.println("names");
+        System.out.println("Fetching Names Successful");
 		this.view.fillDropdownWithTemplateNames(names);
 	}
 

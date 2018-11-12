@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface FetchUserDataResultInterface {
 
-	void onSuccessSelectTable(List<List<String>> data);
+	void onSuccessSelectTable(List<String> columns, List<List<String>> data);
 	
 	void onErrorSelectTable(String message);
 

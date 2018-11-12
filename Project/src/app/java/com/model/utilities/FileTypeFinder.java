@@ -9,7 +9,8 @@ public class FileTypeFinder {
      */
     public static boolean isCSVFile(String filePath) {
 
-        System.out.println(filePath);
+        System.out.println("Checking if is a CSV file: " + filePath);
+        
         String fileCSVEnding = filePath.substring(filePath.length() - 3);
 
         if (fileCSVEnding.equals("csv")) {

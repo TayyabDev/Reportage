@@ -37,7 +37,7 @@ public class VerifyTemplateUseCase extends UseCase {
         try {
             resultSet = tableNameCommand.selectHandle();
         } catch (SelectException e) {
-            System.out.println("Hey Error message");
+            System.out.println("Error when selecting: " + columnList.toString() + "`Template`" + constraints.toString());
         }
 
         SelectCommand command = new SelectCommand(resultSet.get(0).get(0));

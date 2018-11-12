@@ -32,12 +32,9 @@ public class FetchTemplateNamesUseCase extends UseCase {
 		SelectCommand command = new SelectCommand(columnName, tableName);
 		List<List<String>> templateNames = command.selectHandle();
 		List<String> formulatedTemplateNames = new ArrayList<>();
-        System.out.println("Printing stuff here");
-        System.out.println(templateNames);
 		for (List<String> template : templateNames) {
  			formulatedTemplateNames.add(template.get(0));
 		}
-
 		return formulatedTemplateNames;
 	}
 }

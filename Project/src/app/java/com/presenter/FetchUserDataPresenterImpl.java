@@ -2,17 +2,20 @@ package app.java.com.presenter;
 
 import java.util.List;
 
+import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.FetchUserDataUseCase;
+import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
-import app.java.com.view.interfaces.ViewUserDataView;
+import app.java.com.view.interfaces.CreateUserDataView;
 
 public class FetchUserDataPresenterImpl
-		implements FetchUserDataPresenter, FetchUserDataResultInterface {
+		implements FetchUserDataPresenter, FetchUserDataResultInterface, FetchTemplateNamesResultInterface {
 
-	private ViewUserDataView view;
+	private CreateUserDataView view;
 	
-	public FetchUserDataPresenterImpl(ViewUserDataView view) {
+	public FetchUserDataPresenterImpl(CreateUserDataView view) {
 		this.view = view;
 	} 
 	
@@ -20,12 +23,16 @@ public class FetchUserDataPresenterImpl
 	public void fetchUserDataWithSelection(List<String> target, String tableName, List<String> constraint) {
 		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, target, tableName, constraint);
 		useCase.run();
-
+	}
+	
+	public void fetchTemplateNames() {
+		FetchTemplateNamesUseCase useCase = new FetchTemplateNamesUseCase(this);
+		useCase.run();
 	}
 
 	@Override
-	public void onSuccessSelectTable(List<List<String>> data) {
-		this.view.displayData(data);
+	public void onSuccessSelectTable(List<String> columns, List<List<String>> data) {
+		this.view.displayData(columns, data);
 	}
 
 	@Override
@@ -35,7 +42,7 @@ public class FetchUserDataPresenterImpl
 	}
 
 	@Override
-	public void attachView(ViewUserDataView view) {
+	public void attachView(CreateUserDataView view) {
 		this.view = view;
 	}
 
@@ -43,5 +50,18 @@ public class FetchUserDataPresenterImpl
 	public void unbindView() {
 		this.view = null;
 	}
+
+	@Override
+	public void onSuccessFetchingNames(List<String> names) throws SelectException {
+		view.fillDropdownWithTemplateNames(names);
+		
+	}
+
+	@Override
+	public String onErrorFetchingNames(String errorMessage) {
+		view.invalidQuery(errorMessage);
+		return null;
+	}
+
 
 }
