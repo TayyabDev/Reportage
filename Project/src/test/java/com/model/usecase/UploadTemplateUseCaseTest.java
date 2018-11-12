@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import test.java.com.model.utilities.ClientProfileMockFile;
 import test.java.com.model.utilities.MockTemplate;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface {
 
     private static final String TEMPLATE_NAME = "Client Profile";
@@ -29,9 +31,11 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
     @Test
     public void testUploadTemplateUseCaseUsingNormalMockFile() {
 
-        UseCase useCase = new UploadTemplateUseCase(this, new Date(2018, 11, 12),
+        UseCase useCase = new UploadTemplateUseCase(this, new Date(118, 10, 12),
                                             TEMPLATE_NAME, new ClientProfileMockFile(new MockTemplate()));
 
         useCase.run();
+
+        assertTrue(testResult);
     }
 }

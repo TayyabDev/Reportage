@@ -1,11 +1,10 @@
 package test.java.com.model.database.api;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.SelectCommand;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RunQueryCommandTest {
 	Command cmd = new SelectCommand();

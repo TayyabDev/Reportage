@@ -58,9 +58,8 @@ public class FetchUserDataPresenterImpl
 	}
 
 	@Override
-	public String onErrorFetchingNames(String errorMessage) {
+	public void onErrorFetchingNames(String errorMessage) {
 		view.invalidQuery(errorMessage);
-		return null;
 	}
 
 

@@ -11,12 +11,12 @@ public class MockTemplate extends Template {
 
     @Override
     public List<String> getColumnNames() {
-        return ClientProfileMockFile.COLUMN_NAMES;
+        return ClientProfileMockFile.columnNames;
     }
 
     @Override
     public List<String> getColumnIds() {
-        return ClientProfileMockFile.COLUMN_IDS;
+        return ClientProfileMockFile.columnIds;
     }
 
     @Override

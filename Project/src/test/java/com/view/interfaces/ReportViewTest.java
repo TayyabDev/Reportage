@@ -1,6 +1,8 @@
 package test.java.com.view.interfaces;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
@@ -8,8 +10,8 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 
-import org.junit.Test;
 import app.java.com.view.ui.createReportViews.Report;
+import org.junit.jupiter.api.Test;
 
 public class ReportViewTest {
 	Report reportTest = new Report(new JFrame());

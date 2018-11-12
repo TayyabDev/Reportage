@@ -30,7 +30,7 @@ public class UploadTemplateUseCase extends UseCase {
     public void run() {
 
         // Get the clientFormId after uploading it to the database
-        int clientFormId = insertClientDataForm(dateSelected, templateName);
+        int clientFormId = insertClientDataForm(templateName);
         System.out.println(clientFormId + " is the formId");
 
         // Now add this to the insert command since the template has a clientIdForm column
@@ -79,7 +79,7 @@ public class UploadTemplateUseCase extends UseCase {
         return errorList;
     }
 
-    private int insertClientDataForm(Date date, String templateSelected) {
+    private int insertClientDataForm(String templateSelected) {
 
         // Get the templateId using the templateSelected
 
