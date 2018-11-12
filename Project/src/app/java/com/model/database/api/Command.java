@@ -2,6 +2,8 @@ package app.java.com.model.database.api;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+
 import java.sql.Statement;
 import java.util.List;
 
@@ -84,15 +86,41 @@ public abstract class Command {
 	/*
 	 * select all the data under the columnId and satisfies the specific constraint
 	 */
-	public static ResultSet RunExecuteQuery(String sql) throws Exception {
+	public static String runExecuteQuery(String sql) throws Exception {
 		Connection conn;
+        String report = "";
+        int column = 0;
+        
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
+		ResultSetMetaData rsmd = rs.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        
+        // Get the column name
+		for (int i = 1; i <= columnsNumber; i++) {
+			String name = rsmd.getColumnName(i);
+			report += name;
+			report += ",";
+		}
+		report = report.substring(0, report.length()-1);
+    	report += "\n";
+        
+		// Get column values
+        while (rs.next()) {
+        	while (column < columnsNumber) {
+        		report += rs.getString(column + 1);
+        		report += ",";
+        		column++;
+        	}
+        	report = report.substring(0, report.length()-1);
+        	report += "\n";
+        	column = 0;
+        }
 		
-//		st.close();
-//		conn.close();
-		return rs;
+		st.close();
+		conn.close();
+		return report;
 		
 	}
 }
