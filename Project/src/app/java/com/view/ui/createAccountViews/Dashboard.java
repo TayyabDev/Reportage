@@ -102,6 +102,7 @@ public class Dashboard {
             this.frame.setVisible(true);
             this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             this.frame.setLocationRelativeTo(null);
+            this.frame.setResizable(false);
             UIHelpers.setLook();
         }
         else{
