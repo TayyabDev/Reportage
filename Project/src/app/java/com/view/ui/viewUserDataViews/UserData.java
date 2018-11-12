@@ -136,6 +136,7 @@ public class UserData implements CreateUserDataView{
 			}	
 		};
 		//tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPanel.removeAll();
         scrollPanel.add(tbData);
 		scrollPane.revalidate();
 		panel.revalidate();
