@@ -51,7 +51,7 @@ public class UserData implements CreateUserDataView{
 		lTitle.setBounds(390, 20, 400, 40);
 		panel.add(lTitle);
 		
-		JButton back = UIHelpers.generateBackButton(50,50,50,50);
+		JButton back = UIHelpers.generateBackButton(0,0,50,50);
 		panel.add(back);
 		back.addActionListener(new ActionListener() {
 		    @Override
