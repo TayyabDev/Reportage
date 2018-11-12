@@ -91,6 +91,9 @@ public class Report implements CreateReportView{
 		if (query.startsWith("SELECT")) {
 			valid = true;
 		}
+		if (query.startsWith("select")) {
+			valid = true;
+		}
 		return valid;
 	}
 
