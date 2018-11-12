@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -123,18 +124,18 @@ public class UserData implements CreateUserDataView{
 	public void displayData(List<String> columns, List<List<String>> data) {
 		int numColumns = data.get(0).size();
 		int numRows = data.size();
-		String[][] dataArray = new String[numRows][numColumns];
-		for (int i = 0; i < numRows; i ++) {
-			dataArray[i] = data.get(i).toArray(dataArray[i]);
+		String[][] dataArray = new String[numRows+1][numColumns];
+		dataArray[0] = columns.toArray(dataArray[0]);
+		for (int i = 0; i < numRows; i++) {
+			dataArray[i+1] = data.get(i).toArray(dataArray[i+1]);
 		}
 		tbData = new JTable(dataArray, columns.toArray()) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
-			}
+			}	
 		};
-        System.out.println("here");
-		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		//tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scrollPanel.add(tbData);
 		scrollPane.revalidate();
 		panel.revalidate();
