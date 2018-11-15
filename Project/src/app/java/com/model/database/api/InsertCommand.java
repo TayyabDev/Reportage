@@ -1,7 +1,10 @@
 package app.java.com.model.database.api;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
+import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 
 public class InsertCommand extends Command {
@@ -13,12 +16,19 @@ public class InsertCommand extends Command {
 	public InsertCommand(String tableName, List<String> attrs, List<String> vals) {
 		this.tableName = tableName;
 		this.attrs = attrs;
-		this.vals = vals;
+		this.vals = new ArrayList<>();
+		for(String v : vals) {
+			this.vals.add(formatVal(v));
+		}
 	}
 	
 	public void addAttrVal(String attr, String val) {
 		this.attrs.add(attr);
-		this.vals.add(val);
+		this.vals.add(formatVal(val));
+	}
+	
+	public static String formatVal(String val) {
+		return val.replaceAll("\\s+", " ").trim();
 	}
 	
 	@Override
@@ -32,12 +42,11 @@ public class InsertCommand extends Command {
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
 				+ "values " + formulatedData +";";
-
-        System.out.println(sql);
 		try {
 			return runExecuteUpdate(sql);
+		} catch (SQLIntegrityConstraintViolationException e){
+			throw new DuplicateKeyException(formulatedData);
 		} catch (Exception e) {
-		    e.printStackTrace();
 			throw new InsertException(tableName, formulatedData);
 		}
 	}

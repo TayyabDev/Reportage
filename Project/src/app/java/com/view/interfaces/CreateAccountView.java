@@ -4,7 +4,7 @@ public interface  CreateAccountView {
     void onSuccessAccountCreated();
 
 
-    void onErrorCreatingAccount();
+    void onErrorCreatingAccount(String errorMessage);
 
     boolean isFieldsValid(String name, String password);
 

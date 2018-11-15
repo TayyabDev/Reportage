@@ -20,6 +20,7 @@ public class Account implements CreateAccountView {
 	 private JButton search;
 	 private static JFrame frame;
 	 private CreateAccountPresenter presenter;
+	 private final String[] accountTypes = {"TEQ staff", "Agency"};
 
      public Account(JFrame frame) {
 		this.frame = frame;
@@ -70,17 +71,25 @@ public class Account implements CreateAccountView {
 				  lblPassword.setBounds(300, 200, 400, 20);
 				  JPasswordField txtPassword = new JPasswordField();
 				  txtPassword.setBounds(300, 250, 400, 20);
+				  JLabel lblAccountType = new JLabel("Account Type");
+				  lblAccountType.setBounds(300, 300, 400, 20);
+				  JComboBox accountTypesBox = new JComboBox(accountTypes);
+				  accountTypesBox.setBounds(300, 350, 400, 20);
+				  
+				  
 
 				  JButton submit = UIHelpers.buttonGenerator("Submit");
-				  submit.setBounds( 325, 300, 150,50);
+				  submit.setBounds( 325, 400, 150,50);
 				  JButton cancel = UIHelpers.buttonGenerator("Cancel");
-				  cancel.setBounds(500, 300, 150, 50);
+				  cancel.setBounds(500, 400, 150, 50);
 
 				  createAccPanel.add(lblEnterInfo);
 				  createAccPanel.add(lblName);
 				  createAccPanel.add(txtName);
 				  createAccPanel.add(lblPassword);
 				  createAccPanel.add(txtPassword);
+				  createAccPanel.add(lblAccountType);
+				  createAccPanel.add(accountTypesBox);
 				  createAccPanel.add(submit);
 				  createAccPanel.add(cancel);
 				  
@@ -93,11 +102,11 @@ public class Account implements CreateAccountView {
                           //  NOTE TO PRESENTER: THIS IS THE USERS INFO!
                             String name = txtName.getText();
                             String password = String.valueOf(txtPassword.getPassword());
-
+                            String accountType = (String) accountTypesBox.getSelectedItem();
                             // createAccount
                             // get account ID
                             // then show user dialog giving account id
-						  	presenter.createAccount(name, password);
+						  	presenter.createAccount(name, password, accountType);
 
                           frame.setContentPane(panel);
                           frame.revalidate();
@@ -144,8 +153,8 @@ public class Account implements CreateAccountView {
 	}
 
 	@Override
-	public void onErrorCreatingAccount() {
-		JOptionPane.showMessageDialog(frame, "Error creating the account.");
+	public void onErrorCreatingAccount(String errorMessage) {
+		JOptionPane.showMessageDialog(frame, errorMessage);
 	}
 
 	@Override

@@ -32,7 +32,8 @@ create table TEQStaff(
 
 create table Agency(
 	agencyId int auto_increment primary key,
-    name varchar(50) not null);
+    name varchar(50) not null,
+    phoneNumber char(10) not null);
 
 create table Officer(
 	officerId int auto_increment primary key,

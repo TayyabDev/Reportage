@@ -13,9 +13,9 @@ public class CreateAccountPresenterImpl implements CreateAccountPresenter, Creat
 
 
     @Override
-    public void createAccount(String name, String password) {
+    public void createAccount(String name, String password, String accountType) {
         if(view.isFieldsValid(name, password)){
-            CreateAccountUseCase useCase = new CreateAccountUseCase(this, name, password);
+            CreateAccountUseCase useCase = new CreateAccountUseCase(this, name, password, accountType.substring(0, 1));
             useCase.run();
         } else {
             // should make new method telling user fields are invalid
@@ -43,6 +43,6 @@ public class CreateAccountPresenterImpl implements CreateAccountPresenter, Creat
 
     @Override
     public void onErrorCreateAccount(String message) {
-        view.onErrorCreatingAccount();
+        view.onErrorCreatingAccount(message);
     }
 }
