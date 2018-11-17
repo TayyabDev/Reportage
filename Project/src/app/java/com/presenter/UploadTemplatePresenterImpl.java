@@ -21,14 +21,14 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         FetchTemplateNamesResultInterface, VerifyTemplateResultInterface {
 
     private UploadTemplateView view;
-    private static final int SHEET_NUM = 2;
+    private int numSheets = 0;
 
     public UploadTemplatePresenterImpl() {
         this.view = null;
     }
 
     @Override
-    public void uploadTemplateWithFile(Date date, String templateName, String filePath) {
+    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum) {
 
         // Get the file from the file path
         String formulatedFileName = filePath.replace("\\", "\\\\");
@@ -38,7 +38,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
         if(FileTypeFinder.isCSVFile(formulatedFileName)) {
             fileInterface = new TemplateFileCsvImpl(formulatedFileName);
         } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName, SHEET_NUM);
+            fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
         }
 
         UseCase uploadTemplateUseCase = new UploadTemplateUseCase(this, date, templateName, fileInterface);
@@ -53,23 +53,37 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     @Override
     public void unbindView() {
         this.view = null;
+    }
+
+    @Override
+    public List<String> fetchSheetNames(String filePath) {
+
+        // Get the file from the file path
+        String formulatedFileName = filePath.replace("\\", "\\\\");
+
+        TemplateFileInterface fileInterface = null;
+
+        if(FileTypeFinder.isCSVFile(formulatedFileName)) {
+            return null;
+        } else {
+            fileInterface = new TemplateFileExcelImpl(formulatedFileName);
+            return ((TemplateFileExcelImpl) fileInterface).getSheetNames();
+        }
 
     }
 
 	@Override
-	public void verifyFileUploaded(String filePath, String templateName) {
-        System.out.println("Verifying " + filePath + " " + templateName);
+	public void verifyFileUploaded(String filePath, String templateName, int sheetNum) {
 
         // Get the file from the file path
         String formulatedFileName = filePath.replace("\\", "\\\\");
-        System.out.println(formulatedFileName);
 
         TemplateFileInterface fileInterface = null;
 
         if(FileTypeFinder.isCSVFile(formulatedFileName)) {
             fileInterface = new TemplateFileCsvImpl(formulatedFileName);
         } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName, 2);
+            fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
         }
 
 		UseCase verifyUseCase = new VerifyTemplateUseCase(this, fileInterface, templateName);
@@ -94,8 +108,11 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 	}
 
     @Override
-    public void onTemplateSelectedCompatible(boolean templateValid) {
-        view.onCompatibleTemplateSelected(templateValid);
+    public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface file) {
+
+        if(templateValid) {
+            view.onCompatibleTemplateSelected(templateValid, numSheets);
+        }
     }
 
     @Override
