@@ -9,9 +9,6 @@ public class CreateAccountPresenterImpl implements CreateAccountPresenter, Creat
 
     private CreateAccountView view;
 
-
-
-
     @Override
     public void createAccount(String name, String password, String accountType) {
         if(view.isFieldsValid(name, password)){

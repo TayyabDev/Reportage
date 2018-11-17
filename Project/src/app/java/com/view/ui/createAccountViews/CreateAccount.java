@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Account implements CreateAccountView {
+public class CreateAccount implements CreateAccountView {
 	
 	 private JPanel panel;
 	 private JButton create;
@@ -22,7 +22,7 @@ public class Account implements CreateAccountView {
 	 private CreateAccountPresenter presenter;
 	 private final String[] accountTypes = {"TEQ staff", "Agency"};
 
-     public Account(JFrame frame) {
+     public CreateAccount(JFrame frame) {
 		this.frame = frame;
 
 

@@ -1,9 +1,16 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.model.utilities.AccountTypeFinder;
+import app.java.com.model.utilities.Account.Account;
+import app.java.com.model.utilities.Account.AgencyAccount;
+import app.java.com.model.utilities.Account.TeqAccount;
 import app.java.com.presenter.LoginPresenterImpl;
 import app.java.com.presenter.interfaces.LoginPresenter;
 import app.java.com.view.interfaces.LoginView;
+import app.java.com.view.interfaces.RegisterNewUserView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.register.RegisterOfficer;
+import app.java.com.view.ui.register.RegisterTeqStaff;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -90,9 +97,29 @@ public class Login implements LoginView {
 	}
 
     @Override
-    public void onSuccessLogin() {
-        Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true);
-
+    public void onSuccessLogin(TeqAccount account) {
+    	// check if need to register
+    	if (!account.isRegisterd()) {
+    		// RegisterNewUserView
+    		RegisterNewUserView registerView = new RegisterTeqStaff(new JFrame("Registration"), account);
+    	} else {
+    		Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true);
+    	}
+        frame.dispose();
+        presenter.unbindView();
+    }
+    
+    @Override
+    public void onSuccessLogin(AgencyAccount account) {
+    	// check if need to register
+    	if (!account.isRegisterd()) {
+    		// RegisterNewUserView
+    		RegisterNewUserView registerView = new RegisterOfficer(new JFrame("Registration"), account);
+    	} else {
+    		//need to have another view for agency
+    		System.out.println("agency view");
+    		Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true);
+    	}
         frame.dispose();
         presenter.unbindView();
     }
