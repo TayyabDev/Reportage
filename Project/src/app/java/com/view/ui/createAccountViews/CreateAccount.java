@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.CreateAccountPresenterImpl;
 import app.java.com.presenter.interfaces.CreateAccountPresenter;
 import app.java.com.view.interfaces.CreateAccountView;
@@ -22,7 +23,7 @@ public class CreateAccount implements CreateAccountView {
 	 private CreateAccountPresenter presenter;
 	 private final String[] accountTypes = {"TEQ staff", "Agency"};
 
-     public CreateAccount(JFrame frame) {
+     public CreateAccount(JFrame frame, TeqAccount account) {
 		this.frame = frame;
 
 
@@ -43,7 +44,7 @@ public class CreateAccount implements CreateAccountView {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Dashboard d = new Dashboard(frame, false);
+                Dashboard d = new Dashboard(frame, false, account);
             }
         });
  		

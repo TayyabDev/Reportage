@@ -1,10 +1,17 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
+
 import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.AgencyDashboard;
 import app.java.com.view.ui.createTemplateViews.Template;
+
 import com.toedter.calendar.JDateChooser;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +33,7 @@ public class UploadTemplate implements UploadTemplateView {
 	private JFrame jFrame;
 
 
-	public UploadTemplate(JFrame frame) {
+	public UploadTemplate(JFrame frame, Account account) {
 
         this.jFrame = frame;
 		panel = new JPanel();
@@ -47,7 +54,11 @@ public class UploadTemplate implements UploadTemplateView {
 		back.addActionListener(new ActionListener() {
 		    @Override
             public void actionPerformed(ActionEvent e) {
-		        Template t = new Template(frame);
+		    	if (AccountTypeFinder.isTeqAccount(account)) {
+		    		Template t = new Template(frame, ((TeqAccount) account));
+		    	} else {
+		    		AgencyDashboard board = new AgencyDashboard(frame, false, ((AgencyAccount)account));
+		    	}
 		    }
 		});
 

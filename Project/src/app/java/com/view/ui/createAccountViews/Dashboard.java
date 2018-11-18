@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createReportViews.Report;
 import app.java.com.view.ui.createTemplateViews.Template;
@@ -19,7 +20,7 @@ public class Dashboard {
 
 
 	
-	public Dashboard(JFrame frame, boolean init) {
+	public Dashboard(JFrame frame, boolean init, TeqAccount account) {
 		this.frame = frame;
 
 		GridBagLayout gb = new GridBagLayout();
@@ -49,7 +50,7 @@ public class Dashboard {
         btnTemplate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Template t  = new Template(frame);
+                Template t  = new Template(frame, account);
             }
         });
 
@@ -58,7 +59,7 @@ public class Dashboard {
         btnAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateAccount ac = new CreateAccount(frame);
+                CreateAccount ac = new CreateAccount(frame, account);
             }
         });
 
@@ -66,7 +67,7 @@ public class Dashboard {
         btnReport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Report r = new Report(frame);
+                Report r = new Report(frame, account);
             }
         });
 
@@ -78,7 +79,7 @@ public class Dashboard {
 		btnUserData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	UserData ud = new UserData(frame);
+            	UserData ud = new UserData(frame, account);
             }
         });
 		

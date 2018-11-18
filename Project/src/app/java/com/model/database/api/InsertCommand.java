@@ -1,8 +1,10 @@
 package app.java.com.model.database.api;
 
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
+import app.java.com.model.Exceptions.ConnectionFailedException;
 import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 
@@ -24,12 +26,12 @@ public class InsertCommand extends Command {
 	}
 	
 	@Override
-	public boolean handle() throws InsertException {
+	public boolean handle() throws InsertException, DuplicateKeyException {
 		insertHandle();
 		return true;
 	}
 
-	public int insertHandle() throws InsertException {
+	public int insertHandle() throws InsertException, DuplicateKeyException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
@@ -38,7 +40,7 @@ public class InsertCommand extends Command {
 			return runExecuteUpdate(sql);
 		} catch (SQLIntegrityConstraintViolationException e){
 			throw new DuplicateKeyException(formulatedData);
-		} catch (Exception e) {
+		} catch (SQLException | ConnectionFailedException e) {
 			throw new InsertException(tableName, formulatedData);
 		}
 	}

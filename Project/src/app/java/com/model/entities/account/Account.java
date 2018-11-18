@@ -1,6 +1,6 @@
-package app.java.com.model.utilities.Account;
+package app.java.com.model.entities.account;
 
-public abstract class Account implements AccountInterface {
+public abstract class Account {
 	
 	protected int accountId;
 	protected String userName;
@@ -36,6 +36,9 @@ public abstract class Account implements AccountInterface {
 	public void setRegisterd(boolean registerd) {
 		this.registered = registerd;
 	}
+	
+	public abstract String getAccountType();
+	
 	@Override
 	public String toString() {
 		String res = "username: " + this.userName + " password: " + this.password

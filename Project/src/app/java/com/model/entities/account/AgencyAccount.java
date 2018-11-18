@@ -1,13 +1,16 @@
-package app.java.com.model.utilities.Account;
+package app.java.com.model.entities.account;
 
-public class AgencyAccount extends Account implements AccountInterface{
+import app.java.com.model.entities.Type;
 
-	private final String accountType = "A";
+public class AgencyAccount extends Account{
+
+	private final String accountType = Type.AGENCY.getType();
 	
 	public AgencyAccount(int accountId, String userName, String password, boolean registered) {
 		super(accountId, userName, password, registered);
 	}
 	
+	@Override
 	public String getAccountType() {
 		return this.accountType;
 	}

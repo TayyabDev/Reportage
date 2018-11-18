@@ -2,9 +2,9 @@ package app.java.com.model.usecase;
 
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
-import app.java.com.model.utilities.Account.Account;
-import app.java.com.model.utilities.Account.AgencyAccount;
-import app.java.com.model.utilities.Account.TeqAccount;
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.interfaces.LoginResultInterface;
 
 import java.util.ArrayList;
@@ -48,14 +48,13 @@ public class VerifyAccountUseCase extends UseCase{
             resultInterface.onErrorLogin();
         } else {
         	Account account;
-        	boolean registered = data.get(0).get(2) == "1";
+        	boolean registered = data.get(0).get(2).compareTo("1") == 0;
         	int accountId = Integer.parseInt(data.get(0).get(0));
         	if (data.get(0).get(1).compareTo("T") == 0) {
         		account = new TeqAccount(accountId, username, password, registered);
         	} else {
         		account = new AgencyAccount(accountId, username, password, registered);
         	}
-        	System.out.println("in usecase");
             resultInterface.onSuccessLogin(account);
         }
     }

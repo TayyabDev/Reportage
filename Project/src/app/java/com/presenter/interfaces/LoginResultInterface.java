@@ -1,6 +1,6 @@
 package app.java.com.presenter.interfaces;
 
-import app.java.com.model.utilities.Account.Account;
+import app.java.com.model.entities.account.Account;
 
 public interface LoginResultInterface {
     void onSuccessLogin(Account account);

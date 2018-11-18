@@ -1,7 +1,7 @@
 package app.java.com.view.interfaces;
 
-import app.java.com.model.utilities.Account.AgencyAccount;
-import app.java.com.model.utilities.Account.TeqAccount;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 
 public interface LoginView {
 

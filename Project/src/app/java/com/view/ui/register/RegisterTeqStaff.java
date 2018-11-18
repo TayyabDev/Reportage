@@ -16,11 +16,18 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JDateChooser;
 
-import app.java.com.model.utilities.Account.Account;
-import app.java.com.model.utilities.Account.TeqAccount;
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.model.entities.user.Officer;
+import app.java.com.model.entities.user.TEQStaffWorker;
+import app.java.com.model.entities.user.User;
+import app.java.com.presenter.RegisterNewUserImpl;
+import app.java.com.presenter.interfaces.RegisterNewUserPresenter;
 import app.java.com.presenter.interfaces.RegisterNewUserResultInterface;
+import app.java.com.view.interfaces.LoginView;
 import app.java.com.view.interfaces.RegisterNewUserView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.Dashboard;
 import app.java.com.view.ui.createAccountViews.Login;
 
 public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUserView {
@@ -29,13 +36,15 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 	private JButton register;
 	private JButton cancel;
 	private static JFrame frame;
-	private RegisterNewUserResultInterface resultInterface;
+	private RegisterNewUserPresenter presenter;
 	private Account account;
 	
 	public RegisterTeqStaff(JFrame frame, TeqAccount account) {
 		this.frame = frame;
 		this.account = account;
 
+		presenter = new RegisterNewUserImpl(this);
+		
 		panel = super.initPanel();
         
         JLabel lblEnterInfo = new JLabel("Please enter the following information");
@@ -74,7 +83,6 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 
 		frame.add(panel);
         super.setFrame(frame);
-        System.out.println("in view");
 		register.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// get the info client input to presenter
@@ -93,9 +101,19 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
                 } else {
                 	// construct user
                 	// send information client input to presenter
-                	
+                	User teqStaff = new TEQStaffWorker(firstName, lastName, dob);
+                	presenter.registerNewUser(teqStaff, account);
+                	Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true, account);
                 }
         		
+        	}
+        });
+		
+		cancel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		showPopUpWithMessage("Not registered.", "Information");
+        		frame.setVisible(false);
+        		frame.dispose();
         	}
         });
 	}

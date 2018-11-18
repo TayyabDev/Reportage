@@ -16,21 +16,15 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JDateChooser;
 
-import app.java.com.model.utilities.AccountTypeFinder;
-import app.java.com.model.utilities.Account.Account;
-import app.java.com.model.utilities.Account.AgencyAccount;
-import app.java.com.model.utilities.Account.TeqAccount;
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.interfaces.RegisterNewUserResultInterface;
 import app.java.com.view.interfaces.RegisterNewUserView;
 import app.java.com.view.ui.UIHelpers;
 
 public abstract class RegisterNewUser implements RegisterNewUserView {
-	private JPanel panel;
-	private JButton register;
-	private JButton cancel;
-	private static JFrame frame;
-	private RegisterNewUserResultInterface resultInterface;
-	private Account account;
 	
 	public void showPopUpWithMessage(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title,
@@ -45,7 +39,7 @@ public abstract class RegisterNewUser implements RegisterNewUserView {
  		return panel;
 	}
 	
-	public void setFrame(JFrame frame) {
+	public JFrame setFrame(JFrame frame) {
 		frame.setPreferredSize(new Dimension(1000, 600));
         frame.pack();
         frame.setVisible(true);
@@ -53,11 +47,14 @@ public abstract class RegisterNewUser implements RegisterNewUserView {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         UIHelpers.setLook();
+        return frame;
 	}
+	
 	@Override
 	public void onSuccessRegisterNewUser() {
 		showPopUpWithMessage("Successfully registered.", "Information");
 	}
+	
 	@Override
 	public void onErrorRegisterNewUser() {
 		showPopUpWithMessage("Error registering new User.", "Alert");

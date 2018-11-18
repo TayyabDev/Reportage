@@ -15,11 +15,19 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JDateChooser;
 
-import app.java.com.model.utilities.Account.Account;
-import app.java.com.model.utilities.Account.AgencyAccount;
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.user.Officer;
+import app.java.com.model.entities.user.User;
+import app.java.com.presenter.RegisterNewUserImpl;
+import app.java.com.presenter.interfaces.RegisterNewUserPresenter;
 import app.java.com.presenter.interfaces.RegisterNewUserResultInterface;
 import app.java.com.view.interfaces.RegisterNewUserView;
+import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.AgencyDashboard;
+import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserView {
 
@@ -27,7 +35,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 	private JButton register;
 	private JButton cancel;
 	private static JFrame frame;
-	private RegisterNewUserResultInterface resultInterface;
+	private RegisterNewUserPresenter presenter;
 	private Account account;
 	
 	
@@ -35,6 +43,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 		this.frame = frame;
 		this.account = account;
 		
+		presenter = new RegisterNewUserImpl(this);
 		
 		panel = super.initPanel();
         
@@ -105,22 +114,21 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
                 } else {
                 	// construct user
                 	// send information client input to presenter
+                	User officer = new Officer(firstName, lastName, dob, agencyName);
+                	presenter.registerNewUser(officer, account);
+                	AgencyDashboard db = new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
                 }
         		
         	}
         });
-	}
-
-	@Override
-	public void onSuccessRegisterNewUser() {
-		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void onErrorRegisterNewUser() {
-		// TODO Auto-generated method stub
-		
+		cancel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		showPopUpWithMessage("Not registered.", "Information");
+        		frame.setVisible(false);
+        		frame.dispose();
+        	}
+        });
 	}
 
 }

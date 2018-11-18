@@ -1,10 +1,10 @@
 package app.java.com.presenter;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.model.usecase.VerifyAccountUseCase;
-import app.java.com.model.utilities.AccountTypeFinder;
-import app.java.com.model.utilities.Account.Account;
-import app.java.com.model.utilities.Account.AgencyAccount;
-import app.java.com.model.utilities.Account.TeqAccount;
 import app.java.com.presenter.interfaces.LoginPresenter;
 import app.java.com.presenter.interfaces.LoginResultInterface;
 import app.java.com.view.interfaces.LoginView;

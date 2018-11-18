@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createReportViews;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.*;
 import app.java.com.presenter.interfaces.CreateAccountPresenter;
 import app.java.com.presenter.interfaces.CreateReportPresenter;
@@ -26,7 +27,7 @@ public class Report implements CreateReportView{
     private CreateReportPresenter presenter;
   
 
-    public Report(JFrame frame){
+    public Report(JFrame frame, TeqAccount account){
         this.frame = frame;
         panel = new JPanel();
         panel.setBackground(Color.decode("#f1f8e9"));
@@ -40,7 +41,7 @@ public class Report implements CreateReportView{
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Dashboard d = new Dashboard(frame, false);
+                Dashboard d = new Dashboard(frame, false, account);
             }
         });
         
@@ -50,7 +51,7 @@ public class Report implements CreateReportView{
         standard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CustomReport c = new CustomReport(frame);
+                CustomReport c = new CustomReport(frame, account);
             }
         });
 
