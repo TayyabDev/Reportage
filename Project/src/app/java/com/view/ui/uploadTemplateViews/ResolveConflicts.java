@@ -1,13 +1,14 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
-import app.java.com.view.interfaces.ConflictUploadTemplateView;
+import app.java.com.model.Exceptions.InsertException;
+import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Login;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
-public class ConflictUploadTemplate implements ConflictUploadTemplateView {
+public class ResolveConflicts implements ResolveConflictsView {
 
 
 //    when Uploading template failed
@@ -17,11 +18,18 @@ public class ConflictUploadTemplate implements ConflictUploadTemplateView {
 
     private JFrame frame;
     private JPanel panel;
-    public ConflictUploadTemplate(JFrame frame){
+
+    private List<InsertException> errors;
+
+    public ResolveConflicts(JFrame frame){
         this.frame = frame;
 
         panel = new JPanel();
         panel.setLayout(null);
+
+        JLabel lblConflicts = new JLabel("You have conflicts. Please fix them below.");
+
+
 
 
 
@@ -40,7 +48,11 @@ public class ConflictUploadTemplate implements ConflictUploadTemplateView {
         frame.setResizable(false);
         UIHelpers.setLook();
 
-        ConflictUploadTemplate c = new ConflictUploadTemplate(frame);
+        ResolveConflicts c = new ResolveConflicts(frame);
     }
 
+    @Override
+    public void getErrors(List<InsertException> errors) {
+        this.errors = errors;
+    }
 }
