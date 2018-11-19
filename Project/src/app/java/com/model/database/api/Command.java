@@ -3,9 +3,11 @@ package app.java.com.model.database.api;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+
+import app.java.com.model.Exceptions.ConnectionFailedException;
 
 public abstract class Command {
 
@@ -51,11 +53,15 @@ public abstract class Command {
 	 * run Insert/Drop/Update/Alter commands directly in the database
 	 * @param query create statement
 	 */
-	public int runExecuteUpdate(String query) throws Exception {
+	public int runExecuteUpdate(String query) throws SQLException, ConnectionFailedException {
 		Connection conn;
 		ResultSet rs;
 		int lastRow = -1;
-		conn = ConnectDatabase.connect();
+		try {
+			conn = ConnectDatabase.connect();
+		} catch (Exception e) {
+			throw new ConnectionFailedException();
+		}
 		Statement st = conn.createStatement();
 		int res = st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 	    if (res != -1) {

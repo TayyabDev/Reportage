@@ -109,10 +109,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 
     @Override
     public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface file) {
-
-        if(templateValid) {
-            view.onCompatibleTemplateSelected(templateValid, numSheets);
-        }
+         view.onCompatibleTemplateSelected(templateValid, numSheets);
     }
 
     @Override
