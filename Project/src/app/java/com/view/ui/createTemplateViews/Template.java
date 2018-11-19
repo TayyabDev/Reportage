@@ -16,6 +16,7 @@ import app.java.com.presenter.CreateTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.CreateTemplateModelImpl;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createAccountViews.Dashboard;
 import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
@@ -32,7 +33,7 @@ public class Template implements CreateTemplateView{
 	 private String sqlQuery;
 	 private CreateTemplatePresenter presenter;
 	
-     public Template(JFrame frame) {
+     public Template(JFrame frame, TeqAccount account) {
      	 this.frame = frame;
 
          panel = new JPanel();
@@ -48,7 +49,7 @@ public class Template implements CreateTemplateView{
          back.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 Dashboard d = new Dashboard(frame, false);
+                 Dashboard d = new Dashboard(frame, false, account);
              }
          });
 
@@ -91,7 +92,7 @@ public class Template implements CreateTemplateView{
          select.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 UploadTemplate ut = new UploadTemplate(frame);
+                 UploadTemplate ut = new UploadTemplate(frame, account);
                  presenter.unbindView();
              }
          });

@@ -2,6 +2,9 @@ package app.java.com.model.usecase;
 
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.interfaces.LoginResultInterface;
 
 import java.util.ArrayList;
@@ -23,8 +26,9 @@ public class VerifyAccountUseCase extends UseCase{
     public void run() {
 
         ArrayList<String> attrs = new ArrayList<>();
-        attrs.add("userName");
-        attrs.add("password");
+        attrs.add("accountId");
+        attrs.add("accountType");
+        attrs.add("registered");
 
         List<String> constraints = new ArrayList<>();
         constraints.add("`userName` = '"+ this.username + "'");
@@ -43,7 +47,15 @@ public class VerifyAccountUseCase extends UseCase{
         if(data == null|| data.isEmpty() ){
             resultInterface.onErrorLogin();
         } else {
-            resultInterface.onSuccessLogin();
+        	Account account;
+        	boolean registered = data.get(0).get(2).compareTo("1") == 0;
+        	int accountId = Integer.parseInt(data.get(0).get(0));
+        	if (data.get(0).get(1).compareTo("T") == 0) {
+        		account = new TeqAccount(accountId, username, password, registered);
+        	} else {
+        		account = new AgencyAccount(accountId, username, password, registered);
+        	}
+            resultInterface.onSuccessLogin(account);
         }
     }
 }

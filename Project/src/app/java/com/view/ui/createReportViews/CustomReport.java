@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createReportViews;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.CustomReportPresenterImpl;
 import app.java.com.presenter.interfaces.CreateReportPresenter;
 import app.java.com.presenter.interfaces.CustomReportPresenter;
@@ -35,7 +36,7 @@ public class CustomReport implements CustomReportView {
 
 
 
-    public  CustomReport(JFrame frame){
+    public  CustomReport(JFrame frame, TeqAccount account){
         /**
          *  TODO:
          *  -initialize dropdown with attributes
@@ -54,7 +55,7 @@ public class CustomReport implements CustomReportView {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               Report r = new Report(frame);
+               Report r = new Report(frame, account);
             }
         });
 
