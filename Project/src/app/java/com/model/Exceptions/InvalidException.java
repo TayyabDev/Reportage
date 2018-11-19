@@ -6,6 +6,7 @@ public class InvalidException extends InsertException {
 
 	private List<String> invalideVal;
 	private String table;
+	private String reason;
 	
 	public InvalidException() {
 		super();
@@ -14,11 +15,16 @@ public class InvalidException extends InsertException {
 		this.invalideVal = invalideVal;
 		this.table = table;
 	}
+	public InvalidException(String table, List<String> invalideVal, String reason) {
+		this.invalideVal = invalideVal;
+		this.table = table;
+		this.reason = reason;
+	}
 
 	@Override
 	public String getMessage(){
 		String message = "Inserting invalid input " + invalideVal + " into "
-				+ table + ".";
+				+ table + ". reason: " + this.reason;
 		return message;
 	}
 }

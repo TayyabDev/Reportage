@@ -2,6 +2,7 @@ package app.java.com.model.database.api;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.ConnectionFailedException;
@@ -42,7 +43,7 @@ public class InsertCommand extends Command {
 		} catch (SQLIntegrityConstraintViolationException e){
 			throw new DuplicateKeyException(tableName, vals);
 		} catch (SQLException e) {
-			throw new InvalidException(tableName, vals);
+			throw new InvalidException(tableName, vals, e.getMessage());
 		} catch (ConnectionFailedException e) {
 			throw new InsertException (tableName, formulatedData);
 		}
