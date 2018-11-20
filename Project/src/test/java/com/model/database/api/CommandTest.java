@@ -7,6 +7,8 @@ import app.java.com.model.database.api.CreateCommand;
 import app.java.com.model.database.api.DropCommand;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
+import app.java.com.model.database.api.UpdateCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,7 @@ public class CommandTest {
 	private final String table2 = "test2";
 	private final String table3 = "test3";
 	private final String table4 = "test4";
+	private final String table5 = "test5";
 
 	
 	@Test

@@ -22,20 +22,20 @@ create table User(
         on update cascade);
 
 create table TEQStaff(
-	teqStaffId int auto_increment primary key,
+	teqStaffId int primary key,
     constraint teqfk
 		foreign key (teqStaffId)
         references User(userId)
         on delete cascade
-        on update cascade,
-	name varchar(255));
+        on update cascade);
 
 create table Agency(
 	agencyId int auto_increment primary key,
-    name varchar(50) not null);
+    name varchar(50) not null,
+    phoneNumber char(10) not null);
 
 create table Officer(
-	officerId int auto_increment primary key,
+	officerId int primary key,
     agencyId int,
     constraint officerFk1
 		foreign key(OfficerId)

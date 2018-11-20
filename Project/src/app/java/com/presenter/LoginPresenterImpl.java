@@ -1,5 +1,9 @@
 package app.java.com.presenter;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.model.usecase.VerifyAccountUseCase;
 import app.java.com.presenter.interfaces.LoginPresenter;
 import app.java.com.presenter.interfaces.LoginResultInterface;
@@ -14,8 +18,13 @@ public class LoginPresenterImpl implements LoginPresenter, LoginResultInterface 
     }
 
     @Override
-    public void onSuccessLogin() {
-        view.onSuccessLogin();
+    public void onSuccessLogin(Account account) {
+        if (AccountTypeFinder.isTeqAccount(account)) {
+        	view.onSuccessLogin(((TeqAccount) account));
+        } else {
+        	view.onSuccessLogin(((AgencyAccount) account));
+        }
+    	
 
     }
 

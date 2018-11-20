@@ -10,11 +10,13 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.createReportViews.Report;
 import org.junit.jupiter.api.Test;
 
 public class ReportViewTest {
-	Report reportTest = new Report(new JFrame());
+	TeqAccount fakeAccount = new TeqAccount(1, "ben", "ben", true);
+	Report reportTest = new Report(new JFrame(), fakeAccount);
 	String wrongQuery = "ALTER TABLE statement";
 	String properQuery = "SELECT * FROM Account";
 	String fakeReport = "";

@@ -24,14 +24,16 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
         try {
             success = new CreateCommand().runExecuteUpdate(query);
 
+
+            if (success != -1) {
+                // Look at templateResultInterface for communication back with the presenter
+                resultInterface.onSuccessCreateTemplate("success");
+            }
+
         } catch (Exception e) {
             resultInterface.onErrorCreateTemplate("failed when create " + e.getMessage());
         }
 
-        if (success != -1) {
-            // Look at templateResultInterface for communication back with the presenter
-            resultInterface.onSuccessCreateTemplate("success");
-        }
 	}
 
 }

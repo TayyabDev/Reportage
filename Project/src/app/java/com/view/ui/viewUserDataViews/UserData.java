@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.FetchUserDataPresenterImpl;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.view.interfaces.CreateUserDataView;
@@ -39,7 +40,7 @@ public class UserData implements CreateUserDataView{
 	
 	private FetchUserDataPresenter presenter;
 	
-	public UserData(JFrame frame) {
+	public UserData(JFrame frame, TeqAccount account) {
 		
 		this.frame = frame;
 		panel = new JPanel();
@@ -56,7 +57,7 @@ public class UserData implements CreateUserDataView{
 		back.addActionListener(new ActionListener() {
 		    @Override
             public void actionPerformed(ActionEvent e) {
-		    	Dashboard d = new Dashboard(frame, false);
+		    	Dashboard d = new Dashboard(frame, false, account);
 		    }
 		});
 		tbData = new JTable();

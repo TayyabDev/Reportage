@@ -45,6 +45,7 @@ public class UploadTemplateUseCase extends UseCase {
         	for (Exception e : errorList) {
         		errorMessages.add(e.getMessage());
         	}
+
         	resultInterface.onErrorUploadingTemplate(errorMessages);
         } else {
         	resultInterface.onSuccessUploadingTemplate();

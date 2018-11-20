@@ -20,6 +20,13 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	
 	private Sheet sheet;
 	private String sheetName;
+	private int numSheets;
+	private List<String> sheetNames = new ArrayList<>();
+
+
+	public TemplateFileExcelImpl(String fileName) {
+	    extractNumSheets(fileName);
+    }
 	
 	/**
 	 * The main constructor for ExcelFile.
@@ -31,6 +38,21 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		this.sheet = parseExcelFile(fileName, sheetNum);
 		this.sheetName = sheet.getSheetName();
 	}
+
+	private void extractNumSheets(String fileName) {
+        try {
+            Workbook workbook = WorkbookFactory.create(new File(fileName));
+            this.numSheets = workbook.getNumberOfSheets();
+
+            for(int sheet = 0; sheet < numSheets; sheet++) {
+                sheetNames.add(workbook.getSheetName(sheet));
+            }
+
+            workbook.close();
+        } catch (EncryptedDocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	/**
 	 * Parses the Excel sheet into a Sheet.
@@ -76,7 +98,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 
 	@Override
 	public String getTableName() {
-		return '`'+this.sheetName.replace(' ', '_')+'`';
+		return '`'+ this.sheetName.replace(' ', '_')+'`';
 	}
 
 	@Override
@@ -144,5 +166,13 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 
 		return rowIndex - 4;
 	}
+
+	public int getNumSheets() {
+		return numSheets;
+	}
+
+	public List<String> getSheetNames() {
+	    return sheetNames;
+    }
 
 }
