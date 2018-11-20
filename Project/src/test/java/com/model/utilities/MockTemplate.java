@@ -1,6 +1,8 @@
 package test.java.com.model.utilities;
 
 import app.java.com.model.entities.template.Template;
+import app.java.com.model.entities.template.TemplateOptions;
+
 import java.util.List;
 
 public class MockTemplate extends Template {
@@ -23,4 +25,9 @@ public class MockTemplate extends Template {
     public String getTableName() {
         return ClientProfileMockFile.TABLE_NAME;
     }
+
+	@Override
+	public List<String> getColumnTypes() {
+		return ClientProfileMockFile.columnTypes;
+	}
 }
