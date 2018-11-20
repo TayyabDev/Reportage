@@ -53,7 +53,7 @@ public class SearchAccount implements SearchAccountView{
 		back.addActionListener(new ActionListener() {
 		    @Override
             public void actionPerformed(ActionEvent e) {
-		    	Dashboard d = new Dashboard(frame, false);
+		    	Dashboard d = new Dashboard(frame, false, null);
 		    }
 		});
 		
