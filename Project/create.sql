@@ -51,10 +51,10 @@ create table Officer(
 create table Template(
 	templateId int auto_increment primary key,
     updateTime timestamp default now(),
-#    teqStaffId int,
-#    constraint Templatefk1
-#		foreign key (teqStaffId)
-#        references TEQStaff(teqStaffId),
+    teqStaffId int,
+    constraint Templatefk1
+		foreign key (teqStaffId)
+        references TEQStaff(teqStaffId),
     templateName varchar(255),
     tableName varchar(255));
 
@@ -83,3 +83,7 @@ create table VariableName(
     templateName varchar(255),
     unique(variableName, realName, templateName));
 
+create table Report(
+	id int auto_increment primary key,
+	reportName varchar(255) not null unique,
+	reportQuery tinytext not null);

@@ -90,7 +90,6 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 		
 		frame.add(panel);
         super.setFrame(frame);
-        System.out.println("in view");
 		
 		register.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
