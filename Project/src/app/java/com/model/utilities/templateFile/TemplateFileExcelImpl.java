@@ -117,15 +117,8 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
         List<String> columnIds = this.getColumnIds();
         List<String> columnNames = this.getColumnNames();
         String tableName = "`" + this.getTableName().replace(' ', '_') + "`";
-        Template result = null;
-
-		if (sheetNum > 1) {
-	        List<String> columnTypes = this.getColumnTypes(sheetNum, 1);
-			result = new BaseTemplate(temName, columnNames, columnIds, tableName, columnTypes);
-		} else {
-			result = new BaseTemplate(temName, columnNames, columnIds, tableName);
-
-		}
+        List<String> requiredIds = this.getRequiredIds();
+        Template result = new BaseTemplate(temName, columnNames, columnIds, tableName, requiredIds);
 		return result;
 	}
 
@@ -248,35 +241,17 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		return workbook.getSheetAt(sheetNum).getRow(1).getPhysicalNumberOfCells();
 	}
 	
-	public List<String> getColumnTypes(int sheetNum, int optionsSheetNum) {
-		TemplateFileExcelImpl templateSheet = new TemplateFileExcelImpl(fileName, sheetNum);
-		TemplateFileExcelImpl optionsSheet = new TemplateFileExcelImpl(fileName, optionsSheetNum);
-		System.out.println(optionsSheet.getFileAsTemplate().toString());
-		List<String> columnNames = templateSheet.getColumnNames();
-		List<String> optionColumnNames = optionsSheet.getColumnIds();
-		List<String> optionFirstEntry = optionsSheet.getRow(2);
-		List<String> columnTypes = new ArrayList<String>();
-		
-		for (int columnIndex = 0; columnIndex < templateSheet.getNumColumns(); columnIndex++) {
-			String columnName = columnNames.get(columnIndex);
-			System.out.println(optionsSheet.getNumColumns());
-			for (int optionIndex = 0; optionIndex < optionsSheet.getNumColumns(); optionIndex++) {
-				System.out.println(String.format("if %s equals %s", optionColumnNames.get(optionIndex),columnName));
-				if (optionColumnNames.get(optionIndex).equals(columnName)) {
-					System.out.println(optionFirstEntry.get(optionIndex));
-					String option = optionFirstEntry.get(optionIndex);
-					try {
-						Double.valueOf(option);
-						columnTypes.add("INT");
-						System.out.println("INT");
-					} catch (NullPointerException | NumberFormatException e) {
-						columnTypes.add("VARCHAR");
-						System.out.println("VARCHAR");
-					}
-				}
+	public List<String> getRequiredIds() {
+		List<String> result = new ArrayList<String>();
+		List<String> columnIds = getColumnIds();
+		Row row = sheet.getRow(2);
+		for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+			int colour = row.getCell(i).getCellStyle().getFontIndexAsInt();
+			if (colour == 5) {
+				result.add(columnIds.get(i));
 			}
 		}
-		return columnTypes;
+		return result;
 	}
 	
 }

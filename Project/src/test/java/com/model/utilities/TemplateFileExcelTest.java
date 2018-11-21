@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TemplateFileExcelTest {
 
 	String file1 = "./src/test/java/com/model/utilities/testFile1.xlsx";
+	String file3 = "/Users/leo/Documents/TestFiles/LT_Course_Setup_Copy.xlsx";
 	String file2 = "./src/test/java/com/model/utilities/testFile2.xlsx";
 	List<String> file1SheetNames = Arrays.asList("`Example_Template`", "`My Template`");
 	List<String> file1TemplateNames = Arrays.asList("Example Template", "My Template");
@@ -25,15 +26,17 @@ public class TemplateFileExcelTest {
 	List<String> file1Sheet1ColumnNames = Arrays.asList("Student Id", "Student Name", "Student Enrollment Date");
 	List<String> file1Sheet1Row1 = Arrays.asList("100.0", "Jane Doe", "01/02/2018");
 	List<String> file1Sheet1Row2 = Arrays.asList("200.0", "Joe Smith", "09/01/2018");
+	List<String> file1Sheet0RequiredIds = Arrays.asList("first_name", "last_name");
+	List<String> file1Sheet1RequiredIds = Arrays.asList("student_id");
+	List<String> file3Sheet0RequiredIds = Arrays.asList("");
 	
 	int file2NumSheets = 3;
-	int file2Sheet0NumRows;
-	int file2Sheet1NumRows;
-	int file2Sheet2NumRows;
-	int file2Sheet0NumColumns;
-	int file2Sheet1NumColumns;
-	int file2Sheet2NumColumns;
-	List<String> file2Sheet2ColumnTypes = Arrays.asList("INT", "VARCHAR", "VARCHAR", "INT");
+	int file2Sheet0NumRows = 2;
+	int file2Sheet1NumRows = 2;
+	int file2Sheet2NumRows = 2;
+	int file2Sheet0NumColumns = 8;
+	int file2Sheet1NumColumns = 3;
+	int file2Sheet2NumColumns = 5;
 	
 	@Test
 	public void testGetName() {
@@ -141,21 +144,14 @@ public class TemplateFileExcelTest {
 	}
 	
 	@Test
-	public void testGetSheetNumRows4() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumRows(0);
-		assertEquals(file2Sheet0NumRows, result);
-	}
-	
-	@Test
-	public void testGetSheetNumRows5() {
+	public void testGetSheetNumRows3() {
 		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
 		int result = excelFile2.getSheetNumRows(1);
 		assertEquals(file2Sheet1NumRows, result);
 	}
 
 	@Test
-	public void testGetSheetNumRows6() {
+	public void testGetSheetNumRows4() {
 		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
 		int result = excelFile2.getSheetNumRows(2);
 		assertEquals(file2Sheet2NumRows, result);
@@ -182,11 +178,16 @@ public class TemplateFileExcelTest {
 		assertEquals(file2Sheet2NumColumns, result);
 	}
 	
-	@Test
-	public void testGetColumnTypes() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		List<String> result = excelFile2.getColumnTypes(2, 0);
-		assertEquals(file2Sheet2ColumnTypes, result);
-
+	@Test void testGetRequiredIds0() {
+		TemplateFileExcelImpl excelFile1 = new TemplateFileExcelImpl(file1, 0);
+		List<String> result = excelFile1.getRequiredIds();
+		assertEquals(file1Sheet0RequiredIds, result);
 	}
+	
+	@Test void testGetRequiredIds1() {
+		TemplateFileExcelImpl excelFile1 = new TemplateFileExcelImpl(file1, 1);
+		List<String> result = excelFile1.getRequiredIds();
+		assertEquals(file1Sheet1RequiredIds, result);
+	}
+	
 }

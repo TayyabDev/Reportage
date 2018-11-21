@@ -11,7 +11,7 @@ public class ClientProfileMockFile implements TemplateFileInterface {
 
     static List<String> columnIds = null;
     static List<String> columnNames = null;
-    static List<String> columnTypes = null;
+    static List<String> requiredIds = null;
     static List<String> mockRow = null;
 
     public static final String TABLE_NAME = "Client_Profile";
@@ -61,7 +61,7 @@ public class ClientProfileMockFile implements TemplateFileInterface {
 
         mockRow = new ArrayList<>();
         mockRow.add("RowVal1");
-        mockRow.add("RowVal	2");
+        mockRow.add("RowVal2");
         mockRow.add("RowVal3");
         mockRow.add("RowVal4");
         mockRow.add("RowVal5");
@@ -78,24 +78,12 @@ public class ClientProfileMockFile implements TemplateFileInterface {
         mockRow.add("RowVal16");
         mockRow.add("RowVal17");
         
-        columnTypes = new ArrayList<>();
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
-        columnTypes.add("VARCHAR");
+        requiredIds = new ArrayList<>();
+        requiredIds.add("client_validation_type_id");
+        requiredIds.add("client_validation_id");
+        requiredIds.add("client_birth_dt");
+        requiredIds.add("postal_txt");
+        
     }
 
     public ClientProfileMockFile(Template mockTemplate) {
@@ -137,8 +125,8 @@ public class ClientProfileMockFile implements TemplateFileInterface {
         return columnIds;
     }
     
-    public List<String> getColumnTypes() {
-    	return columnTypes;
+    public List<String> getRequiredIds() {
+    	return requiredIds;
     }
 
     @Override

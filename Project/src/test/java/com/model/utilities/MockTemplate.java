@@ -27,7 +27,7 @@ public class MockTemplate extends Template {
     }
 
 	@Override
-	public List<String> getColumnTypes() {
-		return ClientProfileMockFile.columnTypes;
+	public List<String> getRequiredIds() {
+		return ClientProfileMockFile.requiredIds;
 	}
 }
