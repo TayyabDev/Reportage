@@ -4,7 +4,7 @@ use cscc43s18_linjun9;
 create table Account(
 	accountId int auto_increment primary key,
     password varchar(20) not null,
-    userName varchar(20) not null,
+    userName varchar(20) not null unique,
     accountType  enum('T','A') default null,
     registered bool default false);
 

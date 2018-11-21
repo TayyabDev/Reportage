@@ -76,7 +76,7 @@ public class Report implements CreateReportView{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // existing report view
-            	System.out.println("exisisting report.");
+            	ExistingReportFormatView viewExistingReport = new ExistingReportFormat(frame, account);
         }});
         
         newFormat = UIHelpers.buttonGenerator("Add new format");
