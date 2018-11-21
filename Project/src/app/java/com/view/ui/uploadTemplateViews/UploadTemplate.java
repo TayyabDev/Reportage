@@ -1,14 +1,18 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.UploadTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.AgencyDashboard;
 import app.java.com.view.ui.createTemplateViews.Template;
 import com.toedter.calendar.JDateChooser;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
@@ -24,9 +28,10 @@ public class UploadTemplate implements UploadTemplateView {
 	private boolean templateCompatible = false;
 	private JComboBox templateDropdown;
 	private JFrame jFrame;
+	private JComboBox sheetDropdown;
 
 
-	public UploadTemplate(JFrame frame) {
+	public UploadTemplate(JFrame frame, Account account) {
 
         this.jFrame = frame;
 		panel = new JPanel();
@@ -44,12 +49,13 @@ public class UploadTemplate implements UploadTemplateView {
 
 		JButton back = UIHelpers.generateBackButton(50,50,50,50);
 		panel.add(back);
-		back.addActionListener(new ActionListener() {
-		    @Override
-            public void actionPerformed(ActionEvent e) {
-		        Template t = new Template(frame);
-		    }
-		});
+		back.addActionListener(e -> {
+            if (AccountTypeFinder.isTeqAccount(account)) {
+                Template t = new Template(frame, ((TeqAccount) account));
+            } else {
+                AgencyDashboard board = new AgencyDashboard(frame, false, ((AgencyAccount)account));
+            }
+        });
 
 		JLabel lblTitle = new JLabel("Upload Data");
 		lblTitle.setFont(new Font(null, Font.BOLD, 36));
@@ -72,12 +78,22 @@ public class UploadTemplate implements UploadTemplateView {
 		JLabel lblFile = new JLabel("Select file: ");
 		lblFile.setBounds(80, 200, 180, 25);
 		panel.add(lblFile);
-		
+
 		JButton btnSelectFile = UIHelpers.buttonGenerator("Upload");
 		JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
 		
 		JLabel lblSelectedFile = new JLabel("");
 		lblSelectedFile.setBounds(400, 230, 700, 25);
+
+        JLabel lblSheet = new JLabel("Select Sheet: ");
+        lblSheet.setBounds(80, 250, 180, 25);
+        lblSheet.setVisible(false);
+        panel.add(lblSheet);
+
+        sheetDropdown = new JComboBox();
+        sheetDropdown.setBounds(400, 260, 200, 25);
+        sheetDropdown.setVisible(false);
+        panel.add(sheetDropdown);
 
 		// Select file to upload
 		btnSelectFile.addActionListener(e -> {
@@ -85,24 +101,53 @@ public class UploadTemplate implements UploadTemplateView {
             jfc.setDialogTitle("Select your file");
             int returnValue = jfc.showSaveDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
+
                 if (jfc.getSelectedFile() != null) {
+
                     filePath = jfc.getSelectedFile().getPath();
                     String fileName = jfc.getSelectedFile().getName();
                     lblSelectedFile.setText("Selected File Name : " + fileName);
                     panel.add(lblSelectedFile);
                     panel.repaint();
 
-                    String selectedTemplate = (String)templateDropdown.getSelectedItem();
-                    presenter.verifyFileUploaded(filePath, selectedTemplate);
+                    List<String> sheetNames = presenter.fetchSheetNames(filePath);
+                    System.out.println(sheetNames);
+                    if(sheetNames.size() > 0) {
+                        // create the sheets dropdown
+
+                        List<String> sheets = new ArrayList<>();
+
+                        for(int x = 0; x < sheetNames.size(); x++) {
+                            sheets.add(sheetNames.get(x));
+                        }
+
+                        sheetDropdown.setModel(new DefaultComboBoxModel(sheets.toArray()));
+                        sheetDropdown.setVisible(true);
+                        lblSheet.setVisible(true);
+
+                    }
+
                 }
             }
 
-        });
+		});
 
 		
 		// Check if template uploaded is incompatible
 		btnSubmit.addActionListener(e -> {
             Date dateSelected = chooser.getDate();
+
+            int sheetSelected = 0;
+
+            if(sheetDropdown.isVisible()) {
+                sheetSelected = sheetDropdown.getSelectedIndex();
+            }
+
+            System.out.println(sheetSelected);
+            // verify uploaded file at this point
+            String selectedTemplate = (String)templateDropdown.getSelectedItem();
+
+            presenter.verifyFileUploaded(filePath, selectedTemplate, sheetSelected);
 
             if(dateSelected == null) {
                 showPopUpWithMessage("No Date Selected", "Information");
@@ -112,9 +157,7 @@ public class UploadTemplate implements UploadTemplateView {
                 return;
             }
 
-            String templateName = (String)templateDropdown.getSelectedItem();
-
-		    presenter.uploadTemplateWithFile(dateSelected, templateName, filePath);
+		    presenter.uploadTemplateWithFile(dateSelected, selectedTemplate, filePath, sheetSelected);
         });
 
 		
@@ -145,18 +188,18 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void onErrorUploadingFile() {
         showPopUpWithMessage("Error uploading file", "Alert Message");
-	}
+}
 
 	@Override
-	public void onCompatibleTemplateSelected(boolean compatible) {
+	public void onCompatibleTemplateSelected(boolean compatible, int numSheets) {
 		if (compatible) {
 			templateCompatible = true;
             showPopUpWithMessage("File uploaded valid", "Information");
 
 		} else {
-		    showPopUpWithMessage("File uploaded not valid", "Information");
+		    templateCompatible = false;
+            showPopUpWithMessage("File uploaded not valid", "Information");
         }
-
 	}
 
 	@Override
