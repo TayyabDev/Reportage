@@ -43,8 +43,6 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	public TemplateFileExcelImpl(String fileName, int sheetNum) {
 		this.sheet = parseExcelFile(fileName, sheetNum);
 		this.sheetName = sheet.getSheetName();
-		this.sheetNum = sheetNum;
-		this.fileName = fileName;
 	}
 
 	private void extractNumSheets(String fileName) {
@@ -196,5 +194,17 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	public List<String> getSheetNames() {
 	    return sheetNames;
     }
-
+	
+	public List<String> getRequiredIds() {
+		List<String> result = new ArrayList<String>();
+		List<String> columnIds = getColumnIds();
+		Row row = sheet.getRow(2);
+		for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+			int colour = row.getCell(i).getCellStyle().getFontIndexAsInt();
+			if (colour == 5) {
+				result.add(columnIds.get(i));
+			}
+		}
+		return result;
+	}	
 }

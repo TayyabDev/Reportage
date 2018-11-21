@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TemplateFileExcelTest {
 
 	String file1 = "./src/test/java/com/model/utilities/testFile1.xlsx";
-	String file3 = "/Users/leo/Documents/TestFiles/LT_Course_Setup_Copy.xlsx";
 	String file2 = "./src/test/java/com/model/utilities/testFile2.xlsx";
 	List<String> file1SheetNames = Arrays.asList("`Example_Template`", "`My Template`");
 	List<String> file1TemplateNames = Arrays.asList("Example Template", "My Template");
@@ -141,41 +140,6 @@ public class TemplateFileExcelTest {
 		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
 		int result = excelFile2.getNumSheets();
 		assertEquals(file2NumSheets, result);
-	}
-	
-	@Test
-	public void testGetSheetNumRows3() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumRows(1);
-		assertEquals(file2Sheet1NumRows, result);
-	}
-
-	@Test
-	public void testGetSheetNumRows4() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumRows(2);
-		assertEquals(file2Sheet2NumRows, result);
-	}
-
-	@Test
-	public void testGetSheetNumColumns0() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumColumns(0);
-		assertEquals(file2Sheet0NumColumns, result);
-	}
-	
-	@Test
-	public void testGetSheetNumColumns1() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumColumns(1);
-		assertEquals(file2Sheet1NumColumns, result);
-	}
-	
-	@Test
-	public void testGetSheetNumColumns2() {
-		TemplateFileExcelImpl excelFile2 = new TemplateFileExcelImpl(file2);
-		int result = excelFile2.getSheetNumColumns(2);
-		assertEquals(file2Sheet2NumColumns, result);
 	}
 	
 	@Test void testGetRequiredIds0() {
