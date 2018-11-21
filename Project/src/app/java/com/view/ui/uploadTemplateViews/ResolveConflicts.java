@@ -65,10 +65,16 @@ public class ResolveConflicts implements ResolveConflictsView {
             public void actionPerformed(ActionEvent e) {
                 for(JRadioButton errorOption : errorOptionButtons){
                     if(errorOption.isSelected()){
-                        // conflict
+                        // if type is conflict
                         String [] options = {"Use old", "Use new"};
+                        int ret = JOptionPane.showOptionDialog(frame, "Select one of the options",
+                                "Resolve conflict", JOptionPane.YES_NO_OPTION, 1,
+                                null, options, options[0]);
 
-                        // invalid
+                        // return value ret is value in options array (use old / use new)
+                        System.out.println(options[ret]);
+
+                        // invalid conflict stuff goes here
                     }
                 }
             }
@@ -94,7 +100,7 @@ public class ResolveConflicts implements ResolveConflictsView {
         frame.setResizable(false);
         UIHelpers.setLook();
 
-        ResolveConflicts c = new ResolveConflicts(frame, null);
+        ResolveConflicts rc = new ResolveConflicts(frame, null);
     }
 
     @Override
