@@ -35,23 +35,12 @@ public class UploadTemplateUseCase extends UseCase {
 
         // Now add this to the insert command since the template has a clientIdForm column
 
-
         // Verify template matches the chosen template's format
         List<Exception> errorList = insertAllRows(fileInterface, clientFormId);
 
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
-        	List<String> errorMessages = new ArrayList<>();
-        	for (Exception e : errorList) {
-        		errorMessages.add(e.getMessage());
-        		//need to check the exception type (DuplicateKeyException, InvalidException)
-        		// if DuplicateException: 
-        				// if has conflict, find the column(s) that has conflict, pass the original values and new values to view
-         				// if no conflict, do nothing
-        		// if InvalidException: find row number and column number, pass that to view
-        	}
-
-        	resultInterface.onErrorUploadingTemplate(errorMessages);
+        	resultInterface.onErrorUploadingTemplate(errorList);
         } else {
         	resultInterface.onSuccessUploadingTemplate();
         }

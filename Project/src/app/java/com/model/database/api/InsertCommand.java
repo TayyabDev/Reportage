@@ -40,7 +40,7 @@ public class InsertCommand extends Command {
 				+ "values " + formulatedData +";";
 		try {
 			return runExecuteUpdate(sql);
-		} catch (SQLIntegrityConstraintViolationException e){
+		} catch (SQLIntegrityConstraintViolationException e) {
 			throw new DuplicateKeyException(tableName, vals);
 		} catch (SQLException e) {
 			throw new InvalidException(tableName, vals, e.getMessage());

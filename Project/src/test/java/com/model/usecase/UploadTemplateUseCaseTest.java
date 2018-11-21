@@ -22,7 +22,7 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
     }
 
     @Override
-    public void onErrorUploadingTemplate(List<String> errorMessages) {
+    public void onErrorUploadingTemplate(List<Exception> errorMessages) {
         System.out.println("Error uploading template");
     }
 
