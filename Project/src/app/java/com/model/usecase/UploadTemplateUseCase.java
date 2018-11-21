@@ -50,6 +50,7 @@ public class UploadTemplateUseCase extends UseCase {
          				// if no conflict, do nothing
         		// if InvalidException: find row number and column number, pass that to view
         	}
+
         	resultInterface.onErrorUploadingTemplate(errorMessages);
         } else {
         	resultInterface.onSuccessUploadingTemplate();

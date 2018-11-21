@@ -2,6 +2,7 @@ package app.java.com.view.ui.createReportViews;
 
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.*;
+import app.java.com.presenter.interfaces.AddNewReportFormatPresenter;
 import app.java.com.presenter.interfaces.CreateAccountPresenter;
 import app.java.com.presenter.interfaces.CreateReportPresenter;
 import app.java.com.view.ui.UIHelpers;
@@ -24,6 +25,8 @@ public class Report implements CreateReportView{
     private JPanel panel = new JPanel();
     private JButton standard;
     private JButton createSQL;
+    private JButton existingReportFormat;
+    private JButton newFormat;
     private CreateReportPresenter presenter;
   
 
@@ -67,9 +70,27 @@ public class Report implements CreateReportView{
 				}
         }});
 
+        existingReportFormat = UIHelpers.buttonGenerator("Using existing Format");
+        existingReportFormat.setBounds(400,300, 250,50);
+        existingReportFormat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // existing report view
+            	ExistingReportFormatView viewExistingReport = new ExistingReportFormat(frame, account);
+        }});
         
+        newFormat = UIHelpers.buttonGenerator("Add new format");
+        newFormat.setBounds(400,400, 250,50);
+        newFormat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+				// save the query
+            	AddNewReportFormatView newFormatView = new NewReportFormat(frame, account);
+        }});
         panel.add(standard);
         panel.add(createSQL);
+        panel.add(existingReportFormat);
+        panel.add(newFormat);
         this.frame.setContentPane(panel);
         this.frame.revalidate();
 
@@ -106,7 +127,6 @@ public class Report implements CreateReportView{
 
 	@Override
 	public String sendReport(String report) throws FileNotFoundException {
-		System.out.print(report);
 		String timeStamp, fileName;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		fileName = "report-";

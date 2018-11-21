@@ -126,20 +126,26 @@ public class CreateAccount implements CreateAccountView {
     	      }
     	    });
     	 
-    	 
-    	 edit = UIHelpers.buttonGenerator("Edit an Account");
-         edit.setBounds(400,250, 150,50);
 
     	 search = UIHelpers.buttonGenerator("Search for an Account");
-         search.setBounds(400,350, 150,50);
+         search.setBounds(400,250, 150,50);
+         search.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 SearchAccount ac = new SearchAccount(frame);
+             }
+         });
+         
+    	 
+    	 edit = UIHelpers.buttonGenerator("Edit an Account");
+         edit.setBounds(400,350, 150,50);
     	 
     	 panel.add(create);
-    	 panel.add(edit);
     	 panel.add(search);
+    	 //panel.add(edit);
 
 		 this.frame.setContentPane(panel);
 		 this.frame.revalidate();
-    	 
     	 
     	 
     	 

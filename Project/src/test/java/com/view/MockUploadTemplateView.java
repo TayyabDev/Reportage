@@ -26,7 +26,7 @@ public class MockUploadTemplateView implements UploadTemplateView {
     }
 
     @Override
-    public void onCompatibleTemplateSelected(boolean compatible) {
+    public void onCompatibleTemplateSelected(boolean compatible, int numSheets) {
 
     }
 

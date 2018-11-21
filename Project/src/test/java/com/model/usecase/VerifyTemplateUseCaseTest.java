@@ -2,6 +2,7 @@ package test.java.com.model.usecase;
 
 import app.java.com.model.usecase.UseCase;
 import app.java.com.model.usecase.VerifyTemplateUseCase;
+import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import org.junit.jupiter.api.Test;
 import test.java.com.model.utilities.ClientProfileDifferentColumnsSizeMockFile;
@@ -18,7 +19,7 @@ public class VerifyTemplateUseCaseTest implements VerifyTemplateResultInterface 
     private boolean testResult = false;
 
     @Override
-    public void onTemplateSelectedCompatible(boolean templateValid) {
+    public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface fileInterface) {
         testResult = templateValid;
     }
 
