@@ -40,7 +40,7 @@ public class CreateAccountUseCase extends  UseCase {
         try {
             success = ic.handle();
         } catch (InsertException e) {
-            resultInterface.onErrorCreateAccount(e.getMessage());
+            resultInterface.onErrorCreateAccount("failure");
         }
 
         if(success){
