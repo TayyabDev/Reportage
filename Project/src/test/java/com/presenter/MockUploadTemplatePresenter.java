@@ -1,9 +1,9 @@
 package test.java.com.presenter;
 
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
-import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
 import java.util.Date;
+import java.util.List;
 
 public class MockUploadTemplatePresenter implements UploadTemplatePresenter{
 
@@ -15,7 +15,7 @@ public class MockUploadTemplatePresenter implements UploadTemplatePresenter{
     }
 
     @Override
-    public void uploadTemplateWithFile(Date date, String templateName, String filePath) {
+    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum) {
 
     }
 
@@ -30,7 +30,7 @@ public class MockUploadTemplatePresenter implements UploadTemplatePresenter{
     }
 
     @Override
-    public void verifyFileUploaded(String filePath, String templateName) {
+    public void verifyFileUploaded(String filePath, String templateName, int sheetNum) {
 
     }
 
@@ -38,4 +38,10 @@ public class MockUploadTemplatePresenter implements UploadTemplatePresenter{
     public void unbindView() {
 
     }
+
+    @Override
+    public List<String> fetchSheetNames(String filePath) {
+        return null;
+    }
+
 }

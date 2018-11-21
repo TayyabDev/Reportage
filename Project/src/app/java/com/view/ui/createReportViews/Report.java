@@ -127,7 +127,6 @@ public class Report implements CreateReportView{
 
 	@Override
 	public String sendReport(String report) throws FileNotFoundException {
-		System.out.print(report);
 		String timeStamp, fileName;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		fileName = "report-";

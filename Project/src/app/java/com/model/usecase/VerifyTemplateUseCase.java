@@ -2,9 +2,6 @@ package app.java.com.model.usecase;
 
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
-import app.java.com.model.utilities.FileTypeFinder;
-import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
-import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import java.util.ArrayList;
@@ -58,13 +55,13 @@ public class VerifyTemplateUseCase extends UseCase {
         int templateColumnIndex = 2;
 
         if(adjustedTemplateColumns != selectedFileColumns.size()) {
-            this.resultInterface.onTemplateSelectedCompatible(false);
+            this.resultInterface.onTemplateSelectedCompatible(false, file);
             return;
         }
 
         for(int columnIdIndex = 0; columnIdIndex < selectedFileColumns.size(); columnIdIndex++) {
             if(!selectedFileColumns.get(columnIdIndex).equals(selectedTemplateColumns.get(templateColumnIndex))) {
-                this.resultInterface.onTemplateSelectedCompatible(false);
+                this.resultInterface.onTemplateSelectedCompatible(false, file);
                 return;
             }
 
@@ -72,6 +69,6 @@ public class VerifyTemplateUseCase extends UseCase {
         }
 
         // If manage to get here, then send template valid result
-        this.resultInterface.onTemplateSelectedCompatible(true);
+        this.resultInterface.onTemplateSelectedCompatible(true, file);
     }
 }
