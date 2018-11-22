@@ -26,6 +26,8 @@ public class FetchUserDataUseCase extends UseCase {
 	public void run() {
 		List<String> columns = new ArrayList<String>();
 		List<List<String>> data = new ArrayList<List<String>>();
+		System.out.println(target);
+		System.out.println(table);
 		SelectCommand selectCommand = new SelectCommand(target, table, constraints);
 		
 		try {

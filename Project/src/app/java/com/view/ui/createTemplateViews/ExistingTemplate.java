@@ -10,6 +10,8 @@ import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createAccountViews.Dashboard;
 
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +30,8 @@ public class ExistingTemplate implements ExistingTemplateView {
     private JScrollPane scrollPane;
     private JPanel scrollPanel;
 
+
+
     private ExistingTemplatePresenter presenter;
 
     public ExistingTemplate(JFrame frame, TeqAccount account) {
@@ -39,12 +43,12 @@ public class ExistingTemplate implements ExistingTemplateView {
 
         presenter = new ExistingTemplatePresenterImpl();
         presenter.attachView(this);
-        presenter.fetchTemplateNames();
 
-        String [] mod = {"Client"};
-        cbTemplates = new JComboBox(mod);
+        cbTemplates = new JComboBox();
         cbTemplates.setBounds(120, 80, 200, 25);
         panel.add(cbTemplates);
+
+        presenter.fetchTemplateNames();
 
         JButton back = UIHelpers.generateBackButton(0,0,50,50);
         panel.add(back);
@@ -63,7 +67,6 @@ public class ExistingTemplate implements ExistingTemplateView {
 
 
 
-
         tbData = new JTable();
         scrollPanel = new JPanel();
         scrollPanel.add(tbData);
@@ -71,6 +74,7 @@ public class ExistingTemplate implements ExistingTemplateView {
         scrollPane = new JScrollPane(scrollPanel);
         scrollPane.setBounds(0,150,frame.getWidth()-15,frame.getHeight() - 190);
         panel.add(scrollPane);
+
 
 
         JLabel lTarget = new JLabel("Target:");
@@ -104,6 +108,7 @@ public class ExistingTemplate implements ExistingTemplateView {
         btnSelect.addActionListener(e -> {
             String templateName = (String) cbTemplates.getSelectedItem();
             presenter.fetchTemplateColumns(templateName);
+            System.out.println(templateName);
             panel.revalidate();
         });
         panel.add(btnSelect);
@@ -129,12 +134,18 @@ public class ExistingTemplate implements ExistingTemplateView {
 
     @Override
     public void displayData(List<String> columns) {
-        tbData = new JTable(null, columns.toArray()) {
+
+        String[][] dataArray = new String[1][1];
+        dataArray[0] = columns.toArray(dataArray[0]);
+
+        tbData = new JTable(dataArray, columns.toArray()) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        UIHelpers.resizeTable(tbData);
+
         //tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scrollPanel.removeAll();
         scrollPanel.add(tbData);
@@ -143,8 +154,10 @@ public class ExistingTemplate implements ExistingTemplateView {
 
     }
 
+
+
     @Override
     public void onErrorSelectTemplate(String message) {
-
+        JOptionPane.showMessageDialog(frame, message);
     }
 }

@@ -2,7 +2,7 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
-import app.java.com.presenter.interfaces.ResolveConflictPresenterImpl;
+import app.java.com.presenter.ResolveConflictPresenterImpl;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 

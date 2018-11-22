@@ -1,11 +1,13 @@
-package app.java.com.presenter.interfaces;
+package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.presenter.interfaces.ResolveConflictPresenter;
+import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 import app.java.com.view.interfaces.ResolveConflictsView;
 
 import java.util.List;
 
-public class ResolveConflictPresenterImpl implements  ResolveConflictPresenter, ResolveConflictResultInterface {
+public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, ResolveConflictResultInterface {
     private ResolveConflictsView view;
 
     @Override
