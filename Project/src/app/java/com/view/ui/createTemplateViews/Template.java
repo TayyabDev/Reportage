@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,15 +33,17 @@ public class Template implements CreateTemplateView{
 	 private JButton createSQL;
 	 private String sqlQuery;
 	 private CreateTemplatePresenter presenter;
+	 private TeqAccount account;
 	
      public Template(JFrame frame, TeqAccount account) {
      	 this.frame = frame;
-
+     	 this.account = account;
+     	 
          panel = new JPanel();
  		 panel.setLayout(null);
  		 panel.setBackground(Color.decode("#f1f8e9"));
 
-         presenter = new CreateTemplatePresenterImpl(new CreateTemplateModelImpl());
+         presenter = new CreateTemplatePresenterImpl();
          presenter.attachView(this);
 
 
@@ -142,6 +145,27 @@ public class Template implements CreateTemplateView{
          frame.dispose();
          presenter.unbindView();
     }
+
+	@Override
+	/*
+	 * create a drop down box and display all the sheetNames for client to choose from
+	 * 
+	 */
+	public void displaySheetNames(List<String> sheetNames) {
+		Object[] options = sheetNames.toArray();
+		Object selectedOption = JOptionPane.showInputDialog(null,
+				"choose one sheet", "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				options, options[0]);
+		if (selectedOption != null) {
+			String selectedSheet = selectedOption.toString();
+			presenter.sheetSelected(selectedSheet);
+		} else {
+			presenter.sheetSelected(null);
+		}
+		
+		
+	}
 
 
 }

@@ -1,6 +1,9 @@
 package app.java.com.presenter;
 
+import java.util.List;
+
 import app.java.com.model.interfaces.CreateTemplateModel;
+import app.java.com.model.usecase.CreateTemplateUsingFileUseCase;
 import app.java.com.model.usecase.CreateTemplateWithQueryUseCase;
 import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
@@ -10,17 +13,15 @@ import app.java.com.model.usecase.UseCase;
 public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, CreateTemplateResultInterface {
 
     private CreateTemplateView view;
-    private CreateTemplateModel model;
-
-    public CreateTemplatePresenterImpl(CreateTemplateModel model) {
-        this.view = null;
-        this.model = model;
-    }
+    private CreateTemplateUsingFileUseCase usingFileUseCase;
 
     @Override
     public void createTemplateWithFile(String filePath) {
         if(view.isFileValid(filePath)) {
-            model.createUsingFile(this, filePath);
+        	// create UseCase to implements this
+        	usingFileUseCase = new CreateTemplateUsingFileUseCase(this, filePath);
+        	usingFileUseCase.run();
+//            model.createUsingFile(this, filePath);
         }
     }
 
@@ -49,4 +50,16 @@ public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, Cre
     public void onErrorCreateTemplate(String message) {
         view.onErrorUploadingFile();
     }
+
+	@Override
+	public void fetchSheetNames(CreateTemplateUsingFileUseCase useCase, List<String> sheetNames) {
+		view.displaySheetNames(sheetNames);
+	}
+
+	@Override
+	public void sheetSelected(String sheetName) {
+		usingFileUseCase.sheetSelected(sheetName);
+	}
+	
+	
 }
