@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.entities.account.AccountTypeFinder;
 import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
@@ -41,7 +42,6 @@ public class Login implements LoginView {
 		panel.setBackground(Color.decode("#f1f8e9"));
 
 		presenter = new LoginPresenterImpl(this);
-
 		
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));

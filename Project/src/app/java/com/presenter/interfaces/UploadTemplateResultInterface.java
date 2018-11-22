@@ -6,5 +6,5 @@ public interface UploadTemplateResultInterface {
 
     void onSuccessUploadingTemplate();
 
-    void onErrorUploadingTemplate(List<String> errorMessages);
+    void onErrorUploadingTemplate(List<Exception> errorMessages);
 }

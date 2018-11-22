@@ -39,18 +39,12 @@ public class UploadTemplateUseCase extends UseCase {
 
         // Now add this to the insert command since the template has a clientIdForm column
 
-
         // Verify template matches the chosen template's format
         List<Exception> errorList = insertAllRows(fileInterface, clientFormId);
 
         // all rows inserted successfully if errorList is empty
         if (!errorList.isEmpty()) {
-        	List<String> errorMessages = new ArrayList<>();
-        	for (Exception e : errorList) {
-        		errorMessages.add(e.getMessage());
-        	}
-
-        	resultInterface.onErrorUploadingTemplate(errorMessages);
+        	resultInterface.onErrorUploadingTemplate(errorList);
         } else {
             resultInterface.onSuccessUploadingTemplate();
         }

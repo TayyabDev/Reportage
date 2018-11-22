@@ -119,8 +119,8 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     }
 
 	@Override
-	public void onErrorUploadingTemplate(List<String> errorMessages) {
-        this.view.onErrorUploadingFile();
+	public void onErrorUploadingTemplate(List<Exception> errorMessages) {
+        // move to resolve conflicts view with the errorMessages
     }
 
 }

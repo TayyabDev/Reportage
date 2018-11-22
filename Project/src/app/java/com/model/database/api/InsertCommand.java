@@ -2,11 +2,13 @@ package app.java.com.model.database.api;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.ConnectionFailedException;
 import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.Exceptions.InvalidException;
 
 public class InsertCommand extends Command {
 
@@ -31,17 +33,19 @@ public class InsertCommand extends Command {
 		return true;
 	}
 
-	public int insertHandle() throws InsertException, DuplicateKeyException {
+	public int insertHandle() throws InvalidException, DuplicateKeyException, InsertException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
 				+ "values " + formulatedData +";";
 		try {
 			return runExecuteUpdate(sql);
-		} catch (SQLIntegrityConstraintViolationException e){
-			throw new DuplicateKeyException(formulatedData);
-		} catch (SQLException | ConnectionFailedException e) {
-			throw new InsertException(tableName, formulatedData);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw new DuplicateKeyException(tableName, vals);
+		} catch (SQLException e) {
+			throw new InvalidException(tableName, vals, e.getMessage());
+		} catch (ConnectionFailedException e) {
+			throw new InsertException (tableName, formulatedData);
 		}
 	}
 }
