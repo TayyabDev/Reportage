@@ -2,6 +2,7 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.presenter.interfaces.ResolveConflictPresenterImpl;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 
@@ -27,6 +28,11 @@ public class ResolveConflicts implements ResolveConflictsView {
     private JScrollPane scrollPane;
     private JPanel scrollPanel;
 
+    private ButtonGroup bg;
+    List<JRadioButton> errorOptionButtons;
+
+    private ResolveConflictPresenterImpl presenter;
+
 
     public ResolveConflicts(JFrame frame, TeqAccount account){
         this.frame = frame;
@@ -34,20 +40,17 @@ public class ResolveConflicts implements ResolveConflictsView {
         panel = new JPanel();
         panel.setLayout(null);
 
+        presenter = new ResolveConflictPresenterImpl();
+        presenter.attachView(this);
+
 
         scrollPanel = new JPanel(new GridLayout(0, 1));
         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please resolve the conflicts."));
 
-        ButtonGroup bg = new ButtonGroup();
-        List<JRadioButton> errorOptionButtons = new ArrayList<>();
-        for (int i =0; i < 5; i++){
-            for (int j = 0; j < 5; j++){
-                JRadioButton jrb = new JRadioButton(String.format("Conflict in Row %d Col %d", i,j));
-                bg.add(jrb);
-                errorOptionButtons.add(jrb);
-                scrollPanel.add(jrb);
-            }
-        }
+
+
+        presenter.fillListWithErrors();
+
 
 
 
@@ -105,6 +108,43 @@ public class ResolveConflicts implements ResolveConflictsView {
 
     @Override
     public void getErrors(List<InsertException> errors) {
+        bg = new ButtonGroup();
+        errorOptionButtons = new ArrayList<>();
+        for (int i =0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                JRadioButton jrb = new JRadioButton(String.format("Conflict in Row %d Col %d", i,j));
+                bg.add(jrb);
+                errorOptionButtons.add(jrb);
+                scrollPanel.add(jrb);
+            }
+        }
+
         this.errors = errors;
+    }
+
+    @Override
+    public boolean isFieldsValid(String update) {
+        return update.length() > 0;
+    }
+
+    @Override
+    public void onSuccessConflictFix() {
+        // show message saying that fixed
+    }
+
+    @Override
+    public void onErrorConflictFix(String error) {
+        JOptionPane.showMessageDialog(frame,error);
+    }
+
+    @Override
+    public void onSuccessInvalidFix() {
+        // show message saying that fixed
+    }
+
+    @Override
+    public void onErrorInvalidFix(String error) {
+        JOptionPane.showMessageDialog(frame,error);
+
     }
 }

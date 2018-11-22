@@ -7,8 +7,19 @@ import java.util.List;
 public interface ResolveConflictsView {
 
 
-    // CHANGE TO ConflictException list in future
     void getErrors(List<InsertException> errors );
+
+    boolean isFieldsValid(String update);
+
+    void onSuccessConflictFix();
+
+    void onErrorConflictFix(String error);
+
+    void onSuccessInvalidFix();
+
+    void onErrorInvalidFix(String error);
+
+
 
 
 
