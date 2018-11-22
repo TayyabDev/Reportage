@@ -4,6 +4,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
+import app.java.com.model.entities.account.Account;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import java.util.ArrayList;
@@ -12,18 +13,21 @@ import java.util.List;
 
 public class UploadTemplateUseCase extends UseCase {
 
+    private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";
+
     private TemplateFileInterface fileInterface;
     private String templateName;
     private UploadTemplateResultInterface resultInterface;
     private Date dateSelected;
-    private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";
+    private Account account;
 
     public UploadTemplateUseCase(UploadTemplateResultInterface resultInterface, Date date, String templateName,
-                                 TemplateFileInterface file) {
+                                 TemplateFileInterface file, Account account) {
         this.resultInterface = resultInterface;
         this.dateSelected = date;
         this.fileInterface = file;
         this.templateName = templateName;
+        this.account = account;
     }
 
     @Override
@@ -48,9 +52,8 @@ public class UploadTemplateUseCase extends UseCase {
 
         	resultInterface.onErrorUploadingTemplate(errorMessages);
         } else {
-        	resultInterface.onSuccessUploadingTemplate();
+            resultInterface.onSuccessUploadingTemplate();
         }
-        
     }
 
     /*
@@ -102,16 +105,16 @@ public class UploadTemplateUseCase extends UseCase {
         } catch (SelectException e) {
             e.printStackTrace();
         }
-        System.out.println("Hey what is here");
-        System.out.println(result);
 
         String templateId = result.get(0).get(0);
 
         int month = dateSelected.getMonth() + 1; // normalize
-        System.out.println(String.valueOf(month + " is the month"));
 
         int year = dateSelected.getYear() + 1900; // normalize
-        System.out.println(year + " is the year");
+
+        int userId = getUserId(account.getAccountId());
+
+        int agencyId = getAgencyId(userId);
 
 
         // Let's insert the information into the ClientDataForm table now
@@ -126,8 +129,8 @@ public class UploadTemplateUseCase extends UseCase {
 
         List<String> values = new ArrayList<>();
         values.add(templateId);
-        values.add(String.valueOf(1));
-        values.add(String.valueOf(1));
+        values.add(String.valueOf(userId));
+        values.add(String.valueOf(agencyId));
         values.add(String.valueOf(month));
         values.add(String.valueOf(year));
 
@@ -140,6 +143,54 @@ public class UploadTemplateUseCase extends UseCase {
         }
 
         return -1;
+    }
 
+    private int getUserId(int accountId) {
+        // get the userId from the user table where account id is equal to accountId
+        List<String> constraints = new ArrayList<>();
+        constraints.add("accountId = '" + String.valueOf(accountId) + "'");
+
+        SelectCommand command = new SelectCommand("User", constraints);
+        List<List<String>> result = null;
+        try {
+            result = command.selectHandle();
+        } catch (SelectException e) {
+            e.printStackTrace();
+        }
+
+        int userId = 0;
+        if(result != null) {
+            userId = Integer.valueOf(result.get(0).get(0));
+        }
+
+        System.out.println(String.valueOf(userId) + " is the userId");
+
+        return userId;
+    }
+
+    private int getAgencyId(int userId) {
+
+        // then we need to get the agencyId from the Officer table
+        List<String> constraints = new ArrayList<>();
+        constraints = new ArrayList<>();
+        constraints.add("officerId = '" + String.valueOf(userId) + "'");
+
+        List<List<String>> result = null;
+
+        SelectCommand agencyIdCommand = new SelectCommand("Officer", constraints);
+        try {
+            result = agencyIdCommand.selectHandle();
+        } catch (SelectException e) {
+            e.printStackTrace();
+        }
+
+        int agencyId = 0;
+
+        if(result != null) {
+            agencyId = Integer.valueOf(result.get(0).get(0));
+        }
+
+        System.out.println(String.valueOf(agencyId) + " is the agency");
+        return agencyId;
     }
 }

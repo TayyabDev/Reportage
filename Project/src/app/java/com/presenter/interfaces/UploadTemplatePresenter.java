@@ -1,6 +1,7 @@
 package app.java.com.presenter.interfaces;
 
 import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.entities.account.Account;
 import app.java.com.view.interfaces.UploadTemplateView;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface UploadTemplatePresenter {
 
-    void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum);
+    void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum, Account account);
 
     void attachView(UploadTemplateView view);
     

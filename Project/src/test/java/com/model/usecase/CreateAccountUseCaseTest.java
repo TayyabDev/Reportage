@@ -4,7 +4,7 @@ package test.java.com.model.usecase;
 import app.java.com.model.usecase.CreateAccountUseCase;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.CreateAccountResultInterface;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

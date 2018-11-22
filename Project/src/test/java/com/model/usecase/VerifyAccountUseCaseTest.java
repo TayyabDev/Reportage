@@ -4,7 +4,7 @@ import app.java.com.model.entities.account.Account;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.model.usecase.VerifyAccountUseCase;
 import app.java.com.presenter.interfaces.LoginResultInterface;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

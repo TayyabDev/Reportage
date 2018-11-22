@@ -1,6 +1,7 @@
 package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.entities.account.Account;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.UploadTemplateUseCase;
 import app.java.com.model.usecase.UseCase;
@@ -28,7 +29,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     }
 
     @Override
-    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum) {
+    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum, Account account) {
 
         // Get the file from the file path
         String formulatedFileName = filePath.replace("\\", "\\\\");
@@ -41,7 +42,7 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
             fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
         }
 
-        UseCase uploadTemplateUseCase = new UploadTemplateUseCase(this, date, templateName, fileInterface);
+        UseCase uploadTemplateUseCase = new UploadTemplateUseCase(this, date, templateName, fileInterface, account);
         uploadTemplateUseCase.run();
     }
 
