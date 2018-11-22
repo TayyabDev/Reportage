@@ -125,10 +125,9 @@ public class UserData implements CreateUserDataView{
 	public void displayData(List<String> columns, List<List<String>> data) {
 		int numColumns = data.get(0).size();
 		int numRows = data.size();
-		String[][] dataArray = new String[numRows+1][numColumns];
-		dataArray[0] = columns.toArray(dataArray[0]);
+		String[][] dataArray = new String[numRows][numColumns];
 		for (int i = 0; i < numRows; i++) {
-			dataArray[i+1] = data.get(i).toArray(dataArray[i+1]);
+			dataArray[i] = data.get(i).toArray(dataArray[i]);
 		}
 		tbData = new JTable(dataArray, columns.toArray()) {
 			@Override
@@ -136,9 +135,9 @@ public class UserData implements CreateUserDataView{
 				return false;
 			}	
 		};
-		//tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPanel.removeAll();
-        scrollPanel.add(tbData);
+		scrollPane.setViewportView(tbData);
 		scrollPane.revalidate();
 		panel.revalidate();
 
