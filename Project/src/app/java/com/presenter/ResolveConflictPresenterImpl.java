@@ -1,6 +1,8 @@
 package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.usecase.ProcessDuplicateRowsUseCase;
+import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.ResolveConflictPresenter;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 import app.java.com.view.interfaces.ResolveConflictsView;
@@ -30,32 +32,29 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
         // Use conflict with invalid mode
     }
 
-
-    // TODO: Update this method with right errors
     @Override
-    public void fillListWithErrors() {
-        view.getErrors(null);
-    }
+    public void processDuplicateRowConflicts(List<InsertException> exceptions) {
+        // here run the usecase
 
+        UseCase processDuplicateRowConflicts = new ProcessDuplicateRowsUseCase(this, exceptions);
+        processDuplicateRowConflicts.run();
 
-
-    @Override
-    public void onSuccessConflictResolved() {
-        view.onSuccessConflictFix();
     }
 
     @Override
-    public void onSuccessInvalidResolved() {
-        view.onSuccessInvalidFix();
+    public void onSuccessFixingConflict(String message) {
+        this.view.onSuccessConflictFix();
     }
 
     @Override
-    public void onErrorConflictFix(String message) {
-        view.onErrorConflictFix(message);
+    public void onErrorFixingConflict(String message) {
+        this.view.onErrorConflictFix(message);
     }
 
     @Override
-    public void onErrorInvalidFix(String message) {
-        view.onErrorInvalidFix(message);
+    public void onSuccessProcessingDuplicateRows(List<InsertException> exceptions) {
+        // results sent here - pass to the view
+        this.view.updateExceptions(exceptions);
+        this.view.getErrors(exceptions);
     }
 }

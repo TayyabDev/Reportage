@@ -1,5 +1,6 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
+import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AccountTypeFinder;
 import app.java.com.model.entities.account.AgencyAccount;
@@ -20,6 +21,7 @@ import javax.swing.filechooser.FileSystemView;
 
 public class UploadTemplate implements UploadTemplateView {
 
+    private Account account;
 	private JPanel panel;
 	private JLabel labelLogo;
 	private ImageIcon teqLogo;
@@ -27,13 +29,14 @@ public class UploadTemplate implements UploadTemplateView {
 	private String filePath;
 	private boolean templateCompatible = false;
 	private JComboBox templateDropdown;
-	private JFrame jFrame;
+	private JFrame frame;
 	private JComboBox sheetDropdown;
 
 
 	public UploadTemplate(JFrame frame, Account account) {
+        this.account = account;
 
-        this.jFrame = frame;
+        this.frame = frame;
 		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
@@ -166,8 +169,8 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
-        this.jFrame.setContentPane(panel);
-        this.jFrame.revalidate();
+        this.frame.setContentPane(panel);
+        this.frame.revalidate();
 	}
 
 	private void showPopUpWithMessage(String message, String title) {
@@ -208,8 +211,19 @@ public class UploadTemplate implements UploadTemplateView {
 	}
 
     @Override
-    public void switchViewToResolveConflicts(List<Exception> exceptions) {
+    public void switchViewToResolveConflicts(List<InsertException> exceptions) {
+	    int n = JOptionPane.showConfirmDialog(frame,"There are some errors attemping to upload the template. Please try to resolve them.");
 
+        if(n == JOptionPane.YES_OPTION) {
+            ResolveConflicts resolveConflicts = new ResolveConflicts(frame, (TeqAccount) account, exceptions);
+        } else {
+            JOptionPane.showMessageDialog(frame,"Ok. Your loss.");
+            if (AccountTypeFinder.isTeqAccount(account)) {
+                Template t = new Template(frame, ((TeqAccount) account));
+            } else {
+                AgencyDashboard board = new AgencyDashboard(frame, false, ((AgencyAccount)account));
+            }
+        }
     }
 
 
