@@ -28,11 +28,6 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
     }
 
     @Override
-    public void attemptFixInvalid(String update) {
-        // Use conflict with invalid mode
-    }
-
-    @Override
     public void processDuplicateRowConflicts(List<InsertException> exceptions) {
         // here run the usecase
 

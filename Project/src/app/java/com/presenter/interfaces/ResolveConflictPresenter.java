@@ -12,7 +12,6 @@ public interface ResolveConflictPresenter {
     void unbindView();
 
     void attemptFixConflict(String update);
-    void attemptFixInvalid(String update);
 
     void processDuplicateRowConflicts(List<InsertException> exceptions);
 

@@ -1,16 +1,14 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
-import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ResolveConflictPresenterImpl;
+import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,25 +60,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
         JButton resolve = UIHelpers.buttonGenerator("Resolve");
         resolve.setBounds(450, 470, 100,20);
-        resolve.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(JRadioButton errorOption : errorOptionButtons){
-                    if(errorOption.isSelected()) {
-                        // if type is conflict
-                        String [] options = {"Use old", "Use new"};
-                        int ret = JOptionPane.showOptionDialog(frame, "Select one of the options",
-                                "Resolve conflict", JOptionPane.YES_NO_OPTION, 1,
-                                null, options, options[0]);
-
-                        // return value ret is value in options array (use old / use new)
-                        System.out.println(options[ret]);
-
-                        // invalid conflict stuff goes here
-                    }
-                }
-            }
-        });
+        resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons));
 
         panel.add(scrollPane);
         panel.add(resolve);
@@ -90,7 +70,7 @@ public class ResolveConflicts implements ResolveConflictsView {
     }
 
 
-    public  static void main(String [] args){
+    public  static void main(String [] args) {
         JFrame frame = new JFrame();
         frame.setPreferredSize(new Dimension(1000, 600));
         frame.pack();
@@ -144,6 +124,7 @@ public class ResolveConflicts implements ResolveConflictsView {
         this.errors = exceptions;
 
     }
+
 
 
 
