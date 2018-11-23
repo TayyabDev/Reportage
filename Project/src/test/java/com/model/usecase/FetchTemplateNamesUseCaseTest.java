@@ -18,7 +18,7 @@ public class FetchTemplateNamesUseCaseTest implements FetchTemplateNamesResultIn
 
     private List<String> actualTemplateNames = Arrays.asList("Client Profile",
             "Community Connections", "Information and Orientation", "Language Training - Course Setup",
-            "Employment Related Services");
+            "Employment Related Services", "Language Training - Client Exit");
 
     @Override
     public void onSuccessFetchingNames(List<String> names) throws SelectException {

@@ -1,32 +1,18 @@
 package app.java.com.view.ui.createReportViews;
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.presenter.ExistingReportFormatImpl;
+import app.java.com.presenter.interfaces.ExistingReportFormatPresenter;
+import app.java.com.view.interfaces.CreateReportView;
+import app.java.com.view.interfaces.ExistingReportFormatView;
+import app.java.com.view.ui.UIHelpers;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
-import com.sun.glass.ui.Pixels.Format;
-
-import app.java.com.model.entities.account.TeqAccount;
-import app.java.com.presenter.AddNewReportFormatImpl;
-import app.java.com.presenter.ExistingReportFormatImpl;
-import app.java.com.presenter.interfaces.AddNewReportFormatPresenter;
-import app.java.com.presenter.interfaces.ExistingReportFormatPresenter;
-import app.java.com.view.interfaces.CreateReportView;
-import app.java.com.view.interfaces.ExistingReportFormatView;
-import app.java.com.view.ui.UIHelpers;
+import javax.swing.*;
 
 public class ExistingReportFormat implements ExistingReportFormatView{
 

@@ -1,5 +1,6 @@
 package test.java.com.presenter;
 
+import app.java.com.model.entities.account.Account;
 import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import java.util.Date;
@@ -15,7 +16,7 @@ public class MockUploadTemplatePresenter implements UploadTemplatePresenter{
     }
 
     @Override
-    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum) {
+    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum, Account account) {
 
     }
 
