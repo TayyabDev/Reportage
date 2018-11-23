@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ResolveConflictsView {
 
-
     void getErrors(List<InsertException> errors );
 
     boolean isFieldsValid(String update);
@@ -14,14 +13,5 @@ public interface ResolveConflictsView {
     void onSuccessConflictFix();
 
     void onErrorConflictFix(String error);
-
-    void onSuccessInvalidFix();
-
-    void onErrorInvalidFix(String error);
-
-
-
-
-
 
 }

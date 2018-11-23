@@ -1,14 +1,12 @@
 package app.java.com.model.database.api;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
-
 import app.java.com.model.Exceptions.ConnectionFailedException;
 import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.Exceptions.InvalidException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 public class InsertCommand extends Command {
 

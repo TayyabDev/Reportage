@@ -30,32 +30,23 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
         // Use conflict with invalid mode
     }
 
-
-    // TODO: Update this method with right errors
     @Override
-    public void fillListWithErrors() {
-        view.getErrors(null);
-    }
-
-
-
-    @Override
-    public void onSuccessConflictResolved() {
-        view.onSuccessConflictFix();
+    public void processDuplicateRowConflicts(List<InsertException> exceptions) {
+        // here run the usecase
     }
 
     @Override
-    public void onSuccessInvalidResolved() {
-        view.onSuccessInvalidFix();
+    public void onSuccessFixingConflict(String message) {
+        this.view.onSuccessConflictFix();
     }
 
     @Override
-    public void onErrorConflictFix(String message) {
-        view.onErrorConflictFix(message);
+    public void onErrorFixingConflict(String message) {
+        this.view.on
     }
 
     @Override
-    public void onErrorInvalidFix(String message) {
-        view.onErrorInvalidFix(message);
+    public void onSuccessProcessingDuplicateRows(List<InsertException> exceptions) {
+
     }
 }

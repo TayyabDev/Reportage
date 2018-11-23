@@ -1,5 +1,6 @@
 package test.java.com.view;
 
+import app.java.com.model.Exceptions.InsertException;
 import app.java.com.view.interfaces.UploadTemplateView;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class MockUploadTemplateView implements UploadTemplateView {
 
     @Override
     public void fillDropdownWithTemplateNames(List<String> templateNames) {
+
+    }
+
+    @Override
+    public void switchViewToResolveConflicts(List<InsertException> exceptions) {
 
     }
 }
