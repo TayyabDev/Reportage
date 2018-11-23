@@ -87,3 +87,5 @@ create table Report(
 	id int auto_increment primary key,
 	reportName varchar(255) not null unique,
 	reportQuery text not null);
+
+insert into Account (userName, password, accountType, registered) values ('root', 'root', 'T', true);
