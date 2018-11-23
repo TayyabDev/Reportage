@@ -31,12 +31,10 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
     }
 
 
-    // TODO: Update this method with right errors
     @Override
-    public void fillListWithErrors() {
-        view.getErrors(null);
+    public void processDuplicateRowConflicts(List<InsertException> exceptions) {
+        // here run the usecase
     }
-
 
 
     @Override
@@ -57,5 +55,10 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
     @Override
     public void onErrorInvalidFix(String message) {
         view.onErrorInvalidFix(message);
+    }
+
+    @Override
+    public void onSuccessProcessingDuplicateRows(List<InsertException> exceptions) {
+
     }
 }

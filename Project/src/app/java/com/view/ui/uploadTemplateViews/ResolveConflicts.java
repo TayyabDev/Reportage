@@ -1,5 +1,6 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
+import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ResolveConflictPresenterImpl;
@@ -34,7 +35,7 @@ public class ResolveConflicts implements ResolveConflictsView {
     private ResolveConflictPresenterImpl presenter;
 
 
-    public ResolveConflicts(JFrame frame, TeqAccount account){
+    public ResolveConflicts(JFrame frame, TeqAccount account, List<InsertException> errors){
         this.frame = frame;
 
         panel = new JPanel();
@@ -48,8 +49,12 @@ public class ResolveConflicts implements ResolveConflictsView {
         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please resolve the conflicts."));
 
 
+        this.errors = errors;
 
-        presenter.fillListWithErrors();
+
+        presenter.processDuplicateRowConflicts(errors);
+
+        getErrors(errors);
 
 
 
@@ -103,20 +108,19 @@ public class ResolveConflicts implements ResolveConflictsView {
         frame.setResizable(false);
         UIHelpers.setLook();
 
-        ResolveConflicts rc = new ResolveConflicts(frame, null);
+        ResolveConflicts rc = new ResolveConflicts(frame, null, null);
     }
 
-    @Override
+
     public void getErrors(List<InsertException> errors) {
         bg = new ButtonGroup();
         errorOptionButtons = new ArrayList<>();
-        for (int i =0; i < 5; i++){
-            for (int j = 0; j < 5; j++){
-                JRadioButton jrb = new JRadioButton(String.format("Conflict in Row %d Col %d", i,j));
-                bg.add(jrb);
-                errorOptionButtons.add(jrb);
-                scrollPanel.add(jrb);
-            }
+        for (Exception e : errors){
+            JRadioButton jrb = new JRadioButton(); // change to conflcit message later
+            bg.add(jrb);
+            errorOptionButtons.add(jrb);
+            scrollPanel.add(jrb);
+
         }
 
         this.errors = errors;

@@ -19,9 +19,4 @@ public interface ResolveConflictsView {
 
     void onErrorInvalidFix(String error);
 
-
-
-
-
-
 }
