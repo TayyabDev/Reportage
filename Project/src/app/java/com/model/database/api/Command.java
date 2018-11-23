@@ -100,7 +100,6 @@ public abstract class Command {
 		Connection conn;
         String report = "";
         int column = 0;
-        System.out.println(sql);
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);

@@ -3,8 +3,6 @@ package app.java.com.presenter;
 import java.util.List;
 
 import app.java.com.model.entities.account.TeqAccount;
-import app.java.com.model.entities.template.BaseTemplate;
-import app.java.com.model.interfaces.CreateTemplateModel;
 import app.java.com.model.usecase.CreateTemplateUsingFileUseCase;
 import app.java.com.model.usecase.CreateTemplateWithQueryUseCase;
 import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
