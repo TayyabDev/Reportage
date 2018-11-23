@@ -35,8 +35,16 @@ public class UserData implements CreateUserDataView{
 	private JTextField tfTarget;
 	private JTextField tfConstraint;
 	private JTable tbData;
+	private boolean tableEditable = false;
 	private JScrollPane scrollPane;
 	private JPanel scrollPanel;
+	
+	private JButton btnSelect = UIHelpers.buttonGenerator("Select");
+	private JButton btnEdit = UIHelpers.buttonGenerator("Enable Editting");
+	private JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
+	private JButton btnCancel = UIHelpers.buttonGenerator("Cancel");
+
+	
 	
 	private FetchUserDataPresenter presenter;
 	
@@ -100,16 +108,52 @@ public class UserData implements CreateUserDataView{
 		lConstraint.setVisible(false);
 		tfConstraint.setVisible(false);
 		
-		JButton btnSelect = UIHelpers.buttonGenerator("Select");
-		btnSelect.setBounds(750, 80, 100, 25);
+		btnSelect.setBounds(700, 80, 100, 25);
 		btnSelect.addActionListener(e -> {
 			String templateName = (String) cbTemplates.getSelectedItem();
 			List<String> target = new ArrayList<String>();
-			List<String> constraint = new ArrayList<String>();			
+			List<String> constraint = new ArrayList<String>();
 			presenter.fetchUserDataWithSelection(target, templateName, constraint);
 			panel.revalidate();
         });
 		panel.add(btnSelect);
+		
+		btnEdit.setBounds(810, 80, 140, 25);
+		btnEdit.setEnabled(false);
+		btnEdit.addActionListener(e -> {
+			cbTemplates.setEnabled(false);
+			btnSelect.setEnabled(false);
+			btnCancel.setEnabled(true);
+			btnSubmit.setEnabled(true);
+			btnEdit.setEnabled(false);
+			
+			tableEditable = true;
+		});
+		panel.add(btnEdit);
+		
+		btnCancel.setBounds(700, 115, 100, 25);
+		btnCancel.setEnabled(false);
+		btnCancel.addActionListener(e -> {
+			cbTemplates.setEnabled(true);
+			btnSelect.setEnabled(true);
+			btnEdit.setEnabled(true);
+			btnSubmit.setEnabled(false);
+			btnCancel.setEnabled(false);
+			tableEditable = false;
+		});
+		panel.add(btnCancel);
+		
+		btnSubmit.setBounds(810, 115, 140, 25);
+		btnSubmit.setEnabled(false);
+		btnSubmit.addActionListener(e -> {
+			cbTemplates.setEnabled(true);
+			btnSelect.setEnabled(true);
+			btnEdit.setEnabled(true);
+			btnSubmit.setEnabled(false);
+			btnCancel.setEnabled(false);
+			tableEditable = false;
+		});
+		panel.add(btnSubmit);
 		
 		this.frame.setContentPane(panel);
         this.frame.revalidate();
@@ -132,9 +176,10 @@ public class UserData implements CreateUserDataView{
 		tbData = new JTable(dataArray, columns.toArray()) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return false;
+				return tableEditable;
 			}	
 		};
+		btnEdit.setEnabled(true);
 		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPanel.removeAll();
 		scrollPane.setViewportView(tbData);
