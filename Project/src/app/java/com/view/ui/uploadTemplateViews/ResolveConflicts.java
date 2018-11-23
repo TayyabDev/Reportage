@@ -2,6 +2,7 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.presenter.ResolveConflictPresenterImpl;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 
@@ -27,6 +28,11 @@ public class ResolveConflicts implements ResolveConflictsView {
     private JScrollPane scrollPane;
     private JPanel scrollPanel;
 
+    private ButtonGroup bg;
+    List<JRadioButton> errorOptionButtons;
+
+    private ResolveConflictPresenterImpl presenter;
+
 
     public ResolveConflicts(JFrame frame, TeqAccount account){
         this.frame = frame;
@@ -34,20 +40,17 @@ public class ResolveConflicts implements ResolveConflictsView {
         panel = new JPanel();
         panel.setLayout(null);
 
+        presenter = new ResolveConflictPresenterImpl();
+        presenter.attachView(this);
+
 
         scrollPanel = new JPanel(new GridLayout(0, 1));
         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please resolve the conflicts."));
 
-        ButtonGroup bg = new ButtonGroup();
-        List<JRadioButton> errorOptionButtons = new ArrayList<>();
-        for (int i =0; i < 5; i++){
-            for (int j = 0; j < 5; j++){
-                JRadioButton jrb = new JRadioButton(String.format("Conflict in Row %d Col %d", i,j));
-                bg.add(jrb);
-                errorOptionButtons.add(jrb);
-                scrollPanel.add(jrb);
-            }
-        }
+
+
+        presenter.fillListWithErrors();
+
 
 
 
@@ -65,10 +68,16 @@ public class ResolveConflicts implements ResolveConflictsView {
             public void actionPerformed(ActionEvent e) {
                 for(JRadioButton errorOption : errorOptionButtons){
                     if(errorOption.isSelected()){
-                        // conflict
+                        // if type is conflict
                         String [] options = {"Use old", "Use new"};
+                        int ret = JOptionPane.showOptionDialog(frame, "Select one of the options",
+                                "Resolve conflict", JOptionPane.YES_NO_OPTION, 1,
+                                null, options, options[0]);
 
-                        // invalid
+                        // return value ret is value in options array (use old / use new)
+                        System.out.println(options[ret]);
+
+                        // invalid conflict stuff goes here
                     }
                 }
             }
@@ -94,11 +103,48 @@ public class ResolveConflicts implements ResolveConflictsView {
         frame.setResizable(false);
         UIHelpers.setLook();
 
-        ResolveConflicts c = new ResolveConflicts(frame, null);
+        ResolveConflicts rc = new ResolveConflicts(frame, null);
     }
 
     @Override
     public void getErrors(List<InsertException> errors) {
+        bg = new ButtonGroup();
+        errorOptionButtons = new ArrayList<>();
+        for (int i =0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                JRadioButton jrb = new JRadioButton(String.format("Conflict in Row %d Col %d", i,j));
+                bg.add(jrb);
+                errorOptionButtons.add(jrb);
+                scrollPanel.add(jrb);
+            }
+        }
+
         this.errors = errors;
+    }
+
+    @Override
+    public boolean isFieldsValid(String update) {
+        return update.length() > 0;
+    }
+
+    @Override
+    public void onSuccessConflictFix() {
+        // show message saying that fixed
+    }
+
+    @Override
+    public void onErrorConflictFix(String error) {
+        JOptionPane.showMessageDialog(frame,error);
+    }
+
+    @Override
+    public void onSuccessInvalidFix() {
+        // show message saying that fixed
+    }
+
+    @Override
+    public void onErrorInvalidFix(String error) {
+        JOptionPane.showMessageDialog(frame,error);
+
     }
 }
