@@ -67,7 +67,7 @@ public class ResolveConflicts implements ResolveConflictsView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for(JRadioButton errorOption : errorOptionButtons){
-                    if(errorOption.isSelected()){
+                    if(errorOption.isSelected()) {
                         // if type is conflict
                         String [] options = {"Use old", "Use new"};
                         int ret = JOptionPane.showOptionDialog(frame, "Select one of the options",

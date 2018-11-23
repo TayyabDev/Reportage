@@ -207,8 +207,13 @@ public class UploadTemplate implements UploadTemplateView {
         templateDropdown.setModel(new DefaultComboBoxModel(templateNames.toArray()));
 	}
 
+    @Override
+    public void switchViewToResolveConflicts(List<Exception> exceptions) {
 
-	@Override
+    }
+
+
+    @Override
 	public void onSuccessTemplateUploaded() {
         showPopUpWithMessage("Template successfully uploaded", "Information");
 	}

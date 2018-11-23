@@ -3,6 +3,7 @@ package app.java.com.model.Exceptions;
 import app.java.com.model.database.api.QueryOnDatabase;
 import app.java.com.model.database.api.SelectCommand;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javafx.util.Pair;
@@ -11,7 +12,7 @@ public class DuplicateKeyException extends InsertException {
 
 	private List<String> duplicatedVals;
 	private String table;
-	private String primaryKeyColumn;
+	private List<String> primaryKeyColumn;
 
 	public DuplicateKeyException() {
 		super();
@@ -22,12 +23,10 @@ public class DuplicateKeyException extends InsertException {
 		this.table = table;
 
         try {
-            primaryKeyColumn = QueryOnDatabase.getPrimaryKeyColumn(table).get(0);
-            //List<List<String>> result = getAllDateForTable(primaryKeyColumn, table);
+            primaryKeyColumn = new SelectCommand(table).getPrimaryKeyColumn();
+            List<List<String>> result = getAllDateForTable(table);
             //Integer[] conflictPoints = findConflictPoint(result);
             //List<String> differences = findMisMatchingColumnsBetweenConflictingRows(result, conflictPoints);
-
-
 
         } catch (SelectException e) {
             primaryKeyColumn = null;
@@ -35,63 +34,31 @@ public class DuplicateKeyException extends InsertException {
         }
     }
 
-    private Integer[] findDuplicateRow(List<List<String>> dataResult, int primaryKeyColumnIndex, List<String> duplicatedVals) {
-        int rowIndex = 0;
-        boolean tableEnd = false;
+    private static int findDuplicateRow(List<List<String>> dataResult, List<Integer> primaryKeysIndex, List<String> duplicatedVals) {
 
-        Integer[] conflictPoints = new Integer[2];
-        conflictPoints[0] = -1;
-        conflictPoints[1] = -1;
+        for(int x = 0; x < dataResult.size(); x++) {
 
-        String primaryKey = null;
+            for(int columnIndex = 0; columnIndex < primaryKeysIndex.size(); columnIndex++) {
 
-        while(!tableEnd) {
+                String originalRowVal = dataResult.get(x).get(primaryKeysIndex.get(columnIndex));
+                String duplicateRowVal = duplicatedVals.get(primaryKeysIndex.get(columnIndex));
 
-            if(null != dataResult) {
-                primaryKey = dataResult.get(0).get(rowIndex);
+                if(originalRowVal.equals(duplicateRowVal)){
+                    return x;
+                }
             }
-
-            if(primaryKey == null) {
-                tableEnd = true;
-                break;
-            }
-
-            // otherwise
-            if(keyMap.containsKey(primaryKey)) {
-                conflictPoints[0] = keyMap.get(primaryKey);
-                conflictPoints[1] = rowIndex;
-                return conflictPoints;
-            } else { // otherwise
-                keyMap.put(primaryKey, rowIndex);
-            }
-
-            rowIndex++;
         }
 
-        return conflictPoints;
+        return -1;
     }
 
-    private List<Pair<String, Integer>> findMisMatchingColumnsBetweenConflictingRows(List<List<String>> result, Integer[] conflictPoints) {
+    private List<Pair<String, Integer>> differenceInRows(List<List<String>> result, int duplicateRow, List<String> duplicatedVals) {
 
 	    // Here we have to compare the two conflicting rows and try to resolve them
         List<Pair<String, Integer>> differences = null;
 
         if(result == null) {
             return differences;
-        }
-
-        // First let's get the two rows from the database
-        List<String> row1 = result.get(conflictPoints[0]);
-        List<String> row2 = result.get(conflictPoints[1]);
-
-        for(int column = 0; column < row1.size(); column++) {
-            if(!row2.get(column).equals(row1.get(column))) {
-                differences.add(new Pair<>(row2.get(column), conflictPoints[1]));
-            }
-        }
-
-        if(differences == null) {
-            // both rows were exact copies of each other and can be resolved by just ignoring the second row
         }
 
         return null;
@@ -131,33 +98,49 @@ public class DuplicateKeyException extends InsertException {
     }
 
     public static void main(String[] world) {
-	    getAllDateForTable("TestingErrors");
-	    findPrimaryColumnIndex("idTestingErrors");
+	    List<List<String> > result = getAllDateForTable("TestingErrors");
+	    List<String> primaryColumns = new ArrayList<>();
+	    primaryColumns.add("idTestingErrors");
 
-    }
+	    List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns);
 
-    public static int findPrimaryColumnIndex(String primaryKeyColumn) {
+	    List<String> duplicateVals = Arrays.asList("5","5","5");
+        int rowNum = findDuplicateRow(result, primaryKeyColumnIndex, duplicateVals);
+        System.out.println(rowNum + " is the row");
+
+
+	}
+
+    public static List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn) {
+
+        System.out.println(primaryKeyColumn + " are the primary keys");
+
 
         List<String> columns = null;
-        int primaryColumnIndex = -1;
+        List<Integer> result = new ArrayList<>();
+
+        String table = "TestingErrors";
 
         try {
-            columns = QueryOnDatabase.getColumns("TestingErrors");
+            columns = new SelectCommand(table).getColumns();
         } catch (SelectException e) {
             e.printStackTrace();
         }
 
         System.out.println(columns);
 
+        int start = 0;
+
         if(columns != null) {
             for(int x = 0; x < columns.size(); x++) {
-                if(columns.get(x).equals(primaryKeyColumn)) {
-                    primaryColumnIndex = x;
+                if(start < primaryKeyColumn.size() && columns.get(x).equals(primaryKeyColumn.get(start))) {
+                    result.add(x);
+                    start++;
                 }
             }
         }
 
-        System.out.println(primaryColumnIndex);
-        return primaryColumnIndex;
+        System.out.println(result);
+        return result;
     }
 }

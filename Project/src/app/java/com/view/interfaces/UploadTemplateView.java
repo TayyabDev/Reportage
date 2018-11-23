@@ -16,4 +16,6 @@ public interface UploadTemplateView {
 
     void fillDropdownWithTemplateNames(List<String> templateNames);
 
+    void switchViewToResolveConflicts(List<Exception> exceptions);
+
 }

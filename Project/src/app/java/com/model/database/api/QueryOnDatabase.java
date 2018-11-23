@@ -270,49 +270,5 @@ public class QueryOnDatabase {
 		return (createRes && insertColRes);
 	}
 
-	public static List<String> getPrimaryKeyColumn(String tableName) throws SelectException {
-        String sql = "select column_name from information_schema.columns "
-                + "where table_name = '" + tableName + "' and column_key = 'pri';";
-        Connection conn;
-        List<String> constraints = new ArrayList<String>();
-        try {
-            conn = ConnectDatabase.connect();
-            Statement st = conn.createStatement();
-            ResultSet rs;
-            rs = st.executeQuery(sql);
-            while (rs.next()) {
-                String constraint = rs.getString("column_name");
-                constraints.add(constraint);
-            }
-            st.close();
-            conn.close();
 
-            return constraints;
-        } catch (Exception e) {
-            throw new SelectException(tableName);
-        }
-    }
-
-    public static List<String> getColumns(String tableName) throws SelectException {
-        String sql = "select column_name from information_schema.columns "
-                + "where table_name = '" + tableName + "';";
-        Connection conn;
-        List<String> constraints = new ArrayList<String>();
-        try {
-            conn = ConnectDatabase.connect();
-            Statement st = conn.createStatement();
-            ResultSet rs;
-            rs = st.executeQuery(sql);
-            while (rs.next()) {
-                String constraint = rs.getString("column_name");
-                constraints.add(constraint);
-            }
-            st.close();
-            conn.close();
-
-            return constraints;
-        } catch (Exception e) {
-            throw new SelectException(tableName);
-        }
-    }
 }
