@@ -69,7 +69,7 @@ public class Template implements CreateTemplateView{
 
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
-					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath());
+					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath(), account);
 				 }
 
 			 }
@@ -167,7 +167,31 @@ public class Template implements CreateTemplateView{
 		
 	}
 
-
+	@Override
+	public void displayRequiredColumnNames(List<String> columnNames) {
+		List<JCheckBox> cbs = new ArrayList<JCheckBox>();
+		for (String columnName : columnNames){
+		    JCheckBox box = new JCheckBox(columnName);
+		    cbs.add(box);
+		}
+		Object[] obj = (Object[]) cbs.toArray(new Object[cbs.size()]);
+		int action = JOptionPane.showConfirmDialog(null, obj);
+		if (action == JOptionPane.YES_OPTION) {
+			List<String> selectedPKs = new ArrayList<>();
+			for (JCheckBox cb : cbs) {
+				if (cb.isSelected()) {
+					selectedPKs.add(cb.getText());
+				}
+			}
+			if (selectedPKs.isEmpty()) {
+				JOptionPane.showMessageDialog(frame, "Please select at least one option.");
+			}
+			presenter.PKSelected(selectedPKs);
+		} else {
+			presenter.PKSelected(null);
+		}
+		
+	}
 }
 
 

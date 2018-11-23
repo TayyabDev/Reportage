@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.DuplicateKeyException;
-import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.presenter.interfaces.AddNewReportFormatResultInterface;
@@ -49,7 +48,7 @@ public class AddNewReportFormatUseCase extends UseCase {
 		attr.add(reportNameCol);
 		attr.add(reportQueryCol);
 		val.add(reportName);
-		val.add(query);
+		val.add(query.replaceAll("'", "\\\\'"));
 		Command saveQuery = new InsertCommand(reportTable, attr, val);
 		return saveQuery.handle();
 		

@@ -2,6 +2,8 @@ package app.java.com.presenter;
 
 import java.util.List;
 
+import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.model.entities.template.BaseTemplate;
 import app.java.com.model.interfaces.CreateTemplateModel;
 import app.java.com.model.usecase.CreateTemplateUsingFileUseCase;
 import app.java.com.model.usecase.CreateTemplateWithQueryUseCase;
@@ -10,18 +12,16 @@ import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.model.usecase.UseCase;
 
-public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, CreateTemplateResultInterface {
+public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, CreateTemplateResultInterface{
 
     private CreateTemplateView view;
     private CreateTemplateUsingFileUseCase usingFileUseCase;
 
     @Override
-    public void createTemplateWithFile(String filePath) {
+    public void createTemplateWithFile(String filePath, TeqAccount account) {
         if(view.isFileValid(filePath)) {
-        	// create UseCase to implements this
-        	usingFileUseCase = new CreateTemplateUsingFileUseCase(this, filePath);
+        	usingFileUseCase = new CreateTemplateUsingFileUseCase(this, filePath, account);
         	usingFileUseCase.run();
-//            model.createUsingFile(this, filePath);
         }
     }
 
@@ -42,7 +42,7 @@ public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, Cre
     }
 
     @Override
-    public void onSuccessCreateTemplate(String message) {
+    public void onSuccessCreateTemplate() {
         view.onSuccessTemplateCreated();
     }
 
@@ -52,13 +52,23 @@ public class CreateTemplatePresenterImpl implements CreateTemplatePresenter, Cre
     }
 
 	@Override
-	public void fetchSheetNames(CreateTemplateUsingFileUseCase useCase, List<String> sheetNames) {
+	public void fetchSheetNames(List<String> sheetNames) {
 		view.displaySheetNames(sheetNames);
 	}
 
 	@Override
 	public void sheetSelected(String sheetName) {
 		usingFileUseCase.sheetSelected(sheetName);
+	}
+
+	@Override
+	public void fetchPKs(List<String> columnNames) {
+		view.displayRequiredColumnNames(columnNames);
+	}
+
+	@Override
+	public void PKSelected(List<String> pks) {
+		usingFileUseCase.PKselected(pks);
 	}
 	
 	

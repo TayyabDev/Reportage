@@ -6,9 +6,12 @@ import app.java.com.model.usecase.CreateTemplateUsingFileUseCase;
 
 public interface CreateTemplateResultInterface {
 
-	void fetchSheetNames(CreateTemplateUsingFileUseCase useCase, List<String> sheetNames);
-    void onSuccessCreateTemplate(String message);
+	void fetchSheetNames(List<String> sheetNames);
+    
+	void onSuccessCreateTemplate();
 
     void onErrorCreateTemplate(String message);
+    
+    void fetchPKs(List<String> requiredColumnNames);
 
 }

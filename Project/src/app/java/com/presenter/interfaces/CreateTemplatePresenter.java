@@ -1,15 +1,18 @@
 package app.java.com.presenter.interfaces;
 
-import java.io.File;
+import java.util.List;
 
-import app.java.com.model.usecase.CreateTemplateUsingFileUseCase;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.interfaces.CreateTemplateView;
 
 public interface CreateTemplatePresenter {
 
-    void createTemplateWithFile(String string);
+    void createTemplateWithFile(String filePath, TeqAccount account);
 
     void sheetSelected(String sheetName);
+    
+    void PKSelected(List<String> pks);
+    
     void createTemplateWithQuery(String query);
 
     void attachView(CreateTemplateView view);

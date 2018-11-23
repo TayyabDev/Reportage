@@ -12,4 +12,6 @@ public interface CreateTemplateView {
     void onErrorUploadingFile();
     
     void displaySheetNames(List<String> sheetNames);
+    
+    void displayRequiredColumnNames(List<String> columnNames);
 }
