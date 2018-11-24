@@ -11,4 +11,6 @@ public abstract class Template {
     public abstract List<String> getColumnIds();
     
     public abstract String getTableName();
+    
+    public abstract List<String> getRequiredIds();
 }

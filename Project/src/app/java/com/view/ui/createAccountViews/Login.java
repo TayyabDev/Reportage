@@ -102,10 +102,8 @@ public class Login implements LoginView {
     	// check if need to register
     	if (!account.isRegisterd()) {
     		// RegisterNewUserView
-    		System.out.println("not registered");
     		RegisterNewUserView registerView = new RegisterTeqStaff(new JFrame("Registration"), account);
     	} else {
-    		System.out.println("registered");
     		Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true, account);
     	}
         frame.dispose();
@@ -120,7 +118,6 @@ public class Login implements LoginView {
     		RegisterNewUserView registerView = new RegisterOfficer(new JFrame("Registration"), account);
     	} else {
     		//need to have another view for agency
-    		System.out.println("login agency view");
     		AgencyDashboard db = new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
     	}
         frame.dispose();
@@ -135,12 +132,7 @@ public class Login implements LoginView {
 
     @Override
     public boolean isFieldsValid(String username, String password) {
-	    if (username.length() > 0 && password.length() > 0){
-	        return true;
-        } else {
-	        return false;
-        }
-
+	    return (username.length() > 0 && password.length() > 0);
     }
 
     @Override

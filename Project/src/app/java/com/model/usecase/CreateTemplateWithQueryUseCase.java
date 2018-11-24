@@ -27,7 +27,7 @@ public class CreateTemplateWithQueryUseCase extends UseCase {
 
             if (success != -1) {
                 // Look at templateResultInterface for communication back with the presenter
-                resultInterface.onSuccessCreateTemplate("success");
+                resultInterface.onSuccessCreateTemplate();
             }
 
         } catch (Exception e) {

@@ -86,4 +86,4 @@ create table VariableName(
 create table Report(
 	id int auto_increment primary key,
 	reportName varchar(255) not null unique,
-	reportQuery tinytext not null);
+	reportQuery text not null);

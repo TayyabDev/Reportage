@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,15 +33,17 @@ public class Template implements CreateTemplateView{
 	 private JButton createSQL;
 	 private String sqlQuery;
 	 private CreateTemplatePresenter presenter;
+	 private TeqAccount account;
 	
      public Template(JFrame frame, TeqAccount account) {
      	 this.frame = frame;
-
+     	 this.account = account;
+     	 
          panel = new JPanel();
  		 panel.setLayout(null);
  		 panel.setBackground(Color.decode("#f1f8e9"));
 
-         presenter = new CreateTemplatePresenterImpl(new CreateTemplateModelImpl());
+         presenter = new CreateTemplatePresenterImpl();
          presenter.attachView(this);
 
 
@@ -66,7 +69,7 @@ public class Template implements CreateTemplateView{
 
 				 int returnValue = jfc.showSaveDialog(null);
 				 if (returnValue == JFileChooser.APPROVE_OPTION) {
-					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath());
+					 presenter.createTemplateWithFile(jfc.getSelectedFile().getAbsolutePath(), account);
 				 }
 
 			 }
@@ -150,7 +153,52 @@ public class Template implements CreateTemplateView{
          presenter.unbindView();
     }
 
+	@Override
+	/*
+	 * create a drop down box and display all the sheetNames for client to choose from
+	 * 
+	 */
+	public void displaySheetNames(List<String> sheetNames) {
+		Object[] options = sheetNames.toArray();
+		Object selectedOption = JOptionPane.showInputDialog(null,
+				"choose one sheet", "Input",
+				JOptionPane.INFORMATION_MESSAGE, null,
+				options, options[0]);
+		if (selectedOption != null) {
+			String selectedSheet = selectedOption.toString();
+			presenter.sheetSelected(selectedSheet);
+		} else {
+			presenter.sheetSelected(null);
+		}
+		
+		
+	}
 
+	@Override
+	public void displayRequiredColumnNames(List<String> columnNames) {
+		List<JCheckBox> cbs = new ArrayList<JCheckBox>();
+		for (String columnName : columnNames){
+		    JCheckBox box = new JCheckBox(columnName);
+		    cbs.add(box);
+		}
+		Object[] obj = (Object[]) cbs.toArray(new Object[cbs.size()]);
+		int action = JOptionPane.showConfirmDialog(null, obj);
+		if (action == JOptionPane.YES_OPTION) {
+			List<String> selectedPKs = new ArrayList<>();
+			for (JCheckBox cb : cbs) {
+				if (cb.isSelected()) {
+					selectedPKs.add(cb.getText());
+				}
+			}
+			if (selectedPKs.isEmpty()) {
+				JOptionPane.showMessageDialog(frame, "Please select at least one option.");
+			}
+			presenter.PKSelected(selectedPKs);
+		} else {
+			presenter.PKSelected(null);
+		}
+		
+	}
 }
 
 
