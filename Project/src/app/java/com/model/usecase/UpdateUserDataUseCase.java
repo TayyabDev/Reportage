@@ -1,14 +1,9 @@
 package app.java.com.model.usecase;
 
 import app.java.com.model.entities.DataChanges;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import app.java.com.model.Exceptions.SelectException;
-import app.java.com.model.database.api.SelectCommand;
-import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
 import app.java.com.presenter.interfaces.UpdateUserDataResultInterface;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateUserDataUseCase extends UseCase {
 
