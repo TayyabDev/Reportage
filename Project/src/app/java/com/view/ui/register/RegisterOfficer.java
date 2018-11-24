@@ -17,6 +17,7 @@ import com.toedter.calendar.JDateChooser;
 
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.model.entities.user.Officer;
 import app.java.com.model.entities.user.User;
 import app.java.com.presenter.RegisterNewUserImpl;
@@ -115,7 +116,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
                 	// send information client input to presenter
                 	User officer = new Officer(firstName, lastName, dob, agencyName);
                 	presenter.registerNewUser(officer, account);
-                	AgencyDashboard db = new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
+                	
                 }
         		
         	}
@@ -128,6 +129,12 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
         		frame.dispose();
         	}
         });
+	}
+	
+	@Override
+	public void onSuccessRegisterNewUser() {
+		showPopUpWithMessage("Successfully registered.", "Information");
+		AgencyDashboard db = new AgencyDashboard(new JFrame("Agency Dashboard"), true, (AgencyAccount)account);
 	}
 
 }
