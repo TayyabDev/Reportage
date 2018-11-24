@@ -1,6 +1,7 @@
 package app.java.com.view.interfaces;
 
 import java.io.File;
+import java.util.List;
 
 public interface CreateTemplateView {
 
@@ -9,4 +10,8 @@ public interface CreateTemplateView {
     boolean isFileValid(String filePath);
 
     void onErrorUploadingFile();
+    
+    void displaySheetNames(List<String> sheetNames);
+    
+    void displayRequiredColumnNames(List<String> columnNames);
 }

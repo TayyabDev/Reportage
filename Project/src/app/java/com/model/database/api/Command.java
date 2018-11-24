@@ -20,10 +20,14 @@ public abstract class Command {
 	 * formulate a list of String into a single string with comma separate them
 	 * and each element in the list will wrap with quote
 	 */
-	private static String formulateString(List<String> listOfString, char quote) {
+	private static String formulateString(List<String> listOfString, String quote) {
 		String result = "";
 		for (String s : listOfString) {
-			result = result + quote + s + quote +",";
+			if (s.startsWith(quote) && s.endsWith(quote)) {
+				result = result + s + ",";
+			} else {
+				result = result + quote + s + quote +",";
+			}
 		}
 
 		if(result.length() == 0) {
@@ -38,7 +42,7 @@ public abstract class Command {
 	 * and each element in the list will wrap with single quotation mark (')
 	 */
 	public static String formulateData(List<String> data) {
-		return formulateString(data, '\'');
+		return formulateString(data, "'");
 	}
 	
 	/*
@@ -46,7 +50,7 @@ public abstract class Command {
 	 * and each element in the list will wrap with back quotation mark (`)
 	 */
 	public static String formulateIds(List<String> columnIds) {
-		return formulateString(columnIds, '`');
+		return formulateString(columnIds, "`");
 	}
 	
 	/*
@@ -96,7 +100,6 @@ public abstract class Command {
 		Connection conn;
         String report = "";
         int column = 0;
-        
 		conn = ConnectDatabase.connect();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
