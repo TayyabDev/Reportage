@@ -42,7 +42,6 @@ public class UpdateUserDataUseCase extends UseCase {
 					DataChanges dataChanges = new DataChanges(i, j, originalValue, newValue);
 					changesList.add(dataChanges);
 				}
-
 			}
 		}
 	}
