@@ -1,10 +1,10 @@
 package app.java.com.view.ui.viewUserDataViews;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import app.java.com.model.entities.account.TeqAccount;
+import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
 import app.java.com.presenter.FetchUserDataPresenterImpl;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.view.interfaces.CreateUserDataView;
@@ -45,7 +46,7 @@ public class UserData implements CreateUserDataView{
 	private JButton btnSubmit = UIHelpers.buttonGenerator("Submit");
 	private JButton btnCancel = UIHelpers.buttonGenerator("Cancel");
 
-	
+	private List<List<String>> originalTableData;
 	
 	private FetchUserDataPresenter presenter;
 	
@@ -147,13 +148,7 @@ public class UserData implements CreateUserDataView{
 		btnSubmit.setBounds(810, 115, 140, 25);
 		btnSubmit.setEnabled(false);
 		btnSubmit.addActionListener(e -> {
-			
-			cbTemplates.setEnabled(true);
-			btnSelect.setEnabled(true);
-			btnEdit.setEnabled(true);
-			btnSubmit.setEnabled(false);
-			btnCancel.setEnabled(false);
-			tableEditable = false;
+			presenter.submitChanges(originalTableData, getTableList());
 		});
 		panel.add(btnSubmit);
 		
@@ -169,6 +164,7 @@ public class UserData implements CreateUserDataView{
 	@SuppressWarnings("serial")
 	@Override
 	public void displayData(List<String> columns, List<List<String>> data) {
+		originalTableData = data;
 		int numColumns = data.get(0).size();
 		int numRows = data.size();
 		String[][] dataArray = new String[numRows][numColumns];
@@ -204,5 +200,39 @@ public class UserData implements CreateUserDataView{
 		}
 		System.out.println(data.toString());
 		return data;
+	}
+
+	@Override
+	public void showDataChanges(DataChanges changes) {
+		String[] options = {"Yes", "No"};
+		String message = "";
+		for (List<List<String>> change : changes.cellsToChange) {
+			message += "(record: " + change.get(0) + ", " + "column: " + change.get(1) + "): ";
+			message += change.get(2) + " -> " +change.get(3);
+			message += "\n";
+		}
+		JOptionPane.showOptionDialog(frame, message, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
+	}
+
+	@Override
+	public void dataUpdateSuccess(String message) {
+		JOptionPane.showMessageDialog(frame, message, "Data Update Success", JOptionPane.INFORMATION_MESSAGE);
+		cbTemplates.setEnabled(true);
+		btnSelect.setEnabled(true);
+		btnEdit.setEnabled(true);
+		btnSubmit.setEnabled(false);
+		btnCancel.setEnabled(false);
+		tableEditable = false;
+	}
+	
+	@Override
+	public void dataUpdateFail(String message) {
+		JOptionPane.showMessageDialog(frame, message, "Data Update Unsuccessful", JOptionPane.ERROR_MESSAGE);
+		cbTemplates.setEnabled(true);
+		btnSelect.setEnabled(true);
+		btnEdit.setEnabled(true);
+		btnSubmit.setEnabled(false);
+		btnCancel.setEnabled(false);
+		tableEditable = false;
 	}
 }
