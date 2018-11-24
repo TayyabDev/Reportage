@@ -254,4 +254,51 @@ public class SelectCommand extends Command {
 		selectHandle();
 		return true;
 	}
+
+	public List<String> getPrimaryKeyColumn() throws SelectException {
+		String sql = "select column_name from information_schema.columns "
+				+ "where table_name = '" + this.tableName + "' and column_key = 'pri';";
+		Connection conn;
+		List<String> constraints = new ArrayList<String>();
+		try {
+			conn = ConnectDatabase.connect();
+			Statement st = conn.createStatement();
+			ResultSet rs;
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String constraint = rs.getString("column_name");
+				constraints.add(constraint);
+			}
+			st.close();
+			conn.close();
+
+			return constraints;
+		} catch (Exception e) {
+			throw new SelectException(tableName);
+		}
+	}
+
+    public List<String> getColumns() throws SelectException {
+        String sql = "select column_name from information_schema.columns "
+                + "where table_name = '" + this.tableName + "';";
+
+        Connection conn;
+        List<String> constraints = new ArrayList<String>();
+        try {
+            conn = ConnectDatabase.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String constraint = rs.getString("column_name");
+                constraints.add(constraint);
+            }
+            st.close();
+            conn.close();
+
+            return constraints;
+        } catch (Exception e) {
+            throw new SelectException(tableName);
+        }
+    }
 }

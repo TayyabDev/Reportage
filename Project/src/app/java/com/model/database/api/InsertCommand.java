@@ -1,12 +1,12 @@
 package app.java.com.model.database.api;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.List;
-
 import app.java.com.model.Exceptions.ConnectionFailedException;
 import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.Exceptions.InvalidException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 public class InsertCommand extends Command {
 
@@ -31,17 +31,20 @@ public class InsertCommand extends Command {
 		return true;
 	}
 
-	public int insertHandle() throws InsertException, DuplicateKeyException {
+	public int insertHandle() throws InvalidException, DuplicateKeyException, InsertException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
 				+ "values " + formulatedData +";";
+		System.out.println(sql + " is the query");
 		try {
 			return runExecuteUpdate(sql);
-		} catch (SQLIntegrityConstraintViolationException e){
-			throw new DuplicateKeyException(formulatedData);
-		} catch (SQLException | ConnectionFailedException e) {
-			throw new InsertException(tableName, formulatedData);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw new DuplicateKeyException(tableName, vals);
+		} catch (SQLException e) {
+			throw new InvalidException(tableName, vals, e.getMessage());
+		} catch (ConnectionFailedException e) {
+			throw new InsertException (tableName, formulatedData);
 		}
 	}
 }

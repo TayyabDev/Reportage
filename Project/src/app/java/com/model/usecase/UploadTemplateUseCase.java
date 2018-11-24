@@ -8,6 +8,7 @@ import app.java.com.model.entities.account.Account;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -39,18 +40,12 @@ public class UploadTemplateUseCase extends UseCase {
 
         // Now add this to the insert command since the template has a clientIdForm column
 
-
         // Verify template matches the chosen template's format
         List<Exception> errorList = insertAllRows(fileInterface, clientFormId);
 
         // all rows inserted successfully if errorList is empty
-        if (!errorList.isEmpty()) {
-        	List<String> errorMessages = new ArrayList<>();
-        	for (Exception e : errorList) {
-        		errorMessages.add(e.getMessage());
-        	}
-
-        	resultInterface.onErrorUploadingTemplate(errorMessages);
+        if (!errorList.isEmpty() || clientFormId == -1) {
+        	resultInterface.onErrorUploadingTemplate(errorList);
         } else {
             resultInterface.onSuccessUploadingTemplate();
         }
@@ -122,14 +117,12 @@ public class UploadTemplateUseCase extends UseCase {
         String clientDataFormTableName = "ClientDataForm";
         List<String> attributes = new ArrayList<>();
         attributes.add("templateId");
-        attributes.add("reviewerId"); // for now it is set to 1
-        attributes.add("agencyId"); // for now it is set to 1
+        attributes.add("agencyId");
         attributes.add("month");
         attributes.add("year");
 
         List<String> values = new ArrayList<>();
         values.add(templateId);
-        values.add(String.valueOf(userId));
         values.add(String.valueOf(agencyId));
         values.add(String.valueOf(month));
         values.add(String.valueOf(year));
@@ -146,14 +139,17 @@ public class UploadTemplateUseCase extends UseCase {
     }
 
     private int getUserId(int accountId) {
+        System.out.println(accountId + " is the accountId");
         // get the userId from the user table where account id is equal to accountId
         List<String> constraints = new ArrayList<>();
         constraints.add("accountId = '" + String.valueOf(accountId) + "'");
 
         SelectCommand command = new SelectCommand("User", constraints);
         List<List<String>> result = null;
+
         try {
             result = command.selectHandle();
+            System.out.println(result);
         } catch (SelectException e) {
             e.printStackTrace();
         }
@@ -171,13 +167,14 @@ public class UploadTemplateUseCase extends UseCase {
     private int getAgencyId(int userId) {
 
         // then we need to get the agencyId from the Officer table
+        List<String> target = Arrays.asList("agencyId");
         List<String> constraints = new ArrayList<>();
         constraints = new ArrayList<>();
         constraints.add("officerId = '" + String.valueOf(userId) + "'");
 
         List<List<String>> result = null;
 
-        SelectCommand agencyIdCommand = new SelectCommand("Officer", constraints);
+        SelectCommand agencyIdCommand = new SelectCommand(target,"Officer", constraints);
         try {
             result = agencyIdCommand.selectHandle();
         } catch (SelectException e) {
@@ -185,7 +182,7 @@ public class UploadTemplateUseCase extends UseCase {
         }
 
         int agencyId = 0;
-
+        System.out.println(result + " is the result for agency");
         if(result != null) {
             agencyId = Integer.valueOf(result.get(0).get(0));
         }

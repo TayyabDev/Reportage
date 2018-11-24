@@ -75,7 +75,7 @@ public class UserData implements CreateUserDataView{
 		scrollPanel.add(tbData);
 
 		scrollPane = new JScrollPane(scrollPanel);
-		scrollPane.setBounds(0,150,frame.getWidth(),frame.getHeight() - 190);
+		scrollPane.setBounds(0,150,frame.getWidth()-15,frame.getHeight() - 190);
 		panel.add(scrollPane);
 
 		cbTemplates = new JComboBox();
@@ -177,8 +177,10 @@ public class UserData implements CreateUserDataView{
 				return tableEditable;
 			}	
 		};
+
 		btnEdit.setEnabled(true);
 		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
 		scrollPanel.removeAll();
 		scrollPane.setViewportView(tbData);
 		scrollPane.revalidate();
