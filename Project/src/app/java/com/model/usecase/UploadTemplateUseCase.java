@@ -140,6 +140,7 @@ public class UploadTemplateUseCase extends UseCase {
     }
 
     private int getUserId(int accountId) {
+        System.out.println(accountId);
         // get the userId from the user table where account id is equal to accountId
         List<String> constraints = new ArrayList<>();
         constraints.add("accountId = '" + String.valueOf(accountId) + "'");
@@ -148,6 +149,7 @@ public class UploadTemplateUseCase extends UseCase {
         List<List<String>> result = null;
         try {
             result = command.selectHandle();
+            System.out.println(result);
         } catch (SelectException e) {
             e.printStackTrace();
         }

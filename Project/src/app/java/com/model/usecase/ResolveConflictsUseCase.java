@@ -34,7 +34,7 @@ public class ResolveConflictsUseCase extends UseCase {
 
         try {
             command.insertHandle();
-            resolveConflictResultInterface.onSuccessFixingConflict("Success Fixing Error ");
+            resolveConflictResultInterface.onSuccessFixingConflict("Success Fixing Error");
         } catch (InsertException e) {
             resolveConflictResultInterface.onErrorFixingConflict(e.getMessage());
         }
