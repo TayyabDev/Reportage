@@ -127,25 +127,47 @@ public class Login implements LoginView {
 		presenter.unbindView();
 	}
 
-	@Override
-	public void onErrorLogin() {
-		JOptionPane.showMessageDialog(frame, "Invalid username or password.");
+    @Override
+    public void onSuccessLogin(TeqAccount account) {
+    	// check if need to register
+    	if (!account.isRegisterd()) {
+    		// RegisterNewUserView
+    		RegisterNewUserView registerView = new RegisterTeqStaff(new JFrame("Registration"), account);
+    	} else {
+    		Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true, account);
+    	}
+        frame.dispose();
+        presenter.unbindView();
+    }
+    
+    @Override
+    public void onSuccessLogin(AgencyAccount account) {
+    	// check if need to register
+    	if (!account.isRegisterd()) {
+    		// RegisterNewUserView
+    		RegisterNewUserView registerView = new RegisterOfficer(new JFrame("Registration"), account);
+    	} else {
+    		//need to have another view for agency
+    		AgencyDashboard db = new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
+    	}
+        frame.dispose();
+        presenter.unbindView();
+    }
 
-	}
+    @Override
+    public void onErrorLogin() {
+	    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
 
-	@Override
-	public boolean isFieldsValid(String username, String password) {
-		if (username.length() > 0 && password.length() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+    }
 
-	}
+    @Override
+    public boolean isFieldsValid(String username, String password) {
+	    return (username.length() > 0 && password.length() > 0);
+    }
 
-	@Override
-	public void invalidFields() {
-		JOptionPane.showMessageDialog(frame, "Please enter a valid username or password.");
+    @Override
+    public void invalidFields() {
+	    JOptionPane.showMessageDialog(frame, "Please enter a valid username or password.");
 
-	}
+    }
 }

@@ -46,7 +46,7 @@ public class CreateTemplateModelImpl implements CreateTemplateModel {
 			templateResultInterface.onErrorCreateTemplate(e.getMessage());
 		}
         if (success) {
-        	templateResultInterface.onSuccessCreateTemplate("success");
+        	templateResultInterface.onSuccessCreateTemplate();
         } 
         
         // Look at templateResultInterface for communication back with the presenter

@@ -34,6 +34,8 @@ public class ClientProfileDifferentColumnsSizeMockFile implements TemplateFileIn
     public static final List<String> MOCK_ROW = Arrays.asList("RowVal1", "RowVal2", "RowVal3", "RowVal4", "RowVal5",
             "RowVal6", "RowVal7", "RowVal8", "RowVal9", "RowVal10", "RowVal11", "RowVal12", "RowVal13", "RowVal14",
             "RowVal15", "RowVal16", "RowVal17", "RowVal18");
+    public static final List<String> REQUIRED_IDS = Arrays.asList("client_validation_type_id", "client_validation_id",
+    		"client_birth_dt", "postal_txt");
     public static final int NUM_ROWS = 5;
     private Template mockFileTemplate;
 
@@ -74,6 +76,10 @@ public class ClientProfileDifferentColumnsSizeMockFile implements TemplateFileIn
     @Override
     public List<String> getColumnIds() {
         return COLUMN_IDS;
+    }
+    
+    public List<String> getRequiredIds() {
+    	return REQUIRED_IDS;
     }
 
     @Override

@@ -60,7 +60,7 @@ public class CreateCommand extends Command {
 			runExecuteUpdate(sql);
 			return true;
 		} catch (Exception e) {
-		    System.out.println(e.getMessage());
+			e.printStackTrace();
 			throw new CreateException(tableName);
 		}
 	}
