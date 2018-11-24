@@ -1,5 +1,6 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
+import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ResolveConflictPresenterImpl;
@@ -7,6 +8,7 @@ import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 
+import java.util.Arrays;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,10 +51,12 @@ public class ResolveConflicts implements ResolveConflictsView {
 
         this.errors = errors;
 
+        scrollPanel.add(new JLabel("Hello"));
 
-        presenter.processDuplicateRowConflicts(errors);
 
-        getErrors(errors);
+        //presenter.processDuplicateRowConflicts(errors);
+
+        //getErrors(errors);
 
 
         scrollPane = new JScrollPane(scrollPanel);
@@ -80,7 +84,9 @@ public class ResolveConflicts implements ResolveConflictsView {
         frame.setResizable(false);
         UIHelpers.setLook();
 
-        ResolveConflicts rc = new ResolveConflicts(frame, null, null);
+        List<String> duplicateVals = Arrays.asList("1","2","3");
+        DuplicateKeyException exception = new DuplicateKeyException("Client_Profile", duplicateVals);
+        ResolveConflicts rc = new ResolveConflicts(frame, null, Arrays.asList(exception));
     }
 
 
@@ -88,7 +94,7 @@ public class ResolveConflicts implements ResolveConflictsView {
         bg = new ButtonGroup();
         errorOptionButtons = new ArrayList<>();
         for (InsertException exception : errors) {
-            if(exception.getIsFixed()){
+            if(exception.getIsFixed()) {
                 JLabel jl = new JLabel( exception.getMessage() + " - Automatically Fixed");
 
                 scrollPanel.add(jl);

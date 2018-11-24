@@ -2,6 +2,7 @@ package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.usecase.ProcessDuplicateRowsUseCase;
+import app.java.com.model.usecase.ResolveConflictsUseCase;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.ResolveConflictPresenter;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
@@ -23,8 +24,10 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
     }
 
     @Override
-    public void attemptFixConflict(String update) {
+    public void attemptFixConflict(List<String> correctedValues, String table) {
         // Use case with conflict mode
+        UseCase resolveConflictUseCase = new ResolveConflictsUseCase(this, correctedValues, table);
+        resolveConflictUseCase.run();
     }
 
     @Override
@@ -33,17 +36,16 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
 
         UseCase processDuplicateRowConflicts = new ProcessDuplicateRowsUseCase(this, exceptions);
         processDuplicateRowConflicts.run();
-
     }
 
     @Override
     public void onSuccessFixingConflict(String message) {
-        this.view.onSuccessConflictFix();
+        this.view.onSuccessConflictFix();  // user fix did work, no need to ask the user again
     }
 
     @Override
     public void onErrorFixingConflict(String message) {
-        this.view.onErrorConflictFix(message);
+        this.view.onErrorConflictFix(message); // user fix did not work, ask the user again
     }
 
     @Override

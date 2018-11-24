@@ -11,7 +11,7 @@ public interface ResolveConflictPresenter {
     void attachView(ResolveConflictsView view);
     void unbindView();
 
-    void attemptFixConflict(String update);
+    void attemptFixConflict(List<String> correctedValues, String table);
 
     void processDuplicateRowConflicts(List<InsertException> exceptions);
 
