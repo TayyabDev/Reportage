@@ -10,6 +10,8 @@ public interface FetchUserDataPresenter {
 	
 	void fetchTemplateNames();
 	
+	void submitChanges(List<List<String>> orignal, List<List<String>> changes);
+	
     void attachView(CreateUserDataView view);
 
     void unbindView();

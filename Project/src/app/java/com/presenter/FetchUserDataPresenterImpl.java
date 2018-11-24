@@ -5,13 +5,16 @@ import java.util.List;
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.FetchUserDataUseCase;
+import app.java.com.model.usecase.UpdateUserDataUseCase;
+import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
+import app.java.com.presenter.interfaces.UpdateUserDataResultInterface;
 import app.java.com.view.interfaces.CreateUserDataView;
 
 public class FetchUserDataPresenterImpl
-		implements FetchUserDataPresenter, FetchUserDataResultInterface, FetchTemplateNamesResultInterface {
+		implements FetchUserDataPresenter, FetchUserDataResultInterface, FetchTemplateNamesResultInterface, UpdateUserDataResultInterface {
 
 	private CreateUserDataView view;
 	
@@ -60,6 +63,33 @@ public class FetchUserDataPresenterImpl
 	@Override
 	public void onErrorFetchingNames(String errorMessage) {
 		view.invalidQuery(errorMessage);
+	}
+
+	@Override
+	public void onShowDataChanges(DataChanges changes) {
+		view.showDataChanges(changes);		
+	}
+	
+	@Override
+	public void onProceedChanges(DataChanges rowsToUpdate) {
+		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, rowsToUpdate);
+		useCase.run();
+	}
+
+	@Override
+	public void onSuccessUpdate(String message) {
+		view.dataUpdateSuccess(message);
+	}
+
+	@Override
+	public void onErrorUpdate(String message) {
+		view.dataUpdateFail(message);	
+	}
+
+	@Override
+	public void submitChanges(List<List<String>> original, List<List<String>> changes) {
+		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, original, changes);
+		useCase.runCompare();
 	}
 
 
