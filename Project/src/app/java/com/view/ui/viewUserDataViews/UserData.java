@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import app.java.com.model.entities.account.TeqAccount;
-import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
+import app.java.com.model.entities.DataChanges;
 import app.java.com.presenter.FetchUserDataPresenterImpl;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.view.interfaces.CreateUserDataView;
@@ -148,7 +148,7 @@ public class UserData implements CreateUserDataView{
 		btnSubmit.setBounds(810, 115, 140, 25);
 		btnSubmit.setEnabled(false);
 		btnSubmit.addActionListener(e -> {
-			presenter.submitChanges(originalTableData, getTableList());
+			presenter.submitChanges(cbTemplates.getSelectedItem().toString(), originalTableData, getTableList());
 		});
 		panel.add(btnSubmit);
 		
@@ -203,13 +203,11 @@ public class UserData implements CreateUserDataView{
 	}
 
 	@Override
-	public void showDataChanges(DataChanges changes) {
+	public void showDataChanges(List<DataChanges> changesList) {
 		String[] options = {"Yes", "No"};
 		String message = "";
-		for (List<List<String>> change : changes.cellsToChange) {
-			message += "(record: " + change.get(0) + ", " + "column: " + change.get(1) + "): ";
-			message += change.get(2) + " -> " +change.get(3);
-			message += "\n";
+		for (DataChanges change : changesList) {
+			message += change.toString() + "\n";
 		}
 		JOptionPane.showOptionDialog(frame, message, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
 	}
@@ -235,4 +233,5 @@ public class UserData implements CreateUserDataView{
 		btnCancel.setEnabled(false);
 		tableEditable = false;
 	}
+
 }

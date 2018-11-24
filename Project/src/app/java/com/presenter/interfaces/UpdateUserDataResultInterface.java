@@ -2,7 +2,7 @@ package app.java.com.presenter.interfaces;
 
 import java.util.List;
 
-import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
+import app.java.com.model.entities.DataChanges;
 
 public interface UpdateUserDataResultInterface {
 
@@ -10,13 +10,13 @@ public interface UpdateUserDataResultInterface {
 	
 	void onErrorSelectTable(String message);
 	
-	void onShowDataChanges(DataChanges changes);
+	void onShowDataChanges(List<DataChanges> changesList);
 	
 	void onSuccessUpdate(String message);
 
 	void onErrorUpdate(String message);
 
-	void onProceedChanges(DataChanges rowsToUpdate);
+	void onProceedChanges(List<DataChanges> changesList);
 
 
 }

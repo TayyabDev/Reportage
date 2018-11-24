@@ -1,19 +1,25 @@
 package app.java.com.model.entities;
 
 public class DataChanges {
-
+	
+	private String tableName;
     private int row;
     private int column;
     private String oldValue;
     private String newValue;
 
-    public DataChanges(int row, int column, String oldValue, String newValue) {
-        this.row = row;
+    public DataChanges(String tableName, int row, int column, String oldValue, String newValue) {
+        this.tableName = tableName;
+    	this.row = row;
         this.column = column;
         this.oldValue = oldValue;
         this.newValue = newValue;
     }
 
+    public String getTableName() {
+    	return tableName;
+    }
+    
     public int getRow() {
         return row;
     }

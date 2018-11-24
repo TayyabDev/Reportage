@@ -6,7 +6,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
 import app.java.com.model.usecase.FetchUserDataUseCase;
 import app.java.com.model.usecase.UpdateUserDataUseCase;
-import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
+import app.java.com.model.entities.DataChanges;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
@@ -66,13 +66,13 @@ public class FetchUserDataPresenterImpl
 	}
 
 	@Override
-	public void onShowDataChanges(DataChanges changes) {
-		view.showDataChanges(changes);		
+	public void onShowDataChanges(List<DataChanges> changesList) {
+		view.showDataChanges(changesList);		
 	}
 	
 	@Override
-	public void onProceedChanges(DataChanges rowsToUpdate) {
-		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, rowsToUpdate);
+	public void onProceedChanges(List<DataChanges> changesList) {
+		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, changesList);
 		useCase.run();
 	}
 
@@ -87,8 +87,8 @@ public class FetchUserDataPresenterImpl
 	}
 
 	@Override
-	public void submitChanges(List<List<String>> original, List<List<String>> changes) {
-		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, original, changes);
+	public void submitChanges(String tableName, List<List<String>> original, List<List<String>> changes) {
+		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, tableName, original, changes);
 		useCase.runCompare();
 	}
 

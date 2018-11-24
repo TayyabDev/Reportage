@@ -11,18 +11,18 @@ public class UpdateUserDataUseCase extends UseCase {
 	private List<List<String>> originalData;
 	private List<List<String>> newData;
 	private List<DataChanges> changesList;
-	private DataChanges dataChanges;
+	private String tableName;
 
-	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, List<List<String>> originalData, List<List<String>> newData) {
+	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, String tableName, List<List<String>> originalData, List<List<String>> newData) {
 		this.resultInterface = resultInterface;
 		this.originalData = originalData;
 		this.newData = newData;
 		this.changesList = new ArrayList<>();
 	}
 	
-	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, DataChanges changes) {
+	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, List<DataChanges> changes) {
 		this.resultInterface = resultInterface;
-		this.dataChanges = changes;
+		this.changesList = changes;
 	}
 	
 	
@@ -34,11 +34,12 @@ public class UpdateUserDataUseCase extends UseCase {
 				String newValue = newData.get(i).get(j);
 
 				if(!originalValue.equals(newValue)) {
-					DataChanges dataChanges = new DataChanges(i, j, originalValue, newValue);
+					DataChanges dataChanges = new DataChanges(tableName, i, j, originalValue, newValue);
 					changesList.add(dataChanges);
 				}
 			}
 		}
+		resultInterface.onProceedChanges(changesList);
 	}
 	
 	

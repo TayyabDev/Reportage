@@ -2,7 +2,7 @@ package app.java.com.view.interfaces;
 
 import java.util.List;
 
-import app.java.com.model.usecase.UpdateUserDataUseCase.DataChanges;
+import app.java.com.model.entities.DataChanges;
 
 public interface CreateUserDataView {
 
@@ -12,10 +12,11 @@ public interface CreateUserDataView {
 	
 	void fillDropdownWithTemplateNames(List<String> templateNames); 
 
-	void showDataChanges(DataChanges changes);
+	void showDataChanges(List<DataChanges> changesList);
 	
 	void dataUpdateSuccess(String message);
 	
 	void dataUpdateFail(String message);
+
 
 }
