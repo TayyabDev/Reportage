@@ -36,6 +36,7 @@ public class InsertCommand extends Command {
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds
 				+ "values " + formulatedData +";";
+		System.out.println(sql + " is the query");
 		try {
 			return runExecuteUpdate(sql);
 		} catch (SQLIntegrityConstraintViolationException e) {
