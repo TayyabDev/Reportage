@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -146,6 +147,7 @@ public class UserData implements CreateUserDataView{
 		btnSubmit.setBounds(810, 115, 140, 25);
 		btnSubmit.setEnabled(false);
 		btnSubmit.addActionListener(e -> {
+			
 			cbTemplates.setEnabled(true);
 			btnSelect.setEnabled(true);
 			btnEdit.setEnabled(true);
@@ -173,7 +175,7 @@ public class UserData implements CreateUserDataView{
 		for (int i = 0; i < numRows; i++) {
 			dataArray[i] = data.get(i).toArray(dataArray[i]);
 		}
-		tbData = new JTable(dataArray, columns.toArray()) {
+		tbData = new JTable(new DefaultTableModel(dataArray, columns.toArray())) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return tableEditable;
@@ -185,7 +187,6 @@ public class UserData implements CreateUserDataView{
 		scrollPane.setViewportView(tbData);
 		scrollPane.revalidate();
 		panel.revalidate();
-
 	}
 
 	@Override
@@ -194,4 +195,14 @@ public class UserData implements CreateUserDataView{
 		
 	}
 	
+	private List<List<String>> getTableList() {
+		List<List<String>> data = new ArrayList<List<String>>();
+		Vector<Vector<String>> dataVector = ((DefaultTableModel) tbData.getModel()).getDataVector();
+		for (int i = 0; i < tbData.getModel().getRowCount(); i++) {
+			Vector row = dataVector.elementAt(i);
+			data.add(row);
+		}
+		System.out.println(data.toString());
+		return data;
+	}
 }
