@@ -215,7 +215,7 @@ public class UploadTemplate implements UploadTemplateView {
 	    int n = JOptionPane.showConfirmDialog(frame,"There are some errors attemping to upload the template. Please try to resolve them.");
 
         if(n == JOptionPane.YES_OPTION) {
-            ResolveConflicts resolveConflicts = new ResolveConflicts(frame, (TeqAccount) account, exceptions);
+            ResolveConflicts resolveConflicts = new ResolveConflicts(frame,  account, exceptions);
         } else {
             JOptionPane.showMessageDialog(frame,"Ok. Your loss.");
             if (AccountTypeFinder.isTeqAccount(account)) {

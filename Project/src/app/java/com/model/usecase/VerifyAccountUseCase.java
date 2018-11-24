@@ -24,38 +24,43 @@ public class VerifyAccountUseCase extends UseCase{
 
     @Override
     public void run() {
-
-        ArrayList<String> attrs = new ArrayList<>();
-        attrs.add("accountId");
-        attrs.add("accountType");
-        attrs.add("registered");
-
-        List<String> constraints = new ArrayList<>();
-        constraints.add("`userName` = '"+ this.username + "'");
-        constraints.add("`password` = '"+this.password+"'");
-
-        SelectCommand sel = new SelectCommand(attrs,
-                "Account", constraints);
-
-        List<List<String>> data= null;
-        try{
-             data = sel.selectHandle();
-
-        } catch (SelectException e) {
-
-        }
-        if(data == null|| data.isEmpty() ){
+        if (username.length() == 0 || password.length() == 0) {
             resultInterface.onErrorLogin();
         } else {
-        	Account account;
-        	boolean registered = data.get(0).get(2).compareTo("1") == 0;
-        	int accountId = Integer.parseInt(data.get(0).get(0));
-        	if (data.get(0).get(1).compareTo("T") == 0) {
-        		account = new TeqAccount(accountId, username, password, registered);
-        	} else {
-        		account = new AgencyAccount(accountId, username, password, registered);
-        	}
-            resultInterface.onSuccessLogin(account);
+
+
+            ArrayList<String> attrs = new ArrayList<>();
+            attrs.add("accountId");
+            attrs.add("accountType");
+            attrs.add("registered");
+
+            List<String> constraints = new ArrayList<>();
+            constraints.add("`userName` = '" + this.username + "'");
+            constraints.add("`password` = '" + this.password + "'");
+
+            SelectCommand sel = new SelectCommand(attrs,
+                    "Account", constraints);
+
+            List<List<String>> data = null;
+            try {
+                data = sel.selectHandle();
+
+            } catch (SelectException e) {
+
+            }
+            if (data == null || data.isEmpty()) {
+                resultInterface.onErrorLogin();
+            } else {
+                Account account;
+                boolean registered = data.get(0).get(2).compareTo("1") == 0;
+                int accountId = Integer.parseInt(data.get(0).get(0));
+                if (data.get(0).get(1).compareTo("T") == 0) {
+                    account = new TeqAccount(accountId, username, password, registered);
+                } else {
+                    account = new AgencyAccount(accountId, username, password, registered);
+                }
+                resultInterface.onSuccessLogin(account);
+            }
         }
     }
 }

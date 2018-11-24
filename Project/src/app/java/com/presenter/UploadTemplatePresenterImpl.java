@@ -1,5 +1,6 @@
 package app.java.com.presenter;
 
+import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.usecase.FetchTemplateNamesUseCase;
@@ -122,9 +123,9 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     }
 
 	@Override
-	public void onErrorUploadingTemplate(List<Exception> errorMessages) {
+	public void onErrorUploadingTemplate(List<InsertException> errorMessages) {
         // move to resolve conflicts view with the errorMessages
-        //this.view.
+        this.view.switchViewToResolveConflicts(errorMessages);
     }
 
 }

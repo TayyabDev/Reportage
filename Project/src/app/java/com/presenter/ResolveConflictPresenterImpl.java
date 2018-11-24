@@ -1,6 +1,7 @@
 package app.java.com.presenter;
 
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.usecase.FetchTemplateColumnsUseCase;
 import app.java.com.model.usecase.ProcessDuplicateRowsUseCase;
 import app.java.com.model.usecase.ResolveConflictsUseCase;
 import app.java.com.model.usecase.UseCase;
@@ -39,6 +40,13 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
     }
 
     @Override
+    public void fetchTemplateColumns(String template) {
+        FetchTemplateColumnsUseCase useCase = new FetchTemplateColumnsUseCase(this,template);
+        useCase.run();
+
+    }
+
+    @Override
     public void onSuccessFixingConflict(String message) {
         this.view.onSuccessConflictFix();  // user fix did work, no need to ask the user again
     }
@@ -53,5 +61,15 @@ public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, R
         // results sent here - pass to the view
         this.view.updateExceptions(exceptions);
         this.view.getErrors(exceptions);
+    }
+
+    @Override
+    public void onSuccessSelectTable(List<String> columns) {
+        this.view.supplyTemplateColumns(columns);
+    }
+
+    @Override
+    public void onErrorSelectTable(String message) {
+        this.view.errorSupplyingColumns(message);
     }
 }

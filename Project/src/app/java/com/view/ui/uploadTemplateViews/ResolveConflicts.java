@@ -2,12 +2,16 @@ package app.java.com.view.ui.uploadTemplateViews;
 
 import app.java.com.model.Exceptions.DuplicateKeyException;
 import app.java.com.model.Exceptions.InsertException;
+import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ResolveConflictPresenterImpl;
 import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
+import jdk.swing.interop.SwingInterOpUtils;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.*;
 import java.awt.*;
@@ -42,9 +46,14 @@ public class ResolveConflicts implements ResolveConflictsView {
     private JFrame frame;
     private JPanel panel;
 
+
+    private String template;
+    private List<String> columns;
+
     private List<InsertException> errors;
     private JScrollPane scrollPane;
     private JPanel scrollPanel;
+
 
     private ButtonGroup bg;
     List<JRadioButton> errorOptionButtons;
@@ -52,7 +61,10 @@ public class ResolveConflicts implements ResolveConflictsView {
     private ResolveConflictPresenterImpl presenter;
 
 
-    public ResolveConflicts(JFrame frame, TeqAccount account, List<InsertException> errors){
+    public ResolveConflicts(JFrame frame, Account account, List<InsertException> errors){
+        System.out.println("errors are :");
+        System.out.println(errors);
+
         this.frame = frame;
 
         panel = new JPanel();
@@ -61,19 +73,23 @@ public class ResolveConflicts implements ResolveConflictsView {
         presenter = new ResolveConflictPresenterImpl();
         presenter.attachView(this);
 
+        this.errors = errors;
+        this.template = this.errors.get(0).getTable();
+
+        errorOptionButtons = new ArrayList<>();
+
+
+        presenter.fetchTemplateColumns(this.template);
+
 
         scrollPanel = new JPanel(new GridLayout(0, 1));
         scrollPanel.setBorder(BorderFactory.createTitledBorder("Please resolve the conflicts."));
 
+        bg = new ButtonGroup();
 
-        this.errors = errors;
+        presenter.processDuplicateRowConflicts(errors);
 
-        scrollPanel.add(new JLabel("Hello"));
-
-
-        //presenter.processDuplicateRowConflicts(errors);
-
-        //getErrors(errors);
+        getErrors(errors);
 
 
         scrollPane = new JScrollPane(scrollPanel);
@@ -81,7 +97,11 @@ public class ResolveConflicts implements ResolveConflictsView {
 
         JButton resolve = UIHelpers.buttonGenerator("Resolve");
         resolve.setBounds(450, 470, 100,20);
-        resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons, scrollPanel, this.errors, presenter));
+        //resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons, scrollPanel, this.errors,
+                //presenter, this.columns));
+        resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons, scrollPanel,
+                errors, presenter, columns));
+
 
         panel.add(scrollPane);
         panel.add(resolve);
@@ -91,36 +111,17 @@ public class ResolveConflicts implements ResolveConflictsView {
     }
 
 
-    public  static void main(String [] args) {
-        JFrame frame = new JFrame();
-        frame.setPreferredSize(new Dimension(1000, 600));
-        frame.pack();
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        UIHelpers.setLook();
-
-        List<String> duplicateVals = Arrays.asList("1","2","3");
-
-        DuplicateKeyException exception = new DuplicateKeyException("Client_Profile", duplicateVals);
-        ResolveConflicts rc = new ResolveConflicts(frame, null, Arrays.asList(exception));
-
-    }
-
     /**
      * Populates the list of conflicts
      * @param errors
      */
     public void getErrors(List<InsertException> errors) {
-        bg = new ButtonGroup();
-        errorOptionButtons = new ArrayList<>();
         for (InsertException exception : errors) {
             if(exception.getIsFixed()) {
                 JLabel jl = new JLabel( exception.getMessage() + " - Automatically Fixed");
                 scrollPanel.add(jl);
             } else {
-                JRadioButton jrb = new JRadioButton("");
+                JRadioButton jrb = new JRadioButton(exception.getMessage());
                 bg.add(jrb);
                 errorOptionButtons.add(jrb);
                 scrollPanel.add(jrb);
@@ -139,6 +140,7 @@ public class ResolveConflicts implements ResolveConflictsView {
     @Override
     public void onSuccessConflictFix() {
         // show message saying that fixed
+        JOptionPane.showMessageDialog(frame, "Successfully fixed the error");
     }
 
     @Override
@@ -158,7 +160,15 @@ public class ResolveConflicts implements ResolveConflictsView {
 
     }
 
+    @Override
+    public void supplyTemplateColumns(List<String> columns) {
+        this.columns = columns;
+    }
 
+    @Override
+    public void errorSupplyingColumns(String message) {
+        JOptionPane.showMessageDialog(frame, message);
+    }
 
 
 }

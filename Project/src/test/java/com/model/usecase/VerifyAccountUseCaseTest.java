@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VerifyAccountUseCaseTest implements LoginResultInterface {
-    String KNOWN_USER = "bob";
-    String KNOWN_PASS = "abc";
+    private String KNOWN_USER = "bob";
+    private String KNOWN_PASS = "abc";
 
     boolean status;
 

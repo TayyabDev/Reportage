@@ -16,4 +16,8 @@ public interface ResolveConflictsView {
 
     void updateExceptions(List<InsertException> exceptions);
 
+    void supplyTemplateColumns(List<String> columns);
+
+    void errorSupplyingColumns(String message);
+
 }

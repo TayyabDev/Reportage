@@ -11,4 +11,8 @@ public interface ResolveConflictResultInterface {
     void onErrorFixingConflict(String message);
 
     void onSuccessProcessingDuplicateRows(List<InsertException> exceptions);
+
+    void onSuccessSelectTable(List<String> columns);
+
+    void onErrorSelectTable(String message);
 }

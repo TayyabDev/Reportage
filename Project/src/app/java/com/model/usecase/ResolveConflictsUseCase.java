@@ -17,7 +17,7 @@ public class ResolveConflictsUseCase extends UseCase {
                                    List<String> userCorrectedValues, String table) {
         this.resolveConflictResultInterface = resolveConflictResultInterface;
         this.userCorrectedValues = userCorrectedValues;
-        this.table = table;
+        this.table = table.replaceAll("`", "");
     }
 
     @Override
@@ -31,7 +31,8 @@ public class ResolveConflictsUseCase extends UseCase {
         }
 
         InsertCommand command = new InsertCommand(table, columns, userCorrectedValues);
-
+        System.out.println("Columns: " + columns);
+        System.out.println("User corrected: "+userCorrectedValues);
         try {
             command.insertHandle();
             resolveConflictResultInterface.onSuccessFixingConflict("Success Fixing Error");

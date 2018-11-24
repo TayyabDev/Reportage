@@ -15,5 +15,7 @@ public interface ResolveConflictPresenter {
 
     void processDuplicateRowConflicts(List<InsertException> exceptions);
 
+    void fetchTemplateColumns(String template);
+
 
 }

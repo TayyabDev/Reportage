@@ -1,5 +1,6 @@
 package test.java.com.model.usecase;
 
+import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.usecase.UploadTemplateUseCase;
 import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
@@ -27,7 +28,7 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
     }
 
     @Override
-    public void onErrorUploadingTemplate(List<Exception> errorMessages) {
+    public void onErrorUploadingTemplate(List<InsertException> errorMessages) {
         System.out.println("Error uploading template");
     }
 

@@ -23,29 +23,33 @@ public class CreateAccountUseCase extends  UseCase {
 
     @Override
     public void run() {
-        boolean success = false;
-
-        ArrayList<String> attrs = new ArrayList<>();
-        attrs.add("userName");
-        attrs.add("password");
-        attrs.add("accountType");
-
-        ArrayList<String> userData = new ArrayList<>();
-        userData.add(this.name);
-        userData.add(this.password);
-        userData.add(this.accountType);
-
-        InsertCommand ic = new InsertCommand("Account", attrs, userData);
-
-        try {
-            success = ic.handle();
-        } catch (InsertException e) {
+        if(this.name.length() == 0 || this.password.length() == 0){
             resultInterface.onErrorCreateAccount("failure");
-        }
+        } else {
+            boolean success = false;
 
-        if(success){
-            // NOTE: Need to change this to get pass in account id instead of success
-            resultInterface.onSuccessCreateAccount("success");
+            ArrayList<String> attrs = new ArrayList<>();
+            attrs.add("userName");
+            attrs.add("password");
+            attrs.add("accountType");
+
+            ArrayList<String> userData = new ArrayList<>();
+            userData.add(this.name);
+            userData.add(this.password);
+            userData.add(this.accountType);
+
+            InsertCommand ic = new InsertCommand("Account", attrs, userData);
+
+            try {
+                success = ic.handle();
+            } catch (InsertException e) {
+                resultInterface.onErrorCreateAccount("failure");
+            }
+
+            if(success){
+                // NOTE: Need to change this to get pass in account id instead of success
+                resultInterface.onSuccessCreateAccount("success");
+            }
         }
     }
 }

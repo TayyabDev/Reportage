@@ -26,12 +26,12 @@ public class InsertCommand extends Command {
 	}
 	
 	@Override
-	public boolean handle() throws InsertException, DuplicateKeyException {
+	public boolean handle() throws InsertException {
 		insertHandle();
 		return true;
 	}
 
-	public int insertHandle() throws InvalidException, DuplicateKeyException, InsertException {
+	public int insertHandle() throws InsertException {
 		String formulatedIds = formulateIds(attrs);
 		String formulatedData = formulateData(vals);
 		String sql = "insert into " + tableName + formulatedIds

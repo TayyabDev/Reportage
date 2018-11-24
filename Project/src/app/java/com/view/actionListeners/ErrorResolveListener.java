@@ -17,22 +17,30 @@ public class ErrorResolveListener implements ActionListener {
     private JPanel scrollPanel;
     private ResolveConflictPresenter presenter;
     private List<InsertException> errors;
+    private List<String> columns;
 
     public ErrorResolveListener(JFrame frame, List<JRadioButton> errorOptionButtons, JPanel scrollPanel,
-                                List<InsertException> errors, ResolveConflictPresenter presenter) {
+                                List<InsertException> errors, ResolveConflictPresenter presenter, List<String> columns) {
         this.frame = frame;
         this.errorOptionButtons = errorOptionButtons;
         this.scrollPanel = scrollPanel;
         this.presenter = presenter;
         this.errors = errors;
+        this.columns = columns;
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("hre");
+        System.out.println(errorOptionButtons);
         if(errorOptionButtons != null){
             int index = 0;
+            System.out.println("past null");
             for(JRadioButton errorOption : errorOptionButtons) {
+                System.out.println("past loop");
                 if(errorOption.isSelected()) {
+                    System.out.println("selected");
                     // locate the exception corresponding to the radio button
                     InsertException insertException = errors.get(index);
 
@@ -41,19 +49,27 @@ public class ErrorResolveListener implements ActionListener {
                     JPanel scrollPanel = new JPanel(new GridLayout(1,0));
 
                     JDialog dialog = new JDialog();
+                    dialog.setTitle("Resolve the Conflicts");
                     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                     dialog.setVisible(true);
 
-                    dialog.setBounds(100, 100, 450, 300);
+                    dialog.setBounds(100, 100, 900, 300);
 
 
                     dialog.getContentPane().setLayout(new GridLayout(0,1));
 
                     dialog.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
+                    System.out.println("dialog");
+
                     List<JTextField> cols = new ArrayList<>();
+
                     for (String col : insertException.getErrorValues()){
                         JTextField val = new JTextField(col);
+                        val.setBackground(Color.red);
+
+                        val.setPreferredSize(new Dimension(val.getText().length()+5, 30));
+
                         cols.add(val);
                         scrollPanel.add(val);
                     }
@@ -72,17 +88,20 @@ public class ErrorResolveListener implements ActionListener {
                             for(JTextField col : cols){
                                 correctValues.add(col.getText());
                             }
+                            System.out.println(correctValues);
                             presenter.attemptFixConflict(correctValues, insertException.getTable());
+
+                            // remove message from list
+                            errorOptionButtons.remove(errorOption);
+                            scrollPanel.remove(errorOption);
+                            scrollPanel.revalidate();
+
+                            dialog.dispose();
+
                         }
                     });
 
                     dialog.setVisible(true);
-
-                    // remove message from list
-                    errorOptionButtons.remove(errorOption);
-                    scrollPanel.remove(errorOption);
-                    scrollPanel.revalidate();
-
                 }
                 index += 1;
             }

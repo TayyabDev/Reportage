@@ -32,13 +32,15 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
             // otherwise duplicate exception
             List<List<String> > result = getAllDateForTable(exception.getTable());
             List<String> primaryColumns = null;
+            System.out.println(exception.getTable() + " is the table");
+            String formattedTable = exception.getTable().replaceAll("`", "");
             try {
-                primaryColumns = new SelectCommand().getPrimaryKeyColumn();
+                primaryColumns = new SelectCommand(formattedTable).getPrimaryKeyColumn();
             } catch (SelectException e) {
                 e.printStackTrace();
             }
 
-            List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns);
+            List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns, formattedTable);
 
             int rowNum = findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
 
@@ -102,15 +104,13 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
     }
 
 
-    public List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn) {
+    public List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn, String table) {
 
         System.out.println(primaryKeyColumn + " are the primary keys");
 
 
         List<String> columns = null;
         List<Integer> result = new ArrayList<>();
-
-        String table = "TestingErrors";
 
         try {
             columns = new SelectCommand(table).getColumns();
