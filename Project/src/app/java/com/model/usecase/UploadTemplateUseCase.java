@@ -1,22 +1,22 @@
 package app.java.com.model.usecase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class UploadTemplateUseCase extends UseCase {
 
 	private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";
-
+    private static final int TEQ_AGENCY_ID = 1;
 	private TemplateFileInterface fileInterface;
 	private String templateName;
 	private UploadTemplateResultInterface resultInterface;
@@ -108,9 +108,17 @@ public class UploadTemplateUseCase extends UseCase {
 
 		int year = dateSelected.getYear() + 1900; // normalize
 
-		int userId = getUserId(account.getAccountId());
 
-		int agencyId = getAgencyId(userId);
+		int userId = 0;
+        int agencyId = 0;
+
+        if(AccountTypeFinder.isTeqAccount(account)) {
+            agencyId = TEQ_AGENCY_ID;
+        } else {
+            userId = getUserId(account.getAccountId());
+            agencyId = getAgencyId(userId);
+        }
+
 
 
 		// Let's insert the information into the ClientDataForm table now
