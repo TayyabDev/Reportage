@@ -64,7 +64,7 @@ public class Template implements CreateTemplateView {
 		panel.add(lTitle);
 
 		create = UIHelpers.buttonGenerator("Create a new template using file");
-		create.setBounds(400, 100, 250, 50);
+		create.setBounds(360, 100, 300, 50);
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,7 +84,7 @@ public class Template implements CreateTemplateView {
 		});
 
 		createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
-		createSQL.setBounds(400, 200, 250, 50);
+		createSQL.setBounds(360, 200, 300, 50);
 		createSQL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +97,7 @@ public class Template implements CreateTemplateView {
 		});
 
 		view = UIHelpers.buttonGenerator("View the existing templates");
-		view.setBounds(400, 300, 250, 50);
+		view.setBounds(360, 300, 300, 50);
 		view.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,7 +116,7 @@ public class Template implements CreateTemplateView {
 			}
 		});
 
-		select.setBounds(400, 400, 250, 50);
+		select.setBounds(360, 400, 300, 50);
 
 
 		panel.add(create);

@@ -73,7 +73,8 @@ create table ClientDataForm(
 		foreign key(agencyId)
         references Agency(agencyId),
     year year(4),
-    month int(2) check (month > 0 and month < 13));
+    month int(2) check (month > 0 and month < 13),
+    numOfClients int not null default 0);
 
 create table VariableName(
 	variableNameId int auto_increment primary key,

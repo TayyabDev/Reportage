@@ -61,7 +61,7 @@ public class CreateAccount implements CreateAccountView {
 		panel.add(lTitle);
 
 		create = UIHelpers.buttonGenerator("Create an Account");
-		create.setBounds(400, 150, 150, 50);
+		create.setBounds(380, 150, 200, 50);
 
 
 		// create account dialog box
@@ -140,7 +140,7 @@ public class CreateAccount implements CreateAccountView {
 
 
 		search = UIHelpers.buttonGenerator("Search for an Account");
-		search.setBounds(400, 250, 150, 50);
+		search.setBounds(380, 250, 200, 50);
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
