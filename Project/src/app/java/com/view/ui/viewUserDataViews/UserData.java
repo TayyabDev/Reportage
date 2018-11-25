@@ -33,6 +33,7 @@ public class UserData implements CreateUserDataView{
 	private JFrame frame;
 	private JPanel panel;
 	@SuppressWarnings("rawtypes")
+	private JLabel lTitle;
 	private JComboBox cbTemplates;
 	private JTextField tfTarget;
 	private JTextField tfConstraint;
@@ -57,7 +58,7 @@ public class UserData implements CreateUserDataView{
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#f1f8e9"));
 		
-		JLabel lTitle = new JLabel("View Data");
+		lTitle = new JLabel("View Data");
 		lTitle.setFont(new Font(null, Font.BOLD, 36));
 		lTitle.setBounds(390, 20, 400, 40);
 		panel.add(lTitle);
@@ -123,25 +124,14 @@ public class UserData implements CreateUserDataView{
 		btnEdit.setBounds(810, 80, 140, 25);
 		btnEdit.setEnabled(false);
 		btnEdit.addActionListener(e -> {
-			cbTemplates.setEnabled(false);
-			btnSelect.setEnabled(false);
-			btnCancel.setEnabled(true);
-			btnSubmit.setEnabled(true);
-			btnEdit.setEnabled(false);
-			
-			tableEditable = true;
+			enableEditButton();
 		});
 		panel.add(btnEdit);
 		
 		btnCancel.setBounds(700, 115, 100, 25);
 		btnCancel.setEnabled(false);
 		btnCancel.addActionListener(e -> {
-			cbTemplates.setEnabled(true);
-			btnSelect.setEnabled(true);
-			btnEdit.setEnabled(true);
-			btnSubmit.setEnabled(false);
-			btnCancel.setEnabled(false);
-			tableEditable = false;
+			disableEditButton();
 		});
 		panel.add(btnCancel);
 		
@@ -211,29 +201,48 @@ public class UserData implements CreateUserDataView{
 		for (DataChanges change : changesList) {
 			message += change.toString() + "\n";
 		}
-		JOptionPane.showOptionDialog(frame, message, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
+		int choice = JOptionPane.showOptionDialog(frame, message, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
+		if (choice == 0) {
+			presenter.updateChanges(changesList, cbTemplates.getSelectedItem().toString());
+		} else {
+			disableEditButton();
+		}
 	}
 
 	@Override
 	public void dataUpdateSuccess(String message) {
 		JOptionPane.showMessageDialog(frame, message, "Data Update Success", JOptionPane.INFORMATION_MESSAGE);
-		cbTemplates.setEnabled(true);
-		btnSelect.setEnabled(true);
-		btnEdit.setEnabled(true);
-		btnSubmit.setEnabled(false);
-		btnCancel.setEnabled(false);
-		tableEditable = false;
+		String templateName = (String) cbTemplates.getSelectedItem();
+		List<String> target = new ArrayList<String>();
+		List<String> constraint = new ArrayList<String>();
+		presenter.fetchUserDataWithSelection(target, templateName, constraint);
+		panel.revalidate();
+		disableEditButton();
 	}
 	
 	@Override
 	public void dataUpdateFail(String message) {
 		JOptionPane.showMessageDialog(frame, message, "Data Update Unsuccessful", JOptionPane.ERROR_MESSAGE);
+		disableEditButton();
+	}
+
+	private void enableEditButton() {
+		cbTemplates.setEnabled(false);
+		btnSelect.setEnabled(false);
+		btnCancel.setEnabled(true);
+		btnSubmit.setEnabled(true);
+		btnEdit.setEnabled(false);
+		lTitle.setText("Edit Data");
+		tableEditable = true;
+	}
+	
+	private void disableEditButton() {
 		cbTemplates.setEnabled(true);
 		btnSelect.setEnabled(true);
 		btnEdit.setEnabled(true);
 		btnSubmit.setEnabled(false);
 		btnCancel.setEnabled(false);
+		lTitle.setText("View Data");
 		tableEditable = false;
 	}
-
 }

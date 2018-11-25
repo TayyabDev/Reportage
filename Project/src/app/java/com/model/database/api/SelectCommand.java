@@ -301,4 +301,18 @@ public class SelectCommand extends Command {
             throw new SelectException(tableName);
         }
     }
+    
+    public List<String> getValuesOfRowAtPrimaryKeys(int rowNum) throws SelectException {
+    	List<String> result = new ArrayList<String>();
+    	List<String> columns = this.getColumns();
+		List<String> primaryKeys = this.getPrimaryKeyColumn();
+		List<List<String>> tableData = this.selectHandle();
+		List<String> row = tableData.get(rowNum);
+		for (int i = 0; i < row.size(); i++) {
+			if (primaryKeys.contains(columns.get(i))) {
+				result.add(row.get(i));
+			}
+		}
+    	return result;
+    }
 }

@@ -15,8 +15,4 @@ public interface UpdateUserDataResultInterface {
 	void onSuccessUpdate(String message);
 
 	void onErrorUpdate(String message);
-
-	void onProceedChanges(List<DataChanges> changesList);
-
-
 }

@@ -69,12 +69,6 @@ public class FetchUserDataPresenterImpl
 	public void onShowDataChanges(List<DataChanges> changesList) {
 		view.showDataChanges(changesList);		
 	}
-	
-	@Override
-	public void onProceedChanges(List<DataChanges> changesList) {
-		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, changesList);
-		useCase.run();
-	}
 
 	@Override
 	public void onSuccessUpdate(String message) {
@@ -92,5 +86,10 @@ public class FetchUserDataPresenterImpl
 		useCase.runCompare();
 	}
 
+	@Override
+	public void updateChanges(List<DataChanges> changesList, String tableName) {
+		UpdateUserDataUseCase useCase = new UpdateUserDataUseCase(this, tableName, changesList);
+		useCase.run();
+	}
 
 }
