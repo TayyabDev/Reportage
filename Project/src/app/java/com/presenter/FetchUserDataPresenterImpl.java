@@ -23,8 +23,8 @@ public class FetchUserDataPresenterImpl
 	} 
 	
 	@Override
-	public void fetchUserDataWithSelection(List<String> target, String tableName, List<String> constraint) {
-		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, target, tableName, constraint);
+	public void fetchUserDataWithSelection(String tableName) {
+		FetchUserDataUseCase useCase = new FetchUserDataUseCase(this, tableName);
 		useCase.run();
 	}
 	

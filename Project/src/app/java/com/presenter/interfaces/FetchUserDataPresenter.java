@@ -7,7 +7,7 @@ import app.java.com.view.interfaces.CreateUserDataView;
 
 public interface FetchUserDataPresenter {
 	
-	void fetchUserDataWithSelection(List<String> target, String tableName, List<String> constraint);
+	void fetchUserDataWithSelection(String tableName);
 	
 	void fetchTemplateNames();
 	
