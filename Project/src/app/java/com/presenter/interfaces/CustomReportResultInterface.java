@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface CustomReportResultInterface {
 
-    void onSuccessCreatingReport();
+	void onSuccessCreatingReport();
 
-    void onErrorCreatingReport();
+	void onErrorCreatingReport();
 
-    void sendReport(HashMap<String, List<List<String>>> data);
+	void sendReport(HashMap<String, List<List<String>>> data);
 
 }

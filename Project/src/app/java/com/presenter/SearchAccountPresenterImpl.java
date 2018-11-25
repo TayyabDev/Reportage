@@ -1,8 +1,5 @@
 package app.java.com.presenter;
 
-import java.io.FileNotFoundException;
-
-import app.java.com.model.usecase.CreateReportWithQueryUseCase;
 import app.java.com.model.usecase.SearchAccountUseCase;
 import app.java.com.presenter.interfaces.SearchAccountPresenter;
 import app.java.com.presenter.interfaces.SearchAccountResultInterface;

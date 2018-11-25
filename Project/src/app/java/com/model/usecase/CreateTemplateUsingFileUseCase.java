@@ -12,62 +12,63 @@ import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.model.entities.template.BaseTemplate;
-import app.java.com.model.entities.template.Template;
 import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
-public class CreateTemplateUsingFileUseCase extends UseCase{
+public class CreateTemplateUsingFileUseCase extends UseCase {
 
-	
+
 	private String filePath;
 	private CreateTemplateResultInterface resultInterface;
 	private TeqAccount account;
-	
+
 	private boolean lockSheetName = false;
 	private String sheetName;
-	
+
 	private boolean lockColumnName = false;
 	private List<String> columnNamesSelected;
-	
+
+	@SuppressWarnings("unused")
 	private final String defaultAttr = "`id` int not null auto_increment";
 	private final String clientDataFormIdCol = "`clientDataFormId` int not null";
 	private final String clientDataFormIdFkName = "ClientDataFormIdFk";
 	private final String clientDataFormIdFkCons = "constraint ";
 	private final String clientDateFormIdFKRef = " foreign key (`clientDataFormId`) "
 			+ "references `ClientDataForm`(`clientDataFormId`)";
-	
+
 	// VariableName table
 	private final String variableNameTable = "VariableName";
 	private final String variableNameCol = "variableName";
 	private final String realNameCol = "realName";
 	private final String templateNameCol = "templateName";
-	
-	//Template table
+
+	// Template table
 	private final String templateTable = "Template";
 	private final String tableNameCol = "tableName";
 	private final String teqStaffIdCol = "teqStaffId";
-	
+
 	// User table
 	private final String userTable = "User";
 	private final String accountIdCol = "accountId";
 	private final String userIdCol = "userId";
-	
-	public CreateTemplateUsingFileUseCase(CreateTemplateResultInterface resultInterface, String filePath, TeqAccount account) {
+
+	public CreateTemplateUsingFileUseCase(CreateTemplateResultInterface resultInterface,
+			String filePath, TeqAccount account) {
 		this.resultInterface = resultInterface;
 		this.filePath = filePath;
 		this.account = account;
 	}
-	
-	
+
+
 	@Override
 	public void run() {
 		BaseTemplate template = getTemplate(filePath);
 		if (template == null) {
 			return;
 		}
-		
+
 		// get the fields needed to create specific table for a template
 		String tableName = template.getTableName();
 		List<String> columnIds = template.getColumnIds();
@@ -78,13 +79,13 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		boolean selected = waitClientToChoosePks(requiredColumnNames);
 		if (!selected) {
 			return;
-		} 
+		}
 		List<String> primaryKeys = getPrimaryKeys(columnIds, columnNames, columnNamesSelected);
 		try {
 			createTemplateTale(tableName, columnIds, requiredIds, primaryKeys);
 			// store all the columnIds and columnNames to VariableName table
 			insertVariableNames(columnIds, columnNames, templateName);
-			
+
 			// insert to template table
 			int staffId = getUserId(account);
 			insertTemplate(templateName, tableName, staffId);
@@ -92,11 +93,12 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		} catch (Exception e) {
 			resultInterface.onErrorCreateTemplate(e.getMessage());
 		}
-		
-		
+
+
 	}
 
-	private List<String> getPrimaryKeys(List<String> columnIds, List<String> coulumnNames, List<String> columnNamesSelected) {
+	private List<String> getPrimaryKeys(List<String> columnIds, List<String> coulumnNames,
+			List<String> columnNamesSelected) {
 		List<String> primaryKeys = new ArrayList<>();
 		for (String selectedColumnName : columnNamesSelected) {
 			int index = coulumnNames.indexOf(selectedColumnName);
@@ -109,49 +111,49 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 	public boolean waitClientToChoosePks(List<String> requiredColumnNames) {
 		resultInterface.fetchPKs(requiredColumnNames);
 		while ((!lockColumnName) && columnNamesSelected == null) {
-			
+
 		}
-		boolean selected = !(columnNamesSelected==null);
+		boolean selected = !(columnNamesSelected == null);
 		return selected;
 	}
-	
+
 	public void sheetSelected(String sheetName) {
 		this.sheetName = sheetName;
 		this.lockSheetName = true;
 	}
-	
+
 	public void PKselected(List<String> columnNamesSelected) {
 		this.columnNamesSelected = columnNamesSelected;
 		this.lockColumnName = true;
 	}
-	
+
 	private BaseTemplate getTemplate(String filePath) {
 		String formulatedFileName = filePath.replace("\\", "\\\\");
 		TemplateFileInterface file = null;
-		if (formulatedFileName.substring(formulatedFileName.length()-4).equals("xlsx")) {
+		if (formulatedFileName.substring(formulatedFileName.length() - 4).equals("xlsx")) {
 			// get the sheetNames ask client to choose
 			file = new TemplateFileExcelImpl(filePath);
 			List<String> sheetNames = ((TemplateFileExcelImpl) file).getSheetNames();
 			resultInterface.fetchSheetNames(sheetNames);
-			
+
 			// wait client to choose sheet
-			while ((!lockSheetName) && sheetName == null) {}
-			
+			while ((!lockSheetName) && sheetName == null) {
+			}
+
 			// cancel the dialog, not selected sheet
 			if (lockSheetName && sheetName == null) {
 				return null;
 			}
-			
+
 			// get here only when selected a sheet
 			((TemplateFileExcelImpl) file).setSheetName(sheetName);
-		}
-		else if (formulatedFileName.substring(formulatedFileName.length()-3).equals("csv")) {
+		} else if (formulatedFileName.substring(formulatedFileName.length() - 3).equals("csv")) {
 			file = new TemplateFileCsvImpl(formulatedFileName);
 		}
 		BaseTemplate template = (BaseTemplate) file.getFileAsTemplate();
 		return template;
 	}
-	
+
 	private List<String> addConstraintsToIds(List<String> ids, List<String> requiredIds) {
 		List<String> result = new ArrayList<String>();
 		for (String id : ids) {
@@ -163,19 +165,21 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		}
 		return result;
 	}
+
 	/*
 	 * using all the required ids and defaultAttr as primary key
 	 */
 	private String formulatePK(List<String> requiredIds) {
 		int len = requiredIds.toString().length();
-		String res = "primary key (" +  requiredIds.toString().substring(1, len-1) + ")";
+		String res = "primary key (" + requiredIds.toString().substring(1, len - 1) + ")";
 		return res;
 	}
-	
+
 	/*
 	 * insert variableName mapping to variableName table
 	 */
-	private boolean insertVariableName(String columnId, String columnName, String templateName) throws DuplicateKeyException, InsertException {
+	private boolean insertVariableName(String columnId, String columnName, String templateName)
+			throws DuplicateKeyException, InsertException {
 		List<String> data = new ArrayList<String>();
 		data.add(columnId);
 		data.add(columnName);
@@ -187,26 +191,28 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		InsertCommand insertVariable = new InsertCommand(variableNameTable, attrs, data);
 		return insertVariable.handle();
 	}
-	
-	private void insertVariableNames(List<String> columnIds, List<String> columnNames, String templateName) throws InsertException {
+
+	private void insertVariableNames(List<String> columnIds, List<String> columnNames,
+			String templateName) throws InsertException {
 		int len = columnIds.size();
-		for (int i = 0; i<len; i++) {
+		for (int i = 0; i < len; i++) {
 			try {
 				insertVariableName(columnIds.get(i), columnNames.get(i), templateName);
-			} catch(DuplicateKeyException e) {
+			} catch (DuplicateKeyException e) {
 				continue;
 			}
 		}
-		
+
 	}
-	
-	private void insertTemplate(String templateName, String tableName, int staffId) throws Exception {
+
+	private void insertTemplate(String templateName, String tableName, int staffId)
+			throws Exception {
 		// store the template's real name and table name in the database
 		List<String> attrNames = new ArrayList<String>();
 		attrNames.add(templateNameCol);
 		attrNames.add(tableNameCol);
 		attrNames.add(teqStaffIdCol);
-		
+
 		List<String> vals = new ArrayList<String>();
 		vals.add(templateName);
 		vals.add(tableName);
@@ -214,20 +220,21 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		Command insertTemplate = new InsertCommand(templateTable, attrNames, vals);
 		insertTemplate.handle();
 	}
-	
-	private boolean createTemplateTale(String tableName, List<String> columnIds, List<String> requiredIds, List<String> primaryKeys) throws Exception  {
+
+	private boolean createTemplateTale(String tableName, List<String> columnIds,
+			List<String> requiredIds, List<String> primaryKeys) throws Exception {
 		List<String> idsWithConstraints = addConstraintsToIds(columnIds, requiredIds);
-		// add clienteDataFormId foreign key 
+		// add clienteDataFormId foreign key
 		idsWithConstraints.add(0, constructDataFormFk(tableName));
 		idsWithConstraints.add(0, this.clientDataFormIdCol);
-		
+
 		// add primary key constraint at the end
 		idsWithConstraints.add(formulatePK(primaryKeys));
-		
+
 		Command createTemplate = new CreateCommand(tableName, idsWithConstraints);
 		return createTemplate.handle();
 	}
-	
+
 	private int getUserId(TeqAccount account) throws SelectException {
 		List<String> tar = new ArrayList<>();
 		tar.add(userIdCol);
@@ -237,11 +244,14 @@ public class CreateTemplateUsingFileUseCase extends UseCase{
 		List<String> userIdStr = findUserId.selectHandleSingle();
 		return Integer.parseInt(userIdStr.get(0));
 	}
-	
+
 	private String constructDataFormFk(String tableName) {
-		String constraintName = "`" + tableName.substring(1, tableName.length()-1) + this.clientDataFormIdFkName +"`";
+		String constraintName = "`"
+				+ tableName.substring(1, tableName.length() - 1)
+				+ this.clientDataFormIdFkName
+				+ "`";
 		String result = clientDataFormIdFkCons + constraintName + clientDateFormIdFKRef;
 		return result;
 	}
-		
+
 }

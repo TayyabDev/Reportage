@@ -1,43 +1,44 @@
 package app.java.com.model.entities;
 
 public class DataChanges {
-	
+
 	private String tableName;
-    private int row;
-    private int column;
-    private String oldValue;
-    private String newValue;
+	private int row;
+	private int column;
+	private String oldValue;
+	private String newValue;
 
-    public DataChanges(String tableName, int row, int column, String oldValue, String newValue) {
-        this.tableName = tableName;
-    	this.row = row;
-        this.column = column;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-    }
+	public DataChanges(String tableName, int row, int column, String oldValue, String newValue) {
+		this.tableName = tableName;
+		this.row = row;
+		this.column = column;
+		this.oldValue = oldValue;
+		this.newValue = newValue;
+	}
 
-    public String getTableName() {
-    	return tableName;
-    }
-    
-    public int getRow() {
-        return row;
-    }
+	public String getTableName() {
+		return tableName;
+	}
 
-    public int getColumn() {
-        return column;
-    }
+	public int getRow() {
+		return row;
+	}
 
-    public String getOldValue() {
-        return oldValue;
-    }
+	public int getColumn() {
+		return column;
+	}
 
-    public String getNewValue() {
-        return newValue;
-    }
+	public String getOldValue() {
+		return oldValue;
+	}
 
-    @Override
-    public String toString() {
-        return String.valueOf(row) + "," + String.valueOf(column) + " : " + oldValue + " - > " + newValue;
-    }
+	public String getNewValue() {
+		return newValue;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(
+				row) + "," + String.valueOf(column) + " : " + oldValue + " - > " + newValue;
+	}
 }

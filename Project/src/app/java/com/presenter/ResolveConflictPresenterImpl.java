@@ -1,5 +1,7 @@
 package app.java.com.presenter;
 
+import java.util.List;
+
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.usecase.FetchTemplateColumnsUseCase;
 import app.java.com.model.usecase.ProcessDuplicateRowsUseCase;
@@ -8,8 +10,6 @@ import app.java.com.model.usecase.UseCase;
 import app.java.com.presenter.interfaces.ResolveConflictPresenter;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 import app.java.com.view.interfaces.ResolveConflictsView;
-
-import java.util.List;
 
 public class ResolveConflictPresenterImpl implements ResolveConflictPresenter, ResolveConflictResultInterface {
     private ResolveConflictsView view;

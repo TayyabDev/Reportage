@@ -13,12 +13,12 @@ public class FetchUserDataUseCase extends UseCase {
 	private List<String> target = new ArrayList<String>();
 	private List<String> constraints = new ArrayList<String>();
 	private FetchUserDataResultInterface resultInterface;
-	
-	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, String table) {
+
+	public FetchUserDataUseCase(FetchUserDataResultInterface resultInterface, String table) {
 		this.resultInterface = resultInterface;
 		this.table = '`' + table.replace(' ', '_') + '`';
 	}
-	
+
 	@Override
 	public void run() {
 		List<String> columns = new ArrayList<String>();
@@ -26,18 +26,17 @@ public class FetchUserDataUseCase extends UseCase {
 		System.out.println(target);
 		System.out.println(table);
 		SelectCommand selectCommand = new SelectCommand(target, table, constraints);
-		
+
 		try {
 			columns.addAll(selectCommand.getColumnIds());
 			data.addAll(selectCommand.selectHandle());
-        } catch (SelectException e) {
-            resultInterface.onErrorSelectTable("failed when select " + e.getMessage());
-        }
-		
+		} catch (SelectException e) {
+			resultInterface.onErrorSelectTable("failed when select " + e.getMessage());
+		}
+
 		if (data.isEmpty()) {
 			resultInterface.onErrorSelectTable("No Data Returned");
-		}
-		else {
+		} else {
 			resultInterface.onSuccessSelectTable(columns, data);
 		}
 	}

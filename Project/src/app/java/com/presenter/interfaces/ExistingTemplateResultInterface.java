@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ExistingTemplateResultInterface {
 
-    void onSuccessSelectTable(List<String> columns);
+	void onSuccessSelectTable(List<String> columns);
 
-    void onErrorSelectTable(String message);
+	void onErrorSelectTable(String message);
 }

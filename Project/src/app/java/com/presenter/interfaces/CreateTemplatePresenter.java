@@ -7,16 +7,16 @@ import app.java.com.view.interfaces.CreateTemplateView;
 
 public interface CreateTemplatePresenter {
 
-    void createTemplateWithFile(String filePath, TeqAccount account);
+	void createTemplateWithFile(String filePath, TeqAccount account);
 
-    void sheetSelected(String sheetName);
-    
-    void PKSelected(List<String> pks);
-    
-    void createTemplateWithQuery(String query);
+	void sheetSelected(String sheetName);
 
-    void attachView(CreateTemplateView view);
+	void PKSelected(List<String> pks);
 
-    void unbindView();
+	void createTemplateWithQuery(String query);
+
+	void attachView(CreateTemplateView view);
+
+	void unbindView();
 
 }

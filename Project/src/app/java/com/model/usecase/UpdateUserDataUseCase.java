@@ -1,13 +1,14 @@
 package app.java.com.model.usecase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.model.database.api.UpdateCommand;
 import app.java.com.model.entities.DataChanges;
 import app.java.com.presenter.interfaces.UpdateUserDataResultInterface;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class UpdateUserDataUseCase extends UseCase {
 
@@ -17,20 +18,22 @@ public class UpdateUserDataUseCase extends UseCase {
 	private List<DataChanges> changesList;
 	private String templateName;
 
-	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, String tableName, List<List<String>> originalData, List<List<String>> newData) {
+	public UpdateUserDataUseCase(UpdateUserDataResultInterface resultInterface, String tableName,
+			List<List<String>> originalData, List<List<String>> newData) {
 		this.resultInterface = resultInterface;
 		this.originalData = originalData;
 		this.newData = newData;
 		this.changesList = new ArrayList<>();
 		this.templateName = tableName;
 	}
-	
-	public UpdateUserDataUseCase (UpdateUserDataResultInterface resultInterface, String tableName, List<DataChanges> changes) {
+
+	public UpdateUserDataUseCase(UpdateUserDataResultInterface resultInterface, String tableName,
+			List<DataChanges> changes) {
 		this.resultInterface = resultInterface;
 		this.changesList = changes;
 		this.templateName = tableName;
 	}
-	
+
 	public void runCompare() {
 		for (int i = 0; i < originalData.size(); i++) {
 			for (int j = 0; j < originalData.get(i).size(); j++) {
@@ -38,18 +41,20 @@ public class UpdateUserDataUseCase extends UseCase {
 				String originalValue = originalData.get(i).get(j);
 				String newValue = newData.get(i).get(j);
 
-				if(!originalValue.equals(newValue)) {
-					DataChanges dataChanges = new DataChanges(templateName, i, j, originalValue, newValue);
+				if (!originalValue.equals(newValue)) {
+					DataChanges dataChanges =
+							new DataChanges(templateName, i, j, originalValue, newValue);
 					changesList.add(dataChanges);
 				}
 			}
 		}
 		resultInterface.onShowDataChanges(changesList);
 	}
-	
+
 	@Override
 	public void run() {
-		SelectCommand selectTableNameCommand = new SelectCommand(Arrays.asList("tableName"), "Template", Arrays.asList("templateName = '" + templateName + "'")) ;
+		SelectCommand selectTableNameCommand = new SelectCommand(Arrays.asList("tableName"),
+				"Template", Arrays.asList("templateName = '" + templateName + "'"));
 		String tableName = null;
 		try {
 			tableName = selectTableNameCommand.selectHandleSingle().get(0).replaceAll("`", "");
@@ -59,15 +64,13 @@ public class UpdateUserDataUseCase extends UseCase {
 		}
 		SelectCommand selectCommand = new SelectCommand(tableName);
 		List<String> columnIds = null;
-		List<String> requiredColumnIds = null;
 		try {
 			columnIds = selectCommand.getColumns();
-			requiredColumnIds = selectCommand.getPrimaryKeyColumn();
 		} catch (SelectException e1) {
 			resultInterface.onErrorUpdate("Unable to select columns");
 			e1.printStackTrace();
 		}
-		
+
 		int changeIndex = 0;
 		while (changeIndex < changesList.size()) {
 			int rowIndex = changesList.get(changeIndex).getRow();
@@ -90,7 +93,8 @@ public class UpdateUserDataUseCase extends UseCase {
 			values.add("'" + changesList.get(changeIndex).getNewValue() + "'");
 			changeIndex++;
 			try {
-				UpdateCommand updateCommand = new UpdateCommand(tableName, targets, values, constraints);
+				UpdateCommand updateCommand =
+						new UpdateCommand(tableName, targets, values, constraints);
 				if (updateCommand.handle()) {
 					resultInterface.onSuccessUpdate("Successfully updated table values");
 				} else {
@@ -98,7 +102,7 @@ public class UpdateUserDataUseCase extends UseCase {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
+			}
 		}
 	}
 }

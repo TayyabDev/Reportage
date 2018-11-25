@@ -4,12 +4,12 @@ import app.java.com.model.entities.account.Account;
 
 public class MockAccount extends Account {
 
-    public MockAccount(int accountId, String userName, String password, boolean registered) {
-        super(accountId, userName, password, registered);
-    }
+	public MockAccount(int accountId, String userName, String password, boolean registered) {
+		super(accountId, userName, password, registered);
+	}
 
-    @Override
-    public String getAccountType() {
-        return "MockAccount";
-    }
+	@Override
+	public String getAccountType() {
+		return "MockAccount";
+	}
 }

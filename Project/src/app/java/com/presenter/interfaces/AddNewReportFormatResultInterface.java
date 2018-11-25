@@ -4,7 +4,7 @@ public interface AddNewReportFormatResultInterface {
 
 	void onSuccessAddReportFormat(String csvString);
 
-    void onErrorAddReportFormat(String message);
-    
-    void onErrorAddReportFormat();
+	void onErrorAddReportFormat(String message);
+
+	void onErrorAddReportFormat();
 }

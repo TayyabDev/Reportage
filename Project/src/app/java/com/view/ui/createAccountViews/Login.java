@@ -1,5 +1,22 @@
 package app.java.com.view.ui.createAccountViews;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
 import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.LoginPresenterImpl;
@@ -8,15 +25,6 @@ import app.java.com.view.interfaces.LoginView;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.register.RegisterOfficer;
 import app.java.com.view.ui.register.RegisterTeqStaff;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 public class Login implements LoginView {
 
@@ -69,7 +77,7 @@ public class Login implements LoginView {
 				presenter.verifyAccount(username.getText(), String.valueOf(password.getPassword()));
 			}
 		});
-		
+
 		gb.setConstraints(login, c);
 		panel.add(login);
 		frame.getRootPane().setDefaultButton(login);
@@ -90,47 +98,47 @@ public class Login implements LoginView {
 
 	}
 
-    @Override
-    public void onSuccessLogin(TeqAccount account) {
-    	// check if need to register
-    	if (!account.isRegisterd()) {
-    		// RegisterNewUserView
-    		new RegisterTeqStaff(new JFrame("Registration"), account);
-    	} else {
-    		new Dashboard(new JFrame("TEQ Dashboard"), true, account);
-    	}
-        frame.dispose();
-        presenter.unbindView();
-    }
-    
-    @Override
-    public void onSuccessLogin(AgencyAccount account) {
-    	// check if need to register
-    	if (!account.isRegisterd()) {
-    		// RegisterNewUserView
-    		new RegisterOfficer(new JFrame("Registration"), account);
-    	} else {
-    		//need to have another view for agency
-    		new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
-    	}
-        frame.dispose();
-        presenter.unbindView();
-    }
+	@Override
+	public void onSuccessLogin(TeqAccount account) {
+		// check if need to register
+		if (!account.isRegisterd()) {
+			// RegisterNewUserView
+			new RegisterTeqStaff(new JFrame("Registration"), account);
+		} else {
+			new Dashboard(new JFrame("TEQ Dashboard"), true, account);
+		}
+		frame.dispose();
+		presenter.unbindView();
+	}
 
-    @Override
-    public void onErrorLogin() {
-	    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
+	@Override
+	public void onSuccessLogin(AgencyAccount account) {
+		// check if need to register
+		if (!account.isRegisterd()) {
+			// RegisterNewUserView
+			new RegisterOfficer(new JFrame("Registration"), account);
+		} else {
+			// need to have another view for agency
+			new AgencyDashboard(new JFrame("Agency Dashboard"), true, account);
+		}
+		frame.dispose();
+		presenter.unbindView();
+	}
 
-    }
+	@Override
+	public void onErrorLogin() {
+		JOptionPane.showMessageDialog(frame, "Invalid username or password.");
 
-    @Override
-    public boolean isFieldsValid(String username, String password) {
-	    return (username.length() > 0 && password.length() > 0);
-    }
+	}
 
-    @Override
-    public void invalidFields() {
-	    JOptionPane.showMessageDialog(frame, "Please enter a valid username or password.");
+	@Override
+	public boolean isFieldsValid(String username, String password) {
+		return (username.length() > 0 && password.length() > 0);
+	}
 
-    }
+	@Override
+	public void invalidFields() {
+		JOptionPane.showMessageDialog(frame, "Please enter a valid username or password.");
+
+	}
 }

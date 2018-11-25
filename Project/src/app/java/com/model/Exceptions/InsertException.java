@@ -5,20 +5,22 @@ import java.util.List;
 /*
  * to be thrown when insert val to table failed
  */
-public class InsertException extends Exception  {
+@SuppressWarnings("serial")
+public class InsertException extends Exception {
 
 	private String table;
 	private String val;
 	private boolean isFixed;
+	@SuppressWarnings("unused")
 	private String type;
 
-	
+
 	public InsertException() {
 		super();
 		isFixed = false;
 	}
 
-	
+
 	public InsertException(String table, String val) {
 		this.table = table;
 		this.val = val;
@@ -40,27 +42,28 @@ public class InsertException extends Exception  {
 	public String getVal() {
 		return val;
 	}
+
 	@Override
-	public String getMessage(){
-		String message = "error when insert new row "+ this.val+ ".";
+	public String getMessage() {
+		String message = "error when insert new row " + this.val + ".";
 		return message;
 	}
 
-    public void setFixed(boolean fixed) {
-        isFixed = fixed;
-    }
+	public void setFixed(boolean fixed) {
+		isFixed = fixed;
+	}
 
-    public boolean getIsFixed(){
-	    return isFixed;
-    }
+	public boolean getIsFixed() {
+		return isFixed;
+	}
 
-    public String getType() {
-	    return "InsertException";
-    }
+	public String getType() {
+		return "InsertException";
+	}
 
-    public List<String> getErrorValues() {
-	    return null;
-    }
+	public List<String> getErrorValues() {
+		return null;
+	}
 
 
 

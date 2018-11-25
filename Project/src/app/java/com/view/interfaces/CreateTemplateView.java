@@ -1,6 +1,5 @@
 package app.java.com.view.interfaces;
 
-import java.io.File;
 import java.util.List;
 
 public interface CreateTemplateView {

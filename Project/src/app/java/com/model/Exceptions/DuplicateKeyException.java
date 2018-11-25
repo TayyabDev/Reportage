@@ -2,11 +2,14 @@ package app.java.com.model.Exceptions;
 
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class DuplicateKeyException extends InsertException {
 
 	private List<String> duplicatedVals;
 	private String table;
+	@SuppressWarnings("unused")
 	private List<String> primaryKeyColumn;
+	@SuppressWarnings("unused")
 	private boolean isFixed;
 	private String message;
 
@@ -18,32 +21,32 @@ public class DuplicateKeyException extends InsertException {
 	public DuplicateKeyException(String table, List<String> duplicatedVals) {
 		this.duplicatedVals = duplicatedVals;
 		this.table = table;
-        this.isFixed = false;
-        this.message = duplicatedVals + " already exists in " + table + ".";
-    }
+		this.isFixed = false;
+		this.message = duplicatedVals + " already exists in " + table + ".";
+	}
 
 	@Override
 	public String getMessage() {
 		return message;
 	}
 
-    @Override
-    public String getTable() {
-        return table;
-    }
+	@Override
+	public String getTable() {
+		return table;
+	}
 
-    public List<String> getDuplicatedVals() {
-        return duplicatedVals;
-    }
+	public List<String> getDuplicatedVals() {
+		return duplicatedVals;
+	}
 
-    @Override
+	@Override
 	public String getType() {
 		return "DuplicateKeyException";
 	}
 
 	@Override
-    public List<String> getErrorValues() {
-	    return duplicatedVals;
-    }
+	public List<String> getErrorValues() {
+		return duplicatedVals;
+	}
 
 }

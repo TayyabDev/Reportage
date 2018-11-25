@@ -1,5 +1,8 @@
 package app.java.com.presenter;
 
+import java.util.Date;
+import java.util.List;
+
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.entities.account.Account;
@@ -16,79 +19,80 @@ import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.presenter.interfaces.UploadTemplateResultInterface;
 import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import app.java.com.view.interfaces.UploadTemplateView;
-import java.util.Date;
-import java.util.List;
 
-public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, UploadTemplateResultInterface,
-        FetchTemplateNamesResultInterface, VerifyTemplateResultInterface {
+public class UploadTemplatePresenterImpl
+		implements UploadTemplatePresenter, UploadTemplateResultInterface,
+		FetchTemplateNamesResultInterface, VerifyTemplateResultInterface {
 
-    private UploadTemplateView view;
-    private int numSheets = 0;
+	private UploadTemplateView view;
+	private int numSheets = 0;
 
-    public UploadTemplatePresenterImpl() {
-        this.view = null;
-    }
+	public UploadTemplatePresenterImpl() {
+		this.view = null;
+	}
 
-    @Override
-    public void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum, Account account) {
+	@Override
+	public void uploadTemplateWithFile(Date date, String templateName, String filePath,
+			int sheetNum, Account account) {
 
-        // Get the file from the file path
-        String formulatedFileName = filePath.replace("\\", "\\\\");
+		// Get the file from the file path
+		String formulatedFileName = filePath.replace("\\", "\\\\");
 
-        TemplateFileInterface fileInterface = null;
+		TemplateFileInterface fileInterface = null;
 
-        if(FileTypeFinder.isCSVFile(formulatedFileName)) {
-            fileInterface = new TemplateFileCsvImpl(formulatedFileName);
-        } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
-        }
+		if (FileTypeFinder.isCSVFile(formulatedFileName)) {
+			fileInterface = new TemplateFileCsvImpl(formulatedFileName);
+		} else {
+			fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
+		}
 
-        UseCase uploadTemplateUseCase = new UploadTemplateUseCase(this, date, templateName, fileInterface, account);
-        uploadTemplateUseCase.run();
-    }
+		UseCase uploadTemplateUseCase =
+				new UploadTemplateUseCase(this, date, templateName, fileInterface, account);
+		uploadTemplateUseCase.run();
+	}
 
-    @Override
-    public void attachView(UploadTemplateView view) {
-        this.view = view;
-    }
+	@Override
+	public void attachView(UploadTemplateView view) {
+		this.view = view;
+	}
 
-    @Override
-    public void unbindView() {
-        this.view = null;
-    }
+	@Override
+	public void unbindView() {
+		this.view = null;
+	}
 
-    @Override
-    public List<String> fetchSheetNames(String filePath) {
+	@Override
+	public List<String> fetchSheetNames(String filePath) {
 
-        // Get the file from the file path
-        String formulatedFileName = filePath.replace("\\", "\\\\");
+		// Get the file from the file path
+		String formulatedFileName = filePath.replace("\\", "\\\\");
 
-        TemplateFileInterface fileInterface = null;
+		TemplateFileInterface fileInterface = null;
 
-        if(FileTypeFinder.isCSVFile(formulatedFileName)) {
-            return null;
-        } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName);
-            return ((TemplateFileExcelImpl) fileInterface).getSheetNames();
-        }
+		if (FileTypeFinder.isCSVFile(formulatedFileName)) {
+			return null;
+		} else {
+			fileInterface = new TemplateFileExcelImpl(formulatedFileName);
+			return ((TemplateFileExcelImpl) fileInterface).getSheetNames();
+		}
 
-    }
+	}
 
 	@Override
 	public void verifyFileUploaded(String filePath, String templateName, int sheetNum) {
 
-        // Get the file from the file path
-        String formulatedFileName = filePath.replace("\\", "\\\\");
+		// Get the file from the file path
+		String formulatedFileName = filePath.replace("\\", "\\\\");
 
-        TemplateFileInterface fileInterface = null;
+		TemplateFileInterface fileInterface = null;
 
-        if(FileTypeFinder.isCSVFile(formulatedFileName)) {
-            fileInterface = new TemplateFileCsvImpl(formulatedFileName);
-        } else {
-            fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
-        }
+		if (FileTypeFinder.isCSVFile(formulatedFileName)) {
+			fileInterface = new TemplateFileCsvImpl(formulatedFileName);
+		} else {
+			fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
+		}
 
-        System.out.println("Its working till here");
+		System.out.println("Its working till here");
 
 		UseCase verifyUseCase = new VerifyTemplateUseCase(this, fileInterface, templateName);
 		verifyUseCase.run();
@@ -96,13 +100,13 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 
 	@Override
 	public void onSuccessFetchingNames(List<String> names) throws SelectException {
-        System.out.println("Fetching Names Successful");
+		System.out.println("Fetching Names Successful");
 		this.view.fillDropdownWithTemplateNames(names);
 	}
 
 	@Override
 	public void onErrorFetchingNames(String errorMessage) {
-        this.view.onErrorFetchingTemplateNames();
+		this.view.onErrorFetchingTemplateNames();
 	}
 
 	@Override
@@ -111,21 +115,21 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 		usecase.run();
 	}
 
-    @Override
-    public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface file) {
-        System.out.println(templateValid + " file valid");
-        view.onCompatibleTemplateSelected(templateValid, numSheets);
-    }
+	@Override
+	public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface file) {
+		System.out.println(templateValid + " file valid");
+		view.onCompatibleTemplateSelected(templateValid, numSheets);
+	}
 
-    @Override
-    public void onSuccessUploadingTemplate() {
-        this.view.onSuccessTemplateUploaded();
-    }
+	@Override
+	public void onSuccessUploadingTemplate() {
+		this.view.onSuccessTemplateUploaded();
+	}
 
 	@Override
 	public void onErrorUploadingTemplate(List<InsertException> errorMessages) {
-        // move to resolve conflicts view with the errorMessages
-        this.view.switchViewToResolveConflicts(errorMessages);
-    }
+		// move to resolve conflicts view with the errorMessages
+		this.view.switchViewToResolveConflicts(errorMessages);
+	}
 
 }

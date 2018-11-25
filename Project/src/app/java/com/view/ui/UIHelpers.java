@@ -1,10 +1,11 @@
 package app.java.com.view.ui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Component;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
@@ -24,9 +25,9 @@ public class UIHelpers {
 		}
 	}
 
-	public static JButton generateBackButton(int x, int y, int width, int height){
+	public static JButton generateBackButton(int x, int y, int width, int height) {
 		JButton back = buttonGenerator("←");
-		back.setBounds(x,y,width,height);
+		back.setBounds(x, y, width, height);
 		return back;
 	}
 
@@ -37,10 +38,10 @@ public class UIHelpers {
 			for (int row = 0; row < table.getRowCount(); row++) {
 				TableCellRenderer renderer = table.getCellRenderer(row, column);
 				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width +1 , width);
+				width = Math.max(comp.getPreferredSize().width + 1, width);
 			}
-			if(width > 300)
-				width=300;
+			if (width > 300)
+				width = 300;
 			columnModel.getColumn(column).setPreferredWidth(width);
 		}
 	}

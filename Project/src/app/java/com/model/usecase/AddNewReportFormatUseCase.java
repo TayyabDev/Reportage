@@ -17,13 +17,14 @@ public class AddNewReportFormatUseCase extends UseCase {
 	private final String reportTable = "Report";
 	private final String reportNameCol = "reportName";
 	private final String reportQueryCol = "reportQuery";
-	
-	public AddNewReportFormatUseCase(AddNewReportFormatResultInterface resultInterface, String reportName, String query) {
+
+	public AddNewReportFormatUseCase(AddNewReportFormatResultInterface resultInterface,
+			String reportName, String query) {
 		this.query = query;
 		this.resultInterface = resultInterface;
 		this.reportName = reportName;
 	}
-	
+
 	@Override
 	public void run() {
 		String res = "";
@@ -31,18 +32,19 @@ public class AddNewReportFormatUseCase extends UseCase {
 			res = checkQuery(query);
 			saveQuery(reportName, query);
 			resultInterface.onSuccessAddReportFormat(res);
-		}catch (DuplicateKeyException e) {
+		} catch (DuplicateKeyException e) {
 			resultInterface.onErrorAddReportFormat(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			resultInterface.onErrorAddReportFormat();
 		}
 	}
-	
+
 	private static String checkQuery(String query) throws Exception {
 		return Command.runExecuteQuery(query);
 	}
-	
-	private boolean saveQuery(String reportName, String query) throws DuplicateKeyException, Exception {
+
+	private boolean saveQuery(String reportName, String query)
+			throws DuplicateKeyException, Exception {
 		List<String> attr = new ArrayList<>();
 		List<String> val = new ArrayList<>();
 		attr.add(reportNameCol);
@@ -51,7 +53,7 @@ public class AddNewReportFormatUseCase extends UseCase {
 		val.add(query.replaceAll("'", "\\\\'"));
 		Command saveQuery = new InsertCommand(reportTable, attr, val);
 		return saveQuery.handle();
-		
-		
+
+
 	}
 }

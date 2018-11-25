@@ -8,13 +8,15 @@ import app.java.com.presenter.interfaces.RegisterNewUserPresenter;
 import app.java.com.presenter.interfaces.RegisterNewUserResultInterface;
 import app.java.com.view.interfaces.RegisterNewUserView;
 
-public class RegisterNewUserImpl implements RegisterNewUserPresenter, RegisterNewUserResultInterface{
+public class RegisterNewUserImpl
+		implements RegisterNewUserPresenter, RegisterNewUserResultInterface {
 
 	private RegisterNewUserView view;
+
 	public RegisterNewUserImpl(RegisterNewUserView view) {
 		this.view = view;
 	}
-	
+
 	@Override
 	public void onSuccessRegisterNewUser(String message) {
 		view.onSuccessRegisterNewUser();
@@ -34,14 +36,14 @@ public class RegisterNewUserImpl implements RegisterNewUserPresenter, RegisterNe
 	@Override
 	public void attachView(RegisterNewUserView view) {
 		this.view = view;
-		
+
 	}
 
 	@Override
 	public void unbindView() {
 		this.view = null;
-		
+
 	}
 
-	
+
 }

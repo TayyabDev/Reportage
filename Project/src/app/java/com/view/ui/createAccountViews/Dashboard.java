@@ -1,25 +1,33 @@
 package app.java.com.view.ui.createAccountViews;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createReportViews.Report;
 import app.java.com.view.ui.createTemplateViews.Template;
 import app.java.com.view.ui.viewUserDataViews.UserData;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-
 public class Dashboard {
-    static JFrame frame;
-	JPanel panel = new JPanel();
-	JLabel labelLogo;
-	ImageIcon teqLogo;
+	private JFrame frame;
+	private JPanel panel = new JPanel();
+	private JLabel labelLogo;
+	private ImageIcon teqLogo;
 
 
 
-	
 	public Dashboard(JFrame frame, boolean init, TeqAccount account) {
 		this.frame = frame;
 
@@ -30,81 +38,80 @@ public class Dashboard {
 		panel.setBackground(Color.decode("#f1f8e9"));
 
 
-		
+
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));
-		labelLogo= new JLabel(teqLogo);
-		
+		labelLogo = new JLabel(teqLogo);
+
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		gb.setConstraints(labelLogo, c);
 		panel.add(labelLogo);
-		
+
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		// create the buttons
 		c.weightx = 1.0;
 		c.weighty = 2.0;
-		
+
 		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
-        btnTemplate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Template t  = new Template(frame, account);
-            }
-        });
+		btnTemplate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Template(frame, account);
+			}
+		});
 
 
 		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
-        btnAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreateAccount ac = new CreateAccount(frame, account);
-            }
-        });
+		btnAccount.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new CreateAccount(frame, account);
+			}
+		});
 
 		JButton btnReport = UIHelpers.buttonGenerator("Reports");
-        btnReport.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Report r = new Report(frame, account);
-            }
-        });
+		btnReport.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Report(frame, account);
+			}
+		});
 
 
 		JButton btnUserData = UIHelpers.buttonGenerator("User Data");
 		btnUserData.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	UserData ud = new UserData(frame, account);
-            }
-        });
-		
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new UserData(frame, account);
+			}
+		});
+
+
 		gb.setConstraints(btnTemplate, c);
 		gb.setConstraints(btnAccount, c);
 		gb.setConstraints(btnReport, c);
 		gb.setConstraints(btnUserData, c);
-		
+
 		panel.add(btnTemplate);
 		panel.add(btnAccount);
 		panel.add(btnReport);
 		panel.add(btnUserData);
 
-		if(init) {
-            this.frame.add(panel);
-            this.frame.setPreferredSize(new Dimension(1000, 600));
-            this.frame.pack();
-            this.frame.setVisible(true);
-            this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            this.frame.setLocationRelativeTo(null);
-            this.frame.setResizable(false);
-            UIHelpers.setLook();
-        }
-        else{
-            this.frame.setContentPane(panel);
-            this.frame.revalidate();
-        }
+		if (init) {
+			this.frame.add(panel);
+			this.frame.setPreferredSize(new Dimension(1000, 600));
+			this.frame.pack();
+			this.frame.setVisible(true);
+			this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			this.frame.setLocationRelativeTo(null);
+			this.frame.setResizable(false);
+			UIHelpers.setLook();
+		} else {
+			this.frame.setContentPane(panel);
+			this.frame.revalidate();
+		}
 
 	}
 

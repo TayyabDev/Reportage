@@ -2,9 +2,11 @@ package app.java.com.model.Exceptions;
 
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class InvalidException extends InsertException {
 
 	private List<String> invalidVal;
+	@SuppressWarnings("unused")
 	private String table;
 	private String reason;
 

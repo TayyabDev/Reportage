@@ -17,7 +17,7 @@ import app.java.com.model.entities.template.BaseTemplate;
 import app.java.com.model.entities.template.Template;
 
 public class TemplateFileExcelImpl implements TemplateFileInterface {
-	
+
 	private Sheet sheet;
 	private Workbook workbook;
 	private String sheetName;
@@ -35,9 +35,9 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	 * @param fileName the fileName to parse.
 	 */
 	public TemplateFileExcelImpl(String fileName) {
-	    extractNumSheets(fileName);
-    }
-	
+		extractNumSheets(fileName);
+	}
+
 	/**
 	 * The main constructor for TemplateFileExcelImpl.
 	 * 
@@ -51,23 +51,24 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 	}
 
 	private void extractNumSheets(String fileName) {
-        try {
-            Workbook workbook = WorkbookFactory.create(new File(fileName));
-            this.workbook = workbook;
-            this.numSheets = workbook.getNumberOfSheets();
+		try {
+			Workbook workbook = WorkbookFactory.create(new File(fileName));
+			this.workbook = workbook;
+			this.numSheets = workbook.getNumberOfSheets();
 
-            for(int sheet = 0; sheet < numSheets; sheet++) {
-                sheetNames.add(workbook.getSheetName(sheet));
-            }
+			for (int sheet = 0; sheet < numSheets; sheet++) {
+				sheetNames.add(workbook.getSheetName(sheet));
+			}
 
-            workbook.close();
-        } catch (EncryptedDocumentException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-	
+			workbook.close();
+		} catch (EncryptedDocumentException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Parses the Excel sheet into a Sheet.
+	 * 
 	 * @param fileName the name of the file to parse.
 	 * @return returns a Sheet of the Excel sheet
 	 */
@@ -83,25 +84,27 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		}
 		return currentSheet;
 	}
-	
+
 	private List<String> wrapItemWithQuote(List<String> originalStrList, String quote) {
 		List<String> resultList = new ArrayList<>();
-		for(String s : originalStrList) {
+		for (String s : originalStrList) {
 			String resStr = quote + s + quote;
 			resultList.add(resStr);
 		}
 		return resultList;
 	}
+
 	@Override
 	public Template getFileAsTemplate() {
-        
+
 		String temName = this.getTemplateName();
-        List<String> columnIds = wrapItemWithQuote(this.getColumnIds(), "`");
-        List<String> columnNames = wrapItemWithQuote(this.getColumnNames(), "'");
-        String tableName = this.getTableName();
-        List<String> requiredIds = wrapItemWithQuote(this.getRequiredIds(), "`");
-        List<String> requiredColumnNames = wrapItemWithQuote(this.getRequiredColumnNames(),"'");
-        Template result = new BaseTemplate(temName, columnNames, columnIds, tableName, requiredIds, requiredColumnNames);
+		List<String> columnIds = wrapItemWithQuote(this.getColumnIds(), "`");
+		List<String> columnNames = wrapItemWithQuote(this.getColumnNames(), "'");
+		String tableName = this.getTableName();
+		List<String> requiredIds = wrapItemWithQuote(this.getRequiredIds(), "`");
+		List<String> requiredColumnNames = wrapItemWithQuote(this.getRequiredColumnNames(), "'");
+		Template result = new BaseTemplate(temName, columnNames, columnIds, tableName, requiredIds,
+				requiredColumnNames);
 		return result;
 	}
 
@@ -110,8 +113,8 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		try {
 			String temName = sheet.getRow(0).getCell(0).getStringCellValue();
 			int start = temName.indexOf("\n", 0);
-			start = temName.indexOf("\n", start+1);
-			int end = temName.indexOf("\n", start+1);
+			start = temName.indexOf("\n", start + 1);
+			int end = temName.indexOf("\n", start + 1);
 			end = temName.indexOf("\n", end);
 			temName = temName.substring(start, end);
 			temName = temName.replace("\n", "");
@@ -144,7 +147,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 			result.add(cell.getStringCellValue());
 		}
 		this.columnIds = result;
-		
+
 	}
 
 	private void setColumnNames() {
@@ -156,16 +159,15 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		for (Cell cell : columnRow) {
 			if (cell.getCellType() == CellType.STRING) {
 				result.add(cell.getStringCellValue().replace('\'', '_'));
-			} 
-			else if (cell.getCellType() == CellType.NUMERIC) {
+			} else if (cell.getCellType() == CellType.NUMERIC) {
 				result.add(Double.toString(cell.getNumericCellValue()).replace('\'', '_'));
-			}
-			else if (cell.getCellType() == CellType.BOOLEAN) {
+			} else if (cell.getCellType() == CellType.BOOLEAN) {
 				result.add(Boolean.toString(cell.getBooleanCellValue()).replace('\'', '_'));
 			}
 		}
 		this.columnNames = result;
 	}
+
 	@Override
 	public List<String> getColumnNames() {
 		if (this.columnNames == null) {
@@ -187,67 +189,65 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 			try {
 				if (row.getCell(i).getCellType() == CellType.STRING) {
 					result.add(row.getCell(i).getStringCellValue());
-				} 
-				else if (row.getCell(i).getCellType() == CellType.NUMERIC) {
+				} else if (row.getCell(i).getCellType() == CellType.NUMERIC) {
 					result.add(Double.toString(row.getCell(i).getNumericCellValue()));
-				}
-				else if (row.getCell(i).getCellType() == CellType.BOOLEAN) {
+				} else if (row.getCell(i).getCellType() == CellType.BOOLEAN) {
 					result.add(Boolean.toString(row.getCell(i).getBooleanCellValue()));
 				}
 			} catch (NullPointerException e) {
 				result.add(null);
 			}
-				
+
 		}
 		return result;
 	}
 
 	@Override
 	public int getNumRows() {
-	    int rowIndex = 3;
-	    boolean doneReading = false;
-	    while(!doneReading) {
-	        Row row = sheet.getRow(rowIndex);
-	        if (row == null || row.getCell(firstRequiredIdIndex).getStringCellValue().isEmpty()) {
-	            doneReading = true;
-            }
-            rowIndex++;
-	    }
+		int rowIndex = 3;
+		boolean doneReading = false;
+		while (!doneReading) {
+			Row row = sheet.getRow(rowIndex);
+			if (row == null || row.getCell(firstRequiredIdIndex).getStringCellValue().isEmpty()) {
+				doneReading = true;
+			}
+			rowIndex++;
+		}
 		return rowIndex - 4;
 	}
 
 	public int getFirstRequiedIdIndex() {
-		//first required id index
+		// first required id index
 		String firstRequiredId = this.getRequiredIds().get(0);
 		Row idRow = sheet.getRow(1);
 		int firstRequiredIdIndex = 0;
-		for (int i = 0; i<this.getNumColumns(); i++) {
-			if(idRow.getCell(i).toString().compareTo(firstRequiredId) == 0) {
+		for (int i = 0; i < this.getNumColumns(); i++) {
+			if (idRow.getCell(i).toString().compareTo(firstRequiredId) == 0) {
 				firstRequiredIdIndex = i;
 			}
 		}
 		return firstRequiredIdIndex;
 	}
+
 	public int getNumSheets() {
 		return numSheets;
 	}
 
 	public List<String> getSheetNames() {
-	    return sheetNames;
-    }
-	
+		return sheetNames;
+	}
+
 	public void setRequiredIdsNames() {
 		List<String> idResult = new ArrayList<String>();
 		List<String> nameResult = new ArrayList<String>();
 		List<String> columnIds = getColumnIds();
-		List<String> columnnames = getColumnNames();
 		Row row = sheet.getRow(2);
 		for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
 			int colour = row.getCell(i).getCellStyle().getFontIndexAsInt();
 			if (colour == 5) {
 				idResult.add(columnIds.get(i));
 				nameResult.add(columnNames.get(i));
-				if(this.firstRequiredIdIndex == null) {
+				if (this.firstRequiredIdIndex == null) {
 					this.firstRequiredIdIndex = i;
 				}
 			}
@@ -255,20 +255,21 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 		this.requiredIds = idResult;
 		this.requiredNames = nameResult;
 	}
+
 	public List<String> getRequiredIds() {
 		if (this.requiredIds == null) {
 			this.setRequiredIdsNames();
 		}
 		return this.requiredIds;
 	}
-	
+
 	public List<String> getRequiredColumnNames() {
 		if (this.requiredNames == null) {
 			this.setRequiredIdsNames();
 		}
 		return this.requiredNames;
 	}
-	
+
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 		this.sheet = this.workbook.getSheet(sheetName);

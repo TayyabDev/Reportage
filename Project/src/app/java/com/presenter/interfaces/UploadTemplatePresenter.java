@@ -1,25 +1,24 @@
 package app.java.com.presenter.interfaces;
 
-import app.java.com.model.Exceptions.SelectException;
-import app.java.com.model.entities.account.Account;
-import app.java.com.view.interfaces.UploadTemplateView;
-
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.view.interfaces.UploadTemplateView;
+
 public interface UploadTemplatePresenter {
 
-    void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum, Account account);
+	void uploadTemplateWithFile(Date date, String templateName, String filePath, int sheetNum,
+			Account account);
 
-    void attachView(UploadTemplateView view);
-    
-    void fetchTemplateNames();
+	void attachView(UploadTemplateView view);
 
-    void verifyFileUploaded(String filePath, String templateName, int sheetNum);
+	void fetchTemplateNames();
 
-    void unbindView();
+	void verifyFileUploaded(String filePath, String templateName, int sheetNum);
 
-    List<String> fetchSheetNames(String filePath);
+	void unbindView();
+
+	List<String> fetchSheetNames(String filePath);
 
 }

@@ -10,9 +10,10 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 
+import org.junit.jupiter.api.Test;
+
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.createReportViews.Report;
-import org.junit.jupiter.api.Test;
 
 public class ReportViewTest {
 	TeqAccount fakeAccount = new TeqAccount(1, "ben", "ben", true);
@@ -32,7 +33,7 @@ public class ReportViewTest {
 		boolean result = reportTest.isFieldsValid(properQuery);
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void testTemplateName() throws FileNotFoundException {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -42,5 +43,5 @@ public class ReportViewTest {
 		String result = reportTest.sendReport(fakeReport);
 		assertEquals(result, fileName);
 	}
-	
+
 }
