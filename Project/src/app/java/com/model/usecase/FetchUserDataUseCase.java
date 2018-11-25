@@ -10,15 +10,13 @@ import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
 public class FetchUserDataUseCase extends UseCase {
 
 	private String table = null;
-	private List<String> target = null;
-	private List<String> constraints = null;
+	private List<String> target = new ArrayList<String>();
+	private List<String> constraints = new ArrayList<String>();
 	private FetchUserDataResultInterface resultInterface;
 	
-	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, List<String> target, String table, List<String> constraint) {
+	public FetchUserDataUseCase (FetchUserDataResultInterface resultInterface, String table) {
 		this.resultInterface = resultInterface;
-		this.target = target;
 		this.table = '`' + table.replace(' ', '_') + '`';
-		this.constraints = constraint;
 	}
 	
 	@Override

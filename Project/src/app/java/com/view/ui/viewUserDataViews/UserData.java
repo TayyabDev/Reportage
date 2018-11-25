@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -114,9 +115,7 @@ public class UserData implements CreateUserDataView{
 		btnSelect.setBounds(700, 80, 100, 25);
 		btnSelect.addActionListener(e -> {
 			String templateName = (String) cbTemplates.getSelectedItem();
-			List<String> target = new ArrayList<String>();
-			List<String> constraint = new ArrayList<String>();
-			presenter.fetchUserDataWithSelection(target, templateName, constraint);
+			presenter.fetchUserDataWithSelection(templateName);
 			panel.revalidate();
         });
 		panel.add(btnSelect);
@@ -164,10 +163,13 @@ public class UserData implements CreateUserDataView{
 		tbData = new JTable(new DefaultTableModel(dataArray, columns.toArray())) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
+				if (column == 0) {
+					return false;
+				}
 				return tableEditable;
 			}	
 		};
-
+		tbData.getTableHeader().setReorderingAllowed(false);
 		btnEdit.setEnabled(true);
 		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
@@ -204,7 +206,11 @@ public class UserData implements CreateUserDataView{
 		for (DataChanges change : changesList) {
 			message += change.toString() + "\n";
 		}
-		int choice = JOptionPane.showOptionDialog(frame, message, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
+		JTextArea textArea = new JTextArea(10, 50);
+	    textArea.setText(message);
+	    textArea.setEditable(false);
+	     JScrollPane scrollPane = new JScrollPane(textArea);
+		int choice = JOptionPane.showOptionDialog(frame, scrollPane, "Confirm Changes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
 		if (choice == 0) {
 			presenter.updateChanges(changesList, cbTemplates.getSelectedItem().toString());
 		} else {
@@ -218,7 +224,7 @@ public class UserData implements CreateUserDataView{
 		String templateName = (String) cbTemplates.getSelectedItem();
 		List<String> target = new ArrayList<String>();
 		List<String> constraint = new ArrayList<String>();
-		presenter.fetchUserDataWithSelection(target, templateName, constraint);
+		presenter.fetchUserDataWithSelection(templateName);
 		panel.revalidate();
 		disableEditButton();
 	}
