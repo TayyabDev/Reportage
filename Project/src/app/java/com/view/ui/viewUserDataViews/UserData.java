@@ -190,7 +190,7 @@ public class UserData implements CreateUserDataView {
 	@SuppressWarnings("unchecked")
 	private List<List<String>> getTableList() {
 		List<List<String>> data = new ArrayList<List<String>>();
-		Vector<Vector<String>> dataVector = ((DefaultTableModel) tbData.getModel()).getDataVector();
+		Vector<Vector> dataVector = ((DefaultTableModel) tbData.getModel()).getDataVector();
 		for (int i = 0; i < tbData.getModel().getRowCount(); i++) {
 			@SuppressWarnings("rawtypes")
 			Vector row = dataVector.elementAt(i);
