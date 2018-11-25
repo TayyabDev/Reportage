@@ -4,6 +4,7 @@ import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
+import app.java.com.model.database.api.UpdateCommand;
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AccountTypeFinder;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class UploadTemplateUseCase extends UseCase {
 
+    private static final String CLIENT_DATA_FORM_TABLE = "ClientDataForm";
 	private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";
     private static final int TEQ_AGENCY_ID = 1;
 	private TemplateFileInterface fileInterface;
@@ -39,9 +41,6 @@ public class UploadTemplateUseCase extends UseCase {
 		int clientFormId = insertClientDataForm(templateName);
 		System.out.println(clientFormId + " is the formId");
 
-		// Now add this to the insert command since the template has a clientIdForm column
-
-		// Verify template matches the chosen template's format
 		List<InsertException> errorList = insertAllRows(fileInterface, clientFormId);
 
 		// all rows inserted successfully if errorList is empty
@@ -50,6 +49,32 @@ public class UploadTemplateUseCase extends UseCase {
 		} else {
 			resultInterface.onSuccessUploadingTemplate();
 		}
+
+		// Get the last clientFormId and add the numberOfClientsChange
+        List<String> target = new ArrayList<>();
+		target.add("numOfClients");
+        SelectCommand command = new SelectCommand(target, CLIENT_DATA_FORM_TABLE);
+
+        List<List<String>> result = new ArrayList<>();
+        try {
+            result = command.selectHandle();
+        } catch (SelectException e) {
+            e.printStackTrace();
+        }
+
+        int numberOfClients = fileInterface.getNumRows() - errorList.size();
+        System.out.println(numberOfClients);
+
+        List<String> targets = new ArrayList<>();
+        targets.add("numOfClients");
+
+        List<String> vals = new ArrayList<>();
+        vals.add(String.valueOf(numberOfClients));
+
+        List<String> constraints = new ArrayList<>();
+        constraints.add("clientDataFormId = '" + String.valueOf(clientFormId + 1) + "'");
+        UpdateCommand updateCommand = new UpdateCommand();
+
 	}
 
 	/*
@@ -108,7 +133,6 @@ public class UploadTemplateUseCase extends UseCase {
 
 		int year = dateSelected.getYear() + 1900; // normalize
 
-
 		int userId = 0;
         int agencyId = 0;
 
@@ -118,8 +142,6 @@ public class UploadTemplateUseCase extends UseCase {
             userId = getUserId(account.getAccountId());
             agencyId = getAgencyId(userId);
         }
-
-
 
 		// Let's insert the information into the ClientDataForm table now
 		// we only need to upload the templateId, month, and year
