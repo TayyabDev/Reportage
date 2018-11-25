@@ -12,6 +12,10 @@ public class FetchTemplateNamesUseCase extends UseCase {
     public final List<String> columnName = new ArrayList<>();
     FetchTemplateNamesResultInterface resultInterface;
 
+
+
+
+
     public FetchTemplateNamesUseCase(FetchTemplateNamesResultInterface resultInterface) {
     	this.resultInterface = resultInterface;
     }

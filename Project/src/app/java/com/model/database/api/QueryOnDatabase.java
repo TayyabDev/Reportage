@@ -29,7 +29,7 @@ public class QueryOnDatabase {
 			throw new CreateException();
 		}
 	}
-	
+
 	/*
 	 * run the drop statement directly in the database
 	 * @param query drop statement
@@ -269,4 +269,6 @@ public class QueryOnDatabase {
 		}
 		return (createRes && insertColRes);
 	}
+
+
 }

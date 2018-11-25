@@ -1,20 +1,28 @@
 package app.java.com.model.Exceptions;
 
+import java.util.List;
+
 /*
  * to be thrown when insert val to table failed
  */
-public class InsertException extends Exception {
+public class InsertException extends Exception  {
 
 	private String table;
 	private String val;
+	private boolean isFixed;
+	private String type;
+
 	
 	public InsertException() {
 		super();
+		isFixed = false;
 	}
+
 	
 	public InsertException(String table, String val) {
 		this.table = table;
 		this.val = val;
+		isFixed = false;
 	}
 
 	public void setTable(String table) {
@@ -37,4 +45,23 @@ public class InsertException extends Exception {
 		String message = "error when insert new row "+ this.val+ ".";
 		return message;
 	}
+
+    public void setFixed(boolean fixed) {
+        isFixed = fixed;
+    }
+
+    public boolean getIsFixed(){
+	    return isFixed;
+    }
+
+    public String getType() {
+	    return "InsertException";
+    }
+
+    public List<String> getErrorValues() {
+	    return null;
+    }
+
+
+
 }

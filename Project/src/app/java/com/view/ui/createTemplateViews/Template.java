@@ -89,6 +89,13 @@ public class Template implements CreateTemplateView{
 
     	 view = UIHelpers.buttonGenerator("View the existing templates");
          view.setBounds(400,300, 250,50);
+         view.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 ExistingTemplate et = new ExistingTemplate(frame, account);
+                 presenter.unbindView();
+             }
+         });
 
 
          select = UIHelpers.buttonGenerator("Upload data to a template");

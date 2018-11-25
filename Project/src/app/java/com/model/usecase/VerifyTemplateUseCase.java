@@ -51,8 +51,8 @@ public class VerifyTemplateUseCase extends UseCase {
 
         List<String> selectedFileColumns = file.getColumnIds();
 
-        int adjustedTemplateColumns = selectedTemplateColumns.size() - 2;
-        int templateColumnIndex = 2;
+        int adjustedTemplateColumns = selectedTemplateColumns.size() - 1;
+        int templateColumnIndex = 1;
 
         if(adjustedTemplateColumns != selectedFileColumns.size()) {
             this.resultInterface.onTemplateSelectedCompatible(false, file);

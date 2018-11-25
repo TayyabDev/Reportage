@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface {
 
     private static final String TEMPLATE_NAME = "Client Profile";
-    private static final int ACCOUNT_ID = 1;
-    private static final String USER_NAME = "Vishwa";
-    private static final String PASSWORD = "password";
+    private static final int ACCOUNT_ID = 8;
+    private static final String USER_NAME = "bob";
+    private static final String PASSWORD = "abc";
 
     private boolean testResult = false;
 
@@ -27,7 +27,7 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
     }
 
     @Override
-    public void onErrorUploadingTemplate(List<String> errorMessages) {
+    public void onErrorUploadingTemplate(List<Exception> errorMessages) {
         System.out.println("Error uploading template");
     }
 

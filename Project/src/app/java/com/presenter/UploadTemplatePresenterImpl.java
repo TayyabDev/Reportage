@@ -87,6 +87,8 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
             fileInterface = new TemplateFileExcelImpl(formulatedFileName, sheetNum);
         }
 
+        System.out.println("Its working till here");
+
 		UseCase verifyUseCase = new VerifyTemplateUseCase(this, fileInterface, templateName);
 		verifyUseCase.run();
 	}
@@ -110,7 +112,8 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
 
     @Override
     public void onTemplateSelectedCompatible(boolean templateValid, TemplateFileInterface file) {
-         view.onCompatibleTemplateSelected(templateValid, numSheets);
+        System.out.println(templateValid + " file valid");
+        view.onCompatibleTemplateSelected(templateValid, numSheets);
     }
 
     @Override
@@ -119,8 +122,9 @@ public class UploadTemplatePresenterImpl implements UploadTemplatePresenter, Upl
     }
 
 	@Override
-	public void onErrorUploadingTemplate(List<String> errorMessages) {
-        this.view.onErrorUploadingFile();
+	public void onErrorUploadingTemplate(List<Exception> errorMessages) {
+        // move to resolve conflicts view with the errorMessages
+        //this.view.
     }
 
 }
