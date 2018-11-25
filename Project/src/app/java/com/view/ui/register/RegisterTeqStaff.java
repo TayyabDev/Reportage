@@ -103,7 +103,7 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
                 	// send information client input to presenter
                 	User teqStaff = new TEQStaffWorker(firstName, lastName, dob);
                 	presenter.registerNewUser(teqStaff, account);
-                	Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true, account);
+                	
                 }
         		
         	}
@@ -121,6 +121,7 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 	@Override
 	public void onSuccessRegisterNewUser() {
 		showPopUpWithMessage("Successfully registered.", "Information");
+		Dashboard db = new Dashboard(new JFrame("TEQ Dashboard"), true, (TeqAccount)account);
 	}
 	@Override
 	public void onErrorRegisterNewUser() {

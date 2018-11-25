@@ -31,8 +31,7 @@ create table TEQStaff(
 
 create table Agency(
 	agencyId int auto_increment primary key,
-    name varchar(50) not null,
-    phoneNumber char(10) not null);
+    name varchar(50) not null);
 
 create table Officer(
 	officerId int primary key,
@@ -87,3 +86,5 @@ create table Report(
 	id int auto_increment primary key,
 	reportName varchar(255) not null unique,
 	reportQuery text not null);
+
+insert into Account (userName, password, accountType, registered) values ('root', 'root', 'T', true);

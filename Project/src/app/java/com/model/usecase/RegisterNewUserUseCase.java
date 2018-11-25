@@ -75,17 +75,20 @@ public class RegisterNewUserUseCase extends UseCase {
 					
 				} else {
 					int agencyId = insertAgency();
+					System.out.print("insert agency");
 					insertOfficer(agencyId);
+					System.out.print("insert officer");
 				}
-				System.out.println("no error insert tEQstaff");
 				// if everything goes well, set the account to be registered
 				registerAccount();
 				account.setRegisterd(true);
 				System.out.println("no error register");
 				this.resultInterface.onSuccessRegisterNewUser("successfully registered");
 			} catch (InsertException e) {
+				e.printStackTrace();
 				this.resultInterface.onErrorRegisterNewUser(e.getMessage());
 			} catch (Exception e) {
+				e.printStackTrace();
 				this.resultInterface.onErrorRegisterNewUser(e.getMessage());
 			}
 		} else {

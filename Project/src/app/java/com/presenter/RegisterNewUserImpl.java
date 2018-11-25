@@ -18,7 +18,6 @@ public class RegisterNewUserImpl implements RegisterNewUserPresenter, RegisterNe
 	@Override
 	public void onSuccessRegisterNewUser(String message) {
 		view.onSuccessRegisterNewUser();
-		
 	}
 
 	@Override
