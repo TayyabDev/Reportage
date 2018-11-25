@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -17,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.FetchUserDataPresenterImpl;
@@ -57,7 +55,7 @@ public class UserData implements CreateUserDataView{
 		back.addActionListener(new ActionListener() {
 		    @Override
             public void actionPerformed(ActionEvent e) {
-		    	Dashboard d = new Dashboard(frame, false, account);
+		    	new Dashboard(frame, false, account);
 		    }
 		});
 		tbData = new JTable();
@@ -68,7 +66,7 @@ public class UserData implements CreateUserDataView{
 		scrollPane.setBounds(0,150,frame.getWidth(),frame.getHeight() - 190);
 		panel.add(scrollPane);
 
-		cbTemplates = new JComboBox();
+		cbTemplates = new JComboBox<String>();
 		cbTemplates.setBounds(120, 80, 200, 25);
 		panel.add(cbTemplates);
 		
@@ -144,6 +142,7 @@ public class UserData implements CreateUserDataView{
 
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void fillDropdownWithTemplateNames(List<String> templateNames) {
 		cbTemplates.setModel(new DefaultComboBoxModel(templateNames.toArray()));

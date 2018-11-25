@@ -1,7 +1,6 @@
 package app.java.com.model.database.api;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import app.java.com.model.Exceptions.ConnectionFailedException;

@@ -1,7 +1,6 @@
 package app.java.com.model.usecase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import app.java.com.model.Exceptions.SelectException;
