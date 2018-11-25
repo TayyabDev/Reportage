@@ -1,6 +1,7 @@
 package app.java.com.view.ui.createTemplateViews;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,7 +23,7 @@ import app.java.com.presenter.CreateTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createAccountViews.TeqDashboard;
 import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 public class Template implements CreateTemplateView {
@@ -52,10 +54,14 @@ public class Template implements CreateTemplateView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Dashboard(frame, false, account);
+				new TeqDashboard(frame, false, account);
 			}
 		});
 
+		JLabel lTitle = new JLabel("Templates");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(400, 20, 200, 40);
+		panel.add(lTitle);
 
 		create = UIHelpers.buttonGenerator("Create a new template using file");
 		create.setBounds(400, 100, 250, 50);

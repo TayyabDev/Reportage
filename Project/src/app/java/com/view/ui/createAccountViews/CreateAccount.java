@@ -1,6 +1,7 @@
 package app.java.com.view.ui.createAccountViews;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -50,9 +51,14 @@ public class CreateAccount implements CreateAccountView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Dashboard(frame, false, account);
+				new TeqDashboard(frame, false, account);
 			}
 		});
+		
+		JLabel lTitle = new JLabel("Accounts");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(400, 20, 200, 40);
+		panel.add(lTitle);
 
 		create = UIHelpers.buttonGenerator("Create an Account");
 		create.setBounds(400, 150, 150, 50);
@@ -138,7 +144,7 @@ public class CreateAccount implements CreateAccountView {
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new SearchAccount(frame);
+				new SearchAccount(frame, account);
 			}
 		});
 

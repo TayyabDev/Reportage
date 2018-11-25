@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createReportViews;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,7 +65,11 @@ public class CustomReport implements CustomReportView {
 			}
 		});
 
-
+		JLabel lTitle = new JLabel("Create Custom Report");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(200, 20, 400, 40);
+		panel.add(lTitle);
+		
 		scrollPanel = new JPanel(new GridLayout(0, 1));
 		scrollPanel.setBorder(BorderFactory
 				.createTitledBorder("Please select attributes. Format is Template -- Attribute"));
@@ -72,7 +77,7 @@ public class CustomReport implements CustomReportView {
 
 		attrsComboBoxes = new ArrayList<>();
 		scrollPane = new JScrollPane(scrollPanel);
-		scrollPane.setBounds(150, 60, 755, 300);
+		scrollPane.setBounds(150, 70, 755, 290);
 
 		presenter.fetchTemplatesAndAttributes();
 

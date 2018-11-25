@@ -20,7 +20,7 @@ import app.java.com.presenter.RegisterNewUserImpl;
 import app.java.com.presenter.interfaces.RegisterNewUserPresenter;
 import app.java.com.view.interfaces.RegisterNewUserView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createAccountViews.TeqDashboard;
 
 public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUserView {
 
@@ -40,7 +40,7 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 
 		panel = super.initPanel();
 
-		JLabel lblEnterInfo = new JLabel("Please enter the following information");
+		JLabel lblEnterInfo = new JLabel("Please enter the following information:");
 		lblEnterInfo.setBounds(300, 50, 400, 20);
 
 		JLabel lblFirstName = new JLabel("First Name");
@@ -58,7 +58,7 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 		JDateChooser chooser = new JDateChooser();
 		chooser.setBounds(300, 350, 400, 20);
 
-		register = UIHelpers.buttonGenerator("register");
+		register = UIHelpers.buttonGenerator("Register");
 		register.setBounds(325, 400, 150, 50);
 
 		cancel = UIHelpers.buttonGenerator("Cancel");
@@ -104,7 +104,7 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showPopUpWithMessage("Not registered.", "Information");
+				showPopUpWithMessage("Not Registered.", "Information");
 				frame.setVisible(false);
 				frame.dispose();
 			}
@@ -113,14 +113,9 @@ public class RegisterTeqStaff extends RegisterNewUser implements RegisterNewUser
 
 	@Override
 	public void onSuccessRegisterNewUser() {
-		showPopUpWithMessage("Successfully registered.", "Information");
-		new Dashboard(new JFrame("TEQ Dashboard"), true, (TeqAccount) account);
+		showPopUpWithMessage("Successfully Registered.", "Information");
+		new TeqDashboard(new JFrame("TEQ Dashboard"), true, (TeqAccount) account);
 	}
 
-	@Override
-	public void onErrorRegisterNewUser() {
-		showPopUpWithMessage("Error registering new User.", "Alert");
-
-	}
 
 }
