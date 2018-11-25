@@ -72,9 +72,6 @@ public class Dashboard {
         });
 
 
-
-		JButton btnAgency = UIHelpers.buttonGenerator("Agency");
-		
 		JButton btnUserData = UIHelpers.buttonGenerator("User Data");
 		btnUserData.addActionListener(new ActionListener() {
             @Override
@@ -87,13 +84,11 @@ public class Dashboard {
 		gb.setConstraints(btnTemplate, c);
 		gb.setConstraints(btnAccount, c);
 		gb.setConstraints(btnReport, c);
-		gb.setConstraints(btnAgency, c);
 		gb.setConstraints(btnUserData, c);
 		
 		panel.add(btnTemplate);
 		panel.add(btnAccount);
 		panel.add(btnReport);
-		panel.add(btnAgency);
 		panel.add(btnUserData);
 
 		if(init) {

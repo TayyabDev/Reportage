@@ -50,7 +50,7 @@ public class UploadTemplate implements UploadTemplateView {
 		presenter.fetchTemplateNames();
 
 
-		JButton back = UIHelpers.generateBackButton(50,50,50,50);
+		JButton back = UIHelpers.generateBackButton(0,0,50,50);
 		panel.add(back);
 		back.addActionListener(e -> {
             if (AccountTypeFinder.isTeqAccount(account)) {

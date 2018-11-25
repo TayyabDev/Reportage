@@ -1,5 +1,8 @@
 package app.java.com.view.ui.createTemplateViews;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ExistingTemplatePresenterImpl;
 import app.java.com.presenter.FetchUserDataPresenterImpl;
@@ -7,6 +10,7 @@ import app.java.com.presenter.interfaces.ExistingTemplatePresenter;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.view.interfaces.ExistingTemplateView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.AgencyDashboard;
 import app.java.com.view.ui.createAccountViews.Dashboard;
 
 import javax.swing.*;
@@ -34,7 +38,7 @@ public class ExistingTemplate implements ExistingTemplateView {
 
     private ExistingTemplatePresenter presenter;
 
-    public ExistingTemplate(JFrame frame, TeqAccount account) {
+    public ExistingTemplate(JFrame frame, Account account) {
 
         this.frame = frame;
         panel = new JPanel();
@@ -55,7 +59,11 @@ public class ExistingTemplate implements ExistingTemplateView {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Template t = new Template(frame, account);
+                if (AccountTypeFinder.isTeqAccount(account)) {
+                    Template t = new Template(frame, ((TeqAccount) account));
+                } else {
+                    AgencyDashboard board = new AgencyDashboard(frame, false, ((AgencyAccount)account));
+                }
                 presenter.unbindView();
             }
         });

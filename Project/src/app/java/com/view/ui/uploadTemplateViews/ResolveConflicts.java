@@ -119,10 +119,12 @@ public class ResolveConflicts implements ResolveConflictsView {
         for (InsertException exception : errors) {
             if(exception.getIsFixed()) {
                 JLabel jl = new JLabel( exception.getMessage() + " - Automatically Fixed");
+                System.out.println("Hey Why adding here1 ?");
                 scrollPanel.add(jl);
             } else {
                 JRadioButton jrb = new JRadioButton(exception.getMessage());
                 bg.add(jrb);
+                System.out.println("Hey Why adding here2 ?");
                 errorOptionButtons.add(jrb);
                 scrollPanel.add(jrb);
             }
@@ -150,6 +152,7 @@ public class ResolveConflicts implements ResolveConflictsView {
         JRadioButton jrb = new JRadioButton(error);
         bg.add(jrb);
         errorOptionButtons.add(jrb);
+        System.out.println("Hey Why adding here 3?");
         scrollPanel.add(jrb);
         scrollPanel.revalidate();
     }
