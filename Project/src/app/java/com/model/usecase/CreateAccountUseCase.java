@@ -18,7 +18,6 @@ public class CreateAccountUseCase extends  UseCase {
         this.name = name;
         this.password = password;
         this.accountType = accountType;
-        System.out.println(accountType);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class CreateAccountUseCase extends  UseCase {
         try {
             success = ic.handle();
         } catch (InsertException e) {
-            resultInterface.onErrorCreateAccount("failure");
+            resultInterface.onErrorCreateAccount("Account already exist.");
         }
 
         if(success){
