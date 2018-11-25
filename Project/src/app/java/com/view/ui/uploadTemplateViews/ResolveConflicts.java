@@ -8,7 +8,6 @@ import app.java.com.presenter.ResolveConflictPresenterImpl;
 import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
