@@ -246,7 +246,7 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 			int colour = row.getCell(i).getCellStyle().getFontIndexAsInt();
 			if (colour == 5) {
 				idResult.add(columnIds.get(i));
-				nameResult.add(columnNames.get(i));
+				nameResult.add(this.getColumnNames().get(i));
 				if (this.firstRequiredIdIndex == null) {
 					this.firstRequiredIdIndex = i;
 				}

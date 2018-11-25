@@ -28,15 +28,15 @@ import app.java.com.view.ui.register.RegisterTeqStaff;
 
 public class Login implements LoginView {
 
-	LoginPresenter presenter;
-	static JFrame frame;
-	JPanel panel;
-	JLabel labelLogo;
-	ImageIcon teqLogo;
-	JLabel labelUsername;
-	JLabel labelPassword;
-	JTextField username;
-	JPasswordField password;
+	private LoginPresenter presenter;
+	private static JFrame frame;
+	private JPanel panel;
+	private JLabel labelLogo;
+	private ImageIcon teqLogo;
+	private JLabel labelUsername;
+	private JLabel labelPassword;
+	private JTextField username;
+	private JPasswordField password;
 
 	public Login() {
 		GridBagLayout gb = new GridBagLayout();

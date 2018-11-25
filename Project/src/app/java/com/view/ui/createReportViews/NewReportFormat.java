@@ -45,13 +45,13 @@ public class NewReportFormat implements AddNewReportFormatView {
 			}
 		});
 
-		JLabel lblReportName = new JLabel("please enter the format name");
+		JLabel lblReportName = new JLabel("Please enter the format name");
 		lblReportName.setBounds(300, 50, 400, 20);
 
 		JTextField reportNameTxt = new JTextField();
 		reportNameTxt.setBounds(300, 100, 400, 20);
 
-		JLabel lblQuery = new JLabel("please enter query here");
+		JLabel lblQuery = new JLabel("Please enter query here");
 		lblQuery.setBounds(300, 150, 400, 20);
 
 		JTextArea queryTxt = new JTextArea();
@@ -66,9 +66,9 @@ public class NewReportFormat implements AddNewReportFormatView {
 				String name = reportNameTxt.getText();
 				String query = queryTxt.getText();
 				if (name == null) {
-					showPopUpWithMessage("report name can not be empty", "error");
+					showPopUpWithMessage("Report name can not be empty", "Error");
 				} else if (query == null) {
-					showPopUpWithMessage("query can not be empty", "error");
+					showPopUpWithMessage("Query can not be empty", "Error");
 				} else {
 					presenter.addNewFormat(name, query);
 				}
@@ -93,19 +93,19 @@ public class NewReportFormat implements AddNewReportFormatView {
 
 	@Override
 	public void onErrorFormatAdded(String errorMessage) {
-		showPopUpWithMessage(errorMessage, "error");
+		showPopUpWithMessage(errorMessage, "Error");
 
 	}
 
 	@Override
 	public void onSuccessFormatAdded() {
-		showPopUpWithMessage("successfully added", "success");
+		showPopUpWithMessage("Successfully added", "Success");
 		new Report(frame, account);
 	}
 
 	@Override
 	public void onErrorFormatAdded() {
-		showPopUpWithMessage("there is something wrong with query", "error");
+		showPopUpWithMessage("There is something wrong with query", "Error");
 	}
 
 }

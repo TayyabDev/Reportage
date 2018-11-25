@@ -88,3 +88,5 @@ create table Report(
 	reportQuery text not null);
 
 insert into Account (userName, password, accountType, registered) values ('root', 'root', 'T', true);
+insert into User(firstName, lastName, dateOfBirth, userType, accountId) values ('root', 'root', '1900-01-01', 'T', 1);
+insert into Agency(name) values('TEQ');

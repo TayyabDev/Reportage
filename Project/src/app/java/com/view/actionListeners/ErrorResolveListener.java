@@ -46,15 +46,10 @@ public class ErrorResolveListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("hre");
-		System.out.println(errorOptionButtons);
 		if (errorOptionButtons != null) {
 			int index = 0;
-			System.out.println("past null");
 			for (JRadioButton errorOption : errorOptionButtons) {
-				System.out.println("past loop");
 				if (errorOption.isSelected()) {
-					System.out.println("selected");
 					// locate the exception corresponding to the radio button
 					InsertException insertException = errors.get(index);
 
@@ -73,8 +68,6 @@ public class ErrorResolveListener implements ActionListener {
 					dialog.getContentPane().setLayout(new GridLayout(0, 1));
 
 					dialog.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-					System.out.println("dialog");
 
 					List<JTextField> cols = new ArrayList<>();
 
@@ -102,7 +95,6 @@ public class ErrorResolveListener implements ActionListener {
 							for (JTextField col : cols) {
 								correctValues.add(col.getText());
 							}
-							System.out.println(correctValues);
 							presenter.attemptFixConflict(correctValues, insertException.getTable());
 
 							// remove message from list
