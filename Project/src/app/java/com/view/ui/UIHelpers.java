@@ -37,7 +37,7 @@ public class UIHelpers {
 		back.setBounds(x, y, width, height);
 		return back;
 	}
-	
+
 	public static boolean sendReportToCSVFile(HashMap<String, List<List<String>>> data) {
 		String output = "";
 
