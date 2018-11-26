@@ -1,5 +1,5 @@
 # Team11: Ctrl-Alt-Elite
-Members: Leo Chan, Jun Lin, Vishwa Patel, Tayyab Waqar, Angela Zavaketa Bernuy
+Members: Leo Chan, Jun Lin, Vishwa Patel, Tayyab Waqar, Angela Zavaleta Bernuy
 
 ## Running Instructions
 
