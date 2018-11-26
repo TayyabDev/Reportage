@@ -17,19 +17,21 @@ public class SearchAccountUseCase extends UseCase {
 	@Override
 	public void run() {
 		String report = null;
+		String[] check = null;
 		Command cmd = new SelectCommand();
 
 		try {
 			report = cmd.runExecuteQuery(query);
+			check = report.split("\n");
 		} catch (Exception e) {
 			resultInterface.onErrorSearchAccount("failed when ran " + e.getMessage());
 		}
 
-		if (report != null) {
+		if (check.length != 1) {
 			resultInterface.onSuccessSearchAccount("success");
-			resultInterface.report(report);
 		} else {
 			resultInterface.onErrorSearchAccount("Account was not found");
 		}
+		resultInterface.report(report);
 	}
 }
