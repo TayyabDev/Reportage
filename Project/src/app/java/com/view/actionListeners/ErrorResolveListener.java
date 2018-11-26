@@ -9,13 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.presenter.interfaces.ResolveConflictPresenter;
@@ -71,8 +65,10 @@ public class ErrorResolveListener implements ActionListener {
 
 					List<JTextField> cols = new ArrayList<>();
 
+					int i = 0;
 					for (String col : insertException.getErrorValues()) {
 						JTextField val = new JTextField(col);
+						val.setToolTipText(columns.get(i));
 						// if priamry key , red
                         //  else green
                         val.setBackground(Color.red);
@@ -81,6 +77,8 @@ public class ErrorResolveListener implements ActionListener {
 
 						cols.add(val);
 						textFieldScrollPanel.add(val);
+
+						i += 1;
 					}
 					textFieldScrollPanel.revalidate();
 
