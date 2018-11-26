@@ -30,8 +30,8 @@ public class UpdateUserDataUseCaseTest implements UpdateUserDataResultInterface 
 	private static List<List<String>> changed = new ArrayList<List<String>>();
 	@BeforeAll
 	public static void BeforeAll() {
-		original.add(new ArrayList<>());
-		changed.add(new ArrayList<>());
+		original.add(new ArrayList<String>());
+		changed.add(new ArrayList<String>());
 		SelectCommand selectCommand = new SelectCommand("Account");
 		try {
 			expectedData = selectCommand.selectHandle();

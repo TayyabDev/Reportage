@@ -1,19 +1,5 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AccountTypeFinder;
@@ -24,7 +10,11 @@ import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createAccountViews.AgencyDashboard;
-import app.java.com.view.ui.createTemplateViews.Template;
+import app.java.com.view.ui.createTemplateViews.CreateTemplate;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 
 public class ResolveConflicts implements ResolveConflictsView {
 
@@ -81,7 +71,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 		panel.add(back);
 		back.addActionListener(e -> {
 			if (AccountTypeFinder.isTeqAccount(account)) {
-				new Template(frame, ((TeqAccount) account));
+				new CreateTemplate(frame, ((TeqAccount) account));
 			} else {
 				new AgencyDashboard(frame, false, ((AgencyAccount) account));
 			}

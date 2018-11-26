@@ -67,7 +67,7 @@ public class ExistingTemplate implements ExistingTemplateView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (AccountTypeFinder.isTeqAccount(account)) {
-					new Template(frame, ((TeqAccount) account));
+					new CreateTemplate(frame, ((TeqAccount) account));
 				} else {
 					new AgencyDashboard(frame, false, ((AgencyAccount) account));
 				}

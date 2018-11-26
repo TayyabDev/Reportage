@@ -1,23 +1,9 @@
 package app.java.com.view.ui.createAccountViews;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 import app.java.com.model.entities.account.Account;
-import app.java.com.model.entities.account.AccountTypeFinder;
-import app.java.com.model.entities.account.AgencyAccount;
-import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createTemplateViews.Template;
+import java.awt.*;
+import javax.swing.*;
 
 public class Dashboard {
 	

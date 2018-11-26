@@ -1,23 +1,5 @@
 package app.java.com.view.ui.uploadTemplateViews;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileSystemView;
-
-import com.toedter.calendar.JDateChooser;
-
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AccountTypeFinder;
@@ -28,7 +10,14 @@ import app.java.com.presenter.interfaces.UploadTemplatePresenter;
 import app.java.com.view.interfaces.UploadTemplateView;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createAccountViews.AgencyDashboard;
-import app.java.com.view.ui.createTemplateViews.Template;
+import app.java.com.view.ui.createTemplateViews.CreateTemplate;
+import com.toedter.calendar.JDateChooser;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 
 public class UploadTemplate implements UploadTemplateView {
 
@@ -66,7 +55,7 @@ public class UploadTemplate implements UploadTemplateView {
 		panel.add(back);
 		back.addActionListener(e -> {
 			if (AccountTypeFinder.isTeqAccount(account)) {
-				new Template(frame, ((TeqAccount) account));
+				new CreateTemplate(frame, ((TeqAccount) account));
 			} else {
 				new AgencyDashboard(frame, false, ((AgencyAccount) account));
 			}
@@ -236,7 +225,7 @@ public class UploadTemplate implements UploadTemplateView {
 		} else {
 			JOptionPane.showMessageDialog(frame, "Ok. Your loss.");
 			if (AccountTypeFinder.isTeqAccount(account)) {
-				new Template(frame, ((TeqAccount) account));
+				new CreateTemplate(frame, ((TeqAccount) account));
 			} else {
 				new AgencyDashboard(frame, false, ((AgencyAccount) account));
 			}

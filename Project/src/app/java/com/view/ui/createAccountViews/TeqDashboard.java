@@ -1,16 +1,11 @@
 package app.java.com.view.ui.createAccountViews;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createReportViews.Report;
-import app.java.com.view.ui.createTemplateViews.Template;
+import app.java.com.view.ui.createTemplateViews.CreateTemplate;
 import app.java.com.view.ui.viewUserDataViews.UserData;
+import javax.swing.*;
 
 public class TeqDashboard extends Dashboard {
 
@@ -19,36 +14,16 @@ public class TeqDashboard extends Dashboard {
 		this.frame = frame;
 
 		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
-		btnTemplate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Template(frame, account);
-			}
-		});
+		btnTemplate.addActionListener(e -> new CreateTemplate(frame, account));
 
 		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
-		btnAccount.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new CreateAccount(frame, account);
-			}
-		});
+		btnAccount.addActionListener(e -> new CreateAccount(frame, account));
 
 		JButton btnReport = UIHelpers.buttonGenerator("Reports");
-		btnReport.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Report(frame, account);
-			}
-		});
+		btnReport.addActionListener(e -> new Report(frame, account));
 
 		JButton btnUserData = UIHelpers.buttonGenerator("User Data");
-		btnUserData.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new UserData(frame, account);
-			}
-		});
+		btnUserData.addActionListener(e -> new UserData(frame, account));
 
 		gb.setConstraints(btnTemplate, c);
 		gb.setConstraints(btnAccount, c);
