@@ -16,10 +16,15 @@ import javax.swing.JScrollPane;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.ResolveConflictPresenterImpl;
 import app.java.com.view.actionListeners.ErrorResolveListener;
 import app.java.com.view.interfaces.ResolveConflictsView;
 import app.java.com.view.ui.UIHelpers;
+import app.java.com.view.ui.createAccountViews.AgencyDashboard;
+import app.java.com.view.ui.createTemplateViews.Template;
 
 public class ResolveConflicts implements ResolveConflictsView {
 
@@ -68,8 +73,20 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 		this.frame = frame;
 
+
 		panel = new JPanel();
 		panel.setLayout(null);
+
+		JButton back = UIHelpers.generateBackButton(0, 0, 50, 50);
+		panel.add(back);
+		back.addActionListener(e -> {
+			if (AccountTypeFinder.isTeqAccount(account)) {
+				new Template(frame, ((TeqAccount) account));
+			} else {
+				new AgencyDashboard(frame, false, ((AgencyAccount) account));
+			}
+		});
+		panel.add(back);
 
 		presenter = new ResolveConflictPresenterImpl();
 		presenter.attachView(this);

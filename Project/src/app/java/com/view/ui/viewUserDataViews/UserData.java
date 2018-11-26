@@ -171,6 +171,7 @@ public class UserData implements CreateUserDataView {
 			}
 		};
 		tbData.getTableHeader().setReorderingAllowed(false);
+		UIHelpers.resizeTable(tbData);
 		btnEdit.setEnabled(true);
 		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
