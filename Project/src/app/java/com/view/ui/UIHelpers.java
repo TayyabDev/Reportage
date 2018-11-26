@@ -64,7 +64,7 @@ public class UIHelpers {
 		}
 
 		// get filename
-		String userHomeFolder = System.getProperty("user.home");
+		String userHomeFolder = System.getProperty("user.home")+ "/Desktop";
 		String file =
 				"report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
 		File textFile = new File(userHomeFolder, file);

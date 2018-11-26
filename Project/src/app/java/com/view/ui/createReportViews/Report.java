@@ -157,7 +157,7 @@ public class Report implements CreateReportView {
 	@Override
 	public String sendReport(String report) throws FileNotFoundException {
 		String timeStamp, fileName;
-		String userHomeFolder = System.getProperty("user.home");
+		String userHomeFolder = System.getProperty("user.home") + "/Desktop";
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		fileName = "report-";
 		fileName += timeStamp;

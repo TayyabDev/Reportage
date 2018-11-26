@@ -48,10 +48,10 @@ public class GenerateReportsUseCase implements UseCase {
 	public void createReport(String reportName, String report) throws FileNotFoundException {
 		String timeStamp, fileName;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		fileName = reportName;
+		fileName = reportName + " ";
 		fileName += timeStamp;
 		fileName += ".csv";
-		String userHomeFolder = System.getProperty("user.home");
+		String userHomeFolder = System.getProperty("user.home")+ "/Desktop";
 		File textFile = new File(userHomeFolder, fileName);
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
