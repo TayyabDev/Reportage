@@ -27,7 +27,7 @@ import app.java.com.presenter.FetchUserDataPresenterImpl;
 import app.java.com.presenter.interfaces.FetchUserDataPresenter;
 import app.java.com.view.interfaces.CreateUserDataView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createAccountViews.TeqDashboard;
 
 public class UserData implements CreateUserDataView {
 
@@ -69,7 +69,7 @@ public class UserData implements CreateUserDataView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Dashboard(frame, false, account);
+				new TeqDashboard(frame, false, account);
 			}
 		});
 		tbData = new JTable();
@@ -77,7 +77,7 @@ public class UserData implements CreateUserDataView {
 		scrollPanel.add(tbData);
 
 		scrollPane = new JScrollPane(scrollPanel);
-		scrollPane.setBounds(0, 150, frame.getWidth() - 15, frame.getHeight() - 190);
+		scrollPane.setBounds(10, 150, frame.getWidth() - 20, frame.getHeight() - 200);
 		panel.add(scrollPane);
 
 		cbTemplates = new JComboBox<String>();

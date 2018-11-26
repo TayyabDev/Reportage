@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,30 +12,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import app.java.com.model.entities.account.Account;
+import app.java.com.model.entities.account.AccountTypeFinder;
+import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createReportViews.Report;
 import app.java.com.view.ui.createTemplateViews.Template;
-import app.java.com.view.ui.viewUserDataViews.UserData;
 
 public class Dashboard {
-	private JFrame frame;
-	private JPanel panel = new JPanel();
+	
+	protected JFrame frame;
+	protected JPanel panel = new JPanel();
+	protected GridBagLayout gb;
+	protected GridBagConstraints c;
 	private JLabel labelLogo;
 	private ImageIcon teqLogo;
 
-
-
-	public Dashboard(JFrame frame, boolean init, TeqAccount account) {
+	public Dashboard(JFrame frame, boolean init, Account account) {
 		this.frame = frame;
 
-		GridBagLayout gb = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
+		gb = new GridBagLayout();
+		c = new GridBagConstraints();
 		panel = new JPanel();
 		panel.setLayout(gb);
 		panel.setBackground(Color.decode("#f1f8e9"));
-
-
 
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));
@@ -53,52 +51,11 @@ public class Dashboard {
 		// create the buttons
 		c.weightx = 1.0;
 		c.weighty = 2.0;
-
-		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
-		btnTemplate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Template(frame, account);
-			}
-		});
-
-
-		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
-		btnAccount.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new CreateAccount(frame, account);
-			}
-		});
-
-		JButton btnReport = UIHelpers.buttonGenerator("Reports");
-		btnReport.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Report(frame, account);
-			}
-		});
-
-
-		JButton btnUserData = UIHelpers.buttonGenerator("User Data");
-		btnUserData.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new UserData(frame, account);
-			}
-		});
-
-
-		gb.setConstraints(btnTemplate, c);
-		gb.setConstraints(btnAccount, c);
-		gb.setConstraints(btnReport, c);
-		gb.setConstraints(btnUserData, c);
-
-		panel.add(btnTemplate);
-		panel.add(btnAccount);
-		panel.add(btnReport);
-		panel.add(btnUserData);
-
+	
+	}
+	
+	public void revalidatePanel(boolean init) {
+		
 		if (init) {
 			this.frame.add(panel);
 			this.frame.setPreferredSize(new Dimension(1000, 600));
@@ -112,7 +69,7 @@ public class Dashboard {
 			this.frame.setContentPane(panel);
 			this.frame.revalidate();
 		}
-
+		
 	}
 
 }

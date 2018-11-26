@@ -90,9 +90,6 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 		presenter.processDuplicateRowConflicts(errors);
 
-		getErrors(errors);
-
-
 		scrollPane = new JScrollPane(scrollPanel);
 		scrollPane.setBounds(50, 0, 900, 450);
 
@@ -121,8 +118,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 	public void getErrors(List<InsertException> errors) {
 		for (InsertException exception : errors) {
 			if (exception.getIsFixed()) {
-				JLabel jl = new JLabel(exception.getMessage() + " - Automatically Fixed");
-				System.out.println("Hey Why adding here1 ?");
+				JLabel jl = new JLabel( "Automatically Fixed - Duplicate Row Found");
 				scrollPanel.add(jl);
 			} else {
 				JRadioButton jrb = new JRadioButton(exception.getMessage());
@@ -145,7 +141,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 	@Override
 	public void onSuccessConflictFix() {
 		// show message saying that fixed
-		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");
+		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");		
 	}
 
 	@Override

@@ -6,4 +6,8 @@ public class ConnectionFailedException extends Exception {
 	public ConnectionFailedException() {
 		super();
 	}
+	
+	public ConnectionFailedException(String errorMessage) {
+		super(errorMessage);
+	}
 }

@@ -1,6 +1,7 @@
 package app.java.com.view.ui.createTemplateViews;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,7 +23,7 @@ import app.java.com.presenter.CreateTemplatePresenterImpl;
 import app.java.com.presenter.interfaces.CreateTemplatePresenter;
 import app.java.com.view.interfaces.CreateTemplateView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Dashboard;
+import app.java.com.view.ui.createAccountViews.TeqDashboard;
 import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 public class Template implements CreateTemplateView {
@@ -52,13 +54,17 @@ public class Template implements CreateTemplateView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Dashboard(frame, false, account);
+				new TeqDashboard(frame, false, account);
 			}
 		});
 
+		JLabel lTitle = new JLabel("Templates");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(400, 20, 200, 40);
+		panel.add(lTitle);
 
 		create = UIHelpers.buttonGenerator("Create a new template using file");
-		create.setBounds(400, 100, 250, 50);
+		create.setBounds(360, 100, 300, 50);
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -78,7 +84,7 @@ public class Template implements CreateTemplateView {
 		});
 
 		createSQL = UIHelpers.buttonGenerator("Create a new template using SQL");
-		createSQL.setBounds(400, 200, 250, 50);
+		createSQL.setBounds(360, 200, 300, 50);
 		createSQL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -91,7 +97,7 @@ public class Template implements CreateTemplateView {
 		});
 
 		view = UIHelpers.buttonGenerator("View the existing templates");
-		view.setBounds(400, 300, 250, 50);
+		view.setBounds(360, 300, 300, 50);
 		view.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +116,7 @@ public class Template implements CreateTemplateView {
 			}
 		});
 
-		select.setBounds(400, 400, 250, 50);
+		select.setBounds(360, 400, 300, 50);
 
 
 		panel.add(create);

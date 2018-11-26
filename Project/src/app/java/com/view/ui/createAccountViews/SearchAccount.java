@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.SearchAccountPresenterImpl;
 import app.java.com.presenter.interfaces.SearchAccountPresenter;
 import app.java.com.view.interfaces.SearchAccountView;
@@ -31,7 +32,7 @@ public class SearchAccount implements SearchAccountView {
 	private SearchAccountPresenter presenter;
 
 
-	public SearchAccount(JFrame frame) {
+	public SearchAccount(JFrame frame, TeqAccount account) {
 		this.frame = frame;
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -47,7 +48,7 @@ public class SearchAccount implements SearchAccountView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Dashboard(frame, false, null);
+				new CreateAccount(frame, account);
 			}
 		});
 
@@ -103,22 +104,21 @@ public class SearchAccount implements SearchAccountView {
 		columns = rpt[0].split(",");
 
 		int numColumns = columns.length;
-		int numRows = rpt.length - 1;
-
-		data = new String[numRows + 1][numColumns];
-		data[0] = columns;
-		for (int i = 0; i < numRows; i++) {
-			data[i + 1] = rpt[i + 1].split(",");
+		int numRows = rpt.length;
+		data = new String[numRows-1][numColumns];
+		for (int i = 0; i < numRows-1; i++) {
+			data[i] = rpt[i+1].split(",");
 		}
+		
 		tbData = new JTable(data, columns) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		// tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPanel.removeAll();
-		scrollPanel.add(tbData);
+		scrollPane.setViewportView(tbData);
 		scrollPane.revalidate();
 		panel.revalidate();
 

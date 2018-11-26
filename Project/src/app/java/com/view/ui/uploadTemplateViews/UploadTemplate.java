@@ -139,6 +139,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 						sheetDropdown.setModel(new DefaultComboBoxModel(sheets.toArray()));
 						sheetDropdown.setVisible(true);
+						btnSubmit.setEnabled(true);
 						lblSheet.setVisible(true);
 
 					}
@@ -180,6 +181,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
+		btnSubmit.setEnabled(false);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 

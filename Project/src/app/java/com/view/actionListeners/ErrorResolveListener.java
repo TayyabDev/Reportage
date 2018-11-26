@@ -95,12 +95,14 @@ public class ErrorResolveListener implements ActionListener {
 							for (JTextField col : cols) {
 								correctValues.add(col.getText());
 							}
-							presenter.attemptFixConflict(correctValues, insertException.getTable());
-
+							
 							// remove message from list
+							System.out.println("Removing the radioButton here!");
 							errorOptionButtons.remove(errorOption);
 							scrollPanel.remove(errorOption);
 							scrollPanel.revalidate();
+							
+							presenter.attemptFixConflict(correctValues, insertException.getTable());
 
 							dialog.dispose();
 
