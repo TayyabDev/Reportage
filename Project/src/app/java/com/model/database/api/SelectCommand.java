@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -191,6 +192,7 @@ public class SelectCommand extends Command {
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
+		List<String> sqlFunctions = Arrays.asList("count(*)","sum(*)","max(*)", "min(*)");
 		// if the target is still empty then by default select *
 		if (target.isEmpty()) {
 			formulatedTarget = "*";
@@ -198,13 +200,19 @@ public class SelectCommand extends Command {
 		} else {
 			// need to check if the targets are in this table
 			for (String t : target) {
-				if (!this.getColumnIds().contains(t)) {
+				if (!this.getColumnIds().contains(t) && !sqlFunctions.contains(t)) {
 					throw new SelectException(tableName);
 				}
 			}
 
-			String formulatedIds = formulateIds(target);
-			formulatedTarget = formulatedIds.substring(1, formulatedIds.length() - 1);
+			String formulatedIds = "";
+
+			if(target.size() == 1 && sqlFunctions.contains(target.get(0))) {
+                formulatedTarget = target.get(0);
+            } else {
+                formulatedIds = formulateIds(target);
+                formulatedTarget = formulatedIds.substring(1, formulatedIds.length() - 1);
+            }
 		}
 
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;

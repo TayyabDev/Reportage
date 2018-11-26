@@ -52,6 +52,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 	private JFrame frame;
 	private JPanel panel;
 
+	private Account account;
 
 	private String template;
 	private List<String> columns;
@@ -68,8 +69,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 
 	public ResolveConflicts(JFrame frame, Account account, List<InsertException> errors) {
-		System.out.println("errors are :");
-		System.out.println(errors);
+		this.account = account;
 
 		this.frame = frame;
 
@@ -112,9 +112,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 		JButton resolve = UIHelpers.buttonGenerator("Resolve");
 		resolve.setBounds(450, 470, 100, 20);
-		// resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons,
-		// scrollPanel, this.errors,
-		// presenter, this.columns));
+
 		resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons, scrollPanel,
 				errors, presenter, columns));
 
@@ -138,9 +136,9 @@ public class ResolveConflicts implements ResolveConflictsView {
 				JLabel jl = new JLabel( "Automatically Fixed - Duplicate Row Found");
 				scrollPanel.add(jl);
 			} else {
-				JRadioButton jrb = new JRadioButton(exception.getMessage());
+                System.out.println(exception.getMessage());
+				JRadioButton jrb = new JRadioButton("Duplicate Row Conflict");
 				bg.add(jrb);
-				System.out.println("Hey Why adding here2 ?");
 				errorOptionButtons.add(jrb);
 				scrollPanel.add(jrb);
 			}
@@ -158,7 +156,13 @@ public class ResolveConflicts implements ResolveConflictsView {
 	@Override
 	public void onSuccessConflictFix() {
 		// show message saying that fixed
-		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");		
+		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");
+
+		if(errorOptionButtons.size() == 0){
+			// all conflicts resolved, so we can go back to upload template
+			JOptionPane.showMessageDialog(frame, "You've successfully fixed all the conflicts. Taking you back to Upload Template...");
+			new UploadTemplate(frame, account);
+		}
 	}
 
 	@Override
@@ -168,7 +172,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 		JRadioButton jrb = new JRadioButton(error);
 		bg.add(jrb);
 		errorOptionButtons.add(jrb);
-		System.out.println("Hey Why adding here 3?");
+
 		scrollPanel.add(jrb);
 		scrollPanel.revalidate();
 	}

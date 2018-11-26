@@ -30,6 +30,8 @@ public class Report implements CreateReportView {
 	private JButton btnCreateSQL;
 	private JButton btnExistingReportFormat;
 	private JButton btnNewFormat;
+	private JButton btnTrendReport;
+
 	private CreateReportPresenter presenter;
 
 
@@ -57,7 +59,7 @@ public class Report implements CreateReportView {
 		panel.add(lTitle);
 
 		btnStandard = UIHelpers.buttonGenerator("Get Custom Reports");
-		btnStandard.setBounds(400, 100, 250, 50);
+		btnStandard.setBounds(400, 70, 250, 50);
 		btnStandard.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,7 +68,7 @@ public class Report implements CreateReportView {
 		});
 
 		btnCreateSQL = UIHelpers.buttonGenerator("Create Custom Reports using SQL");
-		btnCreateSQL.setBounds(400, 200, 250, 50);
+		btnCreateSQL.setBounds(400, 170, 250, 50);
 		btnCreateSQL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +82,7 @@ public class Report implements CreateReportView {
 		});
 
 		btnExistingReportFormat = UIHelpers.buttonGenerator("Using Existing Format");
-		btnExistingReportFormat.setBounds(400, 300, 250, 50);
+		btnExistingReportFormat.setBounds(400, 270, 250, 50);
 		btnExistingReportFormat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +92,7 @@ public class Report implements CreateReportView {
 		});
 
 		btnNewFormat = UIHelpers.buttonGenerator("Add New Format");
-		btnNewFormat.setBounds(400, 400, 250, 50);
+		btnNewFormat.setBounds(400, 370, 250, 50);
 		btnNewFormat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -98,10 +100,22 @@ public class Report implements CreateReportView {
 				new NewReportFormat(frame, account);
 			}
 		});
-		panel.add(btnStandard);
+
+		btnTrendReport  = UIHelpers.buttonGenerator("View the Trend Reports");
+        btnTrendReport.setBounds(400, 470, 250, 50);
+        btnTrendReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TrendReport(frame ,account);
+            }
+        });
+
+
+        panel.add(btnStandard);
 		panel.add(btnCreateSQL);
 		panel.add(btnExistingReportFormat);
 		panel.add(btnNewFormat);
+		panel.add(btnTrendReport);
 		this.frame.setContentPane(panel);
 		this.frame.revalidate();
 
