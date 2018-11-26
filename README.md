@@ -43,7 +43,7 @@ Libraries Preview:
   - Using the cscc43s18_linjun9 database
  
 3. Run the following commands:
-  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -p linjun9
+  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -plinjun9
   - use cscc43s18_linjun9;
 
 
