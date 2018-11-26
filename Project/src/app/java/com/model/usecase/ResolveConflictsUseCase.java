@@ -8,7 +8,7 @@ import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 
-public class ResolveConflictsUseCase extends UseCase {
+public class ResolveConflictsUseCase implements UseCase {
 
 	private ResolveConflictResultInterface resolveConflictResultInterface;
 	private List<String> userCorrectedValues;

@@ -16,7 +16,7 @@ import app.java.com.model.entities.user.User;
 import app.java.com.model.entities.user.UserTypeFinder;
 import app.java.com.presenter.interfaces.RegisterNewUserResultInterface;
 
-public class RegisterNewUserUseCase extends UseCase {
+public class RegisterNewUserUseCase implements UseCase {
 
 	private RegisterNewUserResultInterface resultInterface;
 	private User user;

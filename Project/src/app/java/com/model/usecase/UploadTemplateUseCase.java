@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class UploadTemplateUseCase extends UseCase {
+public class UploadTemplateUseCase implements UseCase {
 
     private static final String CLIENT_DATA_FORM_TABLE = "ClientDataForm";
 	private static final String CLIENT_DATA_FORM_ID = "clientDataFormId";

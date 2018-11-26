@@ -10,7 +10,7 @@ import app.java.com.model.database.api.UpdateCommand;
 import app.java.com.model.entities.DataChanges;
 import app.java.com.presenter.interfaces.UpdateUserDataResultInterface;
 
-public class UpdateUserDataUseCase extends UseCase {
+public class UpdateUserDataUseCase implements UseCase {
 
 	private UpdateUserDataResultInterface resultInterface;
 	private List<List<String>> originalData;

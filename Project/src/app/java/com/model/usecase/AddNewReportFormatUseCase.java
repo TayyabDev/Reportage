@@ -8,7 +8,7 @@ import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.presenter.interfaces.AddNewReportFormatResultInterface;
 
-public class AddNewReportFormatUseCase extends UseCase {
+public class AddNewReportFormatUseCase implements UseCase {
 
 	private String reportName;
 	private String query;

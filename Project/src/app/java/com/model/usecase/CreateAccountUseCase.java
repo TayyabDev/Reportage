@@ -6,7 +6,7 @@ import app.java.com.model.Exceptions.InsertException;
 import app.java.com.model.database.api.InsertCommand;
 import app.java.com.presenter.interfaces.CreateAccountResultInterface;
 
-public class CreateAccountUseCase extends UseCase {
+public class CreateAccountUseCase implements UseCase {
 
 	private String name;
 	private String password;

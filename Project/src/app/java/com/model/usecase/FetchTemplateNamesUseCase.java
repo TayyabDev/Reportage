@@ -7,7 +7,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 
-public class FetchTemplateNamesUseCase extends UseCase {
+public class FetchTemplateNamesUseCase implements UseCase {
 
 	public final String tableName = "Template";
 	public final List<String> columnName = new ArrayList<>();

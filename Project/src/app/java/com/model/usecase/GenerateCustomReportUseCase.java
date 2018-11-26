@@ -11,7 +11,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.CustomReportResultInterface;
 
-public class GenerateCustomReportUseCase extends UseCase {
+public class GenerateCustomReportUseCase implements UseCase {
 
 	private static HashMap<String, List<String>> templateRealNameMap;
 	private Calendar begin;
