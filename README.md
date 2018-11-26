@@ -51,7 +51,7 @@ Download and Install MySQL Workbench from https://dev.mysql.com/downloads/workbe
   - Password: linjun9
   - Using the cscc43s18_linjun9 database
 2. Run the following commands:  
-  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -p linjun9
+  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -plinjun9
   - use cscc43s18_linjun9;
 #### Using your own database
 1. Create a new local database using:
