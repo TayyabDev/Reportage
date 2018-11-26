@@ -4,7 +4,7 @@ import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
 public interface CreateTemplateModel {
 
-    void runRawQuery(CreateTemplateResultInterface resultInterface, String query);
+	void runRawQuery(CreateTemplateResultInterface resultInterface, String query);
 
-    void createUsingFile(CreateTemplateResultInterface resultInterface, String fileName);
+	void createUsingFile(CreateTemplateResultInterface resultInterface, String fileName);
 }

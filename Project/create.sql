@@ -3,8 +3,8 @@ use cscc43s18_linjun9;
 
 create table Account(
 	accountId int auto_increment primary key,
-    password varchar(20) not null,
-    userName varchar(20) not null,
+    password varchar(20) not null check (CHAR_LENGTH(password)> 0) ,
+    userName varchar(20) not null unique check (CHAR_LENGTH(userName) > 0),
     accountType  enum('T','A') default null,
     registered bool default false);
 
@@ -22,20 +22,19 @@ create table User(
         on update cascade);
 
 create table TEQStaff(
-	teqStaffId int auto_increment primary key,
+	teqStaffId int primary key,
     constraint teqfk
 		foreign key (teqStaffId)
         references User(userId)
         on delete cascade
-        on update cascade,
-	name varchar(255));
+        on update cascade);
 
 create table Agency(
 	agencyId int auto_increment primary key,
     name varchar(50) not null);
 
 create table Officer(
-	officerId int auto_increment primary key,
+	officerId int primary key,
     agencyId int,
     constraint officerFk1
 		foreign key(OfficerId)
@@ -51,10 +50,10 @@ create table Officer(
 create table Template(
 	templateId int auto_increment primary key,
     updateTime timestamp default now(),
-#    teqStaffId int,
-#    constraint Templatefk1
-#		foreign key (teqStaffId)
-#        references TEQStaff(teqStaffId),
+    teqStaffId int,
+    constraint Templatefk1
+		foreign key (teqStaffId)
+        references TEQStaff(teqStaffId),
     templateName varchar(255),
     tableName varchar(255));
 
@@ -74,7 +73,8 @@ create table ClientDataForm(
 		foreign key(agencyId)
         references Agency(agencyId),
     year year(4),
-    month int(2) check (month > 0 and month < 13));
+    month int(2) check (month > 0 and month < 13),
+    numOfClients int not null default 0);
 
 create table VariableName(
 	variableNameId int auto_increment primary key,
@@ -83,3 +83,11 @@ create table VariableName(
     templateName varchar(255),
     unique(variableName, realName, templateName));
 
+create table Report(
+	id int auto_increment primary key,
+	reportName varchar(255) not null unique,
+	reportQuery text not null);
+
+insert into Account (userName, password, accountType, registered) values ('root', 'root', 'T', true);
+insert into User(firstName, lastName, dateOfBirth, userType, accountId) values ('root', 'root', '1900-01-01', 'T', 1);
+insert into Agency(name) values('TEQ');

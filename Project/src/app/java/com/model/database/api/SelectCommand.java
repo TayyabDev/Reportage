@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class SelectCommand extends Command {
 	private List<String> ids;
 
 	public SelectCommand() {}
+
 	/*
-	 * constructor used when want to execute
-	 * select * from tableName;
+	 * constructor used when want to execute select * from tableName;
 	 */
 	public SelectCommand(String tableName) {
 		this.target = new ArrayList<String>();
@@ -31,8 +32,7 @@ public class SelectCommand extends Command {
 	}
 
 	/*
-	 * constructor used when want to execute
-	 * select * from tableName where constraints;
+	 * constructor used when want to execute select * from tableName where constraints;
 	 */
 	public SelectCommand(String tableName, List<String> constraint) {
 		this.target = new ArrayList<>();
@@ -48,9 +48,9 @@ public class SelectCommand extends Command {
 		this.target = target;
 		this.constraints = new ArrayList<>();
 	}
+
 	/*
-	 * constructor used when want to execute
-	 * select target from tableName where constraints
+	 * constructor used when want to execute select target from tableName where constraints
 	 */
 	public SelectCommand(List<String> target, String tableName, List<String> constraint) {
 		this.target = target;
@@ -95,7 +95,9 @@ public class SelectCommand extends Command {
 	 */
 	public List<String> getConstraints() throws SelectException {
 		String sql = "select DATA_TYPE from information_schema.columns "
-				+ "where table_name = '" + tableName + "';";
+				+ "where table_name = '"
+				+ tableName
+				+ "';";
 		Connection conn;
 		List<String> constraints = new ArrayList<String>();
 		try {
@@ -118,15 +120,14 @@ public class SelectCommand extends Command {
 
 
 	/*
-	 * no need to set the IdConstraintMap every time we use the select command
-	 * but if we need to
+	 * no need to set the IdConstraintMap every time we use the select command but if we need to
 	 */
 	public void setIdConstraintMap() throws SelectException {
 		HashMap<String, String> map = new HashMap<String, String>();
-		List<String> ids= this.getColumnIds();
+		List<String> ids = this.getColumnIds();
 		List<String> constraints = this.getConstraints();
 		int size = ids.size();
-		for (int i = 0; i<size; i++) {
+		for (int i = 0; i < size; i++) {
 			map.put(ids.get(i), constraints.get(i));
 		}
 		this.IdConstraint = map;
@@ -152,15 +153,15 @@ public class SelectCommand extends Command {
 		String id = this.target.get(0);
 		String sqlNoConstraint = "select " + id + " from " + tableName + ";";
 		String sqlWithConstraint = "";
-		try{
+		try {
 			Connection conn = ConnectDatabase.connect();;
-			Statement st= conn.createStatement();
+			Statement st = conn.createStatement();
 			ResultSet rs;
 			if (this.constraints.isEmpty()) {
 				rs = st.executeQuery(sqlNoConstraint);
 			} else {
 				sqlWithConstraint = "select " + id + " from " + tableName + " where ";
-				for(int index = 0; index < constraints.size() - 1; index++) {
+				for (int index = 0; index < constraints.size() - 1; index++) {
 					sqlWithConstraint += constraints.get(index) + " AND ";
 				}
 				if (constraints.size() > 0) {
@@ -184,14 +185,14 @@ public class SelectCommand extends Command {
 		}
 		return res;
 	}
+
 	/*
-	 * return [ [1st row], [2nd row], ...]
-	 * given the target, tableName, constraints
-	 * (eg. target = [colId1, colId2, colId3,...]) colId must be in the table
-	 * return [[1stRow], [2ndRow]...]
+	 * return [ [1st row], [2nd row], ...] given the target, tableName, constraints (eg. target =
+	 * [colId1, colId2, colId3,...]) colId must be in the table return [[1stRow], [2ndRow]...]
 	 */
 	public List<List<String>> selectHandle() throws SelectException {
 		String formulatedTarget = "";
+		List<String> sqlFunctions = Arrays.asList("count(*)","sum(*)","max(*)", "min(*)");
 		// if the target is still empty then by default select *
 		if (target.isEmpty()) {
 			formulatedTarget = "*";
@@ -199,19 +200,25 @@ public class SelectCommand extends Command {
 		} else {
 			// need to check if the targets are in this table
 			for (String t : target) {
-				if (!this.getColumnIds().contains(t)) {
+				if (!this.getColumnIds().contains(t) && !sqlFunctions.contains(t)) {
 					throw new SelectException(tableName);
 				}
 			}
 
-			String formulatedIds = formulateIds(target);
-			formulatedTarget = formulatedIds.substring(1, formulatedIds.length()-1);
+			String formulatedIds = "";
+
+			if(target.size() == 1 && sqlFunctions.contains(target.get(0))) {
+                formulatedTarget = target.get(0);
+            } else {
+                formulatedIds = formulateIds(target);
+                formulatedTarget = formulatedIds.substring(1, formulatedIds.length() - 1);
+            }
 		}
 
 		String sqlNoConstraint = "select " + formulatedTarget + " from " + tableName;
 		String sqlWithConstraint = sqlNoConstraint + " where ";
 
-		for(int index = 0; index < constraints.size() - 1; index++) {
+		for (int index = 0; index < constraints.size() - 1; index++) {
 			sqlWithConstraint += constraints.get(index) + " AND ";
 		}
 		if (constraints.size() > 0) {
@@ -253,5 +260,70 @@ public class SelectCommand extends Command {
 	public boolean handle() throws SelectException {
 		selectHandle();
 		return true;
+	}
+
+	public List<String> getPrimaryKeyColumn() throws SelectException {
+		String sql = "select column_name from information_schema.columns "
+				+ "where table_name = '"
+				+ this.tableName
+				+ "' and column_key = 'pri';";
+		Connection conn;
+		List<String> constraints = new ArrayList<String>();
+		try {
+			conn = ConnectDatabase.connect();
+			Statement st = conn.createStatement();
+			ResultSet rs;
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String constraint = rs.getString("column_name");
+				constraints.add(constraint);
+			}
+			st.close();
+			conn.close();
+
+			return constraints;
+		} catch (Exception e) {
+			throw new SelectException(tableName);
+		}
+	}
+
+	public List<String> getColumns() throws SelectException {
+		String sql = "select column_name from information_schema.columns "
+				+ "where table_name = '"
+				+ this.tableName
+				+ "';";
+
+		Connection conn;
+		List<String> constraints = new ArrayList<String>();
+		try {
+			conn = ConnectDatabase.connect();
+			Statement st = conn.createStatement();
+			ResultSet rs;
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String constraint = rs.getString("column_name");
+				constraints.add(constraint);
+			}
+			st.close();
+			conn.close();
+
+			return constraints;
+		} catch (Exception e) {
+			throw new SelectException(tableName);
+		}
+	}
+
+	public List<String> getValuesOfRowAtPrimaryKeys(int rowNum) throws SelectException {
+		List<String> result = new ArrayList<String>();
+		List<String> columns = this.getColumns();
+		List<String> primaryKeys = this.getPrimaryKeyColumn();
+		List<List<String>> tableData = this.selectHandle();
+		List<String> row = tableData.get(rowNum);
+		for (int i = 0; i < row.size(); i++) {
+			if (primaryKeys.contains(columns.get(i))) {
+				result.add(row.get(i));
+			}
+		}
+		return result;
 	}
 }

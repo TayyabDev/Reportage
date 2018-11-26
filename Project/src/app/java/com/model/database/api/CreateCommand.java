@@ -2,9 +2,6 @@ package app.java.com.model.database.api;
 
 import java.util.ArrayList;
 import java.util.List;
-import app.java.com.model.database.api.Command;
-
-import app.java.com.model.database.api.CreateCommand;
 
 import app.java.com.model.Exceptions.CreateException;
 
@@ -19,9 +16,9 @@ public class CreateCommand extends Command {
 	 */
 	public CreateCommand() {
 
-    }
+	}
 
-    /*
+	/*
 	 * to create an empty table given the table name
 	 */
 	public CreateCommand(String tableName) {
@@ -36,11 +33,11 @@ public class CreateCommand extends Command {
 		this.tableName = tableName;
 		this.attrs = attrs;
 	}
-	
+
 	public boolean addAttr(String attr) {
 		return this.attrs.add(attr);
 	}
-	
+
 	public static String formulateAttrs(List<String> attrs) {
 		String res = "";
 		if (attrs.size() == 0) {
@@ -49,18 +46,18 @@ public class CreateCommand extends Command {
 		for (String s : attrs) {
 			res = res + s + ", ";
 		}
-		return res.substring(0, res.length()-2);
-		
+		return res.substring(0, res.length() - 2);
+
 	}
-	
+
 	@Override
 	public boolean handle() throws CreateException {
-		String sql = "create table " + tableName + " ( " + formulateAttrs(attrs) + " );" ;
+		String sql = "create table " + tableName + " ( " + formulateAttrs(attrs) + " );";
 		try {
 			runExecuteUpdate(sql);
 			return true;
 		} catch (Exception e) {
-		    System.out.println(e.getMessage());
+			e.printStackTrace();
 			throw new CreateException(tableName);
 		}
 	}

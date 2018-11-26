@@ -1,45 +1,58 @@
 package test.java.com.model.usecase;
 
-import app.java.com.model.Exceptions.SelectException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import app.java.com.model.database.api.SelectCommand;
-import app.java.com.model.usecase.FetchTemplateNamesUseCase;
-import app.java.com.model.usecase.UseCase;
-import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.usecase.FetchTemplateNamesUseCase;
+import app.java.com.model.usecase.UseCase;
+import app.java.com.presenter.interfaces.FetchTemplateNamesResultInterface;
 
 public class FetchTemplateNamesUseCaseTest implements FetchTemplateNamesResultInterface {
 
-    private List<String> expectedTemplateNames = null;
+    private static final String TEMPLATE_TABLE = "Template";
+	private static List<String> expectedTemplateNames = null;
 
-    private List<String> actualTemplateNames = Arrays.asList("Client Profile",
-            "Community Connections", "Information and Orientation", "Language Training - Course Setup",
-            "Employment Related Services");
+	private static List<String> actualTemplateNames = new ArrayList<>();
 
-    @Override
-    public void onSuccessFetchingNames(List<String> names) throws SelectException {
-        expectedTemplateNames = names;
+	@BeforeAll
+    static void setup() throws SelectException {
+        List<String> target = new ArrayList<>();
+        target.add("templateName");
+
+        SelectCommand selectCommand = new SelectCommand(target, TEMPLATE_TABLE);
+        List<List<String>> result = selectCommand.selectHandle();
+
+        for (List<String> row : result) {
+            actualTemplateNames.add(row.get(0));
+        }
     }
 
-    @Override
-    public void onErrorFetchingNames(String errorMessage) {
-        System.out.println(errorMessage); // testing purposes
-    }
+	@Override
+	public void onSuccessFetchingNames(List<String> names) throws SelectException {
+		expectedTemplateNames = names;
+	}
 
-    @Test
-    public void testFetchTemplateNames() {
+	@Override
+	public void onErrorFetchingNames(String errorMessage) {
+		System.out.println(errorMessage); // testing purposes
+	}
 
-        UseCase useCase = new FetchTemplateNamesUseCase(this);
+	@Test
+	public void testFetchTemplateNames() {
 
-        useCase.run();
+		UseCase useCase = new FetchTemplateNamesUseCase(this);
 
-        // asserting if the verifyUseCase returned true or not
-        assertEquals(expectedTemplateNames, actualTemplateNames);
+		useCase.run();
 
-    }
+		assertEquals(expectedTemplateNames, actualTemplateNames);
+	}
 
 }

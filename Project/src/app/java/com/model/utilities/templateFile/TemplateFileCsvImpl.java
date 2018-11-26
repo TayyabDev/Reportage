@@ -12,43 +12,43 @@ import app.java.com.model.entities.template.BaseTemplate;
 import app.java.com.model.entities.template.Template;
 
 public class TemplateFileCsvImpl implements TemplateFileInterface {
-	
+
 	private List<List<String>> fileList;
 	private String fileName;
-	
+
 	/**
 	 * The main constructor for TemplateFileCsvImpl.
 	 * 
 	 * @param fileName the fileName to parse.
 	 */
 	public TemplateFileCsvImpl(String fileName) {
-		this.fileList = parseCSVFile(fileName);	
+		this.fileList = parseCSVFile(fileName);
 		this.fileName = new File(fileName).getName().replaceFirst("[.][^.]+$", "");
 	}
-	
+
 	private List<List<String>> parseCSVFile(String fileName) {
-	    List<List<String>> result = new ArrayList<>();
-	    try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-	        String line = "";
-	        while ((line = br.readLine()) != null) {
-	        	result.add(Arrays.asList(line.split(",")));
-	        }
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    }
-	    return result;
+		List<List<String>> result = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				result.add(Arrays.asList(line.split(",")));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
-	
+
 	@Override
 	public Template getFileAsTemplate() {
-				
+
 		// csv files only have 1 sheet, so no need to ask for sheet
 		String temName = this.getTemplateName();
 		List<String> columnIds = this.getColumnIds();
 		List<String> columnNames = this.getColumnNames();
 		String tableName = "`" + this.getTableName().replace(' ', '_') + "`";
-		
-        Template result = new BaseTemplate(temName, columnIds, columnNames, tableName);
+
+		Template result = new BaseTemplate(temName, columnIds, columnNames, tableName);
 
 		return result;
 	}
@@ -56,7 +56,7 @@ public class TemplateFileCsvImpl implements TemplateFileInterface {
 	@Override
 	public String getTemplateName() {
 		List<String> row = this.fileList.get(0);
-		String result = row.get(0);		
+		String result = row.get(0);
 		return result;
 	}
 
@@ -72,8 +72,8 @@ public class TemplateFileCsvImpl implements TemplateFileInterface {
 		List<String> result = new ArrayList<String>();
 
 		// add column names to list
-		for (String cell: row) {
-			result.add("`"+ cell + "`");
+		for (String cell : row) {
+			result.add("`" + cell + "`");
 		}
 		return result;
 	}

@@ -2,13 +2,15 @@ package app.java.com.model.entities.template;
 
 import java.util.List;
 
-public abstract class Template {
-    
-	public abstract String getTemplateName();
-	
-    public abstract List<String> getColumnNames();
+public interface Template {
 
-    public abstract List<String> getColumnIds();
-    
-    public abstract String getTableName();
+	public String getTemplateName();
+
+	public List<String> getColumnNames();
+
+	public List<String> getColumnIds();
+
+	public String getTableName();
+
+	public List<String> getRequiredIds();
 }

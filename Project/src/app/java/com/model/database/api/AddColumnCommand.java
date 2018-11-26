@@ -4,11 +4,12 @@ import java.util.List;
 
 import app.java.com.model.Exceptions.AlterException;
 
-public class AddColumnCommand extends Command{
+public class AddColumnCommand extends Command {
 
 	private String tableName;
 	private List<String> newCols;
 	private List<String> constraints;
+
 	/*
 	 * used for insert new column
 	 */
@@ -22,11 +23,11 @@ public class AddColumnCommand extends Command{
 		this.newCols.add(colId);
 		this.constraints.add(colCons);
 	}
-	
-	public String matchColsAndCons() {
+
+	private String matchColsAndCons() {
 		int s = newCols.size();
 		String res = "";
-		if(s == 0) {
+		if (s == 0) {
 			return res;
 		}
 		for (int i = 0; i < s; i++) {
@@ -34,16 +35,15 @@ public class AddColumnCommand extends Command{
 			String cons = constraints.get(i);
 			res = res + "add column " + col + " " + cons + ", ";
 		}
-		return res.substring(0, res.length()-2);
+		return res.substring(0, res.length() - 2);
 	}
-	
+
 	@Override
 	public boolean handle() throws AlterException {
 		String addColCommand = "";
 		try {
 			addColCommand = matchColsAndCons();
-			String sql = "alter table " + tableName + " "
-					+ addColCommand + ";";
+			String sql = "alter table " + tableName + " " + addColCommand + ";";
 			return runExecute(sql);
 		} catch (Exception e) {
 			throw new AlterException(tableName, addColCommand);

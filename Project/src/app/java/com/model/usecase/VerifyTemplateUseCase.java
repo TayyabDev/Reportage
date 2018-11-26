@@ -1,77 +1,80 @@
 package app.java.com.model.usecase;
 
-import app.java.com.model.Exceptions.SelectException;
-import app.java.com.model.database.api.SelectCommand;
-import app.java.com.model.utilities.FileTypeFinder;
-import app.java.com.model.utilities.templateFile.TemplateFileCsvImpl;
-import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
-import app.java.com.model.utilities.templateFile.TemplateFileInterface;
-import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerifyTemplateUseCase extends UseCase {
+import app.java.com.model.Exceptions.SelectException;
+import app.java.com.model.database.api.SelectCommand;
+import app.java.com.model.utilities.templateFile.TemplateFileInterface;
+import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 
-    private VerifyTemplateResultInterface resultInterface;
-    private TemplateFileInterface file;
-    private String templateName;
+public class VerifyTemplateUseCase implements UseCase {
 
-    public VerifyTemplateUseCase(VerifyTemplateResultInterface resultInterface, TemplateFileInterface fileInterface, String templateName) {
-        this.resultInterface = resultInterface;
-        this.file = fileInterface;
-        this.templateName = templateName;
-    }
+	private VerifyTemplateResultInterface resultInterface;
+	private TemplateFileInterface file;
+	private String templateName;
+	private final String templateTable = "`Template`";
+	private final String templateCol = "templateName";
+	private final String tableNameCol = "tableName";
 
-    @Override
-    public void run() {
-        List<String> columnList = new ArrayList<>();
-        columnList.add("tableName");
+	public VerifyTemplateUseCase(VerifyTemplateResultInterface resultInterface,
+			TemplateFileInterface fileInterface, String templateName) {
+		this.resultInterface = resultInterface;
+		this.file = fileInterface;
+		this.templateName = templateName;
+	}
 
-        List<String> constraints = new ArrayList<>();
-        constraints.add("templateName = \'" + templateName + "\'");
+	@Override
+	public void run() {
+		List<String> columnList = new ArrayList<>();
+		columnList.add(tableNameCol);
 
-        // Get the table name based on template name given
-        SelectCommand tableNameCommand  = new SelectCommand(columnList, "`Template`", constraints);
-        System.out.println();
-        List<List<String> > resultSet = null;
-        try {
-            resultSet = tableNameCommand.selectHandle();
-        } catch (SelectException e) {
-            System.out.println("Error when selecting: " + columnList.toString() + "`Template`" + constraints.toString());
-        }
+		List<String> constraints = new ArrayList<>();
+		constraints.add(templateCol + "= \'" + templateName + "\'");
 
-        SelectCommand command = new SelectCommand(resultSet.get(0).get(0));
+		// Get the table name based on template name given
+		SelectCommand tableNameCommand = new SelectCommand(columnList, templateTable, constraints);
+		List<List<String>> resultSet = null;
+		try {
+			resultSet = tableNameCommand.selectHandle();
+		} catch (SelectException e) {
+			this.resultInterface.onTemplateSelectedCompatible(false, file);
+			return;
+		}
 
-        // Get the number of columns for the selected Template
-        List<String> selectedTemplateColumns = null;
+		SelectCommand command = new SelectCommand(resultSet.get(0).get(0));
 
-        try {
-            selectedTemplateColumns = command.getColumnIds();
-        } catch (SelectException e) {
-            System.out.println("Error extracting number of columns of template!");
-            e.printStackTrace();
-        }
+		// Get the number of columns for the selected Template
+		List<String> selectedTemplateColumns = null;
 
-        List<String> selectedFileColumns = file.getColumnIds();
+		try {
+			selectedTemplateColumns = command.getColumnIds();
+		} catch (SelectException e) {
+			this.resultInterface.onTemplateSelectedCompatible(false, file);
+			return;
+		}
 
-        int adjustedTemplateColumns = selectedTemplateColumns.size() - 2;
-        int templateColumnIndex = 2;
+		List<String> selectedFileColumns = file.getColumnIds();
 
-        if(adjustedTemplateColumns != selectedFileColumns.size()) {
-            this.resultInterface.onTemplateSelectedCompatible(false);
-            return;
-        }
+		int adjustedTemplateColumns = selectedTemplateColumns.size() - 1;
+		int templateColumnIndex = 1;
 
-        for(int columnIdIndex = 0; columnIdIndex < selectedFileColumns.size(); columnIdIndex++) {
-            if(!selectedFileColumns.get(columnIdIndex).equals(selectedTemplateColumns.get(templateColumnIndex))) {
-                this.resultInterface.onTemplateSelectedCompatible(false);
-                return;
-            }
+		if (adjustedTemplateColumns != selectedFileColumns.size()) {
+			this.resultInterface.onTemplateSelectedCompatible(false, file);
+			return;
+		}
 
-            templateColumnIndex++;
-        }
+		for (int columnIdIndex = 0; columnIdIndex < selectedFileColumns.size(); columnIdIndex++) {
+			if (!selectedFileColumns.get(columnIdIndex)
+					.equals(selectedTemplateColumns.get(templateColumnIndex))) {
+				this.resultInterface.onTemplateSelectedCompatible(false, file);
+				return;
+			}
 
-        // If manage to get here, then send template valid result
-        this.resultInterface.onTemplateSelectedCompatible(true);
-    }
+			templateColumnIndex++;
+		}
+
+		// If manage to get here, then send template valid result
+		this.resultInterface.onTemplateSelectedCompatible(true, file);
+	}
 }

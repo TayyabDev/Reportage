@@ -1,115 +1,61 @@
 package app.java.com.view.ui.createAccountViews;
 
+import app.java.com.model.entities.account.Account;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createReportViews.Report;
-import app.java.com.view.ui.createTemplateViews.Template;
-import app.java.com.view.ui.viewUserDataViews.UserData;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Dashboard {
-    static JFrame frame;
-	JPanel panel = new JPanel();
-	JLabel labelLogo;
-	ImageIcon teqLogo;
-
-
-
 	
-	public Dashboard(JFrame frame, boolean init) {
+	protected JFrame frame;
+	protected JPanel panel = new JPanel();
+	protected GridBagLayout gb;
+	protected GridBagConstraints c;
+	private JLabel labelLogo;
+	private ImageIcon teqLogo;
+
+	public Dashboard(JFrame frame, boolean init, Account account) {
 		this.frame = frame;
 
-		GridBagLayout gb = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
+		gb = new GridBagLayout();
+		c = new GridBagConstraints();
 		panel = new JPanel();
 		panel.setLayout(gb);
 		panel.setBackground(Color.decode("#f1f8e9"));
 
-
-		
 		// create the logo
 		teqLogo = new ImageIcon(getClass().getResource("Logo.png"));
-		labelLogo= new JLabel(teqLogo);
-		
+		labelLogo = new JLabel(teqLogo);
+
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		gb.setConstraints(labelLogo, c);
 		panel.add(labelLogo);
-		
+
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		// create the buttons
 		c.weightx = 1.0;
 		c.weighty = 2.0;
+	
+	}
+	
+	public void revalidatePanel(boolean init) {
 		
-		JButton btnTemplate = UIHelpers.buttonGenerator("Templates");
-        btnTemplate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Template t  = new Template(frame);
-            }
-        });
-
-
-		JButton btnAccount = UIHelpers.buttonGenerator("Accounts");
-        btnAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Account ac = new Account(frame);
-            }
-        });
-
-		JButton btnReport = UIHelpers.buttonGenerator("Reports");
-        btnReport.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Report r = new Report(frame);
-            }
-        });
-
-
-
-		JButton btnAgency = UIHelpers.buttonGenerator("Agency");
+		if (init) {
+			this.frame.add(panel);
+			this.frame.setPreferredSize(new Dimension(1000, 600));
+			this.frame.pack();
+			this.frame.setVisible(true);
+			this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			this.frame.setLocationRelativeTo(null);
+			this.frame.setResizable(false);
+			UIHelpers.setLook();
+		} else {
+			this.frame.setContentPane(panel);
+			this.frame.revalidate();
+		}
 		
-		JButton btnUserData = UIHelpers.buttonGenerator("User Data");
-		btnUserData.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	UserData ud = new UserData(frame);
-            }
-        });
-		
-		
-		gb.setConstraints(btnTemplate, c);
-		gb.setConstraints(btnAccount, c);
-		gb.setConstraints(btnReport, c);
-		gb.setConstraints(btnAgency, c);
-		gb.setConstraints(btnUserData, c);
-		
-		panel.add(btnTemplate);
-		panel.add(btnAccount);
-		panel.add(btnReport);
-		panel.add(btnAgency);
-		panel.add(btnUserData);
-
-		if(init) {
-            this.frame.add(panel);
-            this.frame.setPreferredSize(new Dimension(1000, 600));
-            this.frame.pack();
-            this.frame.setVisible(true);
-            this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            this.frame.setLocationRelativeTo(null);
-            this.frame.setResizable(false);
-            UIHelpers.setLook();
-        }
-        else{
-            this.frame.setContentPane(panel);
-            this.frame.revalidate();
-        }
-
 	}
 
 }
