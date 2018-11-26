@@ -1,7 +1,6 @@
 package app.java.com.view.ui.createTemplateViews;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -16,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.AccountTypeFinder;
@@ -157,8 +158,17 @@ public class ExistingTemplate implements ExistingTemplateView {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				int rendererWidth = component.getPreferredSize().width;
+				TableColumn tableColumn = getColumnModel().getColumn(column);
+				tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+				return component;
+			}
 		};
-		UIHelpers.resizeTable(tbData);
+		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		// tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPanel.removeAll();
