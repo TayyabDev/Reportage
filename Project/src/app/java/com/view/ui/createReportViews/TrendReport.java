@@ -1,6 +1,8 @@
 package app.java.com.view.ui.createReportViews;
 
 import app.java.com.model.entities.account.Account;
+import app.java.com.presenter.TrendReportPresenterImpl;
+import app.java.com.presenter.interfaces.TrendReportPresenter;
 import app.java.com.view.interfaces.TrendReportView;
 import app.java.com.view.ui.UIHelpers;
 import app.java.com.view.ui.createAccountViews.Login;
@@ -16,6 +18,7 @@ public class TrendReport implements TrendReportView {
 
     private JLabel imgLabel;
     private ImageIcon imgTrend;
+    private TrendReportPresenter trendReportPresenter;
 
     public TrendReport(JFrame frame, Account account){
         this.frame = frame;
@@ -32,7 +35,8 @@ public class TrendReport implements TrendReportView {
         frame.setContentPane(panel);
         frame.revalidate();
 
-
+        trendReportPresenter = new TrendReportPresenterImpl(this);
+        trendReportPresenter.fetchData();
     }
 
 
@@ -57,7 +61,7 @@ public class TrendReport implements TrendReportView {
 
     }
 
-    public static void main(String [] args){
+    public static void main(String [] args) {
         JFrame frame = new JFrame("TEQ Login");
         frame.setPreferredSize(new Dimension(1000, 600));
         frame.pack();
@@ -68,6 +72,5 @@ public class TrendReport implements TrendReportView {
         UIHelpers.setLook();
 
         TrendReport tr = new TrendReport(frame, null);
-
     }
 }
