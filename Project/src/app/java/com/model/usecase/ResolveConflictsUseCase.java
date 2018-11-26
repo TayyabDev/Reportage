@@ -32,8 +32,6 @@ public class ResolveConflictsUseCase implements UseCase {
 		}
 
 		InsertCommand command = new InsertCommand(table, columns, userCorrectedValues);
-		System.out.println("Columns: " + columns);
-		System.out.println("User corrected: " + userCorrectedValues);
 		try {
 			command.insertHandle();
 			resolveConflictResultInterface.onSuccessFixingConflict("Success Fixing Error");

@@ -13,6 +13,9 @@ public class VerifyTemplateUseCase implements UseCase {
 	private VerifyTemplateResultInterface resultInterface;
 	private TemplateFileInterface file;
 	private String templateName;
+	private final String templateTable = "`Template`";
+	private final String templateCol = "templateName";
+	private final String tableNameCol = "tableName";
 
 	public VerifyTemplateUseCase(VerifyTemplateResultInterface resultInterface,
 			TemplateFileInterface fileInterface, String templateName) {
@@ -24,22 +27,19 @@ public class VerifyTemplateUseCase implements UseCase {
 	@Override
 	public void run() {
 		List<String> columnList = new ArrayList<>();
-		columnList.add("tableName");
+		columnList.add(tableNameCol);
 
 		List<String> constraints = new ArrayList<>();
-		constraints.add("templateName = \'" + templateName + "\'");
+		constraints.add(templateCol + "= \'" + templateName + "\'");
 
 		// Get the table name based on template name given
-		SelectCommand tableNameCommand = new SelectCommand(columnList, "`Template`", constraints);
-		System.out.println();
+		SelectCommand tableNameCommand = new SelectCommand(columnList, templateTable, constraints);
 		List<List<String>> resultSet = null;
 		try {
 			resultSet = tableNameCommand.selectHandle();
 		} catch (SelectException e) {
-			System.out.println("Error when selecting: "
-					+ columnList.toString()
-					+ "`Template`"
-					+ constraints.toString());
+			this.resultInterface.onTemplateSelectedCompatible(false, file);
+			return;
 		}
 
 		SelectCommand command = new SelectCommand(resultSet.get(0).get(0));
@@ -50,8 +50,8 @@ public class VerifyTemplateUseCase implements UseCase {
 		try {
 			selectedTemplateColumns = command.getColumnIds();
 		} catch (SelectException e) {
-			System.out.println("Error extracting number of columns of template!");
-			e.printStackTrace();
+			this.resultInterface.onTemplateSelectedCompatible(false, file);
+			return;
 		}
 
 		List<String> selectedFileColumns = file.getColumnIds();

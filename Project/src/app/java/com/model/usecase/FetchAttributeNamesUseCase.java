@@ -98,18 +98,4 @@ public class FetchAttributeNamesUseCase implements UseCase {
 		}
 		return formulatedRes;
 	}
-
-
-	/*
-	 * public static HashMap<String, List<String>> fetchAttributeNames() throws SelectException {
-	 * List<String> target = new ArrayList<>(); target.add("templateName"); target.add("realName");
-	 * SelectCommand fetchAttrComm = new SelectCommand(target, "VariableName"); List<List<String>>
-	 * res = fetchAttrComm.selectHandle();
-	 * 
-	 * HashMap<String, List<String>> formulatedRes = new HashMap<>(); for (List<String> row : res) {
-	 * if (!row.isEmpty()) { String templateName = row.get(0); String attrName = row.get(1);
-	 * if(formulatedRes.containsKey(templateName)){ formulatedRes.get(templateName).add(attrName); }
-	 * else { formulatedRes.put(templateName, new ArrayList<String>(Arrays.asList(attrName))); } } }
-	 * return formulatedRes; }
-	 */
 }

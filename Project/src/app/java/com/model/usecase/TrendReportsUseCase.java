@@ -35,10 +35,9 @@ public class TrendReportsUseCase implements UseCase {
         try {
             result = command.selectHandle();
         } catch (SelectException e) {
-            e.printStackTrace();
+        	reportResultInterface.onErrorFetchingData("Error fetching data");
         }
 
-        System.out.println(result);
 
         if(result != null) {
             reportResultInterface.onSuccessFetchingData(result);

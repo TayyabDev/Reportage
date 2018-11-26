@@ -41,7 +41,6 @@ public class UploadTemplateUseCase implements UseCase {
 
 		// Get the clientFormId after uploading it to the database
 		int clientFormId = insertClientDataForm(templateName);
-		System.out.println(clientFormId + " is the formId");
 
 		List<InsertException> errorList = insertAllRows(fileInterface, clientFormId);
 
@@ -64,7 +63,6 @@ public class UploadTemplateUseCase implements UseCase {
         }
 
         int numberOfClients = Integer.valueOf(result.get(0).get(0));
-        System.out.println(numberOfClients + " are the clients");
 
         List<String> targets = new ArrayList<>();
         targets.add("numOfClients");
@@ -103,7 +101,6 @@ public class UploadTemplateUseCase implements UseCase {
 		String templateName = exc.getTableName();
 		int numOfRow = exc.getNumRows();
 		List<InsertException> errorList = new ArrayList<>();
-		System.out.println("no error in insertAllRows so far");
 		for (int i = 0; i < numOfRow; i++) {
 			row = exc.getRow(i + 3);
 			row.add(0, String.valueOf(clientDataFormId));
@@ -111,7 +108,6 @@ public class UploadTemplateUseCase implements UseCase {
 			try {
 				insert.handle();
 			} catch (InsertException e) {
-				System.out.println(e.getMessage());
 				errorList.add(e);
 			}
 		}
@@ -186,7 +182,6 @@ public class UploadTemplateUseCase implements UseCase {
 	}
 
 	private int getUserId(int accountId) {
-		System.out.println(accountId + " is the accountId");
 		// get the userId from the user table where account id is equal to accountId
 		List<String> constraints = new ArrayList<>();
 		constraints.add("accountId = '" + String.valueOf(accountId) + "'");
@@ -196,7 +191,6 @@ public class UploadTemplateUseCase implements UseCase {
 
 		try {
 			result = command.selectHandle();
-			System.out.println(result);
 		} catch (SelectException e) {
 			e.printStackTrace();
 		}
@@ -206,7 +200,6 @@ public class UploadTemplateUseCase implements UseCase {
 			userId = Integer.valueOf(result.get(0).get(0));
 		}
 
-		System.out.println(String.valueOf(userId) + " is the userId");
 
 		return userId;
 	}
@@ -229,12 +222,10 @@ public class UploadTemplateUseCase implements UseCase {
 		}
 
 		int agencyId = 0;
-		System.out.println(result + " is the result for agency");
 		if (result != null) {
 			agencyId = Integer.valueOf(result.get(0).get(0));
 		}
 
-		System.out.println(String.valueOf(agencyId) + " is the agency");
 		return agencyId;
 	}
 }
