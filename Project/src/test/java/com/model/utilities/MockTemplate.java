@@ -4,7 +4,7 @@ import java.util.List;
 
 import app.java.com.model.entities.template.Template;
 
-public class MockTemplate extends Template {
+public class MockTemplate implements Template {
 	@Override
 	public String getTemplateName() {
 		return ClientProfileMockFile.TEMPLATE_NAME;

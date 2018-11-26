@@ -1,6 +1,6 @@
 package app.java.com.model.usecase;
 
-public abstract class UseCase {
+public interface UseCase {
 
-	public abstract void run();
+	public void run();
 }

@@ -1,7 +1,6 @@
 package app.java.com.view.ui.viewUserDataViews;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.model.entities.DataChanges;
@@ -169,11 +170,18 @@ public class UserData implements CreateUserDataView {
 				}
 				return tableEditable;
 			}
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component component = super.prepareRenderer(renderer, row, column);
+                int rendererWidth = component.getPreferredSize().width;
+                TableColumn tableColumn = getColumnModel().getColumn(column);
+                tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+                return component;
+            }
 		};
-		tbData.getTableHeader().setReorderingAllowed(false);
-		UIHelpers.resizeTable(tbData);
+        tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbData.getTableHeader().setReorderingAllowed(false);
 		btnEdit.setEnabled(true);
-		tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		scrollPanel.removeAll();
 		scrollPane.setViewportView(tbData);
