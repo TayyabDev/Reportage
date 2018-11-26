@@ -8,7 +8,8 @@
 4. Create a new Java Project with the `\Project\` directory as the project folder
 5. Go to **Project** > **Properties** > **Code Build Path** > **Libraries** and add all the **External Jars** in `Project/lib/`.
 6. Open `/Project/src/app/java/com/view/ui/createAccountViews/Login.java`.
-7. **Run** `Login.java` as **Java Application**
+7. **Run** `Run.java` as **Java Application**
+8. Login to the application using Username: `root` and Password `root`.
 
 ### Required Libraries
 
@@ -26,6 +27,14 @@ MYSQL Connector Java - https://dev.mysql.com/downloads/connector/j/8.0.html
 JCalendar - https://toedter.com/jcalendar/
 - download latest version
 
+Python - https://www.python.org/downloads/
+- download Python 3.7.1 and when installing, at the end click Add Python to PATH
+
+MatPlotLib - https://matplotlib.org/users/installing.html
+- issue the following commands into Terminal (for Mac) or Command Prompt (for Windows): 
+	- python -m pip install -U pip
+	- python -m pip install -U matplotlib
+
 Libraries Preview:
 
 ![alt text](https://github.com/CSCC01/Team11/blob/master/Dependencies.png)
@@ -33,6 +42,7 @@ Libraries Preview:
 ### Installing MySQL
 1. Download and Install MySQL Workbench from https://dev.mysql.com/downloads/workbench/
 
+#### Using our database
 2. Either using workbench directly. (if prefer using command line, go to 3)
   
   - Create a new connection using: 
@@ -45,6 +55,33 @@ Libraries Preview:
 3. Run the following commands:
   - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -p linjun9
   - use cscc43s18_linjun9;
+
+#### Using your own database
+2. Create a new local database using:
+  
+  - Hostname: 127.0.0.1
+  - Port: 3306
+  - Username: root
+  - Password: 
+ 
+3. Open the *create.sql* script in the `\Project\create.sql` directory in MySQL Workbench, modify the first 2 lines to run *create schema cscc01* and *use cscc01*, then run the script. This is initialize the local database to be ready for the application.
+
+4. Open the java source file *ConnectDatabase.java* under `/Project/src/app/java/com/model/database/api/` and change CONNECTION_URL, USERNAME, and PASSWORD accordingly.
+
+## Deliverable 5 - November 26th, 2018
+
+The Project Code is located in the `\Project\` directory in the master branch.
+
+Automated Unit Tests and Integration Tests are located in the `\Project\src\test\java\com\`directory in the master branch.
+
+The Product Backlog and the User Acceptance Tests are located in the `\Deliverable5\` directory in the master branch.
+
+Code Review Strategy and Summary Documents are located in the `\Deliverable5\Code Review\` directory in the master branch.
+
+The Sprint Backlogs are located in the `\Deliverable5\Sprint Backlogs\` directory in the master branch.
+
+### New Features Released :
+
 
 
 ## Deliverable 4 - November 12th, 2018
