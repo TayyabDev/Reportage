@@ -8,12 +8,12 @@ import app.java.com.model.Exceptions.ConnectionFailedException;
 
 public class ConnectDatabase {
 	
-	private static final String CONNECTION_URL = "jdbc:mysql://localhost/cscc01?serverTimezone=UTC&useSSL=False";
-//	private static final String CONNECTION_URL = "jdbc:mysql://mathlab.utsc.utoronto.ca:3306/cscc43s18_linjun9?serverTimezone=UTC&useSSL=False";
-	private static final String USERNAME = "root";
-//	private static final String USERNAME = "linjun9";
-	private static final String PASSWORD = "";
-//	private static final String PASSWORD = "linjun9";
+//	private static final String CONNECTION_URL = "jdbc:mysql://localhost/cscc01?serverTimezone=UTC&useSSL=False";
+//	private static final String USERNAME = "root";
+//	private static final String PASSWORD = "";
+	private static final String CONNECTION_URL = "jdbc:mysql://mathlab.utsc.utoronto.ca:3306/cscc43s18_linjun9?serverTimezone=UTC&useSSL=False";
+	private static final String USERNAME = "linjun9";
+	private static final String PASSWORD = "linjun9";
 	private static Connection conn;
 
 	public static Connection connect() throws ConnectionFailedException {
