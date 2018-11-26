@@ -78,12 +78,12 @@ public class RegisterNewUserUseCase implements UseCase {
 				// if everything goes well, set the account to be registered
 				registerAccount();
 				account.setRegisterd(true);
-				this.resultInterface.onSuccessRegisterNewUser("successfully registered");
 			} catch (InsertException e) {
 				this.resultInterface.onErrorRegisterNewUser(e.getMessage());
 			} catch (Exception e) {
 				this.resultInterface.onErrorRegisterNewUser(e.getMessage());
 			}
+			this.resultInterface.onSuccessRegisterNewUser("successfully registered");
 		}
 	}
 

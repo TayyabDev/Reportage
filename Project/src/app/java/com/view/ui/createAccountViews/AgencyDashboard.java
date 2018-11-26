@@ -14,13 +14,10 @@ import app.java.com.view.ui.uploadTemplateViews.UploadTemplate;
 
 public class AgencyDashboard extends Dashboard {
 
-	JFrame frame;
-	JPanel panel;
-
 	public AgencyDashboard(JFrame frame, boolean init, AgencyAccount account) {
 		super(frame, init, account);
 		this.frame = frame;
-
+		
 		JButton upload = UIHelpers.buttonGenerator("Upload data to template");
 
 		upload.addActionListener(new ActionListener() {

@@ -127,7 +127,8 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 	@Override
 	public void onSuccessRegisterNewUser() {
 		showPopUpWithMessage("Successfully Registered.", "Information");
-		new AgencyDashboard(new JFrame("Agency Dashboard"), true, (AgencyAccount) account);
+		
+		new AgencyDashboard(new JFrame("Agency Dashboard"), true, ((AgencyAccount) account));
 	}
 
 }
