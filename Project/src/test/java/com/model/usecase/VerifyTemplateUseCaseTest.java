@@ -25,8 +25,6 @@ public class VerifyTemplateUseCaseTest implements VerifyTemplateResultInterface 
 		testResult = templateValid;
 	}
 
-	// Test 1 - Ensure that verifyUseCase returns error if the size of columns does not match
-	// ("Testing VerifyUseCase with columns of different sizes from file and database")
 	@Test
 	public void testVerifyUseCaseWithDifferentSizedColumns() {
 
@@ -35,13 +33,10 @@ public class VerifyTemplateUseCaseTest implements VerifyTemplateResultInterface 
 
 		useCase.run();
 
-		// asserting if the verifyUseCase returned true or not
 		assertFalse(testResult);
 
 	}
 
-	// Test 2 - Ensure that verifyUseCase returns error if any of the column names do not match
-	// @DisplayName("Testing VerifyUseCase with columns of different sizes from file and database")
 	@Test
 	public void testVerifyUseCaseWithSameColumnsSizeMismatchingValues() {
 		UseCase useCase = new VerifyTemplateUseCase(this,
@@ -49,13 +44,9 @@ public class VerifyTemplateUseCaseTest implements VerifyTemplateResultInterface 
 				templateName);
 		useCase.run();
 
-		// asserting if the verifyUseCase returned true or not
 		assertFalse(testResult);
 	}
 
-	// Test 3 - Ensure that verifyUseCase returns success if the size of columns is the same and
-	// that they match
-	// @DisplayName("Testing VerifyUseCase with columns of different sizes from file and database")
 	@Test
 	public void testVerifyUseCaseWithSameSizeMatchingValues() {
 
@@ -63,11 +54,8 @@ public class VerifyTemplateUseCaseTest implements VerifyTemplateResultInterface 
 				new ClientProfileMockFile(new MockTemplate()), templateName);
 		useCase.run();
 
-		// asserting if the verifyUseCase returned true or not
 		assertTrue(testResult);
 
 	}
-
-	// Ensure that verifyUseCase works for all the above cases with a CSV file as well
 
 }

@@ -33,24 +33,27 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 			String formattedTable = exception.getTable().replaceAll("`", "");
 			List<List<String>> result = getAllDateForTable(formattedTable);
 			List<String> primaryColumns = null;
+
 			try {
 				primaryColumns = new SelectCommand(formattedTable).getPrimaryKeyColumn();
 			} catch (SelectException e) {
-				e.printStackTrace();
+				continue; // move to next exception
 			}
 
-			List<Integer> primaryKeyColumnIndex =
-					findPrimaryColumnIndex(primaryColumns, formattedTable);
+			List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns, formattedTable);
 
-			int rowNum =
-					findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
+			int rowNum = findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
 
-			boolean isSame = compareRows(result.get(rowNum), exception.getErrorValues());
+
+			boolean isSame = false;
+
+			if(rowNum != -1) {
+                isSame = compareRows(result.get(rowNum), exception.getErrorValues());
+            }
 
 			if (isSame) {
 				exception.setFixed(true);
 			}
-			
 
 		}
 
@@ -64,6 +67,10 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 
 	private int findDuplicateRow(List<List<String>> dataResult, List<Integer> primaryKeysIndex,
 			List<String> duplicatedVals) {
+
+		if(dataResult == null || primaryKeysIndex == null || duplicatedVals == null) {
+			return -1;
+		}
 
 		for (int x = 0; x < dataResult.size(); x++) {
 
@@ -86,13 +93,13 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 		SelectCommand command = new SelectCommand(table);
 		List<List<String>> result = null;
 
-
 		try {
 			result = command.selectHandle();
 		} catch (SelectException e) {
-			System.out.println("Error fetching row from table " + table);
-			return null;
+		    // nothing needed
+            return null;
 		}
+
 		return result;
 	}
 
@@ -105,10 +112,9 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 		try {
 			columns = new SelectCommand(table).getColumns();
 		} catch (SelectException e) {
-			e.printStackTrace();
+			return null;
 		}
 
-		System.out.println(columns);
 
 		int start = 0;
 
@@ -122,7 +128,6 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 			}
 		}
 
-		System.out.println(result);
 		return result;
 	}
 }
