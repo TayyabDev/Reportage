@@ -73,7 +73,9 @@ public class ErrorResolveListener implements ActionListener {
 
 					for (String col : insertException.getErrorValues()) {
 						JTextField val = new JTextField(col);
-						val.setBackground(Color.red);
+						// if priamry key , red
+                        //  else green
+                        val.setBackground(Color.red);
 
 						val.setPreferredSize(new Dimension(val.getText().length() + 5, 30));
 

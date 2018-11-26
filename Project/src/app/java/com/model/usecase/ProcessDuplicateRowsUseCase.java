@@ -106,7 +106,6 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 		return result;
 	}
 
-
 	public List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn, String table) {
 
 		System.out.println(primaryKeyColumn + " are the primary keys");

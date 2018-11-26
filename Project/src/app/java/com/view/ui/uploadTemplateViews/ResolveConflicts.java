@@ -95,9 +95,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 		JButton resolve = UIHelpers.buttonGenerator("Resolve");
 		resolve.setBounds(450, 470, 100, 20);
-		// resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons,
-		// scrollPanel, this.errors,
-		// presenter, this.columns));
+
 		resolve.addActionListener(new ErrorResolveListener(frame, errorOptionButtons, scrollPanel,
 				errors, presenter, columns));
 
@@ -121,9 +119,9 @@ public class ResolveConflicts implements ResolveConflictsView {
 				JLabel jl = new JLabel( "Automatically Fixed - Duplicate Row Found");
 				scrollPanel.add(jl);
 			} else {
-				JRadioButton jrb = new JRadioButton(exception.getMessage());
+                System.out.println(exception.getMessage());
+				JRadioButton jrb = new JRadioButton("Duplicate Row Conflict");
 				bg.add(jrb);
-				System.out.println("Hey Why adding here2 ?");
 				errorOptionButtons.add(jrb);
 				scrollPanel.add(jrb);
 			}
@@ -145,7 +143,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 		if(errorOptionButtons.size() == 0){
 			// all conflicts resolved, so we can go back to upload template
-			JOptionPane.showMessageDialog(frame, "You have successfully fixed all the conflicts. Taking you back to Upload Template...");
+			JOptionPane.showMessageDialog(frame, "You've successfully fixed all the conflicts. Taking you back to Upload Template...");
 			new UploadTemplate(frame, account);
 		}
 	}

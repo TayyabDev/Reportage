@@ -100,11 +100,17 @@ public class TrendReport implements TrendReportView {
             System.out.println(in.readLine());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            command = "py " + SPECIFIED_FILEPATH + PYTHON_FILENAME;
+            try {
+                Process p = Runtime.getRuntime().exec(command);
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        p.getInputStream()));
+                System.out.println(in.readLine());
+            } catch(IOException e2){
+                e2.printStackTrace();
+            }
         }
     }
-
-
 
 
 
