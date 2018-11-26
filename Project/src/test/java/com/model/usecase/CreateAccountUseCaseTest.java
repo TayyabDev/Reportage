@@ -42,6 +42,6 @@ public class CreateAccountUseCaseTest implements CreateAccountResultInterface {
 
 	@Override
 	public void onErrorCreateAccount(String message) {
-		this.message = message;
+		this.message = "failure";
 	}
 }
