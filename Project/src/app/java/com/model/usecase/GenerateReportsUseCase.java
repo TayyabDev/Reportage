@@ -1,7 +1,10 @@
 package app.java.com.model.usecase;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,11 +51,16 @@ public class GenerateReportsUseCase implements UseCase {
 		fileName = reportName;
 		fileName += timeStamp;
 		fileName += ".csv";
-		PrintWriter pw = new PrintWriter(new File(fileName));
-		StringBuilder sb = new StringBuilder();
-		sb.append(report);
-		pw.write(sb.toString());
-		pw.close();
+		String userHomeFolder = System.getProperty("user.home");
+		File textFile = new File(userHomeFolder, fileName);
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
+			out.write(report);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
