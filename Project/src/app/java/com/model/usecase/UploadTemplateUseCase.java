@@ -217,8 +217,7 @@ public class UploadTemplateUseCase implements UseCase {
 		} catch (SelectException e) {
 			return -1;
 		}
-
-
+		
 		if (result != null) {
             return Integer.valueOf(result.get(0).get(0));
 		}

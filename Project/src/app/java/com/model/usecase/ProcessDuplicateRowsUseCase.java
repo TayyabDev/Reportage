@@ -37,12 +37,13 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 			try {
 				primaryColumns = new SelectCommand(formattedTable).getPrimaryKeyColumn();
 			} catch (SelectException e) {
-				e.printStackTrace();
+				continue; // move to next exception
 			}
 
 			List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns, formattedTable);
 
 			int rowNum = findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
+
 
 			boolean isSame = false;
 
@@ -61,15 +62,13 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 	}
 
 	private boolean compareRows(List<String> originalRow, List<String> duplicateRow) {
-		System.out.println(originalRow);
-		System.out.println(duplicateRow);
 		return originalRow.subList(1, originalRow.size() - 1).equals(duplicateRow.subList(1, duplicateRow.size() - 1));
 	}
 
 	private int findDuplicateRow(List<List<String>> dataResult, List<Integer> primaryKeysIndex,
 			List<String> duplicatedVals) {
 
-		if(dataResult == null) {
+		if(dataResult == null || primaryKeysIndex == null || duplicatedVals == null) {
 			return -1;
 		}
 
@@ -106,8 +105,6 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 
 	public List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn, String table) {
 
-		System.out.println(primaryKeyColumn + " are the primary keys");
-
 
 		List<String> columns = null;
 		List<Integer> result = new ArrayList<>();
@@ -115,10 +112,9 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 		try {
 			columns = new SelectCommand(table).getColumns();
 		} catch (SelectException e) {
-			e.printStackTrace();
+			return null;
 		}
 
-		System.out.println(columns);
 
 		int start = 0;
 
@@ -132,7 +128,6 @@ public class ProcessDuplicateRowsUseCase implements UseCase {
 			}
 		}
 
-		System.out.println(result);
 		return result;
 	}
 }

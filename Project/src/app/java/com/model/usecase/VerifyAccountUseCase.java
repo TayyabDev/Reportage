@@ -12,9 +12,18 @@ import app.java.com.presenter.interfaces.LoginResultInterface;
 
 public class VerifyAccountUseCase implements UseCase {
 
-	LoginResultInterface resultInterface;
-	String username;
-	String password;
+	private LoginResultInterface resultInterface;
+	private String username;
+	private String password;
+	
+	// Account table
+	private final String ACCOUNT_TABLE = "Account";
+	private final String PASSWORD = "password";
+	private final String USERNAME = "userName";
+	private final String ACCOUNTID = "accountId";
+	private final String ACCOUNT_TYPE = "accountType";
+	private final String REGISTERED = "registered";
+	
 
 	public VerifyAccountUseCase(LoginResultInterface resultInterface, String username,
 			String password) {
@@ -31,15 +40,15 @@ public class VerifyAccountUseCase implements UseCase {
 
 
 			ArrayList<String> attrs = new ArrayList<>();
-			attrs.add("accountId");
-			attrs.add("accountType");
-			attrs.add("registered");
+			attrs.add(ACCOUNTID);
+			attrs.add(ACCOUNT_TYPE);
+			attrs.add(REGISTERED);
 
 			List<String> constraints = new ArrayList<>();
-			constraints.add("`userName` = '" + this.username + "'");
-			constraints.add("`password` = '" + this.password + "'");
+			constraints.add("`" + USERNAME + "` = '" + this.username + "'");
+			constraints.add("`" + PASSWORD+ "` = '" + this.password + "'");
 
-			SelectCommand sel = new SelectCommand(attrs, "Account", constraints);
+			SelectCommand sel = new SelectCommand(attrs, ACCOUNT_TABLE, constraints);
 
 			List<List<String>> data = null;
 			try {
