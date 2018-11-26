@@ -1,6 +1,7 @@
 package app.java.com.view.ui.createReportViews;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -22,7 +24,7 @@ public class NewReportFormat implements AddNewReportFormatView {
 
 	private JFrame frame;
 	private JPanel panel = new JPanel();
-	private JButton add;
+	private JButton btnAdd;
 	private AddNewReportFormatPresenter presenter;
 	private TeqAccount account;
 
@@ -45,30 +47,38 @@ public class NewReportFormat implements AddNewReportFormatView {
 			}
 		});
 
-		JLabel lblReportName = new JLabel("Please enter the format name");
-		lblReportName.setBounds(300, 50, 400, 20);
+		JLabel lTitle = new JLabel("Create New Report Format");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(200, 20, 600, 40);
+		panel.add(lTitle);
+		
+		JLabel lblReportName = new JLabel("Please Enter the Format Name:");
+		lblReportName.setBounds(300, 100, 400, 20);
 
 		JTextField reportNameTxt = new JTextField();
-		reportNameTxt.setBounds(300, 100, 400, 20);
+		reportNameTxt.setBounds(300, 150, 400, 20);
 
-		JLabel lblQuery = new JLabel("Please enter query here");
-		lblQuery.setBounds(300, 150, 400, 20);
+		JLabel lblQuery = new JLabel("Please Enter Query Here:");
+		lblQuery.setBounds(300, 200, 400, 20);
 
 		JTextArea queryTxt = new JTextArea();
-		queryTxt.setBounds(300, 200, 400, 200);
+		queryTxt.setBounds(300, 500, 400, 200);
+		
+		JScrollPane queryScrollPane = new JScrollPane(queryTxt);
+		queryScrollPane.setBounds(300, 250, 400, 200);
 
 
-		add = UIHelpers.buttonGenerator("Add");
-		add.setBounds(300, 450, 400, 30);
-		add.addActionListener(new ActionListener() {
+		btnAdd = UIHelpers.buttonGenerator("Add");
+		btnAdd.setBounds(300, 475, 400, 30);
+		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = reportNameTxt.getText();
 				String query = queryTxt.getText();
 				if (name == null) {
-					showPopUpWithMessage("Report name can not be empty", "Error");
+					showPopUpWithMessage("Report Name can not be Empty", "Error");
 				} else if (query == null) {
-					showPopUpWithMessage("Query can not be empty", "Error");
+					showPopUpWithMessage("Query can not be Empty", "Error");
 				} else {
 					presenter.addNewFormat(name, query);
 				}
@@ -79,8 +89,8 @@ public class NewReportFormat implements AddNewReportFormatView {
 		panel.add(lblReportName);
 		panel.add(reportNameTxt);
 		panel.add(lblQuery);
-		panel.add(queryTxt);
-		panel.add(add);
+		panel.add(queryScrollPane);
+		panel.add(btnAdd);
 
 		this.frame.setContentPane(panel);
 		this.frame.revalidate();
@@ -99,13 +109,13 @@ public class NewReportFormat implements AddNewReportFormatView {
 
 	@Override
 	public void onSuccessFormatAdded() {
-		showPopUpWithMessage("Successfully added", "Success");
+		showPopUpWithMessage("Successfully Added", "Success");
 		new Report(frame, account);
 	}
 
 	@Override
 	public void onErrorFormatAdded() {
-		showPopUpWithMessage("There is something wrong with query", "Error");
+		showPopUpWithMessage("Query is Invalid", "Error");
 	}
 
 }

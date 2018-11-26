@@ -193,6 +193,8 @@ public class TemplateFileExcelImpl implements TemplateFileInterface {
 					result.add(Double.toString(row.getCell(i).getNumericCellValue()));
 				} else if (row.getCell(i).getCellType() == CellType.BOOLEAN) {
 					result.add(Boolean.toString(row.getCell(i).getBooleanCellValue()));
+				} else {
+					result.add("");
 				}
 			} catch (NullPointerException e) {
 				result.add(null);

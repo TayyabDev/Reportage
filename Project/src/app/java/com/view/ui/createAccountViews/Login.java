@@ -1,7 +1,6 @@
 package app.java.com.view.ui.createAccountViews;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
@@ -28,9 +26,9 @@ import app.java.com.view.ui.register.RegisterTeqStaff;
 
 public class Login implements LoginView {
 
+	public JPanel panel;
 	private LoginPresenter presenter;
 	private static JFrame frame;
-	private JPanel panel;
 	private JLabel labelLogo;
 	private ImageIcon teqLogo;
 	private JLabel labelUsername;
@@ -38,7 +36,8 @@ public class Login implements LoginView {
 	private JTextField username;
 	private JPasswordField password;
 
-	public Login() {
+	public Login(JFrame frame) {
+		Login.frame = frame;
 		GridBagLayout gb = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		panel = new JPanel();
@@ -83,21 +82,6 @@ public class Login implements LoginView {
 		frame.getRootPane().setDefaultButton(login);
 	}
 
-	public static void main(String[] args) {
-
-		frame = new JFrame("TEQ Login");
-		frame.add(new Login().panel);
-		frame.setPreferredSize(new Dimension(800, 400));
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		UIHelpers.setLook();
-
-
-	}
-
 	@Override
 	public void onSuccessLogin(TeqAccount account) {
 		// check if need to register
@@ -105,7 +89,7 @@ public class Login implements LoginView {
 			// RegisterNewUserView
 			new RegisterTeqStaff(new JFrame("Registration"), account);
 		} else {
-			new Dashboard(new JFrame("TEQ Dashboard"), true, account);
+			new TeqDashboard(new JFrame("TEQ Dashboard"), true, account);
 		}
 		frame.dispose();
 		presenter.unbindView();

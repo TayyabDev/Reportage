@@ -30,10 +30,10 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 			}
 
 			// otherwise duplicate exception
-			List<List<String>> result = getAllDateForTable(exception.getTable());
+			String formattedTable = exception.getTable().replaceAll("`", "");
+			List<List<String>> result = getAllDateForTable(formattedTable);
 			List<String> primaryColumns = null;
 			System.out.println(exception.getTable() + " is the table");
-			String formattedTable = exception.getTable().replaceAll("`", "");
 			try {
 				primaryColumns = new SelectCommand(formattedTable).getPrimaryKeyColumn();
 			} catch (SelectException e) {
@@ -51,8 +51,12 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 			boolean isSame = compareRows(result.get(rowNum), exception.getErrorValues());
 
 			if (isSame) {
+				System.out.println(String.valueOf(isSame) + " is fixed?");
 				exception.setFixed(true);
+			} else {
+				System.out.println("Not fixed");
 			}
+			
 
 		}
 
@@ -61,13 +65,9 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 	}
 
 	private boolean compareRows(List<String> originalRow, List<String> duplicateRow) {
-		// for(int index = 0; index < originalRow.size(); index++) {
-		// if(!originalRow.get(index).equals(duplicateRow.get(index))) {
-		// return false;
-		// }
-		// }
-
-		return originalRow.equals(duplicateRow);
+		System.out.println(originalRow);
+		System.out.println(duplicateRow);
+		return originalRow.subList(1, originalRow.size() - 1).equals(duplicateRow.subList(1, duplicateRow.size() - 1));
 	}
 
 	private int findDuplicateRow(List<List<String>> dataResult, List<Integer> primaryKeysIndex,
@@ -105,7 +105,6 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 		System.out.println(result);
 		return result;
 	}
-
 
 	public List<Integer> findPrimaryColumnIndex(List<String> primaryKeyColumn, String table) {
 

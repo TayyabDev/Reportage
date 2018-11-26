@@ -38,12 +38,12 @@ public abstract class RegisterNewUser implements RegisterNewUserView {
 
 	@Override
 	public void onSuccessRegisterNewUser() {
-		showPopUpWithMessage("Successfully registered.", "Information");
+		showPopUpWithMessage("Successfully Registered.", "Information");
 	}
 
 	@Override
 	public void onErrorRegisterNewUser() {
-		showPopUpWithMessage("Error registering new User.", "Alert");
+		showPopUpWithMessage("Error rRgistering new User.", "Alert");
 
 	}
 

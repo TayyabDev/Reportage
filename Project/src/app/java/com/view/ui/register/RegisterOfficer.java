@@ -41,7 +41,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 
 		panel = super.initPanel();
 
-		JLabel lblEnterInfo = new JLabel("Please enter the following information");
+		JLabel lblEnterInfo = new JLabel("Please enter the following information:");
 		lblEnterInfo.setBounds(300, 50, 400, 20);
 
 		JLabel lblAgencyName = new JLabel("Agency Name");
@@ -64,7 +64,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 		JDateChooser chooser = new JDateChooser();
 		chooser.setBounds(300, 450, 400, 20);
 
-		register = UIHelpers.buttonGenerator("register");
+		register = UIHelpers.buttonGenerator("Register");
 		register.setBounds(325, 500, 150, 50);
 
 		cancel = UIHelpers.buttonGenerator("Cancel");
@@ -102,7 +102,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 					showPopUpWithMessage("No Date Selected", "Error");
 					return;
 				} else if (agencyName == "" || agencyName == null) {
-					showPopUpWithMessage("agency Name can not be empty", "Error");
+					showPopUpWithMessage("Agency Name can not be empty", "Error");
 					return;
 				} else {
 					// construct user
@@ -117,7 +117,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showPopUpWithMessage("Not registered.", "Information");
+				showPopUpWithMessage("Not Registered.", "Information");
 				frame.setVisible(false);
 				frame.dispose();
 			}
@@ -126,7 +126,7 @@ public class RegisterOfficer extends RegisterNewUser implements RegisterNewUserV
 
 	@Override
 	public void onSuccessRegisterNewUser() {
-		showPopUpWithMessage("Successfully registered.", "Information");
+		showPopUpWithMessage("Successfully Registered.", "Information");
 		new AgencyDashboard(new JFrame("Agency Dashboard"), true, (AgencyAccount) account);
 	}
 

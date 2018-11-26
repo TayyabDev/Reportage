@@ -24,7 +24,7 @@ public class AddColumnCommand extends Command {
 		this.constraints.add(colCons);
 	}
 
-	public String matchColsAndCons() {
+	private String matchColsAndCons() {
 		int s = newCols.size();
 		String res = "";
 		if (s == 0) {

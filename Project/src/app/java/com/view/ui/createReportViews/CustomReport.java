@@ -1,5 +1,6 @@
 package app.java.com.view.ui.createReportViews;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,11 +61,16 @@ public class CustomReport implements CustomReportView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Report(frame, account);
+
+			    new Report(frame, account);
 			}
 		});
 
-
+		JLabel lTitle = new JLabel("Create Custom Report");
+		lTitle.setFont(new Font(null, Font.BOLD, 36));
+		lTitle.setBounds(200, 20, 400, 40);
+		panel.add(lTitle);
+		
 		scrollPanel = new JPanel(new GridLayout(0, 1));
 		scrollPanel.setBorder(BorderFactory
 				.createTitledBorder("Please select attributes. Format is Template -- Attribute"));
@@ -72,7 +78,7 @@ public class CustomReport implements CustomReportView {
 
 		attrsComboBoxes = new ArrayList<>();
 		scrollPane = new JScrollPane(scrollPanel);
-		scrollPane.setBounds(150, 60, 755, 300);
+		scrollPane.setBounds(150, 70, 755, 290);
 
 		presenter.fetchTemplatesAndAttributes();
 
@@ -248,42 +254,7 @@ public class CustomReport implements CustomReportView {
 
 	@Override
 	public boolean sendReport(HashMap<String, List<List<String>>> data) {
-		String output = "";
-
-		for (String table : data.keySet()) {
-			output += table + "\n";
-
-			for (List<String> lis : data.get(table)) {
-				for (String currentIndex : lis) {
-					if (currentIndex == null) {
-						output += ",";
-					} else if (currentIndex.contains(",")) {
-						output += "\"" + currentIndex + "\",";
-					}
-
-					else {
-						output += currentIndex + ",";
-					}
-				}
-				output += "\n";
-			}
-		}
-
-		// get filename
-		String file =
-				"report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
-		try {
-			PrintWriter pw = new PrintWriter(new File(file));
-			pw.write(output);
-			pw.close();
-			return true;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return false;
-
-
+		return UIHelpers.sendReportToCSVFile(data);
 	}
 
 

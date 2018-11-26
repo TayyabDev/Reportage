@@ -2,6 +2,13 @@ package app.java.com.view.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -44,5 +51,45 @@ public class UIHelpers {
 				width = 300;
 			columnModel.getColumn(column).setPreferredWidth(width);
 		}
+	}
+
+
+	public static boolean sendReportToCSVFile(HashMap<String, List<List<String>>> data) {
+		String output = "";
+
+		for (String table : data.keySet()) {
+			output += table + "\n";
+
+			for (List<String> lis : data.get(table)) {
+				for (String currentIndex : lis) {
+					if (currentIndex == null) {
+						output += ",";
+					} else if (currentIndex.contains(",")) {
+						output += "\"" + currentIndex + "\",";
+					}
+
+					else {
+						output += currentIndex + ",";
+					}
+				}
+				output += "\n";
+			}
+		}
+
+		// get filename
+		String file =
+				"report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
+		try {
+			PrintWriter pw = new PrintWriter(new File(file));
+			pw.write(output);
+			pw.close();
+			return true;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+
 	}
 }

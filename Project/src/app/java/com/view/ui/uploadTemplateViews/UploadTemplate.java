@@ -139,6 +139,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 						sheetDropdown.setModel(new DefaultComboBoxModel(sheets.toArray()));
 						sheetDropdown.setVisible(true);
+						btnSubmit.setEnabled(true);
 						lblSheet.setVisible(true);
 
 					}
@@ -180,6 +181,7 @@ public class UploadTemplate implements UploadTemplateView {
 
 		btnSelectFile.setBounds(400, 200, 100, 25);
 		btnSubmit.setBounds(700, 400, 100, 25);
+		btnSubmit.setEnabled(false);
 		panel.add(btnSelectFile);
 		panel.add(btnSubmit);
 
@@ -227,7 +229,7 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void switchViewToResolveConflicts(List<InsertException> exceptions) {
 		int n = JOptionPane.showConfirmDialog(frame,
-				"There are some errors attemping to upload the template. Please try to resolve them.");
+				"There are some errors when trying to upload the template. Do you want to try to resolve them?");
 
 		if (n == JOptionPane.YES_OPTION) {
 			new ResolveConflicts(frame, account, exceptions);
