@@ -36,9 +36,6 @@ MatPlotLib - https://matplotlib.org/users/installing.html
     - python -m pip install -U pip
     - python -m pip install -U matplotlib
 
- 
-
-
 Libraries Preview:
 
 ![alt text](https://github.com/CSCC01/Team11/blob/master/Dependencies.png)
@@ -89,7 +86,7 @@ Code Review Strategy and Summary Documents are located in the `\Deliverable5\Cod
 
 The Sprint Backlogs are located in the `\Deliverable5\Sprint Backlogs\` directory in the master branch.
 
-The Project Presentation Demo Video is located at: .
+The Project Presentation Demo Video is located at: https://www.youtube.com/watch?v=egHQNFicY7M&feature=youtu.be
 
 ### New Features Released:
 
