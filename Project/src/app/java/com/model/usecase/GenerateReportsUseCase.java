@@ -12,7 +12,7 @@ import java.util.List;
 import app.java.com.model.database.api.Command;
 import app.java.com.presenter.interfaces.ExistingReportFormatResultInterface;
 
-public class GenerateReportsUseCase extends UseCase {
+public class GenerateReportsUseCase implements UseCase {
 
 	private ExistingReportFormatResultInterface resultInterface;
 	private HashMap<String, String> querys;

@@ -1,13 +1,10 @@
 #create schema cscc43s18_linjun9;
 use cscc43s18_linjun9;
-#create schema cscc01;
-#use cscc01;
-
 
 create table Account(
 	accountId int auto_increment primary key,
-    password varchar(20) not null,
-    userName varchar(20) not null unique,
+    password varchar(20) not null check (CHAR_LENGTH(password)> 0) ,
+    userName varchar(20) not null unique check (CHAR_LENGTH(userName) > 0),
     accountType  enum('T','A') default null,
     registered bool default false);
 
@@ -93,5 +90,4 @@ create table Report(
 
 insert into Account (userName, password, accountType, registered) values ('root', 'root', 'T', true);
 insert into User(firstName, lastName, dateOfBirth, userType, accountId) values ('root', 'root', '1900-01-01', 'T', 1);
-insert into Teqstaff(teqstaffid) values (1);
 insert into Agency(name) values('TEQ');

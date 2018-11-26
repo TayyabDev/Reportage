@@ -4,7 +4,7 @@ import app.java.com.model.database.api.Command;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.CreateReportResultInterface;
 
-public class CreateReportWithQueryUseCase extends UseCase {
+public class CreateReportWithQueryUseCase implements UseCase {
 	private String query;
 	private CreateReportResultInterface resultInterface;
 

@@ -7,7 +7,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.FetchAttributeNamesResultInterface;
 
-public class FetchAttributeNamesUseCase extends UseCase {
+public class FetchAttributeNamesUseCase implements UseCase {
 
 	private FetchAttributeNamesResultInterface resultInterface;
 	// in VariableName Table, there are 3 columns

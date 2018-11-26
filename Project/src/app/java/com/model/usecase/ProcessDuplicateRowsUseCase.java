@@ -8,7 +8,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 
-public class ProcessDuplicateRowsUseCase extends UseCase {
+public class ProcessDuplicateRowsUseCase implements UseCase {
 
 	private ResolveConflictResultInterface resolveConflictResultInterface;
 	private List<InsertException> exceptions;
