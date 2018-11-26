@@ -7,7 +7,7 @@ import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.ExistingTemplateResultInterface;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 
-public class FetchTemplateColumnsUseCase extends UseCase {
+public class FetchTemplateColumnsUseCase implements UseCase {
 
 	private ExistingTemplateResultInterface existingTemplateResultInterface;
 	final int EXISTING_TEMPLATE = 0;

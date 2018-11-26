@@ -6,7 +6,7 @@ import app.java.com.presenter.interfaces.TrendReportResultInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrendReportsUseCase extends UseCase {
+public class TrendReportsUseCase implements UseCase {
     private static final int CLIENT_PROFILE_TEMPLATE_ID = 6;
     private static final String CLIENT_DATA_FORM = "ClientDataForm";
     private TrendReportResultInterface reportResultInterface;

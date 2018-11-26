@@ -7,7 +7,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.FetchUserDataResultInterface;
 
-public class FetchUserDataUseCase extends UseCase {
+public class FetchUserDataUseCase implements UseCase {
 
 	private String table = null;
 	private List<String> target = new ArrayList<String>();

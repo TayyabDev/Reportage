@@ -115,7 +115,7 @@ public class ExistingReportFormat implements ExistingReportFormatView {
 
 	@Override
 	public void onSuccessCreateReport() {
-		JOptionPane.showMessageDialog(frame, "All selected reports created under src");
+		JOptionPane.showMessageDialog(frame, "All selected reports created under Desktop folder");
 	}
 
 	@Override

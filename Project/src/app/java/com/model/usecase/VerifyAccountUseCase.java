@@ -10,7 +10,7 @@ import app.java.com.model.entities.account.AgencyAccount;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.interfaces.LoginResultInterface;
 
-public class VerifyAccountUseCase extends UseCase {
+public class VerifyAccountUseCase implements UseCase {
 
 	LoginResultInterface resultInterface;
 	String username;

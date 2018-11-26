@@ -8,7 +8,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.FetchExistingReportResultInterface;
 
-public class FetchExistingReportUseCase extends UseCase {
+public class FetchExistingReportUseCase implements UseCase {
 
 	private FetchExistingReportResultInterface resultInterface;
 
