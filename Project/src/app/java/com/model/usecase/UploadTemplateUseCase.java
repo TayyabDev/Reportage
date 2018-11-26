@@ -41,7 +41,6 @@ public class UploadTemplateUseCase implements UseCase {
 
 		// Get the clientFormId after uploading it to the database
 		int clientFormId = insertClientDataForm(templateName);
-		System.out.println(clientFormId + " is the formId");
 
 		List<InsertException> errorList = insertAllRows(fileInterface, clientFormId);
 
@@ -51,45 +50,43 @@ public class UploadTemplateUseCase implements UseCase {
 			return;
 		}
 
-		List<String> selectionColumns = new ArrayList<>();
-		selectionColumns.add("count(*)");
-
-		SelectCommand selectCommand = new SelectCommand(selectionColumns, CLIENT_PROFILE);
-
-        List<List<String>> result = new ArrayList<>();
-        try {
-            result = selectCommand.selectHandle();
-        } catch (SelectException e) {
-            e.printStackTrace();
-        }
-
-        int numberOfClients = Integer.valueOf(result.get(0).get(0));
-        System.out.println(numberOfClients + " are the clients");
+		int numberOfClients = getNumberOfClients();
 
         List<String> targets = new ArrayList<>();
         targets.add("numOfClients");
 
-        List<String> vals = new ArrayList<>();
-        vals.add(String.valueOf(numberOfClients));
+        List<String> values = new ArrayList<>();
+        values.add(String.valueOf(numberOfClients));
 
         List<String> constraints = new ArrayList<>();
         constraints.add("clientDataFormId = '" + String.valueOf(clientFormId) + "'");
-        UpdateCommand updateCommand = new UpdateCommand(CLIENT_DATA_FORM_TABLE, targets, vals, constraints);
+        UpdateCommand updateCommand = new UpdateCommand(CLIENT_DATA_FORM_TABLE, targets, values, constraints);
 
-        boolean handled = false;
         try {
-            handled = updateCommand.handle();
+            updateCommand.handle();
         } catch (UpdateException e) {
-            e.printStackTrace();
-        }
-
-        if(!handled) {
             resultInterface.onErrorUploadingTemplate(errorList);
             return;
         }
 
         resultInterface.onSuccessUploadingTemplate();
 	}
+
+	private int getNumberOfClients() {
+        List<String> selectionColumns = new ArrayList<>();
+        selectionColumns.add("count(*)");
+
+        SelectCommand selectCommand = new SelectCommand(selectionColumns, CLIENT_PROFILE);
+
+        List<List<String>> result = null;
+        try {
+            result = selectCommand.selectHandle();
+        } catch (SelectException e) {
+            return -1;
+        }
+
+        return Integer.valueOf(result.get(0).get(0));
+    }
 
 	/*
 	 * inserting all the data rows in the TemplateFileInterface into the database
@@ -100,10 +97,11 @@ public class UploadTemplateUseCase implements UseCase {
 		columnIds.add(0, CLIENT_DATA_FORM_ID);
 		List<String> row = null;
 		// get the tableName in the database
+
 		String templateName = exc.getTableName();
 		int numOfRow = exc.getNumRows();
 		List<InsertException> errorList = new ArrayList<>();
-		System.out.println("no error in insertAllRows so far");
+
 		for (int i = 0; i < numOfRow; i++) {
 			row = exc.getRow(i + 3);
 			row.add(0, String.valueOf(clientDataFormId));
@@ -111,7 +109,6 @@ public class UploadTemplateUseCase implements UseCase {
 			try {
 				insert.handle();
 			} catch (InsertException e) {
-				System.out.println(e.getMessage());
 				errorList.add(e);
 			}
 		}
@@ -139,13 +136,12 @@ public class UploadTemplateUseCase implements UseCase {
 		try {
 			result = selectTemplateId.selectHandle();
 		} catch (SelectException e) {
-			e.printStackTrace();
+			return -1;
 		}
 
 		String templateId = result.get(0).get(0);
 
 		int month = dateSelected.getMonth() + 1; // normalize
-
 		int year = dateSelected.getYear() + 1900; // normalize
 
 		int userId = 0;
@@ -179,16 +175,15 @@ public class UploadTemplateUseCase implements UseCase {
 		try {
 			return insertCommand.insertHandle();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return -1;
 		}
 
-		return -1;
 	}
 
 	private int getUserId(int accountId) {
-		System.out.println(accountId + " is the accountId");
 		// get the userId from the user table where account id is equal to accountId
 		List<String> constraints = new ArrayList<>();
+
 		constraints.add("accountId = '" + String.valueOf(accountId) + "'");
 
 		SelectCommand command = new SelectCommand("User", constraints);
@@ -196,45 +191,38 @@ public class UploadTemplateUseCase implements UseCase {
 
 		try {
 			result = command.selectHandle();
-			System.out.println(result);
 		} catch (SelectException e) {
-			e.printStackTrace();
+			return -1;
 		}
 
-		int userId = 0;
 		if (result != null) {
-			userId = Integer.valueOf(result.get(0).get(0));
+			return Integer.valueOf(result.get(0).get(0));
 		}
 
-		System.out.println(String.valueOf(userId) + " is the userId");
-
-		return userId;
+		return -1;
 	}
 
 	private int getAgencyId(int userId) {
 
-		// then we need to get the agencyId from the Officer table
 		List<String> target = Arrays.asList("agencyId");
 		List<String> constraints = new ArrayList<>();
-		constraints = new ArrayList<>();
 		constraints.add("officerId = '" + String.valueOf(userId) + "'");
 
 		List<List<String>> result = null;
 
 		SelectCommand agencyIdCommand = new SelectCommand(target, "Officer", constraints);
+
 		try {
 			result = agencyIdCommand.selectHandle();
 		} catch (SelectException e) {
-			e.printStackTrace();
+			return -1;
 		}
 
-		int agencyId = 0;
-		System.out.println(result + " is the result for agency");
+
 		if (result != null) {
-			agencyId = Integer.valueOf(result.get(0).get(0));
+            return Integer.valueOf(result.get(0).get(0));
 		}
 
-		System.out.println(String.valueOf(agencyId) + " is the agency");
-		return agencyId;
+		return -1;
 	}
 }
