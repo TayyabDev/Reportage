@@ -13,7 +13,7 @@ public class Run {
 
 		JFrame frame = new JFrame("TEQ Login");
 		frame.add(new Login(frame).panel);
-		frame.setPreferredSize(new Dimension(800, 400));
+		frame.setPreferredSize(new Dimension(1000, 600));
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

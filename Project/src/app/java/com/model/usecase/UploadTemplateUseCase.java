@@ -72,6 +72,7 @@ public class UploadTemplateUseCase extends UseCase {
 			try {
 				insert.handle();
 			} catch (InsertException e) {
+				System.out.println(e.getMessage());
 				errorList.add(e);
 			}
 		}
