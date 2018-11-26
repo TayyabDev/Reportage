@@ -62,7 +62,7 @@ public class ErrorResolveListener implements ActionListener {
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 
-					dialog.setBounds(100, 100, 900, 300);
+					dialog.setBounds(300, 400, 900, 300);
 
 
 					dialog.getContentPane().setLayout(new GridLayout(0, 1));
@@ -101,7 +101,7 @@ public class ErrorResolveListener implements ActionListener {
 							errorOptionButtons.remove(errorOption);
 							scrollPanel.remove(errorOption);
 							scrollPanel.revalidate();
-							
+
 							presenter.attemptFixConflict(correctValues, insertException.getTable());
 
 							dialog.dispose();

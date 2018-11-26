@@ -1,20 +1,17 @@
 package app.java.com.view.ui.createReportViews;
 
-import app.java.com.model.entities.account.Account;
 import app.java.com.model.entities.account.TeqAccount;
 import app.java.com.presenter.TrendReportPresenterImpl;
 import app.java.com.presenter.interfaces.TrendReportPresenter;
 import app.java.com.view.interfaces.TrendReportView;
 import app.java.com.view.ui.UIHelpers;
-import app.java.com.view.ui.createAccountViews.Login;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 public class TrendReport implements TrendReportView {
@@ -67,20 +64,6 @@ public class TrendReport implements TrendReportView {
     }
 
 
-//    @Override
-//    public void displayImage() {
-//        ImageIcon imgReport = new ImageIcon(getClass().getResource( "ImmigrationTrend.png"));
-//        System.out.println(imgReport);
-//        JLabel imgLabel = new JLabel(imgReport);
-//        imgLabel.setBounds(0,60,1000,600);
-//
-//        imagePanel.add(imgLabel);
-//
-//        frame.revalidate();
-//
-//
-//    }
-
     @Override
     public void createCSVFile(List<List<String>> data) {
         // convert to hashmap
@@ -130,16 +113,4 @@ public class TrendReport implements TrendReportView {
         JOptionPane.showMessageDialog(frame, message);
     }
 
-//    public static void main(String [] args) {
-//        JFrame frame = new JFrame("TEQ Login");
-//        frame.setPreferredSize(new Dimension(1000, 600));
-//        frame.pack();
-//        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        frame.setLocationRelativeTo(null);
-//        frame.setResizable(false);
-//        UIHelpers.setLook();
-//
-//        TrendReport tr = new TrendReport(frame, null);
-//    }
 }

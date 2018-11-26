@@ -229,7 +229,7 @@ public class UploadTemplate implements UploadTemplateView {
 	@Override
 	public void switchViewToResolveConflicts(List<InsertException> exceptions) {
 		int n = JOptionPane.showConfirmDialog(frame,
-				"There are some errors attemping to upload the template. Please try to resolve them.");
+				"There are some errors when trying to upload the template. Do you want to try to resolve them?");
 
 		if (n == JOptionPane.YES_OPTION) {
 			new ResolveConflicts(frame, account, exceptions);

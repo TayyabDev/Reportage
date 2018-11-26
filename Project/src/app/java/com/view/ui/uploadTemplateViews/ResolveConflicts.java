@@ -47,6 +47,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 	private JFrame frame;
 	private JPanel panel;
 
+	private Account account;
 
 	private String template;
 	private List<String> columns;
@@ -63,8 +64,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 
 
 	public ResolveConflicts(JFrame frame, Account account, List<InsertException> errors) {
-		System.out.println("errors are :");
-		System.out.println(errors);
+		this.account = account;
 
 		this.frame = frame;
 
@@ -141,7 +141,13 @@ public class ResolveConflicts implements ResolveConflictsView {
 	@Override
 	public void onSuccessConflictFix() {
 		// show message saying that fixed
-		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");		
+		JOptionPane.showMessageDialog(frame, "Successfully fixed the error");
+
+		if(errorOptionButtons.size() == 0){
+			// all conflicts resolved, so we can go back to upload template
+			JOptionPane.showMessageDialog(frame, "You have successfully fixed all the conflicts. Taking you back to Upload Template...");
+			new UploadTemplate(frame, account);
+		}
 	}
 
 	@Override
@@ -151,7 +157,7 @@ public class ResolveConflicts implements ResolveConflictsView {
 		JRadioButton jrb = new JRadioButton(error);
 		bg.add(jrb);
 		errorOptionButtons.add(jrb);
-		System.out.println("Hey Why adding here 3?");
+
 		scrollPanel.add(jrb);
 		scrollPanel.revalidate();
 	}
