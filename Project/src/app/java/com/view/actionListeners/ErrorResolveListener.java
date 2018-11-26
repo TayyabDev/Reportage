@@ -9,13 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import app.java.com.model.Exceptions.InsertException;
 import app.java.com.presenter.interfaces.ResolveConflictPresenter;
@@ -55,14 +49,14 @@ public class ErrorResolveListener implements ActionListener {
 
 
 					JScrollPane scrollPane = new JScrollPane();
-					JPanel scrollPanel = new JPanel(new GridLayout(1, 0));
+					JPanel textFieldScrollPanel = new JPanel(new GridLayout(1, 0));
 
 					JDialog dialog = new JDialog();
 					dialog.setTitle("Resolve the Conflicts");
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 
-					dialog.setBounds(100, 100, 900, 300);
+					dialog.setBounds(300, 400, 900, 300);
 
 
 					dialog.getContentPane().setLayout(new GridLayout(0, 1));
@@ -71,18 +65,24 @@ public class ErrorResolveListener implements ActionListener {
 
 					List<JTextField> cols = new ArrayList<>();
 
+					int i = 0;
 					for (String col : insertException.getErrorValues()) {
 						JTextField val = new JTextField(col);
-						val.setBackground(Color.red);
+						val.setToolTipText(columns.get(i));
+						// if priamry key , red
+                        //  else green
+                        val.setBackground(Color.red);
 
 						val.setPreferredSize(new Dimension(val.getText().length() + 5, 30));
 
 						cols.add(val);
-						scrollPanel.add(val);
-					}
-					scrollPanel.revalidate();
+						textFieldScrollPanel.add(val);
 
-					scrollPane.setViewportView(scrollPanel);
+						i += 1;
+					}
+					textFieldScrollPanel.revalidate();
+
+					scrollPane.setViewportView(textFieldScrollPanel);
 
 					JButton done = new JButton("Done");
 
@@ -101,7 +101,7 @@ public class ErrorResolveListener implements ActionListener {
 							errorOptionButtons.remove(errorOption);
 							scrollPanel.remove(errorOption);
 							scrollPanel.revalidate();
-							
+
 							presenter.attemptFixConflict(correctValues, insertException.getTable());
 
 							dialog.dispose();
