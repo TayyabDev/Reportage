@@ -220,9 +220,8 @@ public class UserData implements CreateUserDataView {
 		textArea.setText(message);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		int choice = JOptionPane.showOptionDialog(frame, scrollPane, "Confirm Changes",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Yes");
-		if (choice == 0) {
+		int choice = JOptionPane.showConfirmDialog(frame, scrollPane, "Confirm Changes", JOptionPane.OK_CANCEL_OPTION);
+		if (choice == JOptionPane.OK_OPTION) {
 			presenter.updateChanges(changesList, cbTemplates.getSelectedItem().toString());
 		} else {
 			disableEditButton();
