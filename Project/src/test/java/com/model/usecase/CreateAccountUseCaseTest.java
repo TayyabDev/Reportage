@@ -12,6 +12,9 @@ import app.java.com.presenter.interfaces.CreateAccountResultInterface;
 public class CreateAccountUseCaseTest implements CreateAccountResultInterface {
 	private String message;
 
+	private static final String KNOWN_USER = "root";
+	private static final String KNOWN_PASS = "root";
+
 	@Test
 	public void testBlankUserName() {
 		UseCase useCase = new CreateAccountUseCase(this, "", "pass", "A");
@@ -33,15 +36,20 @@ public class CreateAccountUseCaseTest implements CreateAccountResultInterface {
 		assertEquals("failure", message);
 	}
 
+	@Test
+	public void testAlreadyExistingUser(){
+		UseCase useCase = new CreateAccountUseCase(this, KNOWN_USER, KNOWN_PASS, "T");
+		useCase.run();
+		assertEquals("failure", message);
+	}
 
 	@Override
 	public void onSuccessCreateAccount(String message) {
 		this.message = message;
-
 	}
 
 	@Override
 	public void onErrorCreateAccount(String message) {
-		this.message = message;
+		this.message = "failure";
 	}
 }

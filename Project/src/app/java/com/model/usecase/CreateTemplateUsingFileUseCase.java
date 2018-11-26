@@ -17,7 +17,7 @@ import app.java.com.model.utilities.templateFile.TemplateFileExcelImpl;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.CreateTemplateResultInterface;
 
-public class CreateTemplateUsingFileUseCase extends UseCase {
+public class CreateTemplateUsingFileUseCase implements UseCase {
 
 
 	private String filePath;

@@ -17,7 +17,7 @@ import app.java.com.model.database.api.InsertCommand;
 import app.java.com.model.database.api.SelectCommand;
 
 /*
- * functio testing testing the database api functions tested all functions in CreateCommand,
+ * function testing testing the database api functions tested all functions in CreateCommand,
  * DropCommand, InsertCommand, AddColumnCommand need to add more cases for SelectCommand
  */
 public class CommandTest {
@@ -31,16 +31,14 @@ public class CommandTest {
 	private final String table3 = "test3";
 	private final String table4 = "test4";
 
-
-	@Test
 	/*
 	 * create a table test with default attribute id insert into test1 (id) values 1 select * from
 	 * table test1 drop table test
 	 */
+	@Test
 	public void testCommands1() {
 		Command createComm = new CreateCommand(table1);
 		try {
-			// will create a test table with attribute id
 			createComm.handle();
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -57,7 +55,6 @@ public class CommandTest {
 			fail(e.getMessage());
 		}
 
-		// select * from test1 should give [['1']]
 		Command selectComm = new SelectCommand(table1);
 		List<List<String>> res = null;
 		try {
@@ -66,6 +63,7 @@ public class CommandTest {
 			fail(e.getMessage());
 		}
 		assertEquals(res.get(0).get(0), "1");
+
 		// drop the test1 table in database
 		Command dropComm = new DropCommand(table1);
 		try {
@@ -138,12 +136,12 @@ public class CommandTest {
 		}
 	}
 
+    /*
+     * create a table test3 with default attribute id add column firstName varchar(255) to test3 get
+     * the columnIds from test3 -> [id, firstName](test getColumnIds in SelectCommand) get types
+     * from test3 -> [int, varchar] drop table test3
+     */
 	@Test
-	/*
-	 * create a table test3 with default attribute id add column firstName varchar(255) to test3 get
-	 * the columnIds from test3 -> [id, firstName](test getColumnIds in SelectCommand) get types
-	 * from test3 -> [int, varchar] drop table test3
-	 */
 	public void testCommand3() {
 		Command createComm = new CreateCommand(table3);
 		try {

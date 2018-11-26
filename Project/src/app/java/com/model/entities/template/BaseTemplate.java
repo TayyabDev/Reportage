@@ -2,7 +2,7 @@ package app.java.com.model.entities.template;
 
 import java.util.List;
 
-public class BaseTemplate extends Template {
+public class BaseTemplate implements Template {
 
 	private String templateName;
 	private List<String> columnNames;

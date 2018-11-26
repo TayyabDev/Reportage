@@ -1,8 +1,10 @@
 package app.java.com.model.usecase;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.List;
 import app.java.com.model.database.api.Command;
 import app.java.com.presenter.interfaces.ExistingReportFormatResultInterface;
 
-public class GenerateReportsUseCase extends UseCase {
+public class GenerateReportsUseCase implements UseCase {
 
 	private ExistingReportFormatResultInterface resultInterface;
 	private HashMap<String, String> querys;
@@ -45,14 +47,19 @@ public class GenerateReportsUseCase extends UseCase {
 	public void createReport(String reportName, String report) throws FileNotFoundException {
 		String timeStamp, fileName;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		fileName = reportName;
+		fileName = reportName + " ";
 		fileName += timeStamp;
 		fileName += ".csv";
-		PrintWriter pw = new PrintWriter(new File(fileName));
-		StringBuilder sb = new StringBuilder();
-		sb.append(report);
-		pw.write(sb.toString());
-		pw.close();
+		String userHomeFolder = System.getProperty("user.home")+ "/Desktop";
+		File textFile = new File(userHomeFolder, fileName);
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
+			out.write(report);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

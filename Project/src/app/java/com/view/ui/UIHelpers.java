@@ -2,8 +2,11 @@ package app.java.com.view.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,22 +41,6 @@ public class UIHelpers {
 		return back;
 	}
 
-	public static void resizeTable(JTable table) {
-		TableColumnModel columnModel = table.getColumnModel();
-		for (int column = 0; column < table.getColumnCount(); column++) {
-			int width = 15;
-			for (int row = 0; row < table.getRowCount(); row++) {
-				TableCellRenderer renderer = table.getCellRenderer(row, column);
-				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width + 1, width);
-			}
-			if (width > 300)
-				width = 300;
-			columnModel.getColumn(column).setPreferredWidth(width);
-		}
-	}
-
-
 	public static boolean sendReportToCSVFile(HashMap<String, List<List<String>>> data) {
 		String output = "";
 
@@ -77,15 +64,21 @@ public class UIHelpers {
 		}
 
 		// get filename
+		String userHomeFolder = System.getProperty("user.home")+ "/Desktop";
 		String file =
 				"report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
+		File textFile = new File(userHomeFolder, file);
+		
 		try {
-			PrintWriter pw = new PrintWriter(new File(file));
-			pw.write(output);
-			pw.close();
+			BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
+			out.write(output);
+			out.close();
 			return true;
 
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

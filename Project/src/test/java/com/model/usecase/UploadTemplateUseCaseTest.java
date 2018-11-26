@@ -24,7 +24,7 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
 
 	@Override
 	public void onSuccessUploadingTemplate() {
-		testResultHasErrors = true;
+        System.out.println("Success uploading template");
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
 	@Test
 	public void testUploadTemplateUseCaseUsingNormalMockFileWithDuplicateDataHasErrors() {
 
-		UseCase useCase = new UploadTemplateUseCase(this, new Date(118, 10, 12), TEMPLATE_NAME,
+        UseCase useCase = new UploadTemplateUseCase(this, new Date(118, 10, 12), TEMPLATE_NAME,
 				new ClientProfileMockFile(new MockTemplate()),
 				new MockAccount(ACCOUNT_ID, USER_NAME, PASSWORD, true));
 
@@ -46,5 +46,5 @@ public class UploadTemplateUseCaseTest implements UploadTemplateResultInterface 
 
 		assertTrue(testResultHasErrors);
     }
-    
+
 }

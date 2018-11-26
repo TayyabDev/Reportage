@@ -8,7 +8,7 @@ import app.java.com.model.database.api.SelectCommand;
 import app.java.com.model.utilities.templateFile.TemplateFileInterface;
 import app.java.com.presenter.interfaces.VerifyTemplateResultInterface;
 
-public class VerifyTemplateUseCase extends UseCase {
+public class VerifyTemplateUseCase implements UseCase {
 
 	private VerifyTemplateResultInterface resultInterface;
 	private TemplateFileInterface file;

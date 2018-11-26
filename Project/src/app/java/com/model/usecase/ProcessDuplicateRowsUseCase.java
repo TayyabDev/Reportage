@@ -8,7 +8,7 @@ import app.java.com.model.Exceptions.SelectException;
 import app.java.com.model.database.api.SelectCommand;
 import app.java.com.presenter.interfaces.ResolveConflictResultInterface;
 
-public class ProcessDuplicateRowsUseCase extends UseCase {
+public class ProcessDuplicateRowsUseCase implements UseCase {
 
 	private ResolveConflictResultInterface resolveConflictResultInterface;
 	private List<InsertException> exceptions;
@@ -33,30 +33,26 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 			String formattedTable = exception.getTable().replaceAll("`", "");
 			List<List<String>> result = getAllDateForTable(formattedTable);
 			List<String> primaryColumns = null;
-			System.out.println(exception.getTable() + " is the table");
+
 			try {
 				primaryColumns = new SelectCommand(formattedTable).getPrimaryKeyColumn();
 			} catch (SelectException e) {
 				e.printStackTrace();
 			}
 
-			List<Integer> primaryKeyColumnIndex =
-					findPrimaryColumnIndex(primaryColumns, formattedTable);
+			List<Integer> primaryKeyColumnIndex = findPrimaryColumnIndex(primaryColumns, formattedTable);
 
-			int rowNum =
-					findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
+			int rowNum = findDuplicateRow(result, primaryKeyColumnIndex, exception.getErrorValues());
 
-			System.out.println(rowNum + " is the row");
+			boolean isSame = false;
 
-			boolean isSame = compareRows(result.get(rowNum), exception.getErrorValues());
+			if(rowNum != -1) {
+                isSame = compareRows(result.get(rowNum), exception.getErrorValues());
+            }
 
 			if (isSame) {
-				System.out.println(String.valueOf(isSame) + " is fixed?");
 				exception.setFixed(true);
-			} else {
-				System.out.println("Not fixed");
 			}
-			
 
 		}
 
@@ -72,6 +68,10 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 
 	private int findDuplicateRow(List<List<String>> dataResult, List<Integer> primaryKeysIndex,
 			List<String> duplicatedVals) {
+
+		if(dataResult == null) {
+			return -1;
+		}
 
 		for (int x = 0; x < dataResult.size(); x++) {
 
@@ -94,15 +94,13 @@ public class ProcessDuplicateRowsUseCase extends UseCase {
 		SelectCommand command = new SelectCommand(table);
 		List<List<String>> result = null;
 
-		System.out.println(table);
-
 		try {
 			result = command.selectHandle();
 		} catch (SelectException e) {
-			System.out.println("Error fetching row from table " + table);
+		    // nothing needed
+            return null;
 		}
 
-		System.out.println(result);
 		return result;
 	}
 

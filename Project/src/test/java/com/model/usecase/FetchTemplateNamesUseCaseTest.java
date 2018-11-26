@@ -52,7 +52,6 @@ public class FetchTemplateNamesUseCaseTest implements FetchTemplateNamesResultIn
 
 		useCase.run();
 
-		// asserting if the verifyUseCase returned true or not
 		assertEquals(expectedTemplateNames, actualTemplateNames);
 	}
 
