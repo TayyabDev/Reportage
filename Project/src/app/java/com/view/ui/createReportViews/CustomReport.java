@@ -60,7 +60,8 @@ public class CustomReport implements CustomReportView {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Report(frame, account);
+
+			    new Report(frame, account);
 			}
 		});
 
@@ -248,42 +249,7 @@ public class CustomReport implements CustomReportView {
 
 	@Override
 	public boolean sendReport(HashMap<String, List<List<String>>> data) {
-		String output = "";
-
-		for (String table : data.keySet()) {
-			output += table + "\n";
-
-			for (List<String> lis : data.get(table)) {
-				for (String currentIndex : lis) {
-					if (currentIndex == null) {
-						output += ",";
-					} else if (currentIndex.contains(",")) {
-						output += "\"" + currentIndex + "\",";
-					}
-
-					else {
-						output += currentIndex + ",";
-					}
-				}
-				output += "\n";
-			}
-		}
-
-		// get filename
-		String file =
-				"report-" + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".csv";
-		try {
-			PrintWriter pw = new PrintWriter(new File(file));
-			pw.write(output);
-			pw.close();
-			return true;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return false;
-
-
+		return UIHelpers.sendReportToCSVFile(data);
 	}
 
 

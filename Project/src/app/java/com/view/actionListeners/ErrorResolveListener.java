@@ -55,7 +55,7 @@ public class ErrorResolveListener implements ActionListener {
 
 
 					JScrollPane scrollPane = new JScrollPane();
-					JPanel scrollPanel = new JPanel(new GridLayout(1, 0));
+					JPanel textFieldScrollPanel = new JPanel(new GridLayout(1, 0));
 
 					JDialog dialog = new JDialog();
 					dialog.setTitle("Resolve the Conflicts");
@@ -78,11 +78,11 @@ public class ErrorResolveListener implements ActionListener {
 						val.setPreferredSize(new Dimension(val.getText().length() + 5, 30));
 
 						cols.add(val);
-						scrollPanel.add(val);
+						textFieldScrollPanel.add(val);
 					}
-					scrollPanel.revalidate();
+					textFieldScrollPanel.revalidate();
 
-					scrollPane.setViewportView(scrollPanel);
+					scrollPane.setViewportView(textFieldScrollPanel);
 
 					JButton done = new JButton("Done");
 

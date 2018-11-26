@@ -28,7 +28,9 @@ public class Report implements CreateReportView {
 	private JButton createSQL;
 	private JButton existingReportFormat;
 	private JButton newFormat;
+	private JButton trendReport;
 	private CreateReportPresenter presenter;
+
 
 
 	public Report(JFrame frame, TeqAccount account) {
@@ -51,7 +53,7 @@ public class Report implements CreateReportView {
 
 
 		standard = UIHelpers.buttonGenerator("Get standard reports");
-		standard.setBounds(400, 100, 250, 50);
+		standard.setBounds(400, 50, 250, 50);
 		standard.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -60,7 +62,7 @@ public class Report implements CreateReportView {
 		});
 
 		createSQL = UIHelpers.buttonGenerator("Create custom reports using SQL");
-		createSQL.setBounds(400, 200, 250, 50);
+		createSQL.setBounds(400, 150, 250, 50);
 		createSQL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,7 +76,7 @@ public class Report implements CreateReportView {
 		});
 
 		existingReportFormat = UIHelpers.buttonGenerator("Using existing Format");
-		existingReportFormat.setBounds(400, 300, 250, 50);
+		existingReportFormat.setBounds(400, 250, 250, 50);
 		existingReportFormat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,7 +86,7 @@ public class Report implements CreateReportView {
 		});
 
 		newFormat = UIHelpers.buttonGenerator("Add new format");
-		newFormat.setBounds(400, 400, 250, 50);
+		newFormat.setBounds(400, 350, 250, 50);
 		newFormat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -92,10 +94,22 @@ public class Report implements CreateReportView {
 				new NewReportFormat(frame, account);
 			}
 		});
+
+		trendReport = UIHelpers.buttonGenerator("View the trend reports");
+		trendReport.setBounds(400,450,250,50);
+		trendReport.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new TrendReport(frame, account);
+			}
+		});
+
 		panel.add(standard);
 		panel.add(createSQL);
 		panel.add(existingReportFormat);
 		panel.add(newFormat);
+		panel.add(trendReport);
+
 		this.frame.setContentPane(panel);
 		this.frame.revalidate();
 

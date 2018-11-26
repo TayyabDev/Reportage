@@ -48,6 +48,7 @@ public class UploadTemplateUseCase extends UseCase {
 		// all rows inserted successfully if errorList is empty
 		if (!errorList.isEmpty() || clientFormId == -1) {
 			resultInterface.onErrorUploadingTemplate(errorList);
+			return;
 		}
 
 		List<String> selectionColumns = new ArrayList<>();
@@ -84,6 +85,7 @@ public class UploadTemplateUseCase extends UseCase {
 
         if(!handled) {
             resultInterface.onErrorUploadingTemplate(errorList);
+            return;
         }
 
         resultInterface.onSuccessUploadingTemplate();

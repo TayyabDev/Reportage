@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface TrendReportView {
 
-    void displayImage();
+    //void displayImage();
 
     void createCSVFile(List<List<String>> data);
 
