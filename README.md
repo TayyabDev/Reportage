@@ -42,17 +42,6 @@ Libraries Preview:
 
 ### Installing MySQL
 Download and Install MySQL Workbench from https://dev.mysql.com/downloads/workbench/
-#### Using our database
-1. Either using workbench directly. (if prefer using command line, go to 2)
-  - Create a new connection using:
-  - Hostname: mathlab.utsc.utoronto.ca
-  - Port: 3306
-  - Username: linjun9
-  - Password: linjun9
-  - Using the cscc43s18_linjun9 database
-2. Run the following commands:  
-  - mysql -u linjun9 -h mathlab.utsc.utoronto.ca -plinjun9
-  - use cscc43s18_linjun9;
 #### Using your own database
 1. Create a new local database using:
   - Hostname: 127.0.0.1
